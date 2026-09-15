@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<zone shape="Cuboid" minZ="-5296" maxZ="-2882">
+		<stat name="id" val="1" />
+		<stat name="name" val="Ketra Orc Outpost" />
+		<stat name="returnLocation" val="157781,-73505,-3432" />
+		<node x="134358" y="-95268" />
+		<node x="159150" y="-68352" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-3827" maxZ="-1210">
+		<stat name="id" val="2" />
+		<stat name="name" val="Varka Silenos Outpost" />
+		<stat name="returnLocation" val="125410,-33759,-3827" />
+		<node x="102573" y="-61348" />
+		<node x="141154" y="-32901" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-4623" maxZ="-562">
+		<stat name="id" val="3" />
+		<stat name="name" val="Primeval Isle" />
+		<stat name="returnLocation" val="328,-26718,-4622" />
+		<node x="118" y="-28801" />
+		<node x="32611" y="-1860" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-4000" maxZ="7233">
+		<stat name="id" val="4" />
+		<stat name="name" val="Monastery of Silence" />
+		<stat name="returnLocation" val="111821,-76457,1685" />
+		<node x="103899" y="-93515" />
+		<node x="129053" y="-66268" />
+	</zone>
+
+	<zone shape="Cuboid" minZ="-3798" maxZ="-2139">
+		<stat name="id" val="5" />
+		<stat name="name" val="Field of Whispers" />
+		<stat name="returnLocation" val="99558,224932,-3577" />
+		<node x="67124" y="196573" />
+		<node x="101600" y="234369" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-4181" maxZ="-2709">
+		<stat name="id" val="6" />
+		<stat name="name" val="Field of Silence" />
+		<stat name="returnLocation" val="75676,196344,-2819" />
+		<node x="73619" y="165114" />
+		<node x="96093" y="196344" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-3784" maxZ="-1830">
+		<stat name="id" val="7" />
+		<stat name="name" val="Alligator Island" />
+		<stat name="returnLocation" val="130010,191462,-3554" />
+		<node x="98693" y="163919" />
+		<node x="130761" y="195509" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-4260" maxZ="-578">
+		<stat name="id" val="8" />
+		<stat name="name" val="Blazing Swamp" />
+		<stat name="returnLocation" val="156424,-3568,-4260" />
+		<node x="135157" y="-29058" />
+		<node x="158741" y="-2518" />
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-3675" maxZ="-2996">
+		<stat name="id" val="9" />
+		<stat name="name" val="Cemetary" />
+		<stat name="returnLocation" val="183577,15589,-2996" />
+		<node x="166773" y="14625" /> <node x="185067" y="32682" /> 
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-3675" maxZ="-2996">
+		<stat name="id" val="10" />
+		<stat name="name" val="Cemetary Crafter" />
+		<stat name="returnLocation" val="183577,15589,-2996" />
+		<node x="166773" y="14625" /> <node x="185067" y="32682" /> 
+	</zone>
+	
+	<zone shape="Cuboid" minZ="-4000" maxZ="7233">
+		<stat name="id" val="11" />
+		<stat name="name" val="Monastery of Silence PvP" />
+		<stat name="returnLocation" val="111821,-76457,1685" />
+		<node x="103899" y="-93515" />
+		<node x="129053" y="-66268" />
+	</zone>
+		
+</list>

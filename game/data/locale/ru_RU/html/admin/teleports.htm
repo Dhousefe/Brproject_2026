@@ -1,0 +1,65 @@
+<html><title>Телепорт</title><body><center>
+	<table width=270>
+		<tr>
+			<td><button value="Главная" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=180 align=center>Меню телепортации</td>
+			<td><button value="Назад" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	
+	<table width=260>
+		<tr>
+			<td width="180">Переместиться в локацию</td>
+			<td width="140"></td>
+		</tr><tr>
+			<td><a action="bypass -h admin_link tele/towns_castles.htm"><font color="LEVEL">Города и Замки</font></a></td>
+			<td><a action="bypass -h admin_link tele/locations/c2.htm"><font color="LEVEL">Локации Хроники 2</font></a></td>
+		</tr><tr>
+			<td><a action="bypass -h admin_link tele/other.htm"><font color="LEVEL">Другие локации</font></a></td>
+			<td><a action="bypass -h admin_link tele/locations/c4.htm"><font color="LEVEL">Локации Хроники 4</font></a></td>
+		</tr><tr>
+			<td></td>
+			<td><a action="bypass -h admin_link tele/locations/c5.htm"><font color="LEVEL">Локации Хроники 5</font></a></td>
+		</tr><tr>
+			<td></td>
+			<td><a action="bypass -h admin_link tele/locations/interlude.htm"><font color="LEVEL">Локации Interlude</font></a></td>
+		</tr>
+	</table><br>
+	
+	<table width=250>
+		<tr><td>Переместиться по координатам</td></tr>
+	</table>
+	
+	<table width=240>
+		<tr>
+			<td width=10>X</td><td><edit var="char_cord_x" width=50></td>
+			<td width=10>Y</td><td><edit var="char_cord_y" width=50></td>
+			<td width=10>Z</td><td><edit var="char_cord_z" width=50></td>
+			<td><button value="Перейти" action="bypass -h admin_teleport $char_cord_x $char_cord_y $char_cord_z" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	
+	Действия, связанные с перемещением
+	<table width=260>
+		<tr>
+			<td><button value="Обычное" action="bypass -h admin_instant_move 0" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="Телепорт x1" action="bypass -h admin_instant_move 1" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="Телепорт" action="bypass -h admin_instant_move 2" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr><tr>
+			<td><button value="Страйдер" action="bypass -h admin_ride 1" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="Виверна" action="bypass -h admin_ride 2" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="Спешить" action="bypass -h admin_unride" width=70 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	
+	<table width=260>
+		<tr>
+			<td>Скорость ГМа</td>
+			<td><button value="1" action="bypass -h admin_gmspeed 1" width=25 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="2" action="bypass -h admin_gmspeed 2" width=25 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="3" action="bypass -h admin_gmspeed 3" width=25 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="4" action="bypass -h admin_gmspeed 4" width=25 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td><button value="Выкл" action="bypass -h admin_gmspeed 0" width=25 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table>
+</center></body></html>

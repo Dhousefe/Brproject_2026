@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS `site_vote_logs` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`created_at` BIGINT NOT NULL,
+	`delivery_id` VARCHAR(128) NOT NULL UNIQUE,
+	`player_name` VARCHAR(35) NOT NULL,
+	`account_name` VARCHAR(45) NOT NULL DEFAULT '',
+	`character_id` INT NOT NULL DEFAULT 0,
+	`ip` VARCHAR(45) NOT NULL DEFAULT '',
+	`rewards_summary` VARCHAR(255) NOT NULL DEFAULT '',
+	`status` VARCHAR(20) NOT NULL DEFAULT 'DELIVERED',
+	`event_type` VARCHAR(20) NOT NULL DEFAULT 'vote',
+	`hwid` VARCHAR(100) NOT NULL DEFAULT '',
+	PRIMARY KEY (`id`)
+);

@@ -1,0 +1,54 @@
+<html><body>
+<br>
+<center><font color=LEVEL>Макрос</font></center>
+<br>
+Вы можете задать конкретное действие, которое будет выполнено, как только АвтоФарм будет остановлен таймером <a action="bypass autofarm timer">таймер</a>.
+<br>
+Если персонаж атакует в последний момент, выключение будет отложено до тех пор, пока монстр не будет убит.
+<br>
+%msg%
+<table>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro set ESCAPE 0" width=14 height=14 back=L2UI.control.checkBox_%ESCAPE% fore=L2UI.control.checkBox_%ESCAPE%>
+                    </td>
+                    <td width=180>
+                        Телепортация (escape/unstuck)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro set LOGOUT 0" width=14 height=14 back=L2UI.control.checkBox_%LOGOUT% fore=L2UI.control.checkBox_%LOGOUT%>
+                    </td>
+                    <td>
+                        Отключение (закрытие игры)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro %item_bypass%" width=14 height=14 back=L2UI.control.checkBox_%ITEM% fore=L2UI.control.checkBox_%ITEM%>
+                    </td>
+                    <td>
+                        Использовать предмет %item_name%
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro %skill_bypass%" width=14 height=14 back=L2UI.control.checkBox_%SKILL% fore=L2UI.control.checkBox_%SKILL%>
+                    </td>
+                    <td>
+                        Использовать навык %skill_name%
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br>
+<center><button value="Назад" action="bypass autofarm index" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></center>
+</body></html>

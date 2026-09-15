@@ -1,0 +1,12 @@
+<html><body>
+	При отмене аукционной ставки налог за транзакцию (<font color="LEVEL">10 % от суммы ставки</font>) не подлежит возврату.<br>
+	Цена предложения для этого кланхолла составляет <font color="aaccff">%AGIT_BID%</font> аден. После вычета налога на транзакцию вы можете получить обратно оставшуюся <font color="aaccff">%AGIT_BID_REMAIN%</font> адену. Вы хотите отменить свою ставку?
+	<img src="L2UI.SquareBlank" width=270 height=10> <img src="L2UI.SquareWhite" width=270 height=1> <img src="L2UI.SquareBlank" width=270 height=5>
+	<table width=270>
+		<tr>
+			<td width=130></td>
+			<td width=70 align=center><button action="%AGIT_LINK_BACK%" value="Назад" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+			<td width=70 align=center><button action="bypass -h npc_%objectId%_doCancelBid" value="Отменить ставку" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+		</tr>
+	</table>
+</body></html>

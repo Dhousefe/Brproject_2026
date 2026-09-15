@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31382</npc><!-- Shikon (Trader) -->
+	</npcs>
+	<item>
+		<ingredient id="7187" count="55"/><!-- q_nephentes_seed -->
+		<production id="7634" count="1"/><!-- q_clean_brown_pouch -->
+	</item>
+	<item>
+		<ingredient id="7187" count="80"/><!-- q_nephentes_seed -->
+		<production id="7619" count="1"/><!-- escape_scroll_barka -->
+	</item>
+</list>

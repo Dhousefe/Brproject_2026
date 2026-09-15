@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31078</npc><!-- Priest of Dawn -->
+		<npc>31079</npc><!-- Priest of Dawn -->
+		<npc>31080</npc><!-- Priest of Dawn -->
+		<npc>31081</npc><!-- Priest of Dawn -->
+		<npc>31082</npc><!-- Priest of Dawn -->
+		<npc>31083</npc><!-- Priest of Dawn -->
+		<npc>31084</npc><!-- Priest of Dawn -->
+		<npc>31085</npc><!-- Dusk Priestess -->
+		<npc>31086</npc><!-- Dusk Priestess -->
+		<npc>31087</npc><!-- Dusk Priestess -->
+		<npc>31088</npc><!-- Dusk Priestess -->
+		<npc>31089</npc><!-- Dusk Priestess -->
+		<npc>31090</npc><!-- Dusk Priestess -->
+		<npc>31091</npc><!-- Dusk Priestess -->
+		<npc>31168</npc><!-- Priest of Dawn -->
+		<npc>31169</npc><!-- Dusk Priestess -->
+		<npc>31692</npc><!-- Priest of Dawn -->
+		<npc>31693</npc><!-- Priest of Dusk -->
+		<npc>31694</npc><!-- Priest of Dawn -->
+		<npc>31695</npc><!-- Priest of Dusk -->
+		<npc>31997</npc><!-- Priest of Dawn -->
+		<npc>31998</npc><!-- Dusk Priestess -->
+	</npcs>
+	<item>
+		<ingredient id="5575" count="1080"/><!-- adena_of_ancient -->
+		<production id="1539" count="1"/><!-- greater_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="6000"/><!-- adena_of_ancient -->
+		<production id="6387" count="1"/><!-- blessed_scroll_of_resurrection_pet -->
+	</item>
+	<item>
+		<ingredient id="5575" count="3600"/><!-- adena_of_ancient -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="7200"/><!-- adena_of_ancient -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="7200"/><!-- adena_of_ancient -->
+		<production id="6036" count="1"/><!-- potion_of_acumen3 -->
+	</item>
+	<item>
+		<ingredient id="5575" count="240"/><!-- adena_of_ancient -->
+		<production id="5591" count="1"/><!-- cp_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="600"/><!-- adena_of_ancient -->
+		<production id="5592" count="1"/><!-- adv_cp_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="120"/><!-- adena_of_ancient -->
+		<production id="5703" count="1"/><!-- charm_of_luck_none -->
+	</item>
+	<item>
+		<ingredient id="5575" count="396"/><!-- adena_of_ancient -->
+		<production id="5803" count="1"/><!-- charm_of_luck_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="792"/><!-- adena_of_ancient -->
+		<production id="5804" count="1"/><!-- charm_of_luck_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="1560"/><!-- adena_of_ancient -->
+		<production id="5805" count="1"/><!-- charm_of_luck_b -->
+	</item>
+	<item>
+		<ingredient id="5575" count="3240"/><!-- adena_of_ancient -->
+		<production id="5806" count="1"/><!-- charm_of_luck_a -->
+	</item>
+	<item>
+		<ingredient id="5575" count="6000"/><!-- adena_of_ancient -->
+		<production id="5807" count="1"/><!-- charm_of_luck_s -->
+	</item>
+	<item>
+		<ingredient id="5575" count="2400"/><!-- adena_of_ancient -->
+		<production id="5593" count="1"/><!-- sp_scroll1 -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5594" count="1"/><!-- sp_scroll2 -->
+	</item>
+	<item>
+		<ingredient id="5575" count="480000"/><!-- adena_of_ancient -->
+		<production id="5595" count="1"/><!-- sp_scroll3 -->
+	</item>
+	<item>
+		<ingredient id="5575" count="12000"/><!-- adena_of_ancient -->
+		<production id="5234" count="1"/><!-- bighead_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5235" count="1"/><!-- masktype_a_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5236" count="1"/><!-- masktype_b_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5237" count="1"/><!-- masktype_c_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5238" count="1"/><!-- haircolor_a_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5239" count="1"/><!-- haircolor_b_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5240" count="1"/><!-- haircolor_c_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5241" count="1"/><!-- haircolor_d_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5242" count="1"/><!-- hairstyle_a_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5243" count="1"/><!-- hairstyle_b_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5244" count="1"/><!-- hairstyle_c_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5245" count="1"/><!-- hairstyle_d_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5246" count="1"/><!-- hairstyle_e_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5247" count="1"/><!-- hairstyle_f_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="24000"/><!-- adena_of_ancient -->
+		<production id="5248" count="1"/><!-- hairstyle_g_potion -->
+	</item>
+	<item>
+		<ingredient id="5575" count="600000"/><!-- adena_of_ancient -->
+		<production id="5808" count="1"/><!-- party_mask -->
+	</item>
+	<item>
+		<ingredient id="5575" count="420000"/><!-- adena_of_ancient -->
+		<production id="5590" count="1"/><!-- noise_boots -->
+	</item>
+	<item>
+		<ingredient id="5575" count="600"/><!-- adena_of_ancient -->
+		<production id="5707" count="1"/><!-- record_of_seven_sign -->
+	</item>
+</list>

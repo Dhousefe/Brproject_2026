@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="159" count="1"/><!-- bonebreaker -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="280" count="1"/><!-- cyclone_bow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="225" count="1"/><!-- mithril_dagger -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="262" count="1"/><!-- scallop_jamadhr -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="297" count="1"/><!-- glaive -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="70" count="1"/><!-- claymore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2499" count="1"/><!-- elven_long_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="189" count="1"/><!-- life_stick -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="188" count="1"/><!-- ghost_staff -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="190" count="1"/><!-- atuba_mace -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="187" count="1"/><!-- atuba_hammer -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2548" count="1"/><!-- knight_s_sword_elven_sword -->
+	</item>
+</list>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31832</npc><!-- Adventure Guildsman -->
+		<npc>31833</npc><!-- Adventure Guildsman -->
+		<npc>31834</npc><!-- Adventure Guildsman -->
+		<npc>31835</npc><!-- Adventure Guildsman -->
+		<npc>31836</npc><!-- Adventure Guildsman -->
+	</npcs>
+	<item>
+		<ingredient id="8158" count="40"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="44"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="397" count="1"/><!-- tempered_mithril_shirt -->
+	</item>
+	<item>
+		<ingredient id="8158" count="26"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="28"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="2387" count="1"/><!-- tempered_mithril_gaiters -->
+	</item>
+	<item>
+		<ingredient id="8158" count="52"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="56"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="10"/><!-- angel_s_soul_c -->
+		<production id="399" count="1"/><!-- rind_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="8158" count="32"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="34"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="6"/><!-- angel_s_soul_c -->
+		<production id="419" count="1"/><!-- rind_leather_gaiters -->
+	</item>
+	<item>
+		<ingredient id="8158" count="94"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="102"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="18"/><!-- angel_s_soul_c -->
+		<production id="400" count="1"/><!-- theca_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="8158" count="60"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="64"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="10"/><!-- angel_s_soul_c -->
+		<production id="420" count="1"/><!-- theca_leather_gaiters -->
+	</item>
+	<item>
+		<ingredient id="8158" count="180"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="196"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="32"/><!-- angel_s_soul_c -->
+		<production id="401" count="1"/><!-- drake_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="8159" count="160"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="48"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="160"/><!-- egg_of_earth_b -->
+		<ingredient id="8171" count="96"/><!-- angel_s_soul_b -->
+		<production id="2384" count="1"/><!-- shrnoen_s_leather_shirts -->
+	</item>
+	<item>
+		<ingredient id="8159" count="100"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="32"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="100"/><!-- egg_of_earth_b -->
+		<ingredient id="8171" count="60"/><!-- angel_s_soul_b -->
+		<production id="2388" count="1"/><!-- shrnoen_s_leather_gaiters -->
+	</item>
+	<item>
+		<ingredient id="8159" count="236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="72"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="236"/><!-- egg_of_earth_b -->
+		<ingredient id="8171" count="140"/><!-- angel_s_soul_b -->
+		<production id="2390" count="1"/><!-- avadon_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="8159" count="388"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="116"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="388"/><!-- egg_of_earth_b -->
+		<ingredient id="8171" count="232"/><!-- angel_s_soul_b -->
+		<production id="2391" count="1"/><!-- blue_wolve_s_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="8159" count="388"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="116"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="388"/><!-- egg_of_earth_b -->
+		<ingredient id="8171" count="232"/><!-- angel_s_soul_b -->
+		<production id="2392" count="1"/><!-- leather_mail_of_doom -->
+	</item>
+</list>

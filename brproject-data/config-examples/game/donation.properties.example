@@ -1,0 +1,301 @@
+# =================================================================
+#                          Donation Manager
+# =================================================================
+# https://www.l2jbrasil.com/topic/147884-sistema-de-pagamento-via-pix-qrcode-dentro-do-jogo
+# Utilize "//reload config" para recarregar os valores no gameserver
+# Alguns valores podem não serem alterados mesmo assim, reinicie para ter certeza
+
+# Ativa ou desativa o DonationManager / integração Mercado Pago (.pix / bypass pix).
+# IMPORTANTE: este ficheiro é lido DEPOIS de custom/Pix.properties — se aqui for False,
+# o comando .pix fica desligado mesmo com EnablePixMod=True no Pix.properties.
+EnableDonationManager = True
+
+# ID do item a ser vendido
+# O preço deverá ser especificado individualmente em cada método de pagamento
+# Item que o player recebe ao pagar (tem que existir em data/xml/items/)
+# 4037 = Coin of Luck (moeda donate do BrProject). 9511 nao existe no pack — desativa o mod.
+PurchasableItem = 4037
+
+# Deletar do banco de dados compras expiradas, com falhas ou canceladas (pelo player) automaticamente
+# Compras com o pagamento feito nunca serão deletadas
+DeleteInactivePurchases = False
+
+# Deletar do banco de dados informações adicionais de pagamento (IDs secundários, qrcode, links) de compras concluídas
+# Esses valores são utilizados somente enquanto a compra está com pagamento pendente. Depois disso, eles não tem mais utilidade para o sistema
+DeletePaymentData = True
+
+# Permitir que os players ocultem (compras pagas) ou deletem compras (expiradas, com falhas, etc)
+# As configs acima irão definir se os registros serão ou não deletados do banco de dados
+HideEndedPurchases = True
+
+# Deletar TODAS as compras de um player se ele (o character) for deletado
+DeleteOnCharDelete = False
+
+# Nome do seu servidor
+# Utilizado pelos métodos de pagamento via link
+ServerName = L2J
+
+# Exibir link para à calculadora
+# É apenas uma ferramenta do cliente, o player pode usar pra fazer alguma conta
+Calculator = True
+
+# Exibir lista com quantidade pré-definida ao invés de um campo para o player digitar a quantidade que deseja comprar
+# Caso ative, defina as quantidades em cada serviço de pagamento
+ShowDropdown = True
+
+# Exigir que os player concordem com os termos especificados no arquivo terms.htm
+# Caso contrário não será possível comprar nada
+RequireTerms = True
+
+# Domínios permitidos para serem utilizados como e-mail
+# O mercado pago não gosta que endereços aleatórios sejam enviados, então para evitar que os players abusem disso, restringimos as possibilidades
+AllowedEmailAddresses = gmail.com,gmail.com.br,outlook.com,outlook.com.br,hotmail.com,hotmail.com.br,yahoo.com,yahoo.com.br,icloud.com,aol.com,mail.com,gmx.com,zohomail.com,uol.com.br,bol.com.br,terra.com.br,ig.com.br,proton.me,protonmail.com,mailbox.org,riseup.net
+
+# =================================================================
+#                             MERCADO PAGO
+# =================================================================
+
+# Acess Token
+# Obtenha no site abaixo. Veja o tutorial no link do youtube
+# https://www.mercadopago.com.br/developers/panel/app
+# https://www.youtube.com/watch?v=g98E51T-tlE
+MercadoPagoApiToken = APP_USR-982146259255980-121010-***************************-**************
+
+# =================================================================
+#                          MERCADO PAGO - PIX
+# =================================================================
+
+# Valor em reais cobrado por cada unidade do item vendido
+MercadoPagoPixPrice = 1.00
+
+# QR CODE e código "copia e cola" (enviado no e-mail no comprador pelo próprio Mercado Pago).
+# Disponível somente para contas do Brasil
+# ATENÇÃO: Configure o MercadoPagoApiToken acima antes de ativar
+MercadoPagoPix = True
+
+# Prazo máximo em minutos para o pagamento da compra via PIX
+# IMPORTANTE: o valor mínimo permitido pelo Mercado Pago é de 30 minutos.
+MercadoPagoPixExpirationTime = 30
+
+# Ativar o envio de e-mail com o link de pagamento através do mailersend.com
+# Caso não seja ativado, o player terá a opção de pagar através do QRCODE
+# De qualquer forma, o MercadoPago envia um e-mail assim que a compra é feita, não temos como desativar isso
+MercadoPagoPixMail = False
+
+# Informações da conta que irá receber o PIX (Opcional)
+# Isso será exibido junto ao QR Code
+# Mantenha vazio caso não tenha interesse em utilizar
+MercadoPagoPixAccountOwner = 
+MercadoPagoPixAccountCpf = 
+MercadoPagoPixAccountBank = MERCADO PAGO
+
+# Lista de quantidades a serem vendidas caso essa opção esteja ativa
+MercadoPagoPixDropdown = 5,10,15,20,25,30,35,40,45,50,100
+
+# =================================================================
+#                         MERCADO PAGO - LINK
+# =================================================================
+
+# Valor na moeda escolhida cobrado por cada unidade do item vendido
+MercadoPagoLinkPrice = 1.00
+
+# Pagamento através do site do Mercado Pago. Compatível com cartão de crédito e outros meios
+# Disponível em qualquer país que o Mercado Pago funciona
+# ATENÇÃO: Configure o MercadoPagoApiToken acima antes de ativar
+MercadoPagoLink = False
+
+# Permitir que os players solicitem o envio de e-mail com o link de pagamento através do mailersend.com
+# Caso não seja ativado, o player terá apenas a opção de ler o QRCODE, que contém a URL que ele precisa acessar
+MercadoPagoLinkMail = True
+
+# Moeda principal
+# ARS: Peso argentino.
+# BRL: Real brasileiro.
+# CLP: Peso chileno.
+# MXN: Peso mexicano.
+# COP: Peso colombiano.
+# PEN: Sol peruano.
+# UYU: Peso uruguaio.
+MercadoPagoCurrency = BRL
+
+# Moedas adicionais (opcional)
+# O player poderá escolher pagar em uma dessas moedas, além da principal
+# A conversão do valor entre a moeda principal e as que estão aqui será feita automaticamente
+# Por favor, veja a seção "Currency Exchange" logo abaixo
+# Exemplo: ARS,UYU
+MercadoPagoCurrencies = ARS
+
+# Prazo máximo em minutos para o pagamento da compra via Link
+# Não defina valores muito pequenos, pode demorar um pouco até que o e-mail seja enviado, recebido, abrir o site, inserir dados de pagamento, etc
+MercadoPagoLinkExpirationTime = 30
+
+# Lista de quantidades a serem vendidas caso essa opção esteja ativa
+MercadoPagoLinkDropdown = 5,10,15,20,25,30,35,40,45,50,100
+
+# =================================================================
+#                              PAYPAL
+# =================================================================
+# É necessário uma conta "PayPal for Business"
+
+# Ativa o pagamento através de Invoices (link)
+# ATENÇÃO: Configure PayPalClientId, PayPalClientSecret e PayPalAccountEmail antes de ativar
+PayPalLink = true
+
+# Crie um "App" do tipo "Merchant" e coloque as credenciais aqui
+# https://developer.paypal.com/dashboard/applications/
+PayPalClientId = **********-*******-hw_KLF-********_*************-*************Noq0u
+PayPalClientSecret = ***********************************************************
+
+# Valor na moeda escolhida cobrado por cada unidade do item vendido
+PayPalPrice = 2.00
+
+# Modo de testes
+# IMPORTANTE: Mude para false e use credenciais de produção quando estiver pronto
+PayPalSandboxEnabled = true
+
+# E-mail utilizado na conta business ou o e-mail da conta de vendedor do ambiente sandbox
+# https://developer.paypal.com/dashboard/accounts
+PayPalAccountEmail = admin@gmail.com
+
+# Permitir que os players solicitem o envio de e-mail com o link de pagamento
+# O envio é feito pelo próprio PayPal, não é necessário o mailersend.com
+# Caso não seja ativado, o player terá apenas a opção de ler o QRCODE, que contém a URL que ele precisa acessar
+PayPalMail = True
+
+# Prazo máximo em minutos para o pagamento da compra via Link
+# Não defina valores muito pequenos, pode demorar um pouco até que o e-mail seja enviado, recebido, abrir o site, inserir dados de pagamento, etc
+PayPalLinkExpirationTime = 30
+
+# Moeda principal
+# https://developer.paypal.com/reference/currency-codes/
+PayPalCurrency = BRL
+
+# Moedas adicionais (opcional)
+# O player poderá escolher pagar em uma dessas moedas, além da principal
+# A conversão do valor entre a moeda principal e as que estão aqui será feita automaticamente
+# Por favor, veja a seção "Currency Exchange" logo abaixo
+# Exemplo: USD,EUR
+PayPalCurrencies = USD,EUR,UYU
+
+# Lista de quantidades a serem vendidas caso essa opção esteja ativa
+PayPalDropdown = 5,10,15,20,25,30,35,40,45,50,100
+
+# ------ Campos opcionais para serem exibidos na Invoice ------
+
+# Endereço do seu site
+PayPalWebSite = www.mywebsite.org
+
+# Mensagem customizada
+# Exibida no final da invoice
+PayPalNoteMsg = Obrigado por sua compra!
+
+# Logo (link da imagem)
+# Tamanho máximo: 250x90 pixels.
+PayPalLogoImage =
+
+# Número de telefone
+# Ex.: 11988526539
+PayPalPhoneNumber =
+
+# Número do código do país
+# Ex.: Brasil 55
+# https://en.wikipedia.org/wiki/List_of_country_calling_codes
+PayPalPhoneCountryCode = 55
+
+# =================================================================
+#                              BINANCE
+# =================================================================
+# Não possui sandbox
+
+# Ativa pagamentos através do Binance Pay
+# ATENÇÃO: Configure BinanceApiKey e BinanceSecretKey antes de ativar
+BinancePay = false
+
+# Dados da API
+# https://merchant.binance.com/en/dashboard/developers/api
+BinanceApiKey =
+BinanceSecretKey =
+
+# Valor na moeda escolhida cobrado por cada unidade do item vendido
+BinancePrice = 1.00
+
+# Código da moeda fiat que será utilizada como base para a cobrança
+# O valor será convertido para outras moedas pela binance
+# https://www.binance.com/bapi/asset/v1/public/asset-service/product/currency
+BinanceFiatCurrency = BRL
+
+# Lista de cripto moedas, separadas por vírgula, que podem ser utilizadas para o pagamento
+# Certifique-se que a binance trabalha com essas moedas e com a conversão para a moeda fiat definida anteriormente
+# Deixe vazio para permitir que qualquer uma suportada pela Binance seja aceita
+# BTC,ETH,BNB,USDT,SOL
+BinancePayCurrency =
+
+# Permitir que os players solicitem o envio de e-mail com o link de pagamento através do mailersend.com
+# Caso não seja ativado, o player terá apenas a opção de pagar através do QRCODE
+BinanceMail = True
+
+# Prazo máximo em minutos para o pagamento da compra via Link
+# Não defina valores muito pequenos, pode demorar um pouco até que o e-mail seja enviado, recebido, abrir o site, inserir dados de pagamento, etc
+BinanceExpirationTime = 30
+
+# Lista de quantidades a serem vendidas caso essa opção esteja ativa
+BinanceDropdown = 5,10,15,20,25,30,35,40,45,50,100
+
+# Frequência em minutos com que os valores das moedas devem ser atualizados
+# A conversão será feita a partir do valor cobrado e da moeda fiat
+# Os valores obtidos são da própria binance
+# Mínimo: 1, Máximo: 60
+BinanceCurrencyTaskInterval = 5
+
+# =================================================================
+#                         Câmbio de moedas
+# =================================================================
+# OBRIGATÓRIO caso esteja utilizando mais de uma moeda no **MercadoPago** ou **Paypal**
+# A conversão será feita a partir do valor cobrado e da moeda principal
+# Você pode usar uma das APIs abaixo ou ambas ao mesmo tempo. Note que elas podem apresentar diferenças nos valores
+
+# currencybeacon.com
+# Inscreva-se para obter uma chave
+# Mantenha vazio caso não queira utilizá-la
+CurrencyBeaconApiKey =
+
+# awesomeapi.com.br
+# Não é preciso criar uma conta. Uso publico e gratuito
+AwesomeApi = True
+
+# Frequência em minutos com que os valores das moedas devem ser atualizados
+# É importante respeitar os limites de uso das respectivas API
+# Mínimo: 20, Máximo: 120
+FiatCurrencyTaskInterval = 20
+
+# =================================================================
+#                          mailersend.com
+# =================================================================
+# IMPORTANTE: caso o método de pagamento por link do Mercado Pago esteja ativo, essa configuração é obrigatória
+
+# https://app.mailersend.com/api-tokens
+MailerApiToken =
+
+# Endereço de de onde partirá os e-mails enviados (rementente)
+# Exemplo: naoresponda@meudomínio.com
+# https://app.mailersend.com/domains
+MailerAddress =
+
+# ID do template para ser utilizado no envio
+# Se preferir um e-mail em texto plano, mantenha esse campo vazio
+# https://app.mailersend.com/templates
+MailerTemplateId =
+
+# Número máximo de e-mails enviados por compra durante a seção atual
+# Exemplo: se definido 2, o player poderá receber o e-mail inicial e depois solicitar o reenvio.
+# Quando o servidor reiniciar o contador será zerado e novos envios poderão ser solicitados até esse limite (caso a compra não tenha expirado)
+MaximumNumberEmails = 2
+
+# =================================================================
+#                          Flood Protectors
+# =================================================================
+
+# Tempo mínimo entre solicitações de compra e checagem no Mercado Pago. Valores em ms (1s x 1000).
+PayTime = 10000
+CheckTime = 5000
+

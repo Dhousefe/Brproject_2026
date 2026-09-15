@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuração do evento Tournament
+  Este evento ocorre em determinados dias e horários configurados abaixo.
+  Quando o horário for atingido, uma mensagem será enviada aos jogadores,
+  e os monstros serão invocados após o tempo de preparação definido.
+-->
+
+<tournaments>
+	<event name="battle">
+		<!-- Ativa ou desativa este evento -->
+		<enabled>true</enabled>
+
+		<!-- Duração total do evento em minutos (após o tempo de preparação) -->
+		<duration>55</duration>
+
+		<!-- Tempo de preparação em minutos após o aviso antes de iniciar o
+		evento -->
+		<preparation>1</preparation>
+
+		<!-- Dias da semana em que o evento pode ocorrer:
+             0 = Domingo, 1 = Segunda, ..., 6 = Sábado.
+             Neste exemplo: Segunda (1), Quarta (3) e Sexta-feira (5) -->
+		<days>0,1,2,3,4,5,6</days>
+
+		<!-- Horários do dia em que o evento pode iniciar (formato 24h: HH:mm).
+             O sistema verifica a cada segundo se um desses horários foi atingido. -->
+		<times>
+			<time>06:00</time>
+			<time>09:00</time>
+			<time>12:00</time>
+			<time>04:45</time>
+		</times>
+
+		<!-- Lista de spawns que serão invocados na zona durante o evento.
+             Cada battle define o count, a quantidade de jogadores e as coordenadas (x, y,
+		z). -->
+		<battles>
+			<!-- 2 player serão invocados nessas coordenadas -->
+			<battle count="2" x="-114463" y="-213096" z="-3328" duration="15" reward="57-15000;6392-1;" />
+
+			<!-- 4 player serão invocados nessas coordenadas -->
+			<battle count="4" x="-114463" y="-213096" z="-3328" duration="20" reward="57-25000;6392-2;" />
+		</battles>
+
+		<prizes>
+			<prize position="1" reward="57-15000;6392-3;" /> <!-- 1º position: 15000
+			adenas e item ID 6392 -->
+			<prize position="2" reward="57-10000;6392-2;" /> <!-- 2º position: 10000
+			adenas e item ID 6392 -->
+			<prize position="3" reward="57-5000;6392-1;" />  <!-- 3º position: 5000
+			adenas e item ID 6392 -->
+		</prizes>
+
+	</event>
+</tournaments>

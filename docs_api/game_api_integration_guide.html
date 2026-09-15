@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game API Explorer & Integration Guide | BrProject-2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        },
+                        cyber: {
+                            dark: '#0a0a0f',
+                            panel: '#12101b',
+                            card: '#181524',
+                            border: '#2a243d',
+                            cyan: '#06d6a0',
+                            blue: '#38bdf8',
+                            amber: '#fbbf24',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+                        sans: ['Inter', 'Segoe UI', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Mermaid CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                background: '#12101b',
+                primaryColor: '#7c3aed',
+                primaryBorderColor: '#a78bfa',
+                primaryTextColor: '#f3f4f6',
+                lineColor: '#38bdf8',
+                secondaryColor: '#181524',
+                tertiaryColor: '#0a0a0f'
+            }
+        });
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #2a243d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+        
+        .badge-method-post { background: rgba(6, 214, 160, 0.15); color: #06d6a0; border: 1px solid rgba(6, 214, 160, 0.3); }
+        .badge-method-get { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-hmac { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .badge-public { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+    </style>
+</head>
+<body class="bg-cyber-dark text-slate-100 font-sans min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-cyber-panel/90 backdrop-blur-md border-b border-cyber-border px-6 py-4 flex items-center justify-between shadow-xl">
+        <div class="flex items-center space-x-3">
+            <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-700 to-cyber-blue flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-brand-700/30">
+                L2
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-brand-400 bg-clip-text text-transparent">
+                    Game API Explorer <span class="text-xs ml-2 px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-mono">v2026.1 - 36 Endpoints</span>
+                </h1>
+                <p class="text-xs text-slate-400">Zero-DB-Exposure • HMAC-SHA256 Signed Gateway • Netty Core</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative w-64 md:w-80">
+                <input type="text" id="global-search" placeholder="Buscar endpoint, rota ou método..." 
+                       class="w-full bg-cyber-card border border-cyber-border rounded-lg px-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all font-mono">
+                <span class="absolute right-3 top-2.5 text-xs text-slate-500 font-mono">/</span>
+            </div>
+            <a href="GAME_API_CONTRACTS_AND_INTEGRATION.md" class="hidden sm:inline-flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-lg bg-cyber-card border border-cyber-border hover:border-brand-500 hover:text-brand-400 transition-colors">
+                <span>📄 Markdown Spec</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- Sidebar Navigation -->
+        <aside class="w-72 bg-cyber-panel border-r border-cyber-border flex flex-col shrink-0 overflow-y-auto hidden lg:flex">
+            <div class="p-4 border-b border-cyber-border/50">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Categorias de API</p>
+                <div class="space-y-1">
+                    <button onclick="filterCategory('all')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600/20 text-brand-300 border border-brand-500/30">
+                        ⚡ Todos os Endpoints (36+)
+                    </button>
+                    <button onclick="filterCategory('auth')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        🔑 Autenticação & Contas (6)
+                    </button>
+                    <button onclick="filterCategory('character')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        ⚔️ Personagens & Itens (2)
+                    </button>
+                    <button onclick="filterCategory('clan')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        🛡️ Gestão de Clan & Ally (9)
+                    </button>
+                    <button onclick="filterCategory('royal')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        👑 Guarda Real & Sub-Pledges (7)
+                    </button>
+                    <button onclick="filterCategory('war')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        🏰 Guerras, Cercos & Skills (7)
+                    </button>
+                    <button onclick="filterCategory('donation')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        💎 Doações PIX, Loja & Votos (8)
+                    </button>
+                    <button onclick="filterCategory('ranking')" class="cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card">
+                        🏆 Rankings Públicos (3)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Security Quickbox -->
+            <div class="p-4 m-4 rounded-xl bg-gradient-to-b from-brand-950/40 to-cyber-card border border-brand-900/60 text-xs space-y-2">
+                <div class="flex items-center space-x-2 text-brand-400 font-bold">
+                    <span>🛡️ Segurança HMAC-SHA256</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                    Assinatura obrigatória em 34 das 36 rotas. Proteção contra Replay Attack com janela de 5 min via NonceCache.
+                </p>
+                <div class="font-mono text-[11px] bg-cyber-dark/80 p-2 rounded border border-cyber-border text-slate-300">
+                    Host: 127.0.0.1:9080<br>
+                    RateLimit: 120 req/min
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-10">
+
+            <!-- Architecture Diagram Hero Section -->
+            <section class="bg-cyber-panel border border-cyber-border rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="px-3 py-1 rounded-full bg-cyber-cyan/15 text-cyber-cyan text-xs font-semibold uppercase tracking-wider border border-cyber-cyan/30">Arquitetura Zero-DB-Exposure</span>
+                        <span class="px-3 py-1 rounded-full bg-brand-500/15 text-brand-400 text-xs font-semibold uppercase tracking-wider border border-brand-500/30">Netty Asynchronous Pipeline</span>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                        Fluxo de Comunicação & Blindagem Criptográfica
+                    </h2>
+                    <p class="text-slate-400 text-sm md:text-base mt-2 max-w-3xl leading-relaxed">
+                        Nenhum site externo ou script de terceiros possui credenciais do banco MariaDB/PostgreSQL. Toda mutação de personagens, clãs ou inventário transita exclusivamente pelo barramento seguro HTTP assinado na porta 9080.
+                    </p>
+
+                    <!-- Mermaid Flow -->
+                    <div class="mt-6 p-4 rounded-xl bg-cyber-dark/90 border border-cyber-border overflow-x-auto">
+                        <pre class="mermaid text-center">
+flowchart LR
+    subgraph Internet ["🌐 Clientes Externos"]
+        User["Visitante / Jogador"]
+        Bot["Discord Bot / Launcher"]
+    end
+
+    subgraph Edge ["🛡️ Borda & Frontend"]
+        Proxy["Proxy Reverso Netty (:proxy)<br/>Porta 80 / 443"]
+        Site["Portal Ktor (:sktor)<br/>Porta 8080"]
+    end
+
+    subgraph Core ["⚡ Núcleo do Jogo (127.0.0.1)"]
+        GameApi["Game API Netty (:game-api)<br/>127.0.0.1:9080<br/>(HMAC-SHA256 Auth)"]
+        GameEngine["GameServer Core<br/>Lineage 2 Engine"]
+        DB[("Banco de Dados<br/>Pool HikariCP")]
+    end
+
+    User -->|HTTPS| Proxy
+    Bot -->|HTTPS| Proxy
+    Proxy -->|HTTP Loopback| Site
+    Site -->|HMAC-SHA256 Signed| GameApi
+    GameApi --> GameEngine
+    GameEngine --> DB
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HMAC Signing Guide Tab -->
+            <section class="bg-cyber-panel border border-cyber-border rounded-2xl p-6 md:p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center space-x-2">
+                        <span>🔐 Guia Rápido do Assinador HMAC-SHA256</span>
+                    </h3>
+                    <p class="text-sm text-slate-400 mt-1">
+                        Para consumir endpoints protegidos de qualquer linguagem externa, envie os headers calculados conforme a fórmula canônica:
+                    </p>
+                </div>
+
+                <div class="bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border font-mono text-xs text-cyber-blue">
+                    METHOD | /raw/path | timestamp_millis | nonce_uuid | sha256_hex(raw_body_bytes)
+                </div>
+
+                <!-- Code Samples Tab Group -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2 border-b border-cyber-border pb-2 text-xs font-semibold">
+                        <button onclick="switchCodeTab('js')" id="tab-btn-js" class="px-3 py-1.5 rounded-md bg-brand-600 text-white transition-all">JavaScript (Node / Fetch)</button>
+                        <button onclick="switchCodeTab('py')" id="tab-btn-py" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition-all">Python 3</button>
+                        <button onclick="switchCodeTab('kt')" id="tab-btn-kt" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition-all">Kotlin / Java</button>
+                        <button onclick="switchCodeTab('curl')" id="tab-btn-curl" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition-all">cURL CLI</button>
+                    </div>
+
+                    <!-- JS Code -->
+                    <div id="code-js" class="code-snippet relative group">
+                        <pre class="bg-cyber-dark p-4 rounded-xl border border-cyber-border font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code>const crypto = require('crypto');
+
+function signGameApi(secret, method, path, body = '') {
+  const timestamp = Date.now().toString();
+  const nonce = crypto.randomUUID();
+  const bodyHash = crypto.createHash('sha256').update(body, 'utf8').digest('hex');
+  const canonical = `${method.toUpperCase()}|${path}|${timestamp}|${nonce}|${bodyHash}`;
+  const signature = crypto.createHmac('sha256', secret).update(canonical, 'utf8').digest('hex');
+
+  return {
+    'X-Site-Timestamp': timestamp,
+    'X-Site-Nonce': nonce,
+    'X-Site-Signature': signature,
+    'Content-Type': 'application/json'
+  };
+}
+
+// Exemplo de chamada:
+// fetch('http://127.0.0.1:9080/internal/site/register', {
+//   method: 'POST',
+//   headers: signGameApi(SECRET, 'POST', '/internal/site/register', jsonBody),
+//   body: jsonBody
+// });</code></pre>
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 px-2 py-1 rounded bg-cyber-border hover:bg-brand-600 text-[11px] font-mono transition-colors">Copiar</button>
+                    </div>
+
+                    <!-- Python Code -->
+                    <div id="code-py" class="code-snippet hidden relative group">
+                        <pre class="bg-cyber-dark p-4 rounded-xl border border-cyber-border font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code>import hmac, hashlib, uuid, time, requests
+
+def sign_request(secret: bytes, method: str, path: str, body: str = ""):
+    timestamp = str(int(time.time() * 1000))
+    nonce = str(uuid.uuid4())
+    body_hash = hashlib.sha256(body.encode('utf-8')).hexdigest()
+    canonical = f"{method.upper()}|{path}|{timestamp}|{nonce}|{body_hash}"
+    signature = hmac.new(secret, canonical.encode('utf-8'), hashlib.sha256).hexdigest()
+    return {
+        "X-Site-Timestamp": timestamp,
+        "X-Site-Nonce": nonce,
+        "X-Site-Signature": signature,
+        "Content-Type": "application/json"
+    }
+
+# res = requests.post("http://127.0.0.1:9080/internal/site/register", data=body, headers=sign_request(b"...", "POST", "/internal/site/register", body))</code></pre>
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 px-2 py-1 rounded bg-cyber-border hover:bg-brand-600 text-[11px] font-mono transition-colors">Copiar</button>
+                    </div>
+
+                    <!-- Kotlin Code -->
+                    <div id="code-kt" class="code-snippet hidden relative group">
+                        <pre class="bg-cyber-dark p-4 rounded-xl border border-cyber-border font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code>import java.net.URI
+import br.project.site.security.InternalApiSigner
+
+val signed = InternalApiSigner.signed(secretBytes, "POST", URI.create("/internal/site/register"), bodyJson)
+// signed.timestampMillis -> "X-Site-Timestamp"
+// signed.nonce           -> "X-Site-Nonce"
+// signed.signatureHex   -> "X-Site-Signature"</code></pre>
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 px-2 py-1 rounded bg-cyber-border hover:bg-brand-600 text-[11px] font-mono transition-colors">Copiar</button>
+                    </div>
+
+                    <!-- cURL Code -->
+                    <div id="code-curl" class="code-snippet hidden relative group">
+                        <pre class="bg-cyber-dark p-4 rounded-xl border border-cyber-border font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed"><code># Teste de conectividade pública (sem HMAC)
+curl -i http://127.0.0.1:9080/internal/site/ping
+
+# Requisição autenticada (substitua pelos valores gerados pelo signer)
+curl -X POST http://127.0.0.1:9080/internal/site/register   -H "Content-Type: application/json"   -H "X-Site-Timestamp: 1773004800000"   -H "X-Site-Nonce: e2a488e0-247e-49fb-87a3-22877a5ff92a"   -H "X-Site-Signature: d41d8cd98f00b204e9800998ecf8427e..."   -d '{"login":"player1","password":"SecretPassword123!"}'</code></pre>
+                        <button onclick="copyCode(this)" class="absolute top-3 right-3 px-2 py-1 rounded bg-cyber-border hover:bg-brand-600 text-[11px] font-mono transition-colors">Copiar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Endpoints Grid Catalog -->
+            <section class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Catálogo de Endpoints REST</h3>
+                        <p class="text-sm text-slate-400">Clique em qualquer endpoint para visualizar payloads, headers e respostas.</p>
+                    </div>
+                    <span id="endpoint-count" class="px-3 py-1 rounded-full bg-cyber-card border border-cyber-border text-xs font-mono text-slate-300">
+                        Exibindo 36 endpoints
+                    </span>
+                </div>
+
+                <div id="endpoint-list" class="grid grid-cols-1 gap-4">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Data Store & Interactive Logic -->
+    <script>
+        const ENDPOINTS = [
+            // 1. Auth & Accounts
+            {
+                id: "ping",
+                cat: "auth",
+                method: "GET",
+                path: "/internal/site/ping",
+                auth: "PUBLIC",
+                title: "Healthcheck & Ping",
+                desc: "Verifica a disponibilidade e conectividade do motor Netty Game API.",
+                req: "Sem corpo (Body vazio)",
+                res: '{\n  "ok": true,\n  "message": "pong"\n}',
+                codes: ["200 OK"]
+            },
+            {
+                id: "register",
+                cat: "auth",
+                method: "POST",
+                path: "/internal/site/register",
+                auth: "HMAC",
+                title: "Criação de Conta",
+                desc: "Cria uma nova conta de jogador no GameServer com criptografia BCrypt de alta segurança.",
+                req: '{\n  "login": "player1",\n  "password": "MinhaSenhaForte123!"\n}',
+                res: '{\n  "ok": true,\n  "message": "Conta criada"\n}',
+                codes: ["200 OK", "400 Bad Request", "409 Conflict (Login Duplicado)"]
+            },
+            {
+                id: "login",
+                cat: "auth",
+                method: "POST",
+                path: "/internal/site/login",
+                auth: "HMAC",
+                title: "Validação de Login",
+                desc: "Autentica usuário e senha contra a tabela accounts sem expor credenciais JDBC.",
+                req: '{\n  "login": "player1",\n  "password": "MinhaSenhaForte123!"\n}',
+                res: '{\n  "ok": true,\n  "accountToken": "hmac_token_sessao"\n}',
+                codes: ["200 OK", "401 Unauthorized", "400 Bad Request"]
+            },
+            {
+                id: "change-password",
+                cat: "auth",
+                method: "POST",
+                path: "/internal/site/account/change-password",
+                auth: "HMAC",
+                title: "Alteração de Senha",
+                desc: "Troca segura de senha da conta conferindo a senha anterior.",
+                req: '{\n  "login": "player1",\n  "currentPassword": "OldPassword123!",\n  "newPassword": "NewPassword456!"\n}',
+                res: '{\n  "ok": true,\n  "message": "Senha atualizada com sucesso"\n}',
+                codes: ["200 OK", "400 Bad Request (Senha Incorreta)"]
+            },
+            {
+                id: "player-reset",
+                cat: "auth",
+                method: "POST",
+                path: "/internal/site/account/player-reset",
+                auth: "HMAC",
+                title: "Unstuck de Personagem",
+                desc: "Teleporta personagem travado para a cidade pacífica mais próxima (exige char offline ou fora de combate).",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "message": "Personagem movido para a cidade com sucesso"\n}',
+                codes: ["200 OK", "400 Bad Request", "409 Conflict (Em Combate/Online)"]
+            },
+            {
+                id: "pk-reset",
+                cat: "auth",
+                method: "POST",
+                path: "/internal/site/account/pk-reset",
+                auth: "HMAC",
+                title: "Reset de PK e Karma",
+                desc: "Zera o karma e contador de PK do personagem mediante consumo de item configurado.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "message": "Karma e contagem de PK zerados"\n}',
+                codes: ["200 OK", "402 Payment Required (Sem Item)", "409 Conflict"]
+            },
+
+            // 2. Character & Items
+            {
+                id: "characters",
+                cat: "character",
+                method: "POST",
+                path: "/internal/site/account/characters",
+                auth: "HMAC",
+                title: "Listagem de Personagens & Itens",
+                desc: "Retorna todos os personagens, níveis, classes, clan e itens equipados para o painel web.",
+                req: '{\n  "login": "player1"\n}',
+                res: '{\n  "ok": true,\n  "characters": [\n    {\n      "characterId": 268480102,\n      "name": "DeathKnight",\n      "level": 80,\n      "className": "Duelist",\n      "clanName": "Imperium",\n      "isLeader": true,\n      "equipped": [\n        { "itemId": 6373, "name": "Dual Damascus", "count": 1, "icon": "icon.weapon_dual_sword_i00" }\n      ]\n    }\n  ],\n  "renameItemId": 4037,\n  "renameItemName": "Coin of Luck"\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "rename-character",
+                cat: "character",
+                method: "POST",
+                path: "/internal/site/account/rename",
+                auth: "HMAC",
+                title: "Renomear Personagem",
+                desc: "Altera o nome do personagem consumindo o item de renomeação.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "newName": "KingArthur"\n}',
+                res: '{\n  "ok": true,\n  "message": "Personagem renomeado com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict (Nome em uso/Char online)", "402 Payment Required"]
+            },
+
+            // 3. Clan & Ally
+            {
+                id: "clan-rename",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/rename",
+                auth: "HMAC",
+                title: "Renomear Clan",
+                desc: "Renomeia o clan verificando se o solicitante é o líder oficial.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "newClanName": "NovaOrdem"\n}',
+                res: '{\n  "ok": true,\n  "message": "Clan renomeado com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict (Não é líder/Nome em uso)"]
+            },
+            {
+                id: "clan-rename-ally",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/rename-ally",
+                auth: "HMAC",
+                title: "Renomear Aliança",
+                desc: "Renomeia a aliança do clan líder.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "newName": "ImperioAliado"\n}',
+                res: '{\n  "ok": true,\n  "message": "Aliança renomeada com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-level-up",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/level-up",
+                auth: "HMAC",
+                title: "Evoluir Nível do Clan",
+                desc: "Eleva o nível de clan debitando os requisitos de reputação ou itens.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "newLevel": 8,\n  "message": "Nível de clan elevado com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-level-down",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/level-down",
+                auth: "HMAC",
+                title: "Reduzir Nível do Clan",
+                desc: "Rebaixa o nível do clan administrativamente.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "message": "Nível de clan ajustado"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-transfer",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/transfer-leadership",
+                auth: "HMAC",
+                title: "Transferir Liderança do Clan",
+                desc: "Transfere o status de líder de clan para outro membro.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "targetCharacterId": 268480205\n}',
+                res: '{\n  "ok": true,\n  "message": "Liderança transferida com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict (Membro inválido)"]
+            },
+            {
+                id: "clan-members",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/members",
+                auth: "HMAC",
+                title: "Listar Membros do Clan",
+                desc: "Retorna a lista completa de membros com seus ranks e sub-unidades.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "members": [\n    { "charId": 268480205, "name": "Lancelot", "level": 78, "subPledge": 0 }\n  ]\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "clan-ban-member",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/ban-member",
+                auth: "HMAC",
+                title: "Expulsar Membro do Clan",
+                desc: "Remove um integrante do clan aplicando a penalidade padrão de saída.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "targetCharacterId": 268480300\n}',
+                res: '{\n  "ok": true,\n  "message": "Membro expulso do clan"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-validate",
+                cat: "clan",
+                method: "POST",
+                path: "/internal/site/account/clan/validate",
+                auth: "HMAC",
+                title: "Validar Serviço de Clan",
+                desc: "Pré-valida taxas e requisitos antes de executar ações de clan.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "serviceId": "rename-clan"\n}',
+                res: '{\n  "ok": true,\n  "canExecute": true,\n  "costItem": 4037,\n  "costCount": 10\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+
+            // 4. Royal Guard
+            {
+                id: "royal-guard-list",
+                cat: "royal",
+                method: "POST",
+                path: "/internal/site/account/clan/royal-guard",
+                auth: "HMAC",
+                title: "Listar Guardas Reais",
+                desc: "Retorna todas as sub-unidades (Royal Guard, Order of Knights) do clan.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "guards": [\n    { "subPledgeId": 100, "name": "Vanguarda", "captain": "Galahad", "membersCount": 15 }\n  ]\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "royal-guard-create",
+                cat: "royal",
+                method: "POST",
+                path: "/internal/site/account/clan/royal-guard/create",
+                auth: "HMAC",
+                title: "Criar Guarda Real",
+                desc: "Cria uma nova sub-unidade de combate no clan.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "name": "GuardaDeElite"\n}',
+                res: '{\n  "ok": true,\n  "subPledgeId": 100,\n  "message": "Guarda criada com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "royal-guard-rename",
+                cat: "royal",
+                method: "POST",
+                path: "/internal/site/account/clan/royal-guard/rename",
+                auth: "HMAC",
+                title: "Renomear Guarda Real",
+                desc: "Altera o nome de uma sub-unidade existente.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "subPledgeId": 100,\n  "name": "NovosCavaleiros"\n}',
+                res: '{\n  "ok": true,\n  "message": "Guarda renomeada"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "royal-guard-move",
+                cat: "royal",
+                method: "POST",
+                path: "/internal/site/account/clan/royal-guard/move-member",
+                auth: "HMAC",
+                title: "Mover Membro de Guarda",
+                desc: "Transfere um membro para uma unidade específica de guarda real.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "targetCharacterId": 268480205,\n  "targetSubPledgeId": 100\n}',
+                res: '{\n  "ok": true,\n  "message": "Membro remanejado com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "royal-guard-captain",
+                cat: "royal",
+                method: "POST",
+                path: "/internal/site/account/clan/royal-guard/assign-captain",
+                auth: "HMAC",
+                title: "Nomear Capitão de Guarda",
+                desc: "Designa um membro com patente de capitão para a guarda real.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "subPledgeId": 100,\n  "targetCharacterId": 268480205\n}',
+                res: '{\n  "ok": true,\n  "message": "Capitão atribuído com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+
+            // 5. Wars, Sieges & Skills
+            {
+                id: "clan-wars",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/wars",
+                auth: "HMAC",
+                title: "Consultar Guerras de Clan",
+                desc: "Retorna o status de guerras ativas, clans rivais e histórico de PvP.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "activeWars": [\n    { "clanId": 12, "clanName": "Valhalla", "kills": 45, "deaths": 30 }\n  ]\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "clan-war-declare",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/wars/declare",
+                auth: "HMAC",
+                title: "Declarar Guerra de Clan",
+                desc: "Declara guerra contra clan rival informado.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "targetClanName": "Valhalla"\n}',
+                res: '{\n  "ok": true,\n  "message": "Guerra declarada com sucesso"\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "castle-siege",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/castle-siege",
+                auth: "HMAC",
+                title: "Listar Cercos de Castelo",
+                desc: "Retorna castelos, datas de cerco, clãs donos e inscritos.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "sieges": [\n    { "castleId": 1, "name": "Gludio", "siegeDate": 1773500000000, "owner": "Imperium" }\n  ]\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "castle-siege-register",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/castle-siege/register",
+                auth: "HMAC",
+                title: "Inscrição em Cerco de Castelo",
+                desc: "Inscreve o clan como atacante ou defensor do castelo.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "castleId": 1,\n  "type": "ATTACKER"\n}',
+                res: '{\n  "ok": true,\n  "message": "Inscrição no cerco registrada com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-skills-list",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/skills/list",
+                auth: "HMAC",
+                title: "Árvore de Habilidades de Clan",
+                desc: "Lista todas as skills de clã disponíveis para aquisição e custos em reputação.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102\n}',
+                res: '{\n  "ok": true,\n  "skills": [\n    { "skillId": 370, "name": "Clan Vitality", "level": 1, "repCost": 5000 }\n  ]\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-skills-buy",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/skills/buy",
+                auth: "HMAC",
+                title: "Comprar Habilidade de Clan",
+                desc: "Adquire uma nova skill de clã consumindo reputação do clan.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "skillId": 370\n}',
+                res: '{\n  "ok": true,\n  "message": "Habilidade adquirida com sucesso"\n}',
+                codes: ["200 OK", "409 Conflict"]
+            },
+            {
+                id: "clan-chat",
+                cat: "war",
+                method: "POST",
+                path: "/internal/site/account/clan/chat",
+                auth: "HMAC",
+                title: "Histórico de Chat de Clan",
+                desc: "Permite leitura do chat do clan pelo portal web em sincronia com o jogo.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "since": 1773000000000\n}',
+                res: '{\n  "ok": true,\n  "messages": [\n    { "sender": "Lancelot", "text": "Todos prontos para o Raid?", "time": 1773000050000 }\n  ]\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+
+            // 6. Donations & Votes
+            {
+                id: "donation-config",
+                cat: "donation",
+                method: "GET",
+                path: "/internal/site/donation/config",
+                auth: "PUBLIC",
+                title: "Configurações de Doação PIX",
+                desc: "Retorna a cotação de moedas por Real, valor mínimo/máximo e status da chave PIX.",
+                req: "Sem corpo (Body vazio)",
+                res: '{\n  "enabled": true,\n  "coinRate": 1.0,\n  "minAmount": 10.0,\n  "currency": "BRL"\n}',
+                codes: ["200 OK", "500 Server Error"]
+            },
+            {
+                id: "donation-create",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/donation/create",
+                auth: "HMAC",
+                title: "Criar Cobrança PIX",
+                desc: "Gera uma cobrança PIX instantânea com QR Code e Copia-e-Cola.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "email": "jogador@exemplo.com",\n  "count": 50,\n  "clientIp": "200.150.10.5"\n}',
+                res: '{\n  "ok": true,\n  "purchaseId": 8941,\n  "qrCodeBase64": "...",\n  "pixCopyPaste": "00020126580014br.gov.bcb.pix..."\n}',
+                codes: ["200 OK", "400 Bad Request", "403 Forbidden"]
+            },
+            {
+                id: "donation-status",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/donation/status",
+                auth: "HMAC",
+                title: "Consultar Status do PIX",
+                desc: "Consulta a liquidação da doação e entrega de Coins no personagem.",
+                req: '{\n  "login": "player1",\n  "purchaseId": 8941\n}',
+                res: '{\n  "ok": true,\n  "status": "APPROVED",\n  "delivered": true\n}',
+                codes: ["200 OK", "404 Not Found"]
+            },
+            {
+                id: "donation-history",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/donation/history",
+                auth: "HMAC",
+                title: "Histórico de Doações",
+                desc: "Retorna todas as ordens de doação e compras em shopping da conta.",
+                req: '{\n  "login": "player1"\n}',
+                res: '{\n  "ok": true,\n  "purchases": [...],\n  "shopPurchases": [...]\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "donation-shop-buy",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/donation/shop/buy",
+                auth: "HMAC",
+                title: "Compra no Shopping Virtual",
+                desc: "Entrega itens no inventário do personagem com garantia estrita de idempotência.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "itemId": 6657,\n  "itemCount": 1,\n  "coinPrice": 100,\n  "quantity": 1,\n  "idempotencyKey": "order_uuid_992"\n}',
+                res: '{\n  "ok": true,\n  "message": "Item entregue com sucesso no inventário"\n}',
+                codes: ["200 OK", "400 Bad Request (Saldo insuficiente)", "409 Conflict"]
+            },
+            {
+                id: "vote-status",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/vote/status",
+                auth: "HMAC",
+                title: "Status de Votos (Top L2JBrasil)",
+                desc: "Verifica tempo restante de cooldown para próxima votação pelo IP e conta.",
+                req: '{\n  "login": "player1",\n  "ip": "200.150.10.5"\n}',
+                res: '{\n  "canVote": true,\n  "cooldownSeconds": 0,\n  "rewardItem": "Vote Coin"\n}',
+                codes: ["200 OK"]
+            },
+            {
+                id: "vote-intent",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/vote/intent",
+                auth: "HMAC",
+                title: "Registrar Intenção de Voto",
+                desc: "Gera um token antifraude antes de redirecionar o jogador ao Top L2JBrasil.",
+                req: '{\n  "login": "player1",\n  "characterId": 268480102,\n  "characterName": "DeathKnight",\n  "ip": "200.150.10.5"\n}',
+                res: '{\n  "ok": true,\n  "token": "vt_9918237198273"\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "vote-deliver",
+                cat: "donation",
+                method: "POST",
+                path: "/internal/site/vote/deliver",
+                auth: "HMAC",
+                title: "Entrega de Recompensa de Voto",
+                desc: "Despacha recompensa no jogo acionada pelo webhook oficial de votação.",
+                req: '{\n  "deliveryId": "deliv_88123",\n  "player": "DeathKnight",\n  "ip": "200.150.10.5",\n  "quantity": 1\n}',
+                res: '{\n  "ok": true,\n  "message": "Recompensa de voto entregue"\n}',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+
+            // 7. Rankings
+            {
+                id: "ranking-pvp",
+                cat: "ranking",
+                method: "GET",
+                path: "/internal/site/rankings/pvp",
+                auth: "HMAC",
+                title: "Ranking PvP",
+                desc: "Retorna os top jogadores com mais mortes PvP.",
+                req: "Sem corpo",
+                res: '[\n  { "name": "DeathKnight", "clan": "Imperium", "kills": 1250, "className": "Duelist" }\n]',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "ranking-pk",
+                cat: "ranking",
+                method: "GET",
+                path: "/internal/site/rankings/pk",
+                auth: "HMAC",
+                title: "Ranking PK",
+                desc: "Retorna os maiores infratores PK do servidor.",
+                req: "Sem corpo",
+                res: '[\n  { "name": "Shadow", "clan": "Assassins", "kills": 420, "className": "Ghost Hunter" }\n]',
+                codes: ["200 OK", "400 Bad Request"]
+            },
+            {
+                id: "ranking-clan",
+                cat: "ranking",
+                method: "GET",
+                path: "/internal/site/rankings/clan",
+                auth: "HMAC",
+                title: "Ranking de Clans",
+                desc: "Retorna clans por nível, reputação e número de castelos.",
+                req: "Sem corpo",
+                res: '[\n  { "name": "Imperium", "leader": "DeathKnight", "level": 8, "reputation": 45000, "castle": "Giran" }\n]',
+                codes: ["200 OK", "400 Bad Request"]
+            }
+        ];
+
+        let activeCategory = 'all';
+
+        function renderEndpoints() {
+            const container = document.getElementById('endpoint-list');
+            const query = document.getElementById('global-search').value.toLowerCase().trim();
+            container.innerHTML = '';
+
+            const filtered = ENDPOINTS.filter(ep => {
+                const matchCat = (activeCategory === 'all' || ep.cat === activeCategory);
+                const matchQuery = !query || 
+                                   ep.path.toLowerCase().includes(query) || 
+                                   ep.title.toLowerCase().includes(query) || 
+                                   ep.desc.toLowerCase().includes(query) ||
+                                   ep.method.toLowerCase().includes(query);
+                return matchCat && matchQuery;
+            });
+
+            document.getElementById('endpoint-count').textContent = `Exibindo ${filtered.length} de ${ENDPOINTS.length} endpoints`;
+
+            filtered.forEach(ep => {
+                const methodBadge = ep.method === 'POST' ? 'badge-method-post' : 'badge-method-get';
+                const authBadge = ep.auth === 'HMAC' ? 'badge-hmac' : 'badge-public';
+
+                const card = document.createElement('div');
+                card.className = "bg-cyber-panel border border-cyber-border hover:border-brand-500/50 rounded-xl p-5 transition-all shadow-lg hover:shadow-brand-950/20";
+                card.innerHTML = `
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 cursor-pointer" onclick="toggleDetails('${ep.id}')">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-mono font-bold ${methodBadge}">
+                                ${ep.method}
+                            </span>
+                            <span class="font-mono text-sm font-semibold text-slate-200">${ep.path}</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-bold ${authBadge}">
+                                ${ep.auth}
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs text-slate-400">
+                            <span class="font-medium text-slate-300">${ep.title}</span>
+                            <span class="text-brand-400 font-mono" id="icon-${ep.id}">▼</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-400 mt-2">${ep.desc}</p>
+
+                    <!-- Expandable Details -->
+                    <div id="details-${ep.id}" class="hidden mt-4 pt-4 border-t border-cyber-border space-y-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <!-- Request Payload -->
+                            <div class="space-y-1.5">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Request Body (JSON)</span>
+                                <pre class="bg-cyber-dark p-3 rounded-lg border border-cyber-border font-mono text-xs text-cyber-blue overflow-x-auto"><code>${ep.req}</code></pre>
+                            </div>
+
+                            <!-- Response Payload -->
+                            <div class="space-y-1.5">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Exemplo de Resposta (JSON)</span>
+                                <pre class="bg-cyber-dark p-3 rounded-lg border border-cyber-border font-mono text-xs text-cyber-cyan overflow-x-auto"><code>${ep.res}</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Status Codes -->
+                        <div class="flex items-center space-x-2 pt-1">
+                            <span class="text-xs text-slate-400 font-medium">Status HTTP Suportados:</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${ep.codes.map(c => `<span class="px-2 py-0.5 rounded bg-cyber-card border border-cyber-border text-[11px] font-mono text-slate-300">${c}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleDetails(id) {
+            const el = document.getElementById(`details-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.textContent = '▲';
+            } else {
+                el.classList.add('hidden');
+                icon.textContent = '▼';
+            }
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-400 hover:text-slate-200 hover:bg-cyber-card";
+            });
+            event.currentTarget.className = "cat-btn w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-brand-600/20 text-brand-300 border border-brand-500/30";
+            renderEndpoints();
+        }
+
+        function switchCodeTab(lang) {
+            ['js', 'py', 'kt', 'curl'].forEach(l => {
+                document.getElementById(`code-${l}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${l}`).className = "px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition-all";
+            });
+            document.getElementById(`code-${lang}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${lang}`).className = "px-3 py-1.5 rounded-md bg-brand-600 text-white transition-all";
+        }
+
+        function copyCode(btn) {
+            const code = btn.previousElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const old = btn.textContent;
+                btn.textContent = 'Copiado!';
+                btn.classList.add('bg-cyber-cyan', 'text-black');
+                setTimeout(() => {
+                    btn.textContent = old;
+                    btn.classList.remove('bg-cyber-cyan', 'text-black');
+                }, 2000);
+            });
+        }
+
+        document.getElementById('global-search').addEventListener('input', renderEndpoints);
+        window.addEventListener('DOMContentLoaded', renderEndpoints);
+    </script>
+</body>
+</html>

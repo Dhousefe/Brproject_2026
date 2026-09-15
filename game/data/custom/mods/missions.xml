@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<mission type="MONSTER" name="Monster Killer" icon="icon.skill0018" desc="Kill %remain% more monsters">
+		<stage level="1" required="500" reward="3470-2"/>
+		<stage level="2" required="1000" reward="3470-4"/>
+		<stage level="3" required="2500" reward="3470-6"/>
+		<stage level="4" required="5000" reward="3470-8"/>
+		<stage level="5" required="10000" reward="3470-10"/>
+		<stage level="6" required="25000" reward="3470-12"/>
+	</mission>
+	<mission type="SPOIL" name="Spoil" icon="icon.skill0254" desc="Spoil %remain% more monsters"><!-- Hidden for player without spoil skill -->
+		<stage level="1" required="500" reward="3470-2"/>
+		<stage level="2" required="1000" reward="3470-4"/>
+		<stage level="3" required="2500" reward="3470-6"/>
+		<stage level="4" required="5000" reward="3470-8"/>
+		<stage level="5" required="10000" reward="3470-10"/>
+		<stage level="6" required="25000" reward="3470-12"/>
+	</mission>
+	<mission type="PVP" name="PvP Killer" icon="icon.skill0223" desc="Kill %remain% more flagged players" >
+		<stage level="1" required="100" reward="3470-15"/>
+		<stage level="2" required="250" reward="3470-30"/>
+		<stage level="3" required="500" reward="3470-40"/>
+		<stage level="4" required="1000" reward="3470-70"/>
+		<stage level="5" required="2500" reward="3470-100"/>
+	</mission>
+	<mission type="PK" name="PK Killer" icon="icon.skill0046" desc="Execute %remain% more players">
+		<stage level="1" required="100" reward="3470-15"/>
+		<stage level="2" required="250" reward="3470-30"/>
+		<stage level="3" required="500" reward="3470-40"/>
+		<stage level="4" required="1000" reward="3470-70"/>
+		<stage level="5" required="2500" reward="3470-100"/>
+	</mission>
+	<mission type="KARMA" name="Karma" icon="icon.skill0096" desc="Reach %remain% karma as higher value"><!-- Not count when Cursed Weapons Equipted -->
+		<stage level="1" required="5000" reward="3470-5"/>
+		<stage level="2" required="10000" reward="3470-10"/>
+		<stage level="3" required="25000" reward="3470-15"/>
+		<stage level="4" required="50000" reward="3470-20"/>
+		<stage level="5" required="100000" reward="3470-25"/>
+	</mission>
+	<mission type="DEATHS" name="Zombie Player" icon="icon.skill0060" desc="Die %remain% more time(s)">
+		<stage level="1" required="100" reward="3470-3"/>
+		<stage level="2" required="250" reward="3470-6"/>
+		<stage level="3" required="500" reward="3470-12"/>
+		<stage level="4" required="1000" reward="3470-18"/>
+		<stage level="5" required="2500" reward="3470-24"/>
+	</mission>
+	<mission type="GUARD" name="Guard Killer" icon="icon.mticket_bow_fix_i00" desc="Kill %remain% more Siege Guards NPC's">
+		<stage level="1" required="25" reward="3470-2"/>
+		<stage level="2" required="50" reward="3470-4"/>
+		<stage level="3" required="100" reward="3470-6"/>
+		<stage level="4" required="250" reward="3470-15"/>
+	</mission>
+	<mission type="DUAL_WON" name="Dual Fighter" icon="icon.skill0340" desc="Win %remain% more dual fights">
+		<stage level="1" required="50" reward="3470-5"/>
+		<stage level="2" required="100" reward="3470-10"/>
+		<stage level="3" required="250" reward="3470-15"/>
+		<stage level="4" required="500" reward="3470-25"/>
+		<stage level="5" required="1000" reward="3470-40"/>
+	</mission>
+	<mission type="CURSED_WEAPON" name="Cursed Fighter" icon="icon.weapon_unique_zariche_i00" desc="Be owner of cursed weapon for %remain% more times">
+		<stage level="1" required="3" reward="3470-6"/>
+		<stage level="2" required="5" reward="3470-12"/>
+		<stage level="3" required="10" reward="3470-18"/>
+		<stage level="4" required="15" reward="3470-23"/>
+		<stage level="5" required="25" reward="3470-30"/>
+	</mission>
+	<mission type="SUBCLASS" name="Subclass" icon="icon.skill0430" desc="Complete %remain% subclass" >
+		<stage level="1" required="1" reward="3470-5"/>
+		<stage level="2" required="2" reward="3470-10"/>
+		<stage level="3" required="3" reward="3470-15"/>
+	</mission>
+	<mission type="NOBLE" name="Noblessed" icon="icon.skill1323" desc="Become a nobless player"><!-- One Time Achievement -->
+		<stage reward="3470-30"/>
+	</mission>
+	<mission type="MARRIED" name="Married" icon="icon.armor_t2000_ul_i00" desc="Become a married player"><!-- One Time Achievement -->
+		<stage reward="3470-5"/>
+	</mission>
+	<mission type="OLYMPIAD_FIGHT" name="Olympiad Fighter" icon="icon.accessory_hero_cap_i00" desc="Fight %remain% more grand olympiad game(s)">
+		<stage level="1" required="5" reward="3470-2"/>
+		<stage level="2" required="10" reward="3470-4"/>
+		<stage level="3" required="25" reward="3470-8"/>
+		<stage level="4" required="50" reward="3470-12"/>
+		<stage level="5" required="100" reward="3470-15"/>
+	</mission>
+	<mission type="OLYMPIAD_FIGHT_WON" name="Olympiad Winner" icon="icon.etc_nobless_teleport_coupon_i00" desc="Win %remain% more grand olympiad game(s)">
+		<stage level="1" required="5" reward="3470-2"/>
+		<stage level="2" required="10" reward="3470-4"/>
+		<stage level="3" required="25" reward="3470-8"/>
+		<stage level="4" required="50" reward="3470-15"/>
+		<stage level="5" required="100" reward="3470-20"/>
+	</mission>
+	<mission type="OLYMPIAD_FIGHT_LOST" name="Olympiad Loser" icon="icon.skill0106" desc="Lost %remain% more grand olympiad game(s)">
+		<stage level="1" required="5" reward="3470-2"/>
+		<stage level="2" required="10" reward="3470-4"/>
+		<stage level="3" required="25" reward="3470-6"/>
+		<stage level="4" required="50" reward="3470-8"/>
+		<stage level="5" required="100" reward="3470-10"/>
+	</mission>
+	<mission type="HEROIC" name="Heroic" icon="icon.weapon_the_mace_of_hero_i00" desc="Become a hero player %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-100"/>
+		<stage level="2" required="3" reward="3470-200"/>
+		<stage level="3" required="10" reward="3470-500"/>
+	</mission>
+	<mission type="LEADER" name="Leader" icon="icon.skill0378" desc="Become a leader of a clan"><!-- One Time Achievement -->
+		<stage reward="6407-5"/>
+	</mission>
+	<mission type="ACADEMY" name="Academy" icon="icon.accessory_academy_i00" desc="Complete clan academy training"><!-- One Time Achievement -->
+		<stage reward="6407-5"/>
+	</mission>
+	<mission type="CLAN_LEVEL_UP" name="Clan Leveling" icon="icon.skill0370" desc="Raise your clan up to level %remain%"><!-- Hidden for non leader player -->
+		<stage level="1" required="5" reward="6407-5"/>
+		<stage level="2" required="6" reward="3470-20"/>
+		<stage level="3" required="7" reward="3470-25"/>
+		<stage level="4" required="8" reward="3470-30"/>
+	</mission>
+	<mission type="CASTLE" name="Castle" icon="icon.skill0391" desc="Become lord of castle castle"><!-- One Time Achievement - Hidden for non leader player -->
+		<stage reward="3470-25"/>
+	</mission>
+	<mission type="ENCHANT_SKILL" name="Enchant Skill" icon="icon.etc_codex_of_giant_i00" desc="Enchant a skill up to +%remain%">
+		<stage level="1" required="9" reward="6622-1"/>
+		<stage level="2" required="12" reward="6622-3"/>
+		<stage level="3" required="15" reward="6622-4"/>
+		<stage level="4" required="20" reward="6622-10"/>
+		<stage level="5" required="30" reward="6622-25"/>
+	</mission>
+	<mission type="ENCHANT_WEAPON" name="Enchant Weapon" icon="icon.weapon_shining_bow_i00" desc="Enchant an weapon item up to +%remain%" >
+		<stage level="1" required="4" reward="3470-5"/>
+		<stage level="2" required="7" reward="3470-10"/>
+		<stage level="3" required="10" reward="3470-15"/>
+		<stage level="4" required="15" reward="3470-20"/>
+		<stage level="5" required="16" reward="3470-25"/>
+	</mission>
+	<mission type="ENCHANT_OTHER" name="Enchant Item" icon="icon.armor_t81_ul_i00" desc="Enchant an non-weapon item up to +%remain%">
+		<stage level="1" required="4" reward="3470-5"/>
+		<stage level="2" required="7" reward="3470-10"/>
+		<stage level="3" required="10" reward="3470-15"/>
+		<stage level="4" required="15" reward="3470-20"/>
+		<stage level="5" required="16" reward="3470-25"/>
+	</mission>
+	<mission type="ENCHANT_SUCCESS" name="Enchant Success" icon="icon.etc_blessed_scrl_of_ench_wp_s_i05" desc="Success %remain% more enchant scroll(s)">
+		<stage level="1" required="100" reward="8762-3"/>
+		<stage level="2" required="250" reward="8762-5"/>
+		<stage level="3" required="500" reward="8762-7"/>
+		<stage level="4" required="1000" reward="8762-10"/>
+		<stage level="5" required="2500" reward="8762-15"/>
+	</mission>
+	<mission type="ENCHANT_FAILED" name="Enchant Failed" icon="icon.etc_crystal_gold_i00" desc="Fail %remain% more enchant scroll(s)">
+		<stage level="1" required="50" reward="3470-5"/>
+		<stage level="2" required="100" reward="3470-10"/>
+		<stage level="3" required="250" reward="3470-15"/>
+		<stage level="4" required="500" reward="3470-20"/>
+		<stage level="5" required="1000" reward="3470-25"/>
+	</mission>
+	<mission type="AUGMENT" name="Life Stone" icon="icon.etc_mineral_unique_i03" desc="Use %remain% more lifestone(s)">
+		<stage level="1" required="25" reward="8752-2"/>
+		<stage level="2" required="50" reward="8752-4"/>
+		<stage level="3" required="100" reward="8752-6"/>
+		<stage level="4" required="250" reward="8752-8"/>
+		<stage level="5" required="500" reward="8752-10"/>
+	</mission>
+	<mission type="RECIPE_LEARN" name="Learn Recipe" icon="icon.etc_recipe_black_i00" desc="Learn %remain% more recipe(s)">
+		<stage level="1" required="3" reward="6407-1"/>
+		<stage level="2" required="5" reward="6407-2"/>
+		<stage level="2" required="10" reward="6407-3"/>
+	</mission>
+	<mission type="CRAFT_SUCCESS" name="Success Craft" icon="icon.etc_blacksmiths_frame_i00" desc="Success crafting %remain% more item(s)">
+		<stage level="1" required="5" reward="6407-1"/>
+		<stage level="2" required="10" reward="6407-2"/>
+		<stage level="3" required="15" reward="6407-3"/>
+		<stage level="4" required="20" reward="6407-4"/>
+		<stage level="5" required="25" reward="6407-5"/>
+		<stage level="6" required="50" reward="6407-6"/>
+	</mission>
+	<mission type="CRAFT_FAIL" name="Fail Craft" icon="icon.etc_mithril_ore_i00" desc="Fail crafting %remain% more item(s)">
+		<stage level="1" required="5" reward="6407-1"/>
+		<stage level="2" required="10" reward="6407-2"/>
+		<stage level="3" required="15" reward="6407-3"/>
+		<stage level="4" required="20" reward="6407-4"/>
+		<stage level="5" required="25" reward="6407-5"/>
+		<stage level="6" required="50" reward="6407-6"/>
+	</mission>
+	<mission type="FISHING" name="Fisherman" icon="icon.skill1315" desc="Succes fishing %remain% more time(s)">
+		<stage level="1" required="5" reward="6407-1"/>
+		<stage level="2" required="10" reward="6407-2"/>
+		<stage level="3" required="25" reward="6407-3"/>
+		<stage level="4" required="50" reward="6407-4"/>
+		<stage level="5" required="100" reward="6407-5"/>
+	</mission>
+	<mission type="LOTTERY_WIN" name="Lottery" icon="icon.etc_lottery_card_i00" desc="Win %remain% more lottery games(s)">
+		<stage level="1" required="5" reward="6407-1"/>
+		<stage level="2" required="10" reward="6407-2"/>
+		<stage level="3" required="25" reward="6407-3"/>
+		<stage level="4" required="50" reward="6407-4"/>
+		<stage level="5" required="100" reward="6407-5"/>
+	</mission>
+	<mission type="RECOMMEND" name="Recommend" icon="icon.action040" desc="Recommend a player %remain% more time(s)">
+		<stage level="1" required="25" reward="6407-1"/>
+		<stage level="2" required="50" reward="6407-2"/>
+		<stage level="3" required="100" reward="6407-3"/>
+		<stage level="4" required="175" reward="6407-4"/>
+		<stage level="5" required="255" reward="6407-5"/>
+	</mission>
+	<mission type="RECOMMENDED" name="Honored" icon="icon.etc_lesser_potion_blue_i00" desc="Become recommended from player %remain% more time(s)">
+		<stage level="1" required="25" reward="6407-1"/>
+		<stage level="2" required="50" reward="6407-2"/>
+		<stage level="3" required="100" reward="6407-3"/>
+		<stage level="4" required="250" reward="6407-4"/>
+		<stage level="5" required="500" reward="6407-5"/>
+	</mission>
+	<mission type="RESSURECT" name="Ressurect" icon="icon.etc_scroll_of_resurrection_i00" desc="Ressurect dead player %remain% more time(s)">
+		<stage level="1" required="25" reward="3936-3"/>
+		<stage level="2" required="50" reward="3936-5"/>
+		<stage level="3" required="100" reward="3936-10"/>
+		<stage level="4" required="150" reward="3936-15"/>
+		<stage level="5" required="250" reward="3936-20"/>
+	</mission>
+	<mission type="RESSURECTED" name="Ressurected" icon="icon.skill1016" desc="Be ressurected from player %remain% more time(s)">
+		<stage level="1" required="25" reward="3936-3"/>
+		<stage level="2" required="50" reward="3936-5"/>
+		<stage level="3" required="100" reward="3936-10"/>
+		<stage level="4" required="250" reward="3936-15"/>
+		<stage level="5" required="500" reward="3936-20"/>
+	</mission>
+	<mission type="ENTER_RIFT" name="Rift Fighter" icon="icon.etc_broken_crystal_blue_i00" desc="Enter on Dimensional Rift %remain% more time(s)">
+		<stage level="1" required="5" reward="7079-100"/>
+		<stage level="2" required="10" reward="7079-200"/>
+		<stage level="3" required="25" reward="7079-300"/>
+		<stage level="4" required="50" reward="7079-400"/>
+		<stage level="5" required="100" reward="7079-500"/>
+	</mission>
+	<mission type="SPAWN_CHRISTMAS_TREE" name="Christmas Tree" icon="icon.etc_x_mas_tree_i00" desc="Spawn %remain% more special christmas tree(s)">
+		<stage level="1" required="5" reward="57-1000"/>
+		<stage level="2" required="10" reward="57-1000"/>
+		<stage level="3" required="25" reward="57-1000"/>
+		<stage level="4" required="50" reward="57-1000"/>
+		<stage level="5" required="100" reward="57-1000"/>
+	</mission>
+	<mission type="QUEST_COMPLETE" name="Quest" icon="icon.etc_scroll_gray_i00" desc="Complete %remain% more quest(s)">
+		<stage level="1" required="5" reward="3470-2"/>
+		<stage level="2" required="10" reward="3470-4"/>
+		<stage level="3" required="25" reward="3470-6"/>
+		<stage level="4" required="50" reward="3470-8"/>
+		<stage level="5" required="100" reward="3470-10"/>
+	</mission>
+	<mission type="RAIDBOSS" name="Raidboss Killer" icon="icon.skill4111" desc="Kill RaidBoss %remain% more time(s)">
+		<stage level="1" required="10" reward="3470-5"/>
+		<stage level="2" required="25" reward="3470-15"/>
+		<stage level="3" required="50" reward="3470-35"/>
+		<stage level="4" required="100" reward="3470-50"/>
+		<stage level="5" required="250" reward="3470-100"/>
+	</mission>
+	<mission type="GRANDBOSS" name="Grandboss Killer" icon="icon.skill4108" desc="Kill GrandBoss %remain% more time(s)" >
+		<stage level="1" required="5" reward="3470-20"/>
+		<stage level="2" required="10" reward="3470-25"/>
+		<stage level="3" required="25" reward="3470-30"/>
+		<stage level="4" required="50" reward="3470-35"/>
+		<stage level="5" required="100" reward="3470-50"/>
+	</mission>
+	<mission type="TYRANNOSAURUS" name="Tyrannosaurus" icon="icon.skill5083" desc="Kill Tyrannosaurus %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-2"/>
+		<stage level="2" required="3" reward="3470-4"/>
+		<stage level="3" required="5" reward="3470-5"/>
+		<stage level="4" required="10" reward="3470-10"/>
+		<stage level="5" required="25" reward="3470-15"/>
+	</mission>
+	<mission type="QUEEN_ANT" name="Queen Ant" icon="icon.accessory_ring_of_queen_ant_i00" desc="Kill Queen Ant %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="CORE" name="Core" icon="icon.accessory_ring_of_core_i00" desc="Kill Core %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="ORFEN" name="Orfen" icon="icon.accessory_earring_of_orfen_i00" desc="Kill Orfen %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="ZAKEN" name="Zaken" icon="icon.accessory_earring_of_zaken_i00" desc="Kill Zaken %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="BAIUM" name="Baium" icon="icon.accessory_ring_of_baium_i00" desc="Kill Baium %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="HALISHA" name="Halisha" icon="icon.accessory_necklace_of_frintessa_i00" desc="Kill Halisha %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="ANTHARAS" name="Antharas" icon="icon.accessory_earring_of_antaras_i00" desc="Kill Antharas %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+	<mission type="VALAKAS" name="Valakas" icon="icon.accessory_necklace_of_valakas_i00" desc="Kill Valakas %remain% more time(s)">
+		<stage level="1" required="1" reward="3470-10"/>
+		<stage level="2" required="3" reward="3470-20"/>
+		<stage level="3" required="5" reward="3470-30"/>
+	</mission>
+</list>

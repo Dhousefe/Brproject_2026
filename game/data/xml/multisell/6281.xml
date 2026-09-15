@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31555</npc><!-- Abercrombie (Mercenary Supplier) -->
+	</npcs>
+	<item>
+		<ingredient id="7251" count="1"/><!-- q_goldenram_coin -->
+		<production id="7725" count="1"/><!-- q_dirty_gray_sac -->
+	</item>
+	<item>
+		<ingredient id="7251" count="10"/><!-- q_goldenram_coin -->
+		<production id="7562" count="1"/><!-- q_dimension_diamond -->
+	</item>
+</list>

@@ -1,0 +1,54 @@
+<html><body>
+<br>
+<center><font color=LEVEL>Macro</font></center>
+<br>
+You can set a specific custom action to be executed as soon as the Auto Farm is stopped by the <a action="bypass autofarm timer">timer</a>.
+<br>
+If the character is attacking at the final moment, the shutdown will be delayed until the monster is killed.
+<br>
+%msg%
+<table>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro set ESCAPE 0" width=14 height=14 back=L2UI.control.checkBox_%ESCAPE% fore=L2UI.control.checkBox_%ESCAPE%>
+                    </td>
+                    <td width=180>
+                        Teleport (escape/unstuck)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro set LOGOUT 0" width=14 height=14 back=L2UI.control.checkBox_%LOGOUT% fore=L2UI.control.checkBox_%LOGOUT%>
+                    </td>
+                    <td>
+                        Disconnect (close the game)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro %item_bypass%" width=14 height=14 back=L2UI.control.checkBox_%ITEM% fore=L2UI.control.checkBox_%ITEM%>
+                    </td>
+                    <td>
+                        Use item %item_name%
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button action="bypass autofarm macro %skill_bypass%" width=14 height=14 back=L2UI.control.checkBox_%SKILL% fore=L2UI.control.checkBox_%SKILL%>
+                    </td>
+                    <td>
+                        Use skill %skill_name%
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br>
+<center><button value="Back" action="bypass autofarm index" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></center>
+</body></html>

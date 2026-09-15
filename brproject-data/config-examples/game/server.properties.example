@@ -1,0 +1,254 @@
+# ================================================================
+#                          Gameserver setting
+# ================================================================
+# This is transmitted to the clients, so it has to be an IP or resolvable hostname. If this ip is resolvable by Login just leave *
+Hostname = localhost
+
+# Bind ip of the gameserver, use * to bind on all available IPs.
+GameserverHostname = *
+GameserverPort = 7777
+
+# The Loginserver host and port.
+LoginHost = 127.0.0.1
+LoginPort = 9014
+
+# This is the server id that the gameserver will request.
+RequestServerID = 1
+
+# If set to true, the login will give an other id to the server (if the requested id is already reserved).
+AcceptAlternateID = True
+
+# Use Blowfish cipher to encrypt packet data between server and client (by default: True).
+# /!\ Don't edit this value and reload config while the server is running. It would lead to all connected clients to become unresponsive (waiting de/crypted packets, but receiving the versus).
+UseBlowfishCipher = True
+
+# ================================================================
+#                        Database informations
+# ================================================================
+
+sql.url = jdbc:mariadb://localhost/l2jdb?useUnicode=true&characterEncoding=UTF-8
+#sql.url = jdbc:mysql://localhost/l2jdb?serverTimezone=UTC&characterEncoding=UTF-8&permitMysqlScheme
+#sql.url = jdbc:hsqldb:hsql://localhost/l2jdb
+#sql.url = jdbc:sqlserver://localhost/database=l2jdb/user=sa/password=
+
+sql.login = root
+sql.password = root
+
+# Character Name Template.
+# Default is .* (all characters are allowed)
+# To allow only Russian or only English names (it's not allowed to use both Russian and English letters in one name), use ^[A-Za-z0-9]{1,16}$
+CnameTemplate = .*
+
+# Character Name Template in Donation Shop.
+# Default is .* (all characters are allowed)
+# To allow only Russian or only English names (it's not allowed to use both Russian and English letters in one name), use ^[A-Za-z0-9]{1,16}$
+DonateCnameTemplate = .*
+
+# Character Title Template.
+# Default is .* (all characters are allowed)
+# To allow only Russian or only English names (it's not allowed to use both Russian and English letters in one name), use ^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$
+TitleTemplate = .*
+
+# This regulation limits the names that a player can give to their pet.
+# Default is .* (all characters are allowed)
+# To allow only Russian or only English names (it's not allowed to use both Russian and English letters in one name), use ^[A-Za-z0-9]{1,16}$
+PetNameTemplate = .*
+
+# Template for the names of clans/alliances.
+# Default is .* (all characters are allowed)
+# To allow only Russian or only English names (it's not allowed to use both Russian and English letters in one name), use ^[A-Za-z0-9]{2,16}$
+ClanAllyNameTemplate = .*
+
+# ================================================================
+#                             serverList
+# ================================================================
+# Displays [] in front of server name.
+ServerListBrackets = True
+
+# Displays a clock next to the server name.
+ServerListClock = True
+
+# List server according age.
+ServerListAgeLimit = 0
+
+# If True, the server will be set as GM only.
+ServerGMOnly = False
+
+# If True, the server will be a test server (listed by testserver clients only).
+TestServer = False
+
+# If True, the server will be listed as a regular PvP server.
+PvpServer = True
+
+# ================================================================
+#                      Clients related options
+# ================================================================
+# Delete characters after D days - 0 deletes the character immediately.
+DeleteCharAfterDays = 7
+
+# Define how many players are allowed to play simultaneously on your server.
+MaximumOnlineUsers = 3000
+
+# ================================================================
+#                          Automatic options
+# ================================================================
+# AutoLoot, don't lead herbs behavior. False by default.
+AutoLoot = True
+
+# AutoLoot from raid boss. False by default.
+AutoLootRaid = False
+
+# If False, herbs will drop on ground even if AutoLoot is enabled. False by default.
+AutoLootHerbs = False
+
+# Specific item ids for auto pickup.
+# Overrides all methods above.
+# Format: itemId,itemId,itemId,....
+AutoLootItemIds = 0
+
+# =================================================================
+#                          Items Management
+# =================================================================
+# Allows players to drop items on the ground, default True.
+AllowDiscardItem = True
+
+# Allows the creation of multiple non-stackable items at one time, default True.
+MultipleItemDrop = True
+
+# Destroys dropped herbs after X seconds, set 0 to disable, default 15.
+AutoDestroyHerbTime = 15
+
+# Destroys dropped items after X seconds, set 0 to disable, default 600.
+AutoDestroyItemTime = 300
+
+# Destroys dropped equipable items (armor, weapon, jewelry) after X seconds, set 0 to disable, default 0.
+AutoDestroyEquipableItemTime = 0
+
+# Destroys dropped items after specified time. Ignores rules above, default 57-0,5575-0,6673-0.
+# 57-0: Item id 57 will never be destroyed.
+# 57-600: Item id 57 will be destroyed after 600 seconds/10 minutes.
+AutoDestroySpecialItemTime = 57-0,5575-0,6673-0
+
+# Items dropped by players will have destroy time multiplied by X, default 1.
+# 0: Items dropped by players will never be destroyed.
+PlayerDroppedItemMultiplier = 1
+
+# =================================================================
+#                        Allowed features
+# =================================================================
+AllowFreight = True
+AllowWarehouse = True
+
+# If True, player can try on weapon and armor in shops.
+# Each item tried cost WearPrice adena.
+AllowWear = True
+WearDelay = 5
+WearPrice = 10
+
+# "Allow" types - Read variable name for info about ;p.
+AllowLottery = True
+AllowWater = True
+AllowCursedWeapons = True
+AllowManor = True
+AllowBoat = True
+AllowShadowWeapon = True
+
+# Allow characters to receive damage from falling.
+EnableFallingDamage = True
+
+# ================================================================
+#                      Debug, Dev & Test config
+# ================================================================
+# Don't load spawns.
+NoSpawns = False
+
+# Debug messages (by default False, easily "flood" your GS logs).
+Developer = false
+PacketHandlerDebug = False
+
+# Packet names that are excluded from debugging, separated by commas.
+ClientPacket = ValidatePosition
+ServerPacket = AbnormalStatusUpdate,AcquireSkillList,Attack,AutoAttackStart,AutoAttackStop,DeleteObject,ExAutoSoulShot,ExStorageMaxCount,MoveToLocation,NpcInfo,NpcSay,SkillCoolTime,SocialAction,StatusUpdate,UserInfo
+
+# =================================================================
+#                         Logging features
+# =================================================================
+# Logging ChatWindow.
+LogChat = False
+
+# Logging Item handling NOTE: This can be very space consuming.
+LogItems = False
+
+# Logging items dropped from mobs. NOTE: This can be very space consuming.
+DropItems = False
+
+# Log GM actions.
+GMAudit = False
+
+# =================================================================
+#                    Community board configuration
+# =================================================================
+# Activate or no the community board.
+EnableCommunityBoard = False
+# Activate or no the custom community board.
+EnableCustomBbs = True
+
+# Show this community board section when you open it.
+BBSDefault = _bbshome
+
+# =================================================================
+#                          Flood Protectors
+# =================================================================
+# The values are shown on ms. They can be set to 0 to be disabled.
+RollDiceTime = 4200
+HeroVoiceTime = 10000
+SubclassTime = 2000
+DropItemTime = 1000
+ServerBypassTime = 100
+MultisellTime = 100
+ManufactureTime = 300
+ManorTime = 3000
+SendMailTime = 10000
+CharacterSelectTime = 3000
+GlobalChatTime = 0
+TradeChatTime = 0
+SocialTime = 2000
+ItemTime = 0
+ActionTime = 0
+
+# =================================================================
+#                            Threadpool
+# =================================================================
+
+# Determines the amount of scheduled thread pools. If set to -1, the server will decide the amount depending on the available processors.
+ScheduledThreadPoolCount = -1
+
+# Specifies how many threads will be in a single scheduled pool.
+ThreadsPerScheduledThreadPool = 750
+
+# Determines the amount of instant thread pools. If set to -1, the server will decide the amount depending on the available processors.
+InstantThreadPoolCount = -1
+
+# Specifies how many threads will be in a single instant pool.
+ThreadsPerInstantThreadPool = 4
+
+# =================================================================
+#                                Misc
+# =================================================================
+# Basic protection against L2Walker.
+L2WalkerProtection = True
+
+# Zone setting.
+#   0 = Peace All the Time
+#   1 = PVP During Siege for siege participants
+#   2 = PVP All the Time
+ZoneTown = 0
+
+# Show "data/html/servnews.htm" when a character logins.
+ShowServerNews = False
+
+# ---------------------------------------------------------------------------
+# Ktor webserver (Dashboard > Site Ktor)
+# Use 127.0.0.1 for local-only, 0.0.0.0 for all interfaces, or a LAN IP.
+KtorWebServerIp=127.0.0.1
+KtorWebServerPort=8080

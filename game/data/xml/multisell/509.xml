@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30232</npc><!-- Warehouse Keeper Sorint -->
+	</npcs>
+	<item>
+		<ingredient id="3480" count="2"/><!-- q_nias_blood_medusa -->
+		<ingredient id="3475" count="2"/><!-- q_blood_drevanul -->
+		<ingredient id="3485" count="2"/><!-- q_gold_drake -->
+		<ingredient id="3483" count="3"/><!-- q_gold_knight -->
+		<production id="852" count="1"/><!-- moonstone_earing -->
+	</item>
+	<item>
+		<ingredient id="3480" count="7"/><!-- q_nias_blood_medusa -->
+		<ingredient id="3483" count="5"/><!-- q_gold_knight -->
+		<ingredient id="3475" count="5"/><!-- q_blood_drevanul -->
+		<ingredient id="3494" count="5"/><!-- q_silver_golem -->
+		<production id="855" count="1"/><!-- nassen_s_earing -->
+	</item>
+	<item>
+		<ingredient id="3489" count="5"/><!-- q_nias_gold_wyvern -->
+		<ingredient id="3494" count="4"/><!-- q_silver_golem -->
+		<ingredient id="3485" count="4"/><!-- q_gold_drake -->
+		<ingredient id="3475" count="4"/><!-- q_blood_drevanul -->
+		<production id="886" count="1"/><!-- ring_of_binding -->
+	</item>
+	<item>
+		<ingredient id="3498" count="5"/><!-- q_nias_silver_fairy -->
+		<ingredient id="3475" count="3"/><!-- q_blood_drevanul -->
+		<ingredient id="3491" count="3"/><!-- q_silver_fairy -->
+		<ingredient id="3483" count="3"/><!-- q_gold_knight -->
+		<production id="916" count="1"/><!-- necklace_of_protection -->
+	</item>
+</list>

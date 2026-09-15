@@ -1,0 +1,33 @@
+<html>
+<title>Информация о NPC</title>
+<body>
+	<center>
+		<table width=260>
+			<tr>
+				<td><button value="Общий" action="bypass -h admin_info" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="АИ" action="bypass -h admin_info ai" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Спавн" action="bypass -h admin_info spawn" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Статы" action="bypass -h admin_info stat" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			</tr>
+		</table>
+		<img src="L2UI.SquareWhite" width=260 height=1><br>
+
+		<font color="LEVEL">Информация о спавне</font>
+		<table width="100%">
+			<tr><td width=100><font color="LEVEL">Спавн:</font></td><td align=right width=170>%spawn%</td></tr>
+			<tr><td width=100><font color="LEVEL">Описание спавна:</font></td><td align=right width=170>%spawndesc%</td></tr>
+			<tr><td width=100><font color="LEVEL">Инфор. о спавне:</font></td><td align=right width=170>%spawninfo%</td></tr>
+			<tr><td width=100><font color="LEVEL">Местоположение:</font></td><td align=right width=170>%loc%</td></tr>
+			<tr><td width=100><font color="LEVEL">Расстояние:</font></td><td align=right width=170>2D: %loc2d%, 3D: %loc3d%, Вы: %dist%</td></tr>
+			<tr><td width=100><font color="LEVEL">Воскрешение:</font></td><td align=right width=170>%resp%</td></tr>
+			<tr><td width=100><font color="LEVEL">Случ. воскр.:</font></td><td align=right width=170>%rand_resp%</td></tr>
+			<tr><td width=100><font color="LEVEL">Задержка трупа:</font></td><td align=right width=170>%corpse%</td></tr>
+			<tr><td width=100><font color="LEVEL">Приваты:</font></td><td align=right width=170>%privates%</td></tr>
+		</table><br>
+		
+		<font color="LEVEL">Информация о миньоне</font><br>
+		<table width="100%">
+			<tr><td>%minion%</td></tr>
+		</table>
+	</center>
+</body></html>

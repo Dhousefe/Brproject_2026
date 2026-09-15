@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+	<!-- add your item <set name="handler" val="CapsuleBox" /> -->
+	<!-- <items id="6393" playerLevel="1">
+		<item itemId="2407" min="1" max="1" enchantLevel="5" chance="10" />
+		<item itemId="512" min="1" max="1" enchantLevel="10" chance="20" />
+		<item itemId="5767" min="1" max="1" enchantLevel="15" chance="30" />
+		<item itemId="5779" min="1" max="1" enchantLevel="20" chance="40" />
+	</items>
+	<items id="6388" playerLevel="1">
+		<item itemId="6379" min="1" max="1" enchantLevel="5" chance="50" />
+		<item itemId="6382" min="1" max="1" enchantLevel="10" chance="60" />
+		<item itemId="6380" min="1" max="1" enchantLevel="15" chance="70" />
+		<item itemId="6381" min="1" max="1" enchantLevel="20" chance="80" />
+	</items> -->
+</list>

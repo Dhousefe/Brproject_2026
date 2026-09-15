@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+    <npcs>
+        <npc>50009</npc>
+    </npcs>
+
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12370" count="1"/><!-- Packet Vitality -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12371" count="1"/><!-- Packet Spirituality -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12372" count="1"/><!-- Packet Essence -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12373" count="1"/><!-- Packet Lifeblood -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12374" count="1"/><!-- Packet Morale -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12375" count="1"/><!-- Packet Clarity -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12376" count="1"/><!-- Packet Might -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12377" count="1"/><!-- Packet Aegis -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12378" count="1"/><!-- Packet Empowerment -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12379" count="1"/><!-- Packet Magic Protection -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12380" count="1"/><!-- Packet Guidance -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12381" count="1"/><!-- Packet Agility -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12382" count="1"/><!-- Packet Withstand-Attack -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12383" count="1"/><!-- Packet Shield Boost -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12384" count="1"/><!-- Packet Cyclonic Resistance -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12385" count="1"/><!-- Packet Magmatic Resistance -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12386" count="1"/><!-- Packet Fortitude -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12387" count="1"/><!-- Packet Freedom -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12388" count="1"/><!-- Packet Vigilance -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12389" count="1"/><!-- Packet March -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12390" count="1"/><!-- Packet Luck -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12391" count="1"/><!-- Packet Imperium -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12392" count="1"/><!-- Packet Experience -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="12393" count="1"/><!-- Packet Meditation -->
+    </item>
+</list>

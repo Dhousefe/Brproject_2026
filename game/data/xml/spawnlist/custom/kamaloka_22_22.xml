@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<territory name="kamaloka_83680148380" minZ="-3400" maxZ="-3384">
+		<node x="83730" y="148430" />
+		<node x="83630" y="148430" />
+		<node x="83630" y="148330" />
+		<node x="83730" y="148330" />
+	</territory>
+	<npcmaker name="kamaloka_836801483801" territory="kamaloka_83680148380" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="55027" pos="83680;148380;-3400;31744" total="1" respawn="60sec" /> <!-- Kamaloka -->
+	</npcmaker>
+</list>

@@ -1,0 +1,906 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>35507</npc><!-- Blacksmith (Rune) -->
+	</npcs>
+	<item>
+		<ingredient id="5124" count="13"/><!-- mature_great_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="5856" count="13"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="5120" count="10"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="5857" count="10"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6556" count="7"/><!-- mature_red_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6563" count="7"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6558" count="5"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6565" count="5"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6560" count="4"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6567" count="4"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="5124" count="4"/><!-- mature_great_codran -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="5856" count="4"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="5120" count="3"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="5857" count="3"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6556" count="2"/><!-- mature_red_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6563" count="2"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6558" count="2"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6565" count="2"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6560" count="1"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6567" count="1"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="300"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="5124" count="8"/><!-- mature_great_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="5856" count="8"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="5120" count="6"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="5857" count="6"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6556" count="4"/><!-- mature_red_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6563" count="4"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6558" count="3"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6565" count="3"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6560" count="2"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6567" count="2"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="5122" count="100"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="5855" count="100"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6555" count="40"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6562" count="40"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6557" count="29"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6564" count="29"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6559" count="22"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6566" count="22"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6561" count="18"/><!-- mature_great_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6568" count="18"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="5000"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="5122" count="12"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="5855" count="12"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6555" count="5"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6562" count="5"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6557" count="3"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6564" count="3"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6559" count="3"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6566" count="3"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6561" count="2"/><!-- mature_great_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="6568" count="2"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="600"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="5122" count="220"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="5855" count="220"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6555" count="88"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6562" count="88"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6557" count="63"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6564" count="63"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6559" count="49"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6566" count="49"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6561" count="40"/><!-- mature_great_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6568" count="40"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="11000"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="5122" count="30"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="5855" count="30"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6555" count="12"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6562" count="12"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6557" count="9"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6564" count="9"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6559" count="7"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6566" count="7"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6561" count="5"/><!-- mature_great_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="6568" count="5"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="5122" count="1000"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="5855" count="1000"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6555" count="400"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6562" count="400"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6557" count="286"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6564" count="286"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6559" count="222"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6566" count="222"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6561" count="182"/><!-- mature_great_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6568" count="182"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="5122" count="160"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="5855" count="160"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6555" count="64"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6562" count="64"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6557" count="46"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6564" count="46"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6559" count="36"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6566" count="36"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6561" count="29"/><!-- mature_great_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6568" count="29"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="8000"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="5122" count="3600"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="5855" count="3600"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6555" count="1440"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6562" count="1440"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6557" count="1029"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6564" count="1029"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6559" count="800"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6566" count="800"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6561" count="655"/><!-- mature_great_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6568" count="655"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="180000"/><!-- adena -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="5122" count="480"/><!-- mature_twin_codran -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="5855" count="480"/><!-- im_mature_twin_codran -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6555" count="192"/><!-- mature_blue_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6562" count="192"/><!-- im_mature_blue_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6557" count="137"/><!-- mature_golden_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6564" count="137"/><!-- im_mature_golden_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6559" count="107"/><!-- mature_sea_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6566" count="107"/><!-- im_mature_sea_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6561" count="87"/><!-- mature_great_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6568" count="87"/><!-- im_mature_great_coba -->
+		<ingredient id="57" count="24000"/><!-- adena -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="5124" count="533"/><!-- mature_great_codran -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="5856" count="533"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="5120" count="400"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="5857" count="400"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6556" count="267"/><!-- mature_red_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6563" count="267"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6558" count="200"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6565" count="200"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6560" count="160"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6567" count="160"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="40000"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="5124" count="200"/><!-- mature_great_codran -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="5856" count="200"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="5120" count="150"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="5857" count="150"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6556" count="100"/><!-- mature_red_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6563" count="100"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6558" count="75"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6565" count="75"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6560" count="60"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6567" count="60"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="15000"/><!-- adena -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="5124" count="12"/><!-- mature_great_codran -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="5856" count="12"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="5120" count="9"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="5857" count="9"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6556" count="6"/><!-- mature_red_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6563" count="6"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6558" count="4"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6565" count="4"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6560" count="4"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="6567" count="4"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="900"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="5124" count="20"/><!-- mature_great_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="5856" count="20"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="5120" count="15"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="5857" count="15"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6556" count="10"/><!-- mature_red_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6563" count="10"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6558" count="8"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6565" count="8"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6560" count="6"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="6567" count="6"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="1500"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="5124" count="33"/><!-- mature_great_codran -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="5856" count="33"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="5120" count="25"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="5857" count="25"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6556" count="17"/><!-- mature_red_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6563" count="17"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6558" count="12"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6565" count="12"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6560" count="10"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="6567" count="10"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="2500"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="5124" count="13"/><!-- mature_great_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="5856" count="13"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="5120" count="10"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="5857" count="10"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6556" count="7"/><!-- mature_red_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6563" count="7"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6558" count="5"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6565" count="5"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6560" count="4"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="6567" count="4"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="1000"/><!-- adena -->
+		<production id="5126" count="1"/><!-- dualsword_craft_stamp -->
+	</item>
+	<item>
+		<ingredient id="5124" count="667"/><!-- mature_great_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="5856" count="667"/><!-- im_mature_great_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="5120" count="500"/><!-- mature_desert_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="5857" count="500"/><!-- im_mature_desert_codran -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6556" count="333"/><!-- mature_red_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6563" count="333"/><!-- im_mature_red_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6558" count="250"/><!-- mature_desert_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6565" count="250"/><!-- im_mature_desert_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6560" count="200"/><!-- mature_twin_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+	<item>
+		<ingredient id="6567" count="200"/><!-- im_mature_twin_coba -->
+		<ingredient id="57" count="50000"/><!-- adena -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+</list>

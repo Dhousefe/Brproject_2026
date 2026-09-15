@@ -1,0 +1,59 @@
+<html>
+<title>Chat</title>
+<body>
+<br>
+<center>
+<font color=3c3c3c>________________</font>   <font color=ae9977>Donation</font>   <font color=3c3c3c>________________</font>
+<br>
+<font color=LEVEL>Enter the currency code to find new ones</font>
+<br>
+<table>
+    <tr>
+        <td>
+            <edit var="Search" width=50 height=13 length=6>
+        </td>
+        <td></td>
+        <td>
+            <button value="Search" action="bypass donation search $Search" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+        </td>
+    </tr>
+</table>
+<br>
+%msg%
+</center>
+<table>
+    <tr>
+        <td width=10></td>
+        <td>
+            <table>
+                %list%
+            </table>
+        </td>
+    </tr>
+</table>
+<br><br>
+<center><img src="L2UI.SquareGray" width=260 height=1></center>
+<br>
+<table>
+    <tr>
+        <td></td>
+        <td>
+            <table>
+                %result%
+            </table>
+        </td>
+    </tr>
+</table>
+<br><br>
+<center>
+<table>
+    <tr>
+        <td width=35>
+            <a action="bypass donation index">Back</a>
+        </td>
+        %clean%
+    </tr>
+</table>
+</center>
+</body>
+</html>

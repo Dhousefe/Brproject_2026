@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<PlayerGOD enabled="true">
+    <!-- Número de PvPs necessários em tempo determinado -->
+    <Conditions>
+        <KillsRequired>10</KillsRequired>
+        <!-- Tempo (em segundos) para alcançar o número de kills -->
+        <TimeWindow>300</TimeWindow> <!-- 300s = 5 minutos -->
+        <KillAnnouncement>%player_name% é um verdadeiro DEUS! Fez %kills% kills em menos de %time%!</KillAnnouncement>
+    </Conditions>
+
+    <!-- Configuração da aura Hero -->
+    <HeroAura>
+        <Duration>600</Duration> <!-- Tempo da aura em segundos (ex: 600s = 10 minutos) -->
+        <AuraOnly>true</AuraOnly> <!-- true = apenas efeito visual, sem status -->
+    </HeroAura>
+
+    <!-- Anúncio quando o jogador logar estando com status de GOD ativo -->
+    <LoginAnnouncement enabled="true">
+        <Message>%player_name% retorna como um verdadeiro DEUS da guerra!</Message>
+    </LoginAnnouncement>
+</PlayerGOD>

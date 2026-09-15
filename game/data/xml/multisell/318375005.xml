@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31837</npc><!-- Adventure Guildsman -->
+		<npc>31838</npc><!-- Adventure Guildsman -->
+		<npc>31839</npc><!-- Adventure Guildsman -->
+		<npc>31840</npc><!-- Adventure Guildsman -->
+		<npc>31841</npc><!-- Adventure Guildsman -->
+	</npcs>
+	<item>
+		<ingredient id="8158" count="204"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="56"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="224"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="112"/><!-- false_nucleus_of_life_c -->
+		<production id="281" count="1"/><!-- crystallized_ice_bow -->
+	</item>
+	<item>
+		<ingredient id="8158" count="256"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="70"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="280"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="140"/><!-- false_nucleus_of_life_c -->
+		<production id="282" count="1"/><!-- elemental_bow -->
+	</item>
+	<item>
+		<ingredient id="8158" count="414"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="112"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="452"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="226"/><!-- false_nucleus_of_life_c -->
+		<production id="283" count="1"/><!-- akat_long_bow -->
+	</item>
+	<item>
+		<ingredient id="8158" count="590"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="160"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="644"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="322"/><!-- false_nucleus_of_life_c -->
+		<production id="286" count="1"/><!-- eminence_bow -->
+	</item>
+	<item>
+		<ingredient id="8159" count="772"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="232"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="772"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="540"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="464"/><!-- angel_s_soul_b -->
+		<production id="284" count="1"/><!-- dark_elven_long_bow -->
+	</item>
+	<item>
+		<ingredient id="8159" count="1236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="372"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="1236"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="864"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="744"/><!-- angel_s_soul_b -->
+		<production id="287" count="1"/><!-- hazard_bow -->
+	</item>
+	<item>
+		<ingredient id="8158" count="14"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="14"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="2453" count="1"/><!-- chain_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="14"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="14"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="2452" count="1"/><!-- reinforce_mithril_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="14"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="14"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="2454" count="1"/><!-- karmian_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="18"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="18"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="2456" count="1"/><!-- dwarven_chain_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="18"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="18"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="2458" count="1"/><!-- rind_leather_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="18"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="18"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="2457" count="1"/><!-- gloves_of_seal -->
+	</item>
+	<item>
+		<ingredient id="8158" count="32"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="34"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="6"/><!-- angel_s_soul_c -->
+		<production id="2460" count="1"/><!-- theca_leather_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="40"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="44"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="2462" count="1"/><!-- full_plate_gauntlet -->
+	</item>
+	<item>
+		<ingredient id="8158" count="40"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="44"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="2461" count="1"/><!-- drake_leather_gloves -->
+	</item>
+	<item>
+		<ingredient id="8158" count="40"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="44"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="2463" count="1"/><!-- blessed_gloves -->
+	</item>
+</list>

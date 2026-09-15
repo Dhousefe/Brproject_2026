@@ -1,0 +1,56 @@
+<html>
+<title>Информация о NPC</title>
+<body>
+	<center>
+		<table width=260>
+			<tr>
+				<td><button value="Общий" action="bypass -h admin_info" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="АИ" action="bypass -h admin_info ai" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Спавн" action="bypass -h admin_info spawn" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Статы" action="bypass -h admin_info stat" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			</tr>
+		</table>
+		<img src="L2UI.SquareWhite" width=260 height=1><br>
+
+		<font color="LEVEL">Информация о боевых характеристиках</font>
+		<table width="300">
+			<tr><td><font color="LEVEL">ХП:</font> <font color=FF4040>%hp%/%hpmax%</font></td><td><font color="LEVEL">Мана:</font> <font color=6161FF>%mp%/%mpmax%</font></td></tr>
+			<tr><td>ХП Рег. <font color=FF4040>%hpreg%</font></td><td>Мана Рег. <font color=6161FF>%mpreg%</font></td></tr>
+			<tr><td>Физ. Атк. %patk%</td><td>Маг. Атк. %matk%</td></tr>
+			<tr><td>Физ. Защ. %pdef%</td><td>Маг. Защ. %mdef%</td></tr>
+			<tr><td>Точность: %accu%</td><td>Уклонение: %evas%</td></tr>
+			<tr><td>Критический: %crit%</td><td>Скорость: %rspd%</td></tr>
+			<tr><td>Скорость атаки: %aspd%</td><td>Скорость каста: %cspd%</td></tr>
+		</table><br>
+
+		<font color="LEVEL">Основные характеристики</font>
+		<table width="300">
+			<tr>
+				<td>СТР</td><td>%str%</td>
+				<td>ДЕКС</td><td>%dex%</td>
+				<td>КОН</td><td>%con%</td>
+			</tr>
+			<tr>
+				<td>ИНТ</td><td>%int%</td>
+				<td>ВИТ</td><td>%wit%</td>
+				<td>МЕН</td><td>%men%</td>
+			</tr>
+		</table><br>
+
+		<font color="LEVEL">Элементы</font>
+		<table border="0" width="300">
+			<tr>
+				<td>Огонь</td><td>%ele_fire%</td>
+				<td>Вода</td><td>%ele_water%</td>
+			</tr>
+			<tr>
+				<td>Воздух</td><td>%ele_wind%</td>
+				<td>Земля</td><td>%ele_earth%</td>
+			</tr>
+			<tr>
+				<td>Свет</td><td>%ele_holy%</td>
+				<td>Тьма</td><td>%ele_dark%</td>
+			</tr>
+		</table>
+	</center>
+</body></html>

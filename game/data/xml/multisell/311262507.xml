@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true">
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="6323" count="1"/><!-- sealed_phoenix_s_necklace -->
+		<ingredient id="5575" count="855525"/><!-- adena_of_ancient -->
+		<production id="933" count="1"/><!-- phoenix_s_necklace -->
+	</item>
+	<item>
+		<ingredient id="6324" count="1"/><!-- sealed_phoenix_s_earing -->
+		<ingredient id="5575" count="641644"/><!-- adena_of_ancient -->
+		<production id="871" count="1"/><!-- phoenix_s_earing -->
+	</item>
+	<item>
+		<ingredient id="6325" count="1"/><!-- sealed_phoenix_s_ring -->
+		<ingredient id="5575" count="427763"/><!-- adena_of_ancient -->
+		<production id="902" count="1"/><!-- phoenix_s_ring -->
+	</item>
+	<item>
+		<ingredient id="6326" count="1"/><!-- sealed_majestic_necklace -->
+		<ingredient id="5575" count="853669"/><!-- adena_of_ancient -->
+		<production id="924" count="1"/><!-- majestic_necklace -->
+	</item>
+	<item>
+		<ingredient id="6327" count="1"/><!-- sealed_majestic_earing -->
+		<ingredient id="5575" count="640251"/><!-- adena_of_ancient -->
+		<production id="862" count="1"/><!-- majestic_earing -->
+	</item>
+	<item>
+		<ingredient id="6328" count="1"/><!-- sealed_majestic_ring -->
+		<ingredient id="5575" count="426834"/><!-- adena_of_ancient -->
+		<production id="893" count="1"/><!-- majestic_ring -->
+	</item>
+</list>

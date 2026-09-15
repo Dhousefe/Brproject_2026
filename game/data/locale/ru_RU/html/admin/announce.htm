@@ -1,0 +1,49 @@
+<html>
+	<body>
+		<table width=270>
+			<tr>
+				<td width=45><button value="Главное" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+				<td width=180 align=center>Меню объявлений</td>
+				<td width=45><button value="Назад" action="bypass -h admin_admin 4" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			</tr>
+		</table><br><br>
+		<font color="LEVEL">Введите текст объявления:</font>
+		<center><multiedit var="msg" width=260 height=45></center><br>
+		<font color="LEVEL">Установите объявление как критическое или нет.</font>
+		<table width=270>
+			<tr>
+				<td>Критическое:</td>
+				<td><combobox width=70 height=17 var=crit list=False;True;></td>
+			</tr>
+		</table><br>
+		<button value="Добавить в .xml" action="bypass -h admin_announce add $crit $msg" width=95 height=21 back="bigbutton_over" fore="bigbutton"><br><br>
+		<font color="LEVEL">Создайте автоматизированную задачу.</font>
+		<table width=280>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>Задержка иниц.:</td>
+				<td><edit var="idelay" width=45 height=12 type=number></td>
+			</tr><tr>
+				<td>Авто:</td>
+				<td><combobox width=70 height=17 var=auto list=False;True;></td>
+				<td>Задержка:</td>
+				<td><edit var="delay" width=45 height=12 type=number></td>
+			</tr><tr>
+				<td></td>
+				<td></td>
+				<td>Лимит:</td>
+				<td><edit var="limit" width=45 height=12 type=number></td>
+			</tr>
+		</table>
+		<button value="Добавить в .xml" action="bypass -h admin_announce add_auto $crit $auto $idelay $delay $limit $msg" width=95 height=21 back="bigbutton_over" fore="bigbutton">
+		<img src="l2ui.SquareWhite" width=275 height=1><br>
+		<center><table>
+			<tr>
+				<td><button value="Содержимое .xml" action="bypass -h admin_announce list" width=95 height=21 back="bigbutton_over" fore="bigbutton"></td>
+				<td><button value="Объяв. всем" action="bypass -h admin_announce all" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+				<td><button value="Авто-объявл." action="bypass -h admin_announce all_auto" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			</tr>
+		</table></center>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<html><body>
+<center>Покупка <font color="00ffff">одного</font> билета на гонку монстров (Гонка №<font color="LEVEL"> 1</font>)<br1>
+<img src="L2UI.SquareWhite" width=270 height=1>
+<img src="L2UI.SquareBlank" width=1 height=3>
+</center>
+<table width=270 border=0 bgcolor="111111">
+<tr>
+<td fixwidth=60>Выбор полосы</td>
+<td fixwidth=140 align=center>Имя гонщика</td>
+<td fixwidth=40 align=center>Рейтинг</td>
+<td fixwidth=30 align=right>Коэффициенты</td>
+</tr>
+</table>
+
+<table width=270 border=0>
+<tr>
+<td fixwidth=13><img src="L2UI.rightBtn2" width=14 height=13></td>
+<td fixwidth=30>0место</td>
+<td fixwidth=152><font color="LEVEL">Монстр1</font></td>
+<td fixwidth=50 align=center>&$745;</td>
+<td fixwidth=30 align=right><font color="00ffff">13%</font></td>
+</tr>
+</table>
+
+<table width=270 border=0 bgcolor=111111>
+<tr>
+<td fixwidth=60>Сумма ставки </td>
+<td fixwidth=200></td>
+</tr>
+<tr>
+<td>Сумма ставки </td>
+<td><font color="LEVEL">0адена</font> Адена</td>
+</tr>
+<tr>
+<td>Налог </td>
+<td><font color="LEVEL">0налог</font> Адена</td>
+</tr>
+<tr>
+<td>Итого </td>
+<td><font color="LEVEL">0всего</font> Адена</td>
+</tr>
+</table>
+<br>
+<center>Если информация верна, пожалуйста, нажмите "Подтвердить".</center><br>
+<img src="L2UI.SquareBlank" width=270 height=10>
+<img src="L2UI.SquareWhite" width=270 height=1>
+<img src="L2UI.SquareBlank" width=270 height=5>
+
+<table width=270 border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td width=70 height=20><button value="Назад" action="bypass -h npc_%objectId%_Chat 0" back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton" width=67 height=19></td>
+<td width=130 align=center><button value="Выбрать полосу" action="bypass -h npc_%objectId%_BuyTicket 0" back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton" width=67 height=19></td>
+<td width=70 align=right><button value="Подтвердить" action="bypass -h npc_%objectId%_BuyTicket 21" back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton" width=67 height=19></td>
+</tr>
+</table>
+</body></html>

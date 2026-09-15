@@ -1,0 +1,46 @@
+<html><title>Меню обслуживания сервера</title><body><center>
+	<table width=260>
+		<tr>
+			<td><button value="Главное" action="bypass -h admin_admin" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Игра" action="bypass -h admin_admin 2" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Эффекты" action="bypass -h admin_admin 3" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Сервер" action="bypass -h admin_admin 4" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table>
+	<img src="l2ui.SquareWhite" width=275 height=1><br>
+	<table width=240>
+		<tr>
+			<td>Поиск</td>
+			<td><edit var="menu_command" width=120 height=15></td>
+			<td><button value="Помощь" action="bypass -h admin_help" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	<table>
+		<tr>
+			<td><button value="Выключить" action="bypass -h admin_server shutdown $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Перезапуск" action="bypass -h admin_server restart $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Прервать" action="bypass -h admin_server abort" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr><tr>
+			<td></td>
+			<td><button value="Макс. игроки" action="bypass -h admin_server max $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Кикнуть всех" action="bypass -h admin_kick all" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table><br>
+	<table width=260>
+		<tr><td>Имя сервера: <font color="LEVEL">%server_name%</font></td></tr>
+		<tr><td>Игроков онлайн: <font color="LEVEL">%count%</font></td></tr>
+		<tr><td>Максимальное количество игроков: <font color="LEVEL">%max_players%</font></td></tr>
+		<tr><td>Используемая память: <font color="LEVEL">%used%</font> Мб</td></tr>
+		<tr><td>Время игры: <font color="LEVEL">%time%</font></td></tr>
+		<tr><td></td></tr>
+		<tr><td>Время запуска: <font color="LEVEL">%server_start_time%</font></td></tr>
+		<tr><td>Время работы: <font color="LEVEL">%uptime%</font></td></tr>
+	</table><br>
+	<table width=260>
+		<tr>
+			<td width=110>Статус входа: <font color="LEVEL">%status%</font></td>
+			<td><button value="Только GM" action="bypass -h admin_server gmonly" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Все" action="bypass -h admin_server all" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table>
+</center></body></html>

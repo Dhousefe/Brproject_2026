@@ -1,0 +1,452 @@
+<list>
+	<!-- gameserver.handler.voicedcommandhandlers.Menu -->
+	<string key="10000">You can gain experience by killing mobs.</string>
+	<string key="10001">You can't gain experience by killing mobs.</string>
+	<string key="10002">Use trade is enabled.</string>
+	<string key="10003">Use trade is disabled.</string>
+	<string key="10004">Use autoloot is enabled.</string>
+	<string key="10005">Use autoloot is disabled.</string>
+	<string key="10006">You cannot logout to offline player.</string>
+	<string key="10007">Your private store has been flagged as an offline shop and will remain active forever.</string>
+	<string key="10008">ON</string>
+	<string key="10009">OFF</string>
+	
+	<!-- gameserver.data.manager.BotsPreventionManager -->
+	<string key="10010">Congratulations, colours match!</string>
+	
+	<!-- gameserver.model.actor.Player -->
+	<string key="10011">The spawn protection has ended.</string>
+	<string key="10012">You declined your partner's marriage request.</string>
+	<string key="10013">Your partner declined your marriage request.</string>
+	<string key="10014">Entering world in Invulnerable mode.</string>
+	<string key="10015">Entering world in Invisible mode.</string>
+	<string key="10016">Entering world in Refusal mode.</string>
+	<string key="10017">As you acted, you are no longer under spawn protection.</string>
+	
+	<!-- gameserver.scripting.script.event.Christmas -->
+	<string key="10018">Need 10 Christmas Tree.</string>
+	<string key="10019">Need 20 Special Christmas Tree.</string>
+	
+	<!-- gameserver.model.actor.instance.Service && gameserver.communitybbs.custom.ServiceBBSManager -->
+	<string key="10020">You have to get a 3rd profession.</string>
+	<string key="10021">You already have the status of a Noblesse.</string>
+	<string key="10022">You are already a hero.</string>
+	<string key="10023">Incorrect item count. You need %s</string>
+	<string key="10024">You are now a Hero for the next %s days.</string>
+	<string key="10025">Your hero status has expired.</string>
+	<string key="10026">The color of the nickname has been successfully changed.</string>
+	<string key="10027">The color of the title has been successfully changed.</string>
+	<string key="10028">You entered an incorrect nickname.</string>
+	<string key="10029">This name is taken.</string>
+	<string key="10030">Name successfully changed.</string>
+	<string key="10031">This feature is currently unavailable.</string>
+	<string key="10032">You already have a premium account.</string>
+	<string key="10033">You have purchased a premium account.\nNumber of days: %s.</string>
+	<string key="10034">Your gender has been successfully changed.</string>
+	<string key="10035">You have nothing to clean up.</string>
+	<string key="10036">Your PK and karma counters have been successfully reset.</string>
+	<string key="10037">You have maximum clan level.</string>
+	<string key="10038">This operation is only available to the clan leader.</string>
+	<string key="10039">Your clan level has been successfully upgraded to maximum.</string>
+	<string key="10040">This operation is only available to the clan leader.</string>
+	<string key="10041">The clan must be level 5 or higher.</string>
+	<string key="10042">All clan skills are already available to your clan.</string>
+	<string key="10043">Your clan has been successfully issued all clan skills.</string>
+	<string key="10044">Your clan's reputation %s</string>
+	
+	<!-- gameserver.network.clientpackets.EnterWorld -->
+	<!-- <string key="10045">null</string> -->
+	<string key="10046">Your Premium privileges granted until %s</string>
+	
+	<!-- gameserver.model.spawn.MultiSpawn -->
+	<string key="10047">Raid boss %s has appeared in the world!</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.EventCommand -->
+	<string key="10048">Capture the Flag event is not in progress.</string>
+	<string key="10049">You are already registered.</string>
+	<string key="10050">You are not registered.</string>
+	
+	<string key="10051">Deathmatch fight is not in progress.</string>
+	<string key="10052">You are already registered.</string>
+	<string key="10053">You are not registered.</string>
+
+	<string key="10054">Last Man fight is not in progress.</string>
+	<string key="10055">You are already registered.</string>
+	<string key="10056">You are not registered.</string>
+
+	<string key="10057">Team vs Team fight is not in progress.</string>
+	<string key="10058">You are already registered.</string>
+	<string key="10059">You are not registered.</string>
+	
+	<!-- gameserver.network.clientpackets.RequestEnchantItem -->
+	<string key="10060">%s has successfully enchanted +%s %s</string>
+	
+	<!-- gameserver.model.actor.instance.WeddingManagerNpc -->
+	<string key="10061">Your partner can't be found.</string>
+	<string key="10062">Your partner is not online.</string>
+	<string key="10063">Due to the current partner's status, the teleportation failed.</string>
+	<string key="10064">As your partner is in siege, you can't go to him/her.</string>
+	<string key="10065">Congratulations, you are now married with %s!</string>
+	<string key="10066">Congratulations, you are now married with %s!</string>
+	<string key="10067">Congratulations to %s and %s! They have been married.</string>
+	<string key="10068">will</string>
+	<string key="10069">won't</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminInfo -->
+	<string key="10070">master</string>
+	<string key="10071">minion</string>
+	
+	<!-- null 
+	<string key="null">null</string> -->
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Epic && Raid -->
+	<string key="10073">Decay (%s min.)</string>
+	<string key="10074">Alive</string>
+	
+	<!-- gameserver.model.actor.Npc -->
+	<string key="10075"> (In Progress)]</string>
+	<string key="10076"> ((Done)]</string>
+	
+	<!-- gameserver.handler.itemhandlers.CapsuleBox -->
+	<string key="10077">You will need a level %s to use this Capsule Box.</string>
+	
+	<!-- gameserver.handler.itemhandlers.ItemSkill -->
+	<string key="10078">Forbidden use scrolls.</string>
+	<string key="10079">Forbidden use potion.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.OfflinePlayer -->
+	<string key="10080">You are not running a private store or private work shop.</string>
+	<string key="10081">Your buy list is empty.</string>
+	<string key="10082">Your sell list is empty.</string>
+	<string key="10083">You cannot Logout while is in Combat mode.</string>
+	<string key="10084">You cannot Logout while is Teleporting.</string>
+	<string key="10085">You can't Logout in Olympiad mode.</string>
+	<string key="10086">You cannot Logout while you are a participant in a Festival.</string>
+	<string key="10087">You cannot logout to offline player.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Online -->
+	<string key="10088">Now online: %s players.</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminCTFEvent && AdminDMEvent && AdminLMEvent && AdminTvTEvent -->
+	<string key="10089">You should select a player!</string>
+	<string key="10090">Player already participated in the event!</string>
+	<string key="10091">Player instance could not be added, it seems to be null!</string>
+	<string key="10092">Player is not part of the event!</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminPremium -->
+	<string key="10093">Enable UsePremiumServices config.</string>
+	<string key="10094">Invalid account!</string>
+	<string key="10095">Invalid month!</string>
+	<string key="10096">Invalid day!</string>
+	<string key="10097">Invalid hour!</string>
+	<string key="10098">The premium has been set until: %s for account: %s</string>
+	
+	<!-- gameserver.model.actor.instance.SchemeBuffer -->
+	<string key="10099">Me</string>
+	<string key="10100">Pet</string>
+	<string key="10101">Edit</string>
+	<string key="10102">Delete</string>
+	
+	<!-- gameserver.model.olympiad.AbstractOlympiadGame -->
+	<string key="10103">You are registered in another event!</string>
+	
+	<!-- gameserver.model.olympiad.OlympiadManager -->
+	<string key="10104">You can't join olympiad while participating on Event.</string>
+	
+	<!-- gameserver.data.manager.CoupleManager -->
+	<string key="10105">You are now divorced.</string>
+	
+	<!-- gameserver.data.manager.FestivalOfDarknessManager -->
+	<string key="10106">The festival has ended. Your party leader must now register your score before the next festival takes place.</string>
+	<string key="10107">You have been removed from the festival arena.</string>
+	
+	<!-- gameserver.model.actor.conteiner.player.Punishment -->
+	<string key="10108">Chatting is now available.</string>
+	<string key="10109">Chatting has been suspended for %s minute(s).</string>
+	<string key="10110">Chatting has been suspended.</string>
+	<string key="10111">You are jailed for %s minutes.</string>
+	<string key="10112">You are still %s for %s minutes.</string>
+	
+	<!-- gameserver.network.clientpackets.Say2 -->
+	<string key="10113">General chat is available from level %s.</string>
+	<string key="10114">Private chat is available from level %s.</string>
+	<string key="10115">Shout chat is available from level %s.</string>
+	<string key="10116">Trade chat is available from level %s.</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminEvent -->
+	<string key="10116">Event %s started.</string>
+	<string key="10117">Event %s is already started!</string>
+	<string key="10118">Event %s stopped.</string>
+	<string key="10119">Event %s is already stopped!</string>
+	<string key="10120">Usage </string>
+	
+	<!-- gameserver.scripting.script.event.Squash -->
+	<string key="10121">You can't kill me without Souvenir</string>
+	<string key="10122">Haha... continue to try...</string>
+	<string key="10123">Good attempt...</string>
+	<string key="10124">Were tired?</string>
+	<string key="10125">Forward forward! haha...</string>
+	<string key="10126">Aaaa... Souvenir Weapon...</string>
+	<string key="10127">My end approaches...</string>
+	<string key="10128">Please, leave me!</string>
+	<string key="10129">Help...</string>
+	<string key="10130">Somebody help me, please...</string>
+	<string key="10131">The tasty... Nectar...</string>
+	<string key="10132">Please give me still...</string>
+	<string key="10133">Hmm. It is more. I want more...</string>
+	<string key="10134">You to me will be it is pleasant more if you give me more...</string>
+	<string key="10135">Hmmmmm...</string>
+	<string key="10136">My darling...</string>
+	<string key="10152">At you remained 30sec. on kill.</string>
+	<string key="10153">At you remained 20sec. on kill.</string>
+	<string key="10154">Time on an outcome... 9 ... 8 ... 7 ...</string>
+	<string key="10155">I need more nectar to survive.</string>
+	<string key="10156">Nectar...</string>
+	<string key="10157">I will disappear through %s sec. time on an outcome.</string>
+	<string key="10158">I want Nectar!</string>
+	
+	<!-- gameserver.scripting.script.event.* -->
+	<string key="10159">Event %s started!</string>
+	<string key="10160">Event %s finished!</string>
+	
+	<!-- gameserver.scripting.script.ai.individual.Monster.RaidBoss.RaidBossParty.RaidBossType4 -->
+	<string key="10161">You were too far away from Barakiel. You've missed the chance of becoming Noblesse!</string>
+	<string key="10162">Congratulations! All party members have obtained Noblesse Status</string>
+	<string key="10163">You are already Noblesse!</string>
+	
+	<!-- gameserver.data.manager.FestivalOfDarknessManager -->
+	<string key="10164">This is the Seal Validation period. Festivals will resume next week.</string>
+	<string key="10165">The next festival will begin in %s minute(s).</string>
+	
+	<!-- gameserver.model.residence.castle.Siege -->
+	<string key="10166">REGISTRATION_OPENED</string>
+	<string key="10167">REGISTRATION_OVER</string>
+	<string key="10168">IN_PROGRESS</string>
+	<string key="10169">UNKNOWN_STATUS</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminSiege -->
+	<string key="10170">View Info.</string>
+	
+	<!-- gameserver.model.actor.Npc -->
+	<string key="10171">Return</string>
+	<string key="10172">The winner selected the numbers above.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.OfflinePlayer -->
+	<string key="10173">%s has been removed from the upcoming Festival.</string>
+	
+	<!-- gameserver.communitybbs.manager.RegionBBSManager -->
+	<string key="10174">None</string>
+	
+	<!-- gameserver.model.entity.Events -->
+	<string key="10175">The spawn protection has 15 seconds.</string>
+	
+	<!-- gameserver.communitybbs.custom.BuffBBSManager && SchemeBuffer -->
+	<string key="10176">Previous</string>
+	<string key="10177">Next</string>
+	<string key="10178">Page</string>
+	<string key="10179">You haven't defined any scheme.</string>
+	<string key="10180">This scheme has reached the maximum amount of buffs.</string>
+	<string key="10181">Scheme's name must contain up to 14 chars. Spaces are trimmed.</string>
+	<string key="10182">Maximum schemes amount is already reached.</string>
+	<string key="10183">The scheme name already exists.</string>
+	<string key="10184">This scheme name is invalid.</string>
+	<string key="10185">That group doesn't contain any skills.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Menu -->
+	<string key="10186">Buff protection is enabled.</string>
+	<string key="10187">Buff protection is disabled.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Acp -->
+	<string key="10188">You need to be at least %s to use auto potions.</string>
+	<string key="10189">Auto potions is enabled.</string>
+	<string key="10190">Auto potions is disabled.</string>
+	<string key="10191">Enter a number.</string>
+	<string key="10192">Specify the percentage from 0 to 100.</string>
+	<string key="10193">Value changed.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Banking -->
+	<string key="10194">.deposit (%s Adena = %s Goldbar) / .withdraw (%s Goldbar = %s Adena)</string>
+	<string key="10195">Now you have %s Goldbar(s), and %s less adena.</string>
+	<string key="10196">You do not have enough Adena to convert to Goldbar(s), you need %s Adena.</string>
+	<string key="10197">You do not have enough space for all the adena in inventory!</string>
+	<string key="10198">Now you have %s Adena, and %s less Goldbar(s).</string>
+	<string key="10199">You do not have any Goldbars to turn into %s Adena.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.ALLVOICEDCOMMAND -->
+	<string key="10200">The command is disabled on the server.</string>
+	
+	<!-- gameserver.communitybbs.custom.BuffBBSManager && SchemeBuffer -->
+	<string key="10201">The summon has not been called. Please summon it before changing the target.</string>
+	
+	<!-- gameserver.communitybbs.custom.AuctionBBSManager -->
+	<string key="10202">Selected item no longer exists on Auction.</string>
+	<string key="10203">You do not have the selected item in your inventory.</string>
+	<string key="10204">You have reach the limit of %s items listed.</string>
+	<string key="10205">%s is not allowed on Auction.</string>
+	<string key="10206">This item is not longer on your inventory.</string>
+	<string key="10207">Incorrect item quantity.</string>
+	<string key="10208">Incorrect item price.</string>
+	<string key="10209">You have not %s %s to pay auction fee.</string>
+	<string key="10210">You have successfully listed %s.</string>
+	
+	<!-- gameserver.communitybbs.custom.model.Auction -->
+	<string key="10211">There are more than 24 hours remaining until the Auction.</string>
+	<string key="10212">You have update duration util %s.</string>
+	<string key="10213">There is no such quantity of the item.</string>
+	<string key="10214">You have successfully purchased the Auction lot.</string>
+	<string key="10215">You have successfully sold the Auction lot.</string>
+	<string key="10216">You have removed Auction item.</string>
+	
+	<!-- gameserver.communitybbs.custom.AuctionBBSManager -->
+	<string key="10217">Apply</string>
+	<string key="10218">Each</string>
+	<string key="10219">OWNER</string>
+	<string key="10220">Purchase</string>
+	<string key="10221">Yes</string>
+	<string key="10222">Cancel</string>
+	<string key="10223">You are missing %s - [%s], to purchase the item.</string>
+	<string key="10224">Clear</string>
+	<string key="10225">Search</string>
+	<string key="10226">Auction Duration:</string>
+	<string key="10227">All Item For Sale</string>
+	<string key="10228">Remove</string>
+	<string key="10229">Add</string>
+	<string key="10230">You haven't added anything.</string>
+	<string key="10231">You items</string>
+	<string key="10232">Has Expired</string>
+	
+	<!-- gameserver.model.actor.instance.RaidBoss -->
+	<string key="10233">RaidBoss %s [%s] has been killed. \nLast hit: %s. Clan: %s</string>
+	<string key="10234">RaidBoss %s [%s] has been killed. \nLast hit: %s</string>
+	
+	<!-- gameserver.model.actor.instance.GrandBoss -->
+	<string key="10235">GrandBoss %s [%s] has been killed. \nLast hit: %s. Clan: %s</string>
+	<string key="10236">GrandBoss %s [%s] has been killed. \nLast hit: %s</string>
+	
+	<!-- gameserver.model.spawn.MultiSpawn -->
+	<string key="10237">RaidBoss %s [%s] has appeared in the world!</string>
+	<string key="10238">GrandBoss %s [%s] has appeared in the world!</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminTest -->
+	<string key="10239">Usage : //test setquest || ssq_change || manor_change || augment</string>
+	<string key="10240">Unknown augment type: %s</string>
+	<string key="10241">Usage: //test augment active|passive value</string>
+	<string key="10242">Invalid number format!</string>
+	<string key="10243">You must specify three parameters!</string>
+	<string key="10244">Invalid command format. Use //test augment param1 param2 param3 OR //test augment active|passive type</string>
+	<string key="10245">Quest with id: %s not found</string>
+	<string key="10246">Cannot initialize new quest state with cond %s for player %s. To initialize new quest state, use cond 0.</string>
+	<string key="10247">%s's %s quest condition set to %s</string>
+	<string key="10248">%s's %s quest has been created. To start it, use //test setquest %s 1"</string>
+	<string key="10249">Invalid command format. Use //test setquest questId cond</string>
+	<string key="10250">You can't augment under %s Grade Weapon!</string>
+	<string key="10251">You Cannot be add Augment On %s !</string>
+	<string key="10252">Successfully To Add %s.</string>
+	<string key="10253">This weapon has already augment.</string>
+	<string key="10254">You do not have any weapon in hands.</string>
+	
+	<!-- Guard Chat System - Aggressive Messages (PK) -->
+	<string key="11000">{name}, you're not going anywhere... I'll just kill you a little bit!</string>
+	<string key="11001">{name}, I'm gonna pierce you, I swear on my mother!</string>
+	<string key="11002">Lalalá, I've gone crazy! Now I'm gonna kill everyone!</string>
+	<string key="11003">I've killed so many... and you, {name}, will be just one more on the list!</string>
+	<string key="11004">We'll send you to hell and that's that!</string>
+	<string key="11005">{name}, die you insolent worm!</string>
+	<string key="11006">I am the terror that flies on the wings of night! I am... ah forget it, {name}... I'm just gonna kill you!</string>
+	<string key="11007">When you're in the shower, I'll be there... When you're watching TV, I'll be there... Did you think I was joking?!</string>
+	<string key="11008">I'm calm and have a pure heart... But it's pure evil!</string>
+	<string key="11009">Hey there, my future victim... I'm talking to you, {name}! Don't pretend it's not you!</string>
+	<string key="11010">Hurrah! For the homeland and my brothers in arms! Prepare to die, {name}!</string>
+	<string key="11011">{name}, will you pay the toll or pay with your life?</string>
+	<string key="11012">{name}, born... died...</string>
+	<string key="11013">{name}, prefer to die quick and easy or slow and painful?</string>
+	<string key="11014">{name}, PVP or ran away scared?</string>
+	<string key="11015">{name}, I'm gonna kill you with love.</string>
+	<string key="11016">{name}, I'm gonna tear you apart like a dog tears a pillow!</string>
+	<string key="11017">Prepare to die, {name}!</string>
+	<string key="11018">{name}, you fight like a little girl!</string>
+	<string key="11019">{name}, pray before you die! Or better yet... there's no time!</string>
+	
+	<!-- Guard Chat System - Normal Messages (Male) -->
+	<string key="11100">Hey {name}, got anything for me?</string>
+	<string key="11101">{name}, what's up, buddy?</string>
+	<string key="11102">Hey {name}, hello there!</string>
+	<string key="11103">{name}, hey ugly.</string>
+	<string key="11104">{name}, lend me your weapon for a minute, wanna take a screenshot.</string>
+	<string key="11105">Good hunting, {name}.</string>
+	<string key="11106">{name}, what's the secret to strength, brother?</string>
+	<string key="11107">{name}, may more kills come your way.</string>
+	<string key="11108">{name}, I dreamed about you in my nightmares!</string>
+	<string key="11109">{name}, I know you... you're that innocent monster hunter!</string>
+	<string key="11110">{name}, PVP or are you scared?</string>
+	<string key="11111">{name}, your money fell back there.</string>
+	<string key="11112">No way, {name}, I won't go out with you, don't insist.</string>
+	<string key="11113">A little kiss to everyone in this chat!</string>
+	<string key="11114">A little kiss to everyone in this chat!</string>
+	
+	<!-- Guard Chat System - Normal Messages (Female) -->
+	<string key="11200">Hi {name}, beautiful!</string>
+	<string key="11201">Wow {name}, what... hm... beautiful eyes!</string>
+	<string key="11202">{name}, don't you wanna take a walk with a real macho man?</string>
+	<string key="11203">Hello, {name}!</string>
+	<string key="11204">{name}, let me touch... I mean, let me touch your... aura!</string>
+	<string key="11205">{name}, killing enemies is not for ladies...</string>
+	<string key="11206">{name}, your top ripped... doesn't show... the eyes!</string>
+	<string key="11207">{name}, what... hm... nice buns!</string>
+	<string key="11208">{name}, nice legs, huh!</string>
+	<string key="11209">{name}, you're such a hottie!</string>
+	<string key="11210">{name}, wow, what a woman... I wish I had one like you.</string>
+	<string key="11211">{name}, what are you doing tonight?</string>
+	<string key="11212">{name}, do you agree that from the point of view of banal erudition, not every locally selected individual is capable of ignoring emotional tendencies?</string>
+	<string key="11213">{name}, I offer you my hand and my heart... and the wallet after marriage.</string>
+	<string key="11213">{name}, I offer you my hand and my heart... and the wallet after marriage.</string>
+	
+	<!-- Kamaloka Instance Messages -->
+	<string key="12000">You are already in a dungeon.</string>
+	<string key="12001">You cannot enter while in combat.</string>
+	<string key="12002">You cannot enter during an Olympiad match.</string>
+	<string key="12003">You cannot enter while in PvP mode.</string>
+	<string key="12004">You cannot use this while dead.</string>
+	<string key="12005">You cannot use this while in Fake Death.</string>
+	<string key="12006">You cannot use this while fishing.</string>
+	<string key="12007">You cannot use this during a duel.</string>
+	<string key="12008">You cannot use this in the arena.</string>
+	<string key="12009">You cannot use this in jail.</string>
+	<string key="12010">You cannot use this at the moment.</string>
+	<string key="12011">You cannot use this while observing.</string>
+	<string key="12012">You cannot use this while casting.</string>
+	<string key="12013">You have reached the daily entry limit.</string>
+	<string key="12014">Preparing to enter the instance...</string>
+	<string key="12015">All party members must remain still to enter the instance...</string>
+	<string key="12016">A party member ({name}) does not meet the requirements.</string>
+	<string key="12017">Your entry was cancelled because the preparation was interrupted.</string>
+	<string key="12018">{name}'s preparation was interrupted.</string>
+	<string key="12019">Your level is not compatible to enter the Hall of the Abyss.</string>
+	<string key="12020">The highest level party member is not compatible to enter the Labyrinth of the Abyss.</string>
+	<string key="12021">The dungeon configuration was not found. Contact an administrator.</string>
+	<string key="12022">An error occurred while trying to enter the instance.</string>
+	<string key="12023">You are not in Kamaloka.</string>
+	<string key="12024">You have been returned from {dungeon}.</string>
+	<string key="12025">The instance has been ended by a player.</string>
+	<string key="12026">You do not have permission to use this command.</string>
+	<string key="12027">Kamaloka re-entry is now {status}.</string>
+	<string key="12028">enabled</string>
+	<string key="12029">restricted to once per day</string>
+	<string key="12030">The Kamaloka boss was defeated by {name}!</string>
+	<string key="12031">The raid in {dungeon} has failed.</string>
+	<string key="12032">Time remaining to defeat the boss: {time} minute(s).</string>
+	<string key="12033">You need a party to enter.</string>
+	<string key="12034">Error: Could not load the dialog window.</string>
+	<string key="12035">You cannot enter while registered in a Tournament.</string>
+	<string key="12036">You cannot enter while registered in Capture the Flag event.</string>
+	<string key="12037">You cannot enter while registered in Team vs Team event.</string>
+	<string key="12038">You cannot enter while registered in Deathmatch event.</string>
+	<string key="12039">You cannot enter while registered in Last Man event.</string>
+	<string key="12040">You are in a safe zone, teleporting directly to the instance.</string>
+
+	<!-- gameserver.data.manager.CountryLocaleManager -->
+	<string key="12100">Your locale was set automatically based on your country (%s -> %s).</string>
+	<string key="12101">Your country (%s) has no locale mapping in language.properties.</string>
+	<string key="12102">Locale '%s' (mapped from %s) is not loaded on this server.</string>
+</list>
+

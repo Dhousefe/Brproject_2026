@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+  <reverseProxy enabled="true">
+
+    <!-- TCP: L2 Login Server (raw bytes relay) -->
+    <route name="l2-login"
+           type="tcp"
+           enabled="true"
+           bindHost="0.0.0.0"
+           bindPort="2106"
+           targetHost="127.0.0.1"
+           targetPort="2107"
+           preserveHost="true"
+           addForwardedHeaders="false">
+      <rateLimiter enabled="true"
+                   windowSeconds="60"
+                   maxConnections="30"
+                   maxRequests="0"/>
+    </route>
+
+    <!-- TCP: L2 Game Server (raw bytes relay) -->
+    <route name="l2-game"
+           type="tcp"
+           enabled="true"
+           bindHost="0.0.0.0"
+           bindPort="7777"
+           targetHost="127.0.0.1"
+           targetPort="7778"
+           preserveHost="true"
+           addForwardedHeaders="false">
+      <rateLimiter enabled="true"
+                   windowSeconds="60"
+                   maxConnections="60"
+                   maxRequests="0"/>
+    </route>
+
+    <!-- TCP: L2 Inter-Process Communication Bridge (GameServer <-> LoginServer) -->
+    <!-- SEGURANCA: Por padrao vinculada em 127.0.0.1 para impedir acessos externos indevidos -->
+    <!-- Se o GameServer e LoginServer estiverem em PCs separados na LAN, altere bindHost para o IP da LAN do Servidor -->
+    <route name="l2-ipc"
+           type="tcp"
+           enabled="false"
+           bindHost="127.0.0.1"
+           bindPort="9014"
+           targetHost="127.0.0.1"
+           targetPort="9015"
+           preserveHost="true"
+           addForwardedHeaders="false">
+      <rateLimiter enabled="true"
+                   windowSeconds="60"
+                   maxConnections="20"
+                   maxRequests="0"/>
+    </route>
+
+    <!-- HTTP / HTTPS: Site + API (Ktor Web Backend) -->
+    <!-- maxContentLength: Limite maximo do corpo HTTP (default: 67108864 = 64 MB para imagens e assets grandes) -->
+    <!-- autoTls: Gera certificado autoassinado para desenvolvimento/intranet -->
+    <!-- tlsDomain: Dominio/IP do certificado (ex: 127.0.0.1, localhost ou seu dominio) -->
+    <!-- Para confiar no certificado no Windows e remover aviso 'Nao seguro': -->
+    <!--   certutil -addstore -f "ROOT" data\certs\auto-signed-127.0.0.1.crt -->
+    <route name="site"
+           type="http"
+           enabled="true"
+           bindHost="0.0.0.0"
+           bindPort="443"
+           targetHost="127.0.0.1"
+           targetPort="8080"
+           preserveHost="false"
+           addForwardedHeaders="false"
+           autoTls="true"
+           tlsDomain="127.0.0.1"
+           maxContentLength="67108864"
+           tlsCert="auto"
+           tlsKey="">
+      <rateLimiter enabled="false"
+                   windowSeconds="60"
+                   maxConnections="200"
+                   maxRequests="300"/>
+    </route>
+
+    <!-- Opcao 2: Redirecionamento HTTP -> HTTPS (estilo Caddy / Producao) -->
+    <!-- Para ativar HTTPS automatico:                                      -->
+    <!-- 1. Altere bindPort da rota 'site' acima para 443 e autoTls="true"   -->
+    <!-- 2. Habilite a rota 'http-redirect' abaixo com enabled="true" na 80 -->
+    <route name="http-redirect"
+           type="http-redirect"
+           enabled="true"
+           bindHost="0.0.0.0"
+           bindPort="80"
+           targetHost="127.0.0.1"
+           targetPort="443"
+           preserveHost="false"
+           addForwardedHeaders="false">
+      <rateLimiter enabled="false" windowSeconds="60" maxConnections="0" maxRequests="0"/>
+    </route>
+
+  </reverseProxy>
+
+  <!-- Fail2Ban: Intrusion detection & firewall integration -->
+  <fail2ban enabled="true" 
+            firewallEnabled="true" 
+            persistenceEnabled="true" 
+            persistencePath="data/fail2ban.sqlite"
+            maxActiveBans="50000"
+            gcIntervalMs="60000">
+    <ignoreIps>
+      <ip value="127.0.0.1"/>
+      <ip value="0:0:0:0:0:0:0:1"/>
+    </ignoreIps>
+    <jail name="bruteforce" 
+          enabled="true" 
+          findTimeMs="60000" 
+          maxRetry="5" 
+          banTimeMs="3600000"/>
+    <jail name="scanner" 
+          enabled="true" 
+          findTimeMs="30000" 
+          maxRetry="10" 
+          banTimeMs="86400000"/>
+    <jail name="dos_flood" 
+          enabled="true" 
+          findTimeMs="60000" 
+          maxRetry="3" 
+          banTimeMs="7200000"/>
+  </fail2ban>
+</list>
+
+<!--
+  PRODUCAO: trocar a rota "site" para porta 443 com TLS e habilitar redirect:
+
+    <route name="site-https" type="http" enabled="true"
+           bindHost="0.0.0.0" bindPort="443"
+           targetHost="127.0.0.1" targetPort="8080"
+           preserveHost="true" addForwardedHeaders="true"
+           tlsCert="/etc/letsencrypt/live/brproject.com/fullchain.pem"
+           tlsKey="/etc/letsencrypt/live/brproject.com/privkey.pem">
+      <rateLimiter enabled="true" windowSeconds="60" maxConnections="200" maxRequests="300"/>
+    </route>
+
+    <route name="http-redirect" type="http-redirect" enabled="true"
+           bindHost="0.0.0.0" bindPort="80"
+           targetHost="brproject.com" targetPort="443"
+           preserveHost="false" addForwardedHeaders="false">
+      <rateLimiter enabled="false" windowSeconds="60" maxConnections="0" maxRequests="0"/>
+    </route>
+
+  Iniciar: gradlew.bat :proxy:run
+  JVM prod: -Xms256m -Xmx512m -XX:+UseZGC -DPROXY_LOG_DIR=/var/log/brproject/proxy
+-->

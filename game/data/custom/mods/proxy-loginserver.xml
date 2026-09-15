@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- LoginServer proxy config. Uncomment <gameserver> block to enable L2 proxy routing. -->
+<list>
+</list>

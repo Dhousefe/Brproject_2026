@@ -1,0 +1,465 @@
+<list>
+    <!-- gameserver.handler.voicedcommandhandlers.Menu -->
+    <string key="10000">Вы можете получать опыт, убивая монстров.</string>
+    <string key="10001">Вы не можете получать опыт, убивая монстров.</string>
+    <string key="10002">Использование торговли включено.</string>
+    <string key="10003">Использование торговли выключено.</string>
+    <string key="10004">Автосбор добычи включен.</string>
+    <string key="10005">Автосбор добычи выключен.</string>
+    <string key="10006">Вы не можете выйти из игры как оффлайн игрок.</string>
+    <string key="10007">Ваш личный магазин был отмечен как оффлайн магазин и будет активен постоянно.</string>
+    <string key="10008">ВКЛ</string>
+    <string key="10009">ВЫКЛ</string>
+
+    <!-- gameserver.data.manager.BotsPreventionManager -->
+    <string key="10010">Поздравляем, цвета совпадают!</string>
+
+    <!-- gameserver.model.actor.Player -->
+    <string key="10011">Защита от спауна завершена.</string>
+    <string key="10012">Вы отклонили запрос на брак от вашего партнера.</string>
+    <string key="10013">Ваш партнер отклонил ваш запрос на брак.</string>
+    <string key="10014">Вход в мир в режиме невосприимчивости.</string>
+    <string key="10015">Вход в мир в режиме невидимости.</string>
+    <string key="10016">Вход в мир в режиме отказа.</string>
+    <string key="10017">После вашего действия вы больше не находитесь под защитой спауна.</string>
+
+    <!-- gameserver.scripting.script.event.Christmas -->
+    <string key="10018">Необходимо 10 Рождественских деревьев.</string>
+    <string key="10019">Необходимо 20 Специальных Рождественских деревьев.</string>
+
+    <!-- gameserver.model.actor.instance.Service && gameserver.communitybbs.custom.ServiceBBSManager -->
+    <string key="10020">Вы должны получить 3-й профессии.</string>
+    <string key="10021">У вас уже есть статус нублеса.</string>
+    <string key="10022">Вы уже являетесь героем.</string>
+    <string key="10023">Неверное количество предметов. Вам нужно %s</string>
+    <string key="10024">Теперь вы герой на %s дней.</string>
+    <string key="10025">Ваш статус героя истек.</string>
+    <string key="10026">Цвет ника успешно изменен.</string>
+    <string key="10027">Цвет заголовка успешно изменен.</string>
+    <string key="10028">Вы ввели неверное имя.</string>
+    <string key="10029">Это имя уже занято.</string>
+    <string key="10030">Имя успешно изменено.</string>
+    <string key="10031">Эта функция в настоящее время недоступна.</string>
+    <string key="10032">У вас уже есть премиум-аккаунт.</string>
+    <string key="10033">Вы приобрели премиум-аккаунт.\nКоличество дней: %s.</string>
+    <string key="10034">Ваш пол успешно изменен.</string>
+    <string key="10035">У вас нет предметов для очистки.</string>
+    <string key="10036">Ваши счетчики PK и кармы успешно сброшены.</string>
+    <string key="10037">У вас максимальный уровень клана.</string>
+    <string key="10038">Эта операция доступна только лидеру клана.</string>
+    <string key="10039">Ваш уровень клана успешно повышен до максимального.</string>
+    <string key="10040">Эта операция доступна только лидеру клана.</string>
+    <string key="10041">Клан должен быть 5 уровня или выше.</string>
+    <string key="10042">Все клановые умения уже доступны вашему клану.</string>
+    <string key="10043">Все клановые умения успешно выданы вашему клану.</string>
+    <string key="10044">Репутация вашего клана: %s</string>
+
+    <!-- gameserver.network.clientpackets.EnterWorld -->
+    <!-- <string key="10045">null</string> -->
+    <string key="10046">Ваши привилегии премиум-аккаунта действуют до %s</string>
+
+    <!-- gameserver.model.spawn.MultiSpawn -->
+    <string key="10047">Рейд-босс %s появился в мире!</string>
+
+    <!-- gameserver.handler.voicedcommandhandlers.EventCommand -->
+    <string key="10048">Ивент "Захват Флага" не запущен.</string>
+    <string key="10049">Вы уже зарегистрированы.</string>
+    <string key="10050">Вы не зарегистрированы.</string>
+
+    <string key="10051">Ивент дезматч не запущен.</string>
+    <string key="10052">Вы уже зарегистрированы.</string>
+    <string key="10053">Вы не зарегистрированы.</string>
+
+    <string key="10054">Ивент последний человек не запущен.</string>
+    <string key="10055">Вы уже зарегистрированы.</string>
+    <string key="10056">Вы не зарегистрированы.</string>
+
+    <string key="10057">Ивент "Команда против Команды" не запущен.</string>
+    <string key="10058">Вы уже зарегистрированы.</string>
+    <string key="10059">Вы не зарегистрированы.</string>
+
+    <!-- gameserver.network.clientpackets.RequestEnchantItem -->
+    <string key="10060">%s успешно заточил предмет +%s %s</string>
+
+    <!-- gameserver.model.actor.instance.WeddingManagerNpc -->
+    <string key="10061">Ваш партнер не может быть найден.</string>
+    <string key="10062">Ваш партнер не в сети.</string>
+    <string key="10063">Из-за текущего статуса партнера не удалось выполнить телепортацию.</string>
+    <string key="10064">Поскольку ваш партнер участвует в осаде, вы не можете к нему/ей попасть.</string>
+    <string key="10065">Поздравляем, теперь вы замужем/женаты на %s!</string>
+    <string key="10066">Поздравляем, теперь вы замужем/женаты на %s!</string>
+    <string key="10067">Поздравляем %s и %s! Они поженились.</string>
+    <string key="10068">будет</string>
+    <string key="10069">не будет</string>
+
+    <!-- gameserver.handler.admincommandhandlers.AdminInfo -->
+    <string key="10070">главный</string>
+    <string key="10071">помощник</string>
+
+	<!-- null 
+	<string key="null">null</string> -->
+
+    <!-- gameserver.handler.voicedcommandhandlers.Epic && gameserver.handler.voicedcommandhandlers.Raid -->
+    <string key="10073">Распад (%s мин.)</string>
+    <string key="10074">Жив</string>
+
+    <!-- gameserver.model.actor.Npc -->
+    <string key="10075"> (В процессе)]</string>
+    <string key="10076"> (Завершено)]</string>
+
+    <!-- gameserver.handler.itemhandlers.CapsuleBox -->
+    <string key="10077">Для использования этой капсульной коробки вам нужен уровень %s.</string>
+
+    <!-- gameserver.handler.itemhandlers.ItemSkill -->
+    <string key="10078">Запрещено использование свитков.</string>
+    <string key="10079">Запрещено использование зелий.</string>
+
+    <!-- gameserver.handler.voicedcommandhandlers.OfflinePlayer -->
+    <string key="10080">Вы не ведете частный магазин или частную мастерскую.</string>
+    <string key="10081">Ваш список покупок пуст.</string>
+    <string key="10082">Ваш список продаж пуст.</string>
+    <string key="10083">Вы не можете выйти из игры в режиме боя.</string>
+    <string key="10084">Вы не можете выйти из игры во время телепортации.</string>
+    <string key="10085">Вы не можете выйти из игры в режиме Олимпиады.</string>
+    <string key="10086">Вы не можете выйти из игры, находясь на фестивале.</string>
+    <string key="10087">Вы не можете выйти из игры как оффлайн игрок.</string>
+
+    <!-- gameserver.handler.voicedcommandhandlers.Online -->
+    <string key="10088">Сейчас в сети: %s игроков.</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminCTFEvent && AdminDMEvent && AdminLMEvent && AdminTvTEvent -->
+	<string key="10089">Вы должны выбрать игрока!</string>
+	<string key="10090">Игрок уже участвовал в событии!</string>
+	<string key="10091">Экземпляр игрока не может быть добавлен, похоже, он равен null!</string>
+	<string key="10092">Игрок не является частью события!</string>
+
+	<!-- gameserver.handler.admincommandhandlers.AdminPremium -->
+	<string key="10093">Включите конфигурацию UsePremiumServices.</string>
+	<string key="10094">Неверная учетная запись!</string>
+	<string key="10095">Неверный месяц!</string>
+	<string key="10096">Неверный день!</string>
+	<string key="10097">Неверный час!</string>
+	<string key="10098">Премиум установлен до: %s для учетной записи: %s</string>
+
+	<!-- gameserver.model.actor.instance.SchemeBuffer -->
+	<string key="10099">Я</string>
+	<string key="10100">Питомец</string>
+	<string key="10101">Изменить</string>
+	<string key="10102">Удалить</string>
+
+	<!-- gameserver.model.olympiad.AbstractOlympiadGame -->
+	<string key="10103">Вы зарегистрированы в другом событии!</string>
+
+	<!-- gameserver.model.olympiad.OlympiadManager -->
+	<string key="10104">Вы не можете присоединиться к Олимпиаде, участвуя в другом событии.</string>
+
+	<!-- gameserver.data.manager.CoupleManager -->
+	<string key="10105">Вы теперь разведены.</string>
+
+	<!-- gameserver.data.manager.FestivalOfDarknessManager -->
+	<string key="10106">Фестиваль завершился. Ваш лидер группы должен теперь зарегистрировать ваш счет перед началом следующего фестиваля.</string>
+	<string key="10107">Вас исключили из фестивальной арены.</string>
+
+	<!-- gameserver.model.actor.container.player.Punishment -->
+	<string key="10108">Чат снова доступен.</string>
+	<string key="10109">Чат временно приостановлен на %s минут(у/ы).</string>
+	<string key="10110">Чат приостановлен.</string>
+	<string key="10111">Вы находитесь в тюрьме на %s минут(у/ы).</string>
+	<string key="10112">Вы все еще находитесь в режиме %s в течение %s минут(у/ы).</string>
+	
+	<!-- gameserver.network.clientpackets.Say2 -->
+	<string key="10113">Общий чат доступен с %s уровня.</string>
+	<string key="10114">Приватный чат доступен с %s уровня.</string>
+	<string key="10115">Шаут чат доступен с %s уровня.</string>
+	<string key="10116">Торговый чат доступен с %s уровня."</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminEvent -->
+	<string key="10116">Эвент %s запущен.</string>
+	<string key="10117">Эвент %s уже запущен!</string>
+	<string key="10118">Эвент %s остановлен.</string>
+	<string key="10119">Эвент %s уже остановлен!</string>
+	<string key="10120">Применение </string>
+	
+	<!-- gameserver.scripting.script.event.Squash -->
+	<string key="10121">Вы не можете убить меня без Сувенира</string>
+	<string key="10122">Ха-ха...продолжайте пробовать...</string>
+	<string key="10123">Хорошая попытка...</string>
+	<string key="10124">Устали?</string>
+	<string key="10125">Вперед вперед! ха-ха...</string>
+	<string key="10126">Аааа... Сувенирное Оружие...</string>
+	<string key="10127">Мой конец близится...</string>
+	<string key="10128">Пожалуйста, оставьте меня!</string>
+	<string key="10129">Помогите...</string>
+	<string key="10130">Кто-нибудь помогите мне, пожалуйста...</string>
+	<string key="10131">Вкусный... Нектар...</string>
+	<string key="10132">Пожалуйста дайте мне еще...</string>
+	<string key="10133">Хмм.. Больше.. Я хочу больше...</string>
+	<string key="10134">Вы мне больше будете нравится, если дадите мне больше...</string>
+	<string key="10135">Хммммм...</string>
+	<string key="10136">Мой любимый...</string>
+	<string key="10137">Вы добились своего...</string>
+	<string key="10138">.....",</string>
+	<string key="10139">Получите призи, которые заслужили.</string>
+	<string key="10140">Моя жизнь была так коротка...</string>
+	<string key="10141">Вы все-таки осилили меня</string>
+	<string key="10142">...Где это я?</string>
+	<string key="10143">Что Вы хотите сделать со мной?</string>
+	<string key="10144">Что происходит...</string>
+	<string key="10145">Для чего я здесь?</string>
+	<string key="10146">Вы очень подозрительный тип!</string>
+	<string key="10147">Очень хорошо, дайте мне еще нектара.</string>
+	<string key="10148">Ммм... Весьма не плохо...</string>
+	<string key="10149">... Это еще не конец...</string>
+	<string key="10150">Вы отлично справляетесь с поставленной задачей.</string>
+	<string key="10151">Думаю, Вы способны на большее...</string>
+	<string key="10152">У Вас осталось 30 сек. на убийство.</string>
+	<string key="10153">У Вас осталось 20 сек. на убийство.</string>
+	<string key="10154">Время на исходе... 9 ... 8 ... 7 ...</string>
+	<string key="10155">Мне нужно больше нектара, чтобы выжить.</string>
+	<string key="10156">Нектар...</string>
+	<string key="10157">Я исчезну через %s сек. время на исходе.</string>
+	<string key="10158">Я хочу Нектара!</string>
+	
+	<!-- gameserver.scripting.script.event.* -->
+	<string key="10159">Событие %s запущено!</string>
+	<string key="10160">Событие %s закончено!</string>
+	
+	<!-- gameserver.scripting.script.ai.individual.Monster.RaidBoss.RaidBossParty.RaidBossType4 -->
+	<string key="10161">Вы были слишком далеки от Баракиеля. Вы упустили шанс стать Ноблессом!</string>
+	<string key="10162">Поздравляем! Все члены группы получили статус Ноблесса</string>
+	<string key="10163">Вы уже Ноблесс!</string>
+	
+	<!-- gameserver.data.manager.FestivalOfDarknessManager -->
+	<string key="10164">Это период проверки печати. Фестивали возобновятся на следующей неделе.</string>
+	<string key="10165">Следующий фестиваль начнется через %s минут(ы).</string>
+	
+	<!-- gameserver.model.residence.castle.Siege -->
+	<string key="10166">РЕГИСТР_ОТКРЫТА</string>
+	<string key="10167">РЕГИСТР_ЗАВЕРШЕНА</string>
+	<string key="10168">В_ПРОЦЕССЕ</string>
+	<string key="10169">НЕИЗВ_СТАТУС</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminSiege -->
+	<string key="10170">Посм. инфо.</string>
+	
+	<!-- gameserver.model.actor.Npc -->
+	<string key="10171">Назад</string>
+	<string key="10172">Победитель выбрал числа выше.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.OfflinePlayer -->
+	<string key="10173">%s был исключен из предстоящего фестиваля.</string>
+	
+	<!-- gameserver.communitybbs.manager.RegionBBSManager -->
+	<string key="10174">Никто</string>
+	
+	<!-- gameserver.model.entity.Events -->
+	<string key="10175">Защиты длится 15 секунд.</string>
+	
+	<!-- gameserver.communitybbs.custom.BuffBBSManager && SchemeBuffer -->
+	<string key="10176">Предыдущая</string>
+	<string key="10177">Следующая</string>
+	<string key="10178">Страница</string>
+	<string key="10179">Вы не сделали ни одного профиля.</string>
+	<string key="10180">Эта схема достигла максимального количества баффов.</string>
+	<string key="10181">Название схемы должно содержать не более 14 символов. Пробелы обрезаются.</string>
+	<string key="10182">Достигнуто максимальное количество схем.</string>
+	<string key="10183">Название схемы уже существует.</string>
+	<string key="10184">Это недопустимое название схемы.</string>
+	<string key="10185">Эта группа не содержит никаких навыков.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Menu -->
+	<string key="10186">Защита от баффов включена.</string>
+	<string key="10187">Защита от баффов отключена.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Acp -->
+	<string key="10188">Вам нужно быть как минимум %s уровня, чтобы использовать авто-зелья.</string>
+	<string key="10189">Авто-зелья включены.</string>
+	<string key="10190">Авто-зелья отключены.</string>
+	<string key="10191">Введите число.</string>
+	<string key="10192">Укажите кол-во процентов от 0 до 100.</string>
+	<string key="10193">Значение изменено.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers.Banking -->
+	<string key="10194">.deposit (%s аден = %s золотых слитков) / .withdraw (%s золотых слитков = %s аден)</string>
+	<string key="10195">Теперь у вас %s золотых слитков и на %s адены меньше.</string>
+	<string key="10196">У вас недостаточно адены для конвертации в золотые слитки, вам нужно %s адены.</string>
+	<string key="10197">У вас недостаточно места в инвентаре для всей адены!</string>
+	<string key="10198">Теперь у вас %s адены и на %s меньше золотых слитков.</string>
+	<string key="10199">У вас нет золотых слитков, чтобы обменять их на %s адены.</string>
+	
+	<!-- gameserver.handler.voicedcommandhandlers. ALLVOICEDCOMMAND -->
+	<string key="10200">Команда отключена на сервере.</string>
+
+	<!-- gameserver.communitybbs.custom.BuffBBSManager && SchemeBuffer -->
+	<string key="10201">Сумон не вызван. Пожалуйста, вызовите сумона перед изменением цели.</string>
+	
+	<!-- gameserver.communitybbs.custom.AuctionBBSManager -->
+	<string key="10202">Выбранный товар больше недоступен на Аукционе.</string>
+	<string key="10203">У вас нет выбранного предмета в инвентаре.</string>
+	<string key="10204">Вы достигли лимита в %s выставленных предметов.</string>
+	<string key="10205">%s не разрешено на Аукционе.</string>
+	<string key="10206">Этот предмет больше не находится в вашем инвентаре.</string>
+	<string key="10207">Некорректное количество предметов.</string>
+	<string key="10208">Некорректная цена предмета.</string>
+	<string key="10209">У вас нет %s %s для оплаты комиссии за Аукцион.</string>
+	<string key="10210">Вы успешно выставили %s</string>
+	
+	<!-- gameserver.communitybbs.custom.model.Auction -->
+	<string key="10211">До окончания Аукциона осталось более 24 часов.</string>
+	<string key="10212">Вы обновили продолжительность до %s.</string>
+	<string key="10213">Нет такого количества товара.</string>
+	<string key="10214">Вы успешно приобрели аукционный лот.</string>
+	<string key="10215">Вы успешно продали аукционный лот.</string>
+	<string key="10216">Вы удалилили Аукционный лот.</string>
+	
+	<!-- gameserver.communitybbs.custom.AuctionBBSManager -->
+	<string key="10217">Применить</string>
+	<string key="10218">каждая</string>
+	<string key="10219">ВЛАДЕЛЕЦ</string>
+	<string key="10220">Покупка</string>
+	<string key="10221">Да</string>
+	<string key="10222">Отменить</string>
+	<string key="10223">У тебя не хватает %s - [%s], чтобы купить предмет.</string>
+	<string key="10224">Очистить</string>
+	<string key="10225">Поиск</string>
+	<string key="10226">Истечение аукциона:</string>
+	<string key="10227">Товары на продажу</string>
+	<string key="10228">Убрать</string>
+	<string key="10229">Добавить</string>
+	<string key="10230">Вы ничего не добавили</string>
+	<string key="10231">Твои предметы</string>
+	<string key="10232">Истек срок действия</string>
+	
+	<!-- gameserver.model.actor.instance.RaidBoss -->
+	<string key="10233">Рейдбосс %s [%s] был убит. Последний удар: %s. Клан: %s</string>
+	<string key="10234">Рейдбосс %s [%s] был убит. Последний удар: %s</string>
+	
+	<!-- gameserver.model.actor.instance.GrandBoss -->
+	<string key="10235">Эпикбосс %s [%s] был убит. Последний удар: %s. Клан: %s</string>
+	<string key="10236">Эпикбосс %s [%s] был убит. Последний удар: %s</string>
+	
+    <!-- gameserver.model.spawn.MultiSpawn -->
+    <string key="10237">Рейдбосс %s появился в мире!</string>
+	<string key="10238">Эпикбосс %s появился в мире!</string>
+	
+	<!-- gameserver.handler.admincommandhandlers.AdminTest -->
+	<string key="10239">Использование: //test setquest || ssq_change || manor_change || augment</string>
+	<string key="10240">Неизвестный тип усиления: %s</string>
+	<string key="10241">Использование: //test augment active|passive value</string>
+	<string key="10242">Неверный числовой формат!</string>
+	<string key="10243">Вы должны указать три параметра!</string>
+	<string key="10244">Неверный формат команды. Используйте //test augment param1 param2 param3 ИЛИ //test augment active|passive type</string>
+	<string key="10245">Квест с ID: %s не найден</string>
+	<string key="10246">Невозможно инициализировать новое состояние квеста с cond %s для игрока %s. Для инициализации нового состояния используйте cond 0.</string>
+	<string key="10247">Условие квеста %s для %s установлено в %s</string>
+	<string key="10248">Квест %s для %s был создан. Чтобы начать его, используйте //test setquest %s 1</string>
+	<string key="10249">Неверный формат команды. Используйте //test setquest questId cond</string>
+	<string key="10250">Вы не можете улучшать оружие ниже %s класса!</string>
+	<string key="10251">Вы не можете добавить усиление на %s!</string>
+	<string key="10252">Успешно добавлено: %s.</string>
+	<string key="10253">Это оружие уже улучшено.</string>
+	<string key="10254">У вас нет оружия в руках.</string>
+	
+	<!-- Guard Chat System - Агрессивные сообщения (ПК) -->
+	<string key="11000">{name}, ты никуда не денешься... я тебя немножко убью!</string>
+	<string key="11001">{name}, я тебя проткну, клянусь матерью!</string>
+	<string key="11002">Ла-ла-ла, я сошел с ума! Теперь я убью всех!</string>
+	<string key="11003">Я убил так много... и ты, {name}, будешь еще одним в списке!</string>
+	<string key="11004">Отправим тебя в ад и дело с концом</string>
+	<string key="11005">{name}, умри, наглый червь!</string>
+	<string key="11006">Я ужас, летящий на крыльях ночи! Я... ах, забудь, {name}... я просто убью тебя!</string>
+	<string key="11007">Когда ты будешь в душе, я буду там... Когда ты будешь смотреть телевизор, я буду там... Думал, я шучу?!</string>
+	<string key="11008">Я спокоен и у меня чистое сердце... Но оно полно зла!</string>
+	<string key="11009">Эй, моя будущая жертва... я с тобой разговариваю, {name}! Не притворяйся!</string>
+	<string key="11010">Ура! За родину и моих братьев по оружию! Готовься умереть, {name}!</string>
+	<string key="11011">{name}, заплатишь пошлину или заплатишь жизнью?</string>
+	<string key="11012">{name}, родился... умер...</string>
+	<string key="11013">{name}, предпочитаешь умереть быстро и легко или медленно и мучительно?</string>
+	<string key="11014">{name}, ПВП или убежал от страха?</string>
+	<string key="11015">{name}, я убью тебя с любовью.</string>
+	<string key="11016">{name}, я разорву тебя, как собака рвет подушку!</string>
+	<string key="11017">Готовься к смерти, {name}!</string>
+	<string key="11018">{name}, ты сражаешься как маленькая девочка!</string>
+	<string key="11019">{name}, помолись перед смертью! Или лучше... уже нет времени!</string>
+	
+	<!-- Guard Chat System - Обычные сообщения (Мужчина) -->
+	<string key="11100">Эй, {name}, есть что-нибудь для меня?</string>
+	<string key="11101">{name}, как дела, приятель?</string>
+	<string key="11102">Привет, {name}, здорово!</string>
+	<string key="11103">{name}, привет, уродец.</string>
+	<string key="11104">{name}, одолжи мне свое оружие на минутку, хочу сделать скриншот.</string>
+	<string key="11105">Удачной охоты, {name}.</string>
+	<string key="11106">{name}, в чем секрет силы, брат?</string>
+	<string key="11107">{name}, пусть к тебе придет еще больше убийств.</string>
+	<string key="11108">{name}, ты мне приснился в кошмарах!</string>
+	<string key="11109">{name}, я тебя знаю... ты тот самый охотник на невинных монстров!</string>
+	<string key="11110">{name}, ПВП или боишься?</string>
+	<string key="11111">{name}, твои деньги упали вон там.</string>
+	<string key="11112">Ни за что, {name}, я не пойду с тобой, не настаивай.</string>
+	<string key="11113">Всем в этом чате шлю поцелуйчик!</string>
+	<string key="11114">Всем в этом чате шлю поцелуйчик!</string>
+	
+	<!-- Guard Chat System - Обычные сообщения (Женщина) -->
+	<string key="11200">Привет, {name}, красавица!</string>
+	<string key="11201">Ух ты, {name}, какие... хм... красивые глаза!</string>
+	<string key="11202">{name}, не хочешь прогуляться с настоящим мачо?</string>
+	<string key="11203">Здравствуй, {name}!</string>
+	<string key="11204">{name}, дай я прикоснусь... в смысле, к твоей... ауре!</string>
+	<string key="11205">{name}, убивать врагов - не женское дело...</string>
+	<string key="11206">{name}, твой топ порвался... не показывает... глаза!</string>
+	<string key="11207">{name}, какие... хм... булочки!</string>
+	<string key="11208">{name}, какие ножки, а!</string>
+	<string key="11209">{name}, ты просто красотка!</string>
+	<string key="11210">{name}, ух ты, какая женщина... хотел бы себе такую.</string>
+	<string key="11211">{name}, что будешь делать сегодня вечером?</string>
+	<string key="11212">{name}, согласна ли ты, что с точки зрения банальной эрудиции, не каждый локально выбранный индивидуум способен игнорировать эмоциональные тенденции?</string>
+	<string key="11213">{name}, предлагаю тебе руку и сердце... и кошелек после свадьбы.</string>
+	
+	<!-- Kamaloka Instance Messages - Russian Translation -->
+	<string key="12000">Вы уже находитесь в подземелье.</string>
+	<string key="12001">Вы не можете войти во время боя.</string>
+	<string key="12002">Вы не можете войти во время матча Олимпиады.</string>
+	<string key="12003">Вы не можете войти в режиме PvP.</string>
+	<string key="12004">Вы не можете использовать это мертвым.</string>
+	<string key="12005">Вы не можете использовать это в состоянии ложной смерти.</string>
+	<string key="12006">Вы не можете использовать это во время рыбалки.</string>
+	<string key="12007">Вы не можете использовать это во время дуэли.</string>
+	<string key="12008">Вы не можете использовать это на арене.</string>
+	<string key="12009">Вы не можете использовать это в тюрьме.</string>
+	<string key="12010">Вы не можете использовать это в данный момент.</string>
+	<string key="12011">Вы не можете использовать это в режиме наблюдения.</string>
+	<string key="12012">Вы не можете использовать это во время произнесения заклинания.</string>
+	<string key="12013">Вы достигли дневного лимита входов.</string>
+	<string key="12014">Подготовка к входу в подземелье...</string>
+	<string key="12015">Все члены группы должны оставаться неподвижными для входа в подземелье...</string>
+	<string key="12016">Член группы ({name}) не соответствует требованиям.</string>
+	<string key="12017">Ваш вход был отменен, потому что подготовка была прервана.</string>
+	<string key="12018">Подготовка {name} была прервана.</string>
+	<string key="12019">Ваш уровень не совместим для входа в Зал Бездны.</string>
+	<string key="12020">Самый высокий уровень члена группы не совместим для входа в Лабиринт Бездны.</string>
+	<string key="12021">Конфигурация подземелья не найдена. Обратитесь к администратору.</string>
+	<string key="12022">Произошла ошибка при попытке войти в подземелье.</string>
+	<string key="12023">Вы не находитесь в Камалоке.</string>
+	<string key="12024">Вы были возвращены из {dungeon}.</string>
+	<string key="12025">Подземелье было завершено игроком.</string>
+	<string key="12026">У вас нет разрешения использовать эту команду.</string>
+	<string key="12027">Повторный вход в Камалоку теперь {status}.</string>
+	<string key="12028">включен</string>
+	<string key="12029">ограничен одним разом в день</string>
+	<string key="12030">Босс Камалоки был побежден {name}!</string>
+	<string key="12031">Рейд в {dungeon} провалился.</string>
+	<string key="12032">Осталось времени для победы над боссом: {time} минут(ы).</string>
+	<string key="12033">Вам нужна группа для входа.</string>
+	<string key="12034">Ошибка: Не удалось загрузить окно диалога.</string>
+	<string key="12035">Вы не можете войти, будучи зарегистрированным в турнире.</string>
+	<string key="12036">Вы не можете войти, будучи зарегистрированным в событии Захват флага.</string>
+	<string key="12037">Вы не можете войти, будучи зарегистрированным в событии Команда против команды.</string>
+	<string key="12038">Вы не можете войти, будучи зарегистрированным в событии Смертельный бой.</string>
+	<string key="12039">Вы не можете войти, будучи зарегистрированным в событии Последний выживший.</string>
+	<string key="12040">Вы находитесь в безопасной зоне, телепортируемся напрямую в подземелье.</string>
+
+	<!-- gameserver.data.manager.CountryLocaleManager -->
+	<string key="12100">Ваш язык был автоматически установлен по стране (%s -> %s).</string>
+	<string key="12101">Для вашей страны (%s) нет сопоставления языка в language.properties.</string>
+	<string key="12102">Язык '%s' (из %s) не загружен на этом сервере.</string>
+</list>

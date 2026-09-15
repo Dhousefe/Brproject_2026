@@ -1,0 +1,42 @@
+<html><title>Кинорежиссер</title><body>
+	<font color="LEVEL">Новая последовательность</font><br>
+	<center>
+		<table width=270>
+			<tr>
+				<td>Идентификатор: </td>
+				<td><edit width=75 var="tsId"></td>
+			</tr><tr>
+				<td>Расстояние: </td>
+				<td><edit width=75 var="tdist"></td>
+			</tr><tr>
+				<td>Отклонение: </td>
+				<td><edit width=75 var="tyaw"></td>
+			</tr><tr>
+				<td>Шаг: </td>
+				<td><edit width=75 var="tpitch"></td>
+			</tr><tr>
+				<td>Время: </td>
+				<td><edit width=75 var="ttime"></td>
+			</tr><tr>
+				<td>Продолжительность: </td>
+				<td><edit width=75 var="tdur"></td>
+			</tr><tr>
+				<td>Поворот: </td>
+				<td><edit width=75 var="tturn"></td>
+			</tr><tr>
+				<td>Подъем: </td>
+				<td><edit width=75 var="trise"></td>
+			</tr><tr>
+				<td>Широкоэкранный режим: </td>
+				<td><combobox width=75 var=tscreen list=0;1></td>
+			</tr>
+		</table><br>
+		
+		<table>
+			<tr>
+				<td><button value="Добавить" action="bypass -h admin_sequence add $tsId $tdist $tyaw $tpitch $ttime $tdur $tturn $trise $tscreen" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+				<td><button value="Назад" action="bypass -h admin_movie" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			</tr>
+		</table>
+	</center>
+</body></html>

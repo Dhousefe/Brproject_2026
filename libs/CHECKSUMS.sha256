@@ -1,0 +1,14 @@
+# SHA-256 checksums for vendored JARs (not available on Maven Central).
+# Verify with: cd libs && shasum -a 256 -c CHECKSUMS.sha256
+#
+# Generated: 2026-07-23
+
+ebd571ef5ccc379caa9bade15fb6bfaad4ca605894d90a89bf1002ef1f5e2768  DeepL.jar
+c646bf36eacb3a6852509c43e47f3f6d45f11b383456e22bf37377d8f8cc12be  ApiPix.jar
+e9ef78e4a35fde65acc3a17b228dda2ed37fbfea4975f7f0e18bee3262bd984f  interface.ext.jar
+562e379e64441f960155c40900f3671f6de71522b30fce831350120e829380d5  Kamaloka.ext.jar
+66d4f819a062a51a1d5627bffc23fac55d1677f0e0a1feba144aabdd670a64bb  jna-5.13.0.jar
+474d7b88f6e97009b6ec1d98c3024dd95c23187c65dabfbc35331bcac3d173dd  jna-platform-5.13.0.jar
+f3cbce0a7b74216796dd9223f3efc08788886a127384e6dfe97bab9c649c21d3  deepl-java-1.6.0.jar
+ae5a19b57b78d9e90cd6bb58882438d3d3c1cd112b2c6c9018a799e939676a94  runtime-0.1.16.jar
+6dc7464e3803648d3ff18a7359bab6adf079fcd8495b18991f6f5edcb8ac6e3b  sqlite-jdbc-3.46.1.0.jar

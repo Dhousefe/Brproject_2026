@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true">
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="6724" count="1"/><!-- sealed_sanddragon_s_earing -->
+		<ingredient id="5575" count="731441"/><!-- adena_of_ancient -->
+		<production id="858" count="1"/><!-- sanddragon_s_earing -->
+	</item>
+	<item>
+		<ingredient id="6725" count="1"/><!-- sealed_ring_of_aurakyria -->
+		<ingredient id="5575" count="487627"/><!-- adena_of_ancient -->
+		<production id="889" count="1"/><!-- ring_of_aurakyria -->
+	</item>
+	<item>
+		<ingredient id="6726" count="1"/><!-- sealed_dragon_necklace -->
+		<ingredient id="5575" count="975255"/><!-- adena_of_ancient -->
+		<production id="920" count="1"/><!-- dragon_necklace -->
+	</item>
+</list>

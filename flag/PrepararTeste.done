@@ -1,0 +1,6 @@
+driver=sqlite
+url=jdbc:sqlite:data/brproject.db
+user=
+host=127.0.0.1
+port=3306
+database=data/brproject.db

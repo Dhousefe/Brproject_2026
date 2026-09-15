@@ -1,0 +1,55 @@
+<html><body>
+<br>
+<center>
+<font color=LEVEL>Редактирование %type% "%name%"</font>
+<br>
+%msg%
+</center>
+<table>
+    <tr>
+        <td width=8></td>
+        <td>
+            <img src="L2UI.SquareGray" width=250 height=1>
+            <table cellpadding=2 bgcolor=000000>
+                <tr>
+                    <td width=4></td>
+                    <td width=50>Точка</td>
+                    <td width=52 align=center>X</td>
+                    <td width=52 align=center>Y</td>
+                    <td width=52 align=center>Z</td>
+                    <td width=30></td>
+                </tr>
+            </table>
+            <img src="L2UI.SquareGray" width=250 height=1>
+        </td>
+    </tr>
+    <tr><td></td></tr>
+    <tr>
+        <td></td>
+        <td>
+            <table>
+                %list%
+            </table>
+        </td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td width=226 align=right><button value="%lock%" action="bypass autofarm zb lock_new_nodes" width=50 height=17 back=sek.cbui94 fore=sek.cbui92></td>
+        <td><button value="%adding%" action="bypass autofarm zb addnode %id%" width=30 height=17 back=sek.cbui94 fore=sek.cbui92></td>
+    </tr>
+</table>
+<br><br>
+<center>
+<table width=300>
+    <tr>
+        <td width=40><a action="bypass autofarm list_areas %type%">Назад</a></td>
+        <td width=80><a action="bypass autofarm zb preview %id% EDIT">Предпросмотр</a></td>
+        <td width=65><a action="bypass autofarm zb save">Сохранить</a></td>
+        <td width=55><a action="bypass autofarm zb clearnodes">Очистить</a></td>
+        <td width=50><a action="bypass autofarm zb delete %id%">Удалить</a></td>
+    </tr>
+</table>
+</center>
+</body></html>

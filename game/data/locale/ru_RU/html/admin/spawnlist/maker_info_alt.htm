@@ -1,0 +1,48 @@
+<html><title>Информация о Создателе NPC</title><body>
+	<center>
+	<table width=270>
+		<tr>
+			<td width=45><button value="Главная" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=135 align=center>Информация о Создателе NPC</td>
+			<td width=45><button value="Помощь" action="bypass -h admin_help" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=45><button value="Назад" action="bypass -h admin_maker" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	<table width=130>
+		<tr>
+			<td><button value="Скрипты" action="bypass -h admin_maker scripts %MAKERNAME%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Обновить" action="bypass -h admin_maker %MAKERNAME%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table><br>
+	<img src="l2ui.SquareGray" width=270 height=1><br>
+	<table width=280>
+		<tr>
+			<td><font color="LEVEL">Имя:</font></td>
+			<td>%MAKERNAME%</td>
+		</tr><tr>
+			<td width=60><font color="LEVEL">Терр.:</font></td>
+			<td width=200>%TERRNAME%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Запр. Терр.:</font></td>
+			<td>%BANTERRNAME%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Создание:</font></td>
+			<td>%MAKERSPAWN%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Событие:</font></td>
+			<td>%MAKEREVENT%</td>
+		</tr><tr>
+			<td><font color="LEVEL">При запуске:</font></td>
+			<td>%MAKERSTART%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Повторное создание:</font></td>
+			<td>%MAKERRESPAWN%</td>
+		</tr><tr>
+			<td><font color="LEVEL">НПЦ:</font></td>
+			<td>(<font color="00FF00">%MAKERCNTA%</font> + <font color="FF0000">%MAKERCNTD%</font>) / %MAKERCNTT%</td>
+		</tr>
+	</table><br>
+	<img src="l2ui.SquareGray" width=270 height=1><br>
+	%NPCSLIST%
+	</center>
+</body></html>

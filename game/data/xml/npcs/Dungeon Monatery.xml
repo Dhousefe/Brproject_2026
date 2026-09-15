@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+	<npc id="55000" idTemplate="22123" name="Monastic Crusader" title="" alias="cloister_crusader">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="13.0"/>
+		<set name="height" val="37.5"/>
+		<set name="hitTimeFactor" val="0.76"/>
+		<set name="rHand" val="97"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="41689.56486397499"/>
+		<set name="sp" val="4558.0"/>
+		<set name="hp" val="2975.2369188"/>
+		<set name="mp" val="1742.976"/>
+		<set name="hpRegen" val="8.721"/>
+		<set name="mpRegen" val="3.0804"/>
+		<set name="baseAttackRange" val="80"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="938.20801458"/>
+		<set name="pDef" val="354.8183475"/>
+		<set name="mAtk" val="656.66638089"/>
+		<set name="mDef" val="259.6406685"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="50.0"/>
+		<set name="runSpd" val="120.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="90"/>
+			<set name="MoveAroundSocial1" val="98"/>
+			<set name="MoveAroundSocial2" val="90"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4032" level="9" type="PHYSICAL_SPECIAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4414" level="1" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+		</skills>
+	</npc>
+	<npc id="55001" idTemplate="22124" name="Solina Brother" title="" alias="solina_brother">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="9.0"/>
+		<set name="height" val="23.4"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8212"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="NoRespawn" val="true"/>
+		<set name="exp" val="33265.24086397502"/>
+		<set name="sp" val="3601.0"/>
+		<set name="hp" val="2975.2369188"/>
+		<set name="mp" val="1742.976"/>
+		<set name="hpRegen" val="8.721"/>
+		<set name="mpRegen" val="3.0804"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="938.20801458"/>
+		<set name="pDef" val="354.8183475"/>
+		<set name="mAtk" val="656.66638089"/>
+		<set name="mDef" val="259.6406685"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="61.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="112"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4032" level="9" type="PHYSICAL_SPECIAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4410" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4467" level="3" type="DEBUFF2"/>
+			<skill id="4574" level="9" type="SELF_RANGE_PHYSICAL_SPECIAL"/>
+			<skill id="4589" level="10" type="DEBUFF"/>
+		</skills>
+	</npc>
+	<npc id="55002" idTemplate="22125" name="Solina Lay Brother" title="" alias="solina_lay_brother">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="9.0"/>
+		<set name="height" val="23.4"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8212"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="33304.96698389999"/>
+		<set name="sp" val="3644.0"/>
+		<set name="hp" val="3010.8929976"/>
+		<set name="mp" val="1777.86"/>
+		<set name="hpRegen" val="8.772"/>
+		<set name="mpRegen" val="3.1008"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="961.93701102"/>
+		<set name="pDef" val="361.0859925"/>
+		<set name="mAtk" val="677.644106544"/>
+		<set name="mDef" val="264.22705872"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="61.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="112"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4160" level="9" type="W_SHORT_RANGE_DD_MAGIC"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4411" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4563" level="9" type="W_LONG_RANGE_DD_MAGIC"/>
+			<skill id="4613" level="9" type="MAGIC_HEAL"/>
+		</skills>
+	</npc>
+	<npc id="55003" idTemplate="22126" name="Silent Seeker" title="" alias="silence_seeker">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="11.0"/>
+		<set name="height" val="25.4"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8213"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="34091.674983899975"/>
+		<set name="sp" val="3734.0"/>
+		<set name="hp" val="3010.8929976"/>
+		<set name="mp" val="1777.86"/>
+		<set name="hpRegen" val="8.772"/>
+		<set name="mpRegen" val="3.1008"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="961.93701102"/>
+		<set name="pDef" val="361.0859925"/>
+		<set name="mAtk" val="677.644106544"/>
+		<set name="mDef" val="264.22705872"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="70.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="113"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4032" level="9" type="PHYSICAL_SPECIAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4410" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4467" level="3" type="DEBUFF2"/>
+			<skill id="4574" level="9" type="SELF_RANGE_PHYSICAL_SPECIAL"/>
+			<skill id="4589" level="10" type="DEBUFF"/>
+		</skills>
+	</npc>
+	<npc id="55004" idTemplate="22127" name="Silent Brother" title="" alias="silence_brother">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="11.0"/>
+		<set name="height" val="25.4"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8213"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="34122.23639977498"/>
+		<set name="sp" val="3778.0"/>
+		<set name="hp" val="3044.88717"/>
+		<set name="mp" val="1812.948"/>
+		<set name="hpRegen" val="8.823"/>
+		<set name="mpRegen" val="3.111"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="985.66600746"/>
+		<set name="pDef" val="367.3536375"/>
+		<set name="mAtk" val="699.2575207596"/>
+		<set name="mDef" val="268.81344996"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="70.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="113"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4160" level="9" type="W_SHORT_RANGE_DD_MAGIC"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4411" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4563" level="9" type="W_LONG_RANGE_DD_MAGIC"/>
+			<skill id="5021" level="9" type="DEBUFF"/>
+		</skills>
+	</npc>
+	<npc id="55005" idTemplate="22128" name="Monastery Guardian" title="" alias="cloister_protector">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="9.0"/>
+		<set name="height" val="15.6"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="9740.512102499999"/>
+		<set name="sp" val="1132.0"/>
+		<set name="hp" val="3044.88717"/>
+		<set name="mp" val="1812.948"/>
+		<set name="hpRegen" val="8.823"/>
+		<set name="mpRegen" val="3.111"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="985.66600746"/>
+		<set name="pDef" val="367.3536375"/>
+		<set name="mAtk" val="699.2575207596"/>
+		<set name="mDef" val="268.81344996"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="65.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="97"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4410" level="13" type="PASSIVE"/>
+			<skill id="4414" level="3" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4438" level="4" type="PASSIVE"/>
+			<skill id="4439" level="4" type="PASSIVE"/>
+			<skill id="4614" level="8" type="SELF_RANGE_DD_MAGIC"/>
+		</skills>
+	</npc>
+	<npc id="55006" idTemplate="22129" name="Warrior Monk" title="" alias="monk_warrior">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="12.0"/>
+		<set name="height" val="28.4"/>
+		<set name="hitTimeFactor" val="0.6"/>
+		<set name="rHand" val="8211"/>
+		<set name="lHand" val="8210"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="35774.96411159999"/>
+		<set name="sp" val="4012.0"/>
+		<set name="hp" val="3077.1572058"/>
+		<set name="mp" val="1848.24"/>
+		<set name="hpRegen" val="8.874"/>
+		<set name="mpRegen" val="3.1314"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="1009.3950039"/>
+		<set name="pDef" val="373.969485"/>
+		<set name="mAtk" val="719.599557852"/>
+		<set name="mDef" val="273.65463924"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="53.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="104"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4032" level="9" type="PHYSICAL_SPECIAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4410" level="16" type="PASSIVE"/>
+			<skill id="4414" level="1" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4467" level="3" type="DEBUFF2"/>
+			<skill id="4574" level="9" type="SELF_RANGE_PHYSICAL_SPECIAL"/>
+			<skill id="4643" level="10" type="DEBUFF"/>
+		</skills>
+	</npc>
+	<npc id="55007" idTemplate="22132" name="Judge of Light" title="" alias="light_judge">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="13.0"/>
+		<set name="height" val="47.0"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="37162.87895054999"/>
+		<set name="sp" val="4257.0"/>
+		<set name="hp" val="3136.2900942"/>
+		<set name="mp" val="1919.436"/>
+		<set name="hpRegen" val="8.976"/>
+		<set name="mpRegen" val="3.16812"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="1055.0276874"/>
+		<set name="pDef" val="386.504775"/>
+		<set name="mAtk" val="760.9193205984"/>
+		<set name="mDef" val="282.8274207"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="30.0"/>
+		<set name="runSpd" val="120.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="122"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4065" level="9" type="MAGIC_HEAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="13" type="PASSIVE"/>
+			<skill id="4410" level="14" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4491" level="9" type="LONG_RANGE_PHYSICAL_SPECIAL"/>
+		</skills>
+	</npc>
+	<npc id="55008" idTemplate="22133" name="Guardian of the Grail" title="" alias="protector_holy_grail">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="13.0"/>
+		<set name="height" val="22.0"/>
+		<set name="hitTimeFactor" val="0.1"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="13889.688000000027"/>
+		<set name="sp" val="1672.0"/>
+		<set name="hp" val="3136.2900942"/>
+		<set name="mp" val="1919.436"/>
+		<set name="hpRegen" val="8.976"/>
+		<set name="mpRegen" val="3.16812"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="10"/>
+		<set name="pAtk" val="1055.0276874"/>
+		<set name="pDef" val="386.504775"/>
+		<set name="mAtk" val="760.9193205984"/>
+		<set name="mDef" val="282.8274207"/>
+		<set name="crit" val="8.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="80.0"/>
+		<set name="runSpd" val="140.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4410" level="13" type="PASSIVE"/>
+			<skill id="4414" level="3" type="PASSIVE"/>
+			<skill id="4416" level="2" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4438" level="4" type="PASSIVE"/>
+			<skill id="4439" level="4" type="PASSIVE"/>
+			<skill id="4488" level="10" type="SELF_RANGE_DD_MAGIC3"/>
+			<skill id="4489" level="10" type="SELF_RANGE_DD_MAGIC2"/>
+			<skill id="4614" level="8" type="SELF_RANGE_DD_MAGIC"/>
+			<skill id="4671" level="1" type="TELEPORT_EFFECT"/>
+		</skills>
+	</npc>
+	<npc id="55009" idTemplate="22134" name="Guardian of the Holy Land" title="" alias="sacred_guard">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="14.0"/>
+		<set name="height" val="34.5"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8214"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="exp" val="37490.37702277499"/>
+		<set name="sp" val="4352.0"/>
+		<set name="hp" val="3163.0432152"/>
+		<set name="mp" val="1955.34"/>
+		<set name="hpRegen" val="9.027"/>
+		<set name="mpRegen" val="3.1824"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="1076.9313816"/>
+		<set name="pDef" val="410.87895"/>
+		<set name="mAtk" val="781.2613576908"/>
+		<set name="mDef" val="300.66338448"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="30.0"/>
+		<set name="runSpd" val="120.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="114"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4160" level="9" type="W_SHORT_RANGE_DD_MAGIC"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4411" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4563" level="9" type="W_LONG_RANGE_DD_MAGIC"/>
+			<skill id="4613" level="9" type="MAGIC_HEAL"/>
+		</skills>
+	</npc>
+	<npc id="55010" idTemplate="29096" name="Lord of Splendor Anays" title="Raid Boss" alias="anais_brilliance_master">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="80"/>
+		<set name="radius" val="16.0"/>
+		<set name="height" val="41.8"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8214"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="true"/>
+		<set name="exp" val="8827525.095953152"/>
+		<set name="sp" val="2036475.0"/>
+		<set name="hp" val="480890.35095576"/>
+		<set name="mp" val="2051.19"/>
+		<set name="hpRegen" val="147.845481058836"/>
+		<set name="mpRegen" val="3.21"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="3064.77740579339"/>
+		<set name="pDef" val="1185.643995"/>
+		<set name="mAtk" val="1222.08861964511"/>
+		<set name="mDef" val="578.3992"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="60.0"/>
+		<set name="runSpd" val="160.0"/>
+		<set name="str" val="60"/>
+		<set name="int" val="76"/>
+		<set name="dex" val="73"/>
+		<set name="wit" val="70"/>
+		<set name="con" val="57"/>
+		<set name="men" val="80"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="1000"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="300"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<ai>
+			<set name="RaidSpawnMusic" val="Rm02_A"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4045" level="1" type="PASSIVE"/>
+			<skill id="4180" level="10" type="PHYSICAL_SPECIAL_B"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="1" type="PASSIVE"/>
+			<skill id="4494" level="1" type="PASSIVE"/>
+			<skill id="5032" level="1" type="PASSIVE"/>
+		</skills>
+	</npc>
+</list>
+	

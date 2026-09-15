@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<items_duration>
+    <item id="12345" type="weapon" max_uses="50000">
+        <consume type="attack" amount="1"/>
+        <renew id="91000" count="1"/>
+        <extend id="91001" count="1" add_uses="10000"/>
+    </item>
+
+    <item id="23456" type="armor" max_uses="100000">
+        <consume type="magic" amount="2"/>
+        <renew id="91002" count="1"/>
+    </item>
+
+    <item id="34567" type="jewel" max_uses="250000">
+        <consume type="attack" amount="1"/>
+        <consume type="magic" amount="1"/>
+        <extend id="91003" count="2" add_uses="50000"/>
+    </item>
+</items_duration>

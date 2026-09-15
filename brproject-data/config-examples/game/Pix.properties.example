@@ -1,0 +1,35 @@
+# =================================================================
+#                          PIX Manager
+# =================================================================
+# Ligar mod PIX / DonationManager. O valor final também depende de donation.properties (EnableDonationManager).
+EnablePixMod = False
+
+# Utilize "//reload config" para recarregar os valores no gameserver
+
+# API
+# https://www.mercadopago.com.br/developers/panel/app
+#MercadoPagoApiToken = APP_USR-2051013733669777-******-************************-*********
+MercadoPagoApiToken = APP_USR-8348661493928939-122014-*********************-***********
+# Prazo maximo em minutos para o pagamento do pix
+MercadoPagoExpirationTime = 30
+
+# Dominios permitidos para serem utilizados como e-mail
+# O mercado pago nao gosta que enderesos aleatorios sejam enviados, entao para evitar que os players abusem disso, restringimos as possibilidades
+AllowedEmailAddresses = gmail.com,gmail.com.br,outlook.com,outlook.com.br,hotmail.com,hotmail.com.br,yahoo.com,yahoo.com.br,icloud.com,aol.com,mail.com,gmx.com,zohomail.com,uol.com.br,bol.com.br,terra.com.br,ig.com.br,proton.me,protonmail.com
+
+# ID do item vendido — o valor efetivo e PurchasableItem em donation.properties
+# (4037 = Coin of Luck; tem que existir no ItemData)
+PurchasableItems = 4037-1
+# Deletar compras expiradas automaticamente
+DeleteExpiredPurchases = False
+
+# Permitir que os players ocultem compras concluidas (pagas)
+# Nada sera deletado do banco de dados, apenas nao estara mais visivel para o player no seu historico
+HideCompletedPurchases = True
+
+# =================================================================
+#                          Flood Protectors PIX
+# =================================================================
+# Tempo minimo entre solicitasoes de compra e checagem no Mercado Pago. Valores em ms (1s x 1000).
+PayTime = 5
+CheckTime = 10

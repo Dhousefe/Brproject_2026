@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true">
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="6364" count="1"/><!-- forgotten_blade -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6581" count="1"/><!-- forgotten_blade_haste -->
+	</item>
+	<item>
+		<ingredient id="6364" count="1"/><!-- forgotten_blade -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6582" count="1"/><!-- forgotten_blade_health -->
+	</item>
+	<item>
+		<ingredient id="6364" count="1"/><!-- forgotten_blade -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6583" count="1"/><!-- forgotten_blade_focus -->
+	</item>
+	<item>
+		<ingredient id="6365" count="1"/><!-- basalt_battlehammer -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6584" count="1"/><!-- basalt_battlehammer_hpdrain -->
+	</item>
+	<item>
+		<ingredient id="6365" count="1"/><!-- basalt_battlehammer -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6585" count="1"/><!-- basalt_battlehammer_health -->
+	</item>
+	<item>
+		<ingredient id="6365" count="1"/><!-- basalt_battlehammer -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6586" count="1"/><!-- basalt_battlehammer_hpregen -->
+	</item>
+	<item>
+		<ingredient id="6366" count="1"/><!-- imperial_staff -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6587" count="1"/><!-- imperial_staff_magicpower -->
+	</item>
+	<item>
+		<ingredient id="6366" count="1"/><!-- imperial_staff -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6588" count="1"/><!-- imperial_staff_mpregen -->
+	</item>
+	<item>
+		<ingredient id="6366" count="1"/><!-- imperial_staff -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6589" count="1"/><!-- imperial_staff_magichold -->
+	</item>
+	<item>
+		<ingredient id="6367" count="1"/><!-- angel_slayer -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6590" count="1"/><!-- angel_slayer_crt_damage -->
+	</item>
+	<item>
+		<ingredient id="6367" count="1"/><!-- angel_slayer -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6591" count="1"/><!-- angel_slayer_hpdrain -->
+	</item>
+	<item>
+		<ingredient id="6367" count="1"/><!-- angel_slayer -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6592" count="1"/><!-- angel_slayer_haste -->
+	</item>
+	<item>
+		<ingredient id="7575" count="1"/><!-- draconic_bow -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="7576" count="1"/><!-- draconic_bow_cheapshot -->
+	</item>
+	<item>
+		<ingredient id="7575" count="1"/><!-- draconic_bow -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="7577" count="1"/><!-- draconic_bow_focus -->
+	</item>
+	<item>
+		<ingredient id="7575" count="1"/><!-- draconic_bow -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="7578" count="1"/><!-- draconic_bow_crt_slow -->
+	</item>
+	<item>
+		<ingredient id="6368" count="1"/><!-- shining_bow -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6593" count="1"/><!-- shining_bow_cheapshot -->
+	</item>
+	<item>
+		<ingredient id="6368" count="1"/><!-- shining_bow -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6594" count="1"/><!-- shining_bow_focus -->
+	</item>
+	<item>
+		<ingredient id="6368" count="1"/><!-- shining_bow -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6595" count="1"/><!-- shining_bow_crt_slow -->
+	</item>
+	<item>
+		<ingredient id="6369" count="1"/><!-- dragon_hunter_axe -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6596" count="1"/><!-- dragon_hunter_axe_hpregen -->
+	</item>
+	<item>
+		<ingredient id="6369" count="1"/><!-- dragon_hunter_axe -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6597" count="1"/><!-- dragon_hunter_axe_health -->
+	</item>
+	<item>
+		<ingredient id="6369" count="1"/><!-- dragon_hunter_axe -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6598" count="1"/><!-- dragon_hunter_axe_hpdrain -->
+	</item>
+	<item>
+		<ingredient id="6370" count="1"/><!-- saint_spear -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6599" count="1"/><!-- saint_spear_health -->
+	</item>
+	<item>
+		<ingredient id="6370" count="1"/><!-- saint_spear -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6600" count="1"/><!-- saint_spear_guidance -->
+	</item>
+	<item>
+		<ingredient id="6370" count="1"/><!-- saint_spear -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6601" count="1"/><!-- saint_spear_haste -->
+	</item>
+	<item>
+		<ingredient id="6371" count="1"/><!-- demon_splinter -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6602" count="1"/><!-- demon_splinter_focus -->
+	</item>
+	<item>
+		<ingredient id="6371" count="1"/><!-- demon_splinter -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6603" count="1"/><!-- demon_splinter_health -->
+	</item>
+	<item>
+		<ingredient id="6371" count="1"/><!-- demon_splinter -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6604" count="1"/><!-- demon_splinter_crt_stun -->
+	</item>
+	<item>
+		<ingredient id="6372" count="1"/><!-- heavens_divider -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6605" count="1"/><!-- heavens_divider_haste -->
+	</item>
+	<item>
+		<ingredient id="6372" count="1"/><!-- heavens_divider -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6606" count="1"/><!-- heavens_divider_health -->
+	</item>
+	<item>
+		<ingredient id="6372" count="1"/><!-- heavens_divider -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6607" count="1"/><!-- heavens_divider_focus -->
+	</item>
+	<item>
+		<ingredient id="6579" count="1"/><!-- arcana_mace -->
+		<ingredient id="5908" count="1"/><!-- red_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6608" count="1"/><!-- arcana_mace_acumen -->
+	</item>
+	<item>
+		<ingredient id="6579" count="1"/><!-- arcana_mace -->
+		<ingredient id="5911" count="1"/><!-- green_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6609" count="1"/><!-- arcana_mace_mpregen -->
+	</item>
+	<item>
+		<ingredient id="6579" count="1"/><!-- arcana_mace -->
+		<ingredient id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+		<ingredient id="2134" count="82"/><!-- gemstone_s -->
+		<production id="6610" count="1"/><!-- arcana_mace_manaup -->
+	</item>
+</list>

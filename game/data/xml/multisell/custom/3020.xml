@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+    <npcs>
+        <npc>50009</npc>
+    </npcs>
+
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9262" count="1"/><!-- Panda Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9263" count="1"/><!-- Bamboo Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9264" count="1"/><!-- Samurai Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9265" count="1"/><!-- Fairy Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9266" count="1"/><!-- Snake Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9267" count="1"/><!-- Hotbird Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9268" count="1"/><!-- Pegasus Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9269" count="1"/><!-- Valakas Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9270" count="1"/><!-- Gorynych Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9271" count="1"/><!-- Lindvior Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9272" count="1"/><!-- Orc Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9273" count="1"/><!-- Woman Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9274" count="1"/><!-- Grot Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9275" count="1"/><!-- Angel Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9276" count="1"/><!-- Sumo Collar -->
+    </item>
+	<item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9575" count="1"/><!-- Eagle Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9576" count="1"/><!-- Bat Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9577" count="1"/><!-- Fenix Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9578" count="1"/><!-- Baium Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9579" count="1"/><!-- Zaken Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9580" count="1"/><!-- Antharas Collar -->
+    </item>
+    <item>
+        <ingredient id="57" count="100"/><!-- Adena -->
+        <production id="9581" count="1"/><!-- Antharas Collar -->
+    </item>
+</list>

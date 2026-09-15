@@ -1,0 +1,63 @@
+# BrProject version catalog — single source of dependency versions (Phase 0)
+
+[versions]
+kotlin = "2.3.0-Beta2"
+coroutines = "1.10.2"
+mariadb = "3.5.3"
+hikaricp = "6.3.0"
+capnproto = "0.1.16"
+zstd = "1.5.7-11"
+fastutil = "8.5.16"
+netty = "4.2.16.Final"
+disruptor = "4.0.0"
+gson = "2.13.2"
+slf4j = "2.0.17"
+micrometer = "1.12.13"
+junit = "5.11.4"
+sqlite = "3.46.1.0"
+postgresql = "42.7.4"
+mssql = "12.8.1.jre11"
+jmh = "1.37"
+
+[libraries]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version.ref = "mariadb" }
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
+postgresql-jdbc = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+mssql-jdbc = { module = "com.microsoft.sqlserver:mssql-jdbc", version.ref = "mssql" }
+capnproto-runtime = { module = "org.capnproto:runtime", version.ref = "capnproto" }
+zstd-jni = { module = "com.github.luben:zstd-jni", version.ref = "zstd" }
+fastutil-core = { module = "it.unimi.dsi:fastutil-core", version.ref = "fastutil" }
+netty-all = { module = "io.netty:netty-all", version.ref = "netty" }
+netty-transport-native-epoll = { module = "io.netty:netty-transport-native-epoll", version.ref = "netty" }
+netty-transport-native-kqueue = { module = "io.netty:netty-transport-native-kqueue", version.ref = "netty" }
+netty-transport-classes-epoll = { module = "io.netty:netty-transport-classes-epoll", version.ref = "netty" }
+netty-transport-classes-kqueue = { module = "io.netty:netty-transport-classes-kqueue", version.ref = "netty" }
+disruptor = { module = "com.lmax:disruptor", version.ref = "disruptor" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+micrometer-core = { module = "io.micrometer:micrometer-core", version.ref = "micrometer" }
+micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version.ref = "micrometer" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh" }
+
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+[bundles]
+kotlin-runtime = ["kotlin-stdlib", "kotlin-stdlib-jdk8", "kotlin-reflect", "kotlinx-coroutines-core"]
+db = ["mariadb-java-client", "hikaricp", "sqlite-jdbc", "postgresql-jdbc", "mssql-jdbc"]
+netty = [
+    "netty-all",
+    "netty-transport-classes-epoll",
+    "netty-transport-classes-kqueue",
+    "netty-transport-native-epoll",
+    "netty-transport-native-kqueue",
+]

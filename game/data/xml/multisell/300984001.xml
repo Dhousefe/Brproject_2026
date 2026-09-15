@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30098</npc><!-- Alexandria (Armor Merchant) -->
+	</npcs>
+	<item>
+		<ingredient id="1459" count="127"/><!-- crystal_c -->
+		<ingredient id="1458" count="635"/><!-- crystal_d -->
+		<production id="354" count="1"/><!-- chain_mail_shirt -->
+	</item>
+	<item>
+		<ingredient id="1459" count="79"/><!-- crystal_c -->
+		<ingredient id="1458" count="395"/><!-- crystal_d -->
+		<production id="381" count="1"/><!-- chain_gaiters -->
+	</item>
+	<item>
+		<ingredient id="1459" count="360"/><!-- crystal_c -->
+		<ingredient id="1458" count="1800"/><!-- crystal_d -->
+		<production id="60" count="1"/><!-- composite_armor -->
+	</item>
+	<item>
+		<ingredient id="1459" count="95"/><!-- crystal_c -->
+		<ingredient id="1458" count="475"/><!-- crystal_d -->
+		<production id="397" count="1"/><!-- tempered_mithril_shirt -->
+	</item>
+	<item>
+		<ingredient id="1459" count="59"/><!-- crystal_c -->
+		<ingredient id="1458" count="295"/><!-- crystal_d -->
+		<production id="2387" count="1"/><!-- tempered_mithril_gaiters -->
+	</item>
+	<item>
+		<ingredient id="1459" count="207"/><!-- crystal_c -->
+		<ingredient id="1458" count="1035"/><!-- crystal_d -->
+		<production id="400" count="1"/><!-- theca_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="1459" count="129"/><!-- crystal_c -->
+		<ingredient id="1458" count="645"/><!-- crystal_d -->
+		<production id="420" count="1"/><!-- theca_leather_gaiters -->
+	</item>
+	<item>
+		<ingredient id="1459" count="95"/><!-- crystal_c -->
+		<ingredient id="1458" count="475"/><!-- crystal_d -->
+		<production id="439" count="1"/><!-- karmian_tunic -->
+	</item>
+	<item>
+		<ingredient id="1459" count="184"/><!-- crystal_c -->
+		<ingredient id="1458" count="920"/><!-- crystal_d -->
+		<production id="441" count="1"/><!-- demon_s_tunic -->
+	</item>
+	<item>
+		<ingredient id="1459" count="59"/><!-- crystal_c -->
+		<ingredient id="1458" count="295"/><!-- crystal_d -->
+		<production id="471" count="1"/><!-- karmian_hose -->
+	</item>
+	<item>
+		<ingredient id="1459" count="115"/><!-- crystal_c -->
+		<ingredient id="1458" count="575"/><!-- crystal_d -->
+		<production id="472" count="1"/><!-- demon_s_hose -->
+	</item>
+	<item>
+		<ingredient id="1459" count="32"/><!-- crystal_c -->
+		<ingredient id="1458" count="160"/><!-- crystal_d -->
+		<production id="2429" count="1"/><!-- chain_boots -->
+	</item>
+	<item>
+		<ingredient id="1459" count="62"/><!-- crystal_c -->
+		<ingredient id="1458" count="310"/><!-- crystal_d -->
+		<production id="64" count="1"/><!-- composite_boots -->
+	</item>
+	<item>
+		<ingredient id="1459" count="32"/><!-- crystal_c -->
+		<ingredient id="1458" count="160"/><!-- crystal_d -->
+		<production id="2452" count="1"/><!-- reinforce_mithril_gloves -->
+	</item>
+	<item>
+		<ingredient id="1459" count="62"/><!-- crystal_c -->
+		<ingredient id="1458" count="310"/><!-- crystal_d -->
+		<production id="608" count="1"/><!-- mithril_gauntlet -->
+	</item>
+	<item>
+		<ingredient id="1459" count="34"/><!-- crystal_c -->
+		<ingredient id="1458" count="170"/><!-- crystal_d -->
+		<production id="631" count="1"/><!-- eldarake -->
+	</item>
+	<item>
+		<ingredient id="1459" count="65"/><!-- crystal_c -->
+		<ingredient id="1458" count="325"/><!-- crystal_d -->
+		<production id="103" count="1"/><!-- tower_shield -->
+	</item>
+	<item>
+		<ingredient id="1459" count="39"/><!-- crystal_c -->
+		<ingredient id="1458" count="195"/><!-- crystal_d -->
+		<production id="852" count="1"/><!-- moonstone_earing -->
+	</item>
+	<item>
+		<ingredient id="1459" count="74"/><!-- crystal_c -->
+		<ingredient id="1458" count="370"/><!-- crystal_d -->
+		<production id="854" count="1"/><!-- earing_of_binding -->
+	</item>
+	<item>
+		<ingredient id="1459" count="26"/><!-- crystal_c -->
+		<ingredient id="1458" count="130"/><!-- crystal_d -->
+		<production id="883" count="1"/><!-- aquastone_ring -->
+	</item>
+	<item>
+		<ingredient id="1459" count="49"/><!-- crystal_c -->
+		<ingredient id="1458" count="245"/><!-- crystal_d -->
+		<production id="885" count="1"/><!-- ring_of_ages -->
+	</item>
+	<item>
+		<ingredient id="1459" count="52"/><!-- crystal_c -->
+		<ingredient id="1458" count="260"/><!-- crystal_d -->
+		<production id="915" count="1"/><!-- aquastone_necklace -->
+	</item>
+	<item>
+		<ingredient id="1459" count="99"/><!-- crystal_c -->
+		<ingredient id="1458" count="495"/><!-- crystal_d -->
+		<production id="917" count="1"/><!-- necklace_of_mermaid -->
+	</item>
+</list>

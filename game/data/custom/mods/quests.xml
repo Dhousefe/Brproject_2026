@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quests>
+	
+	<quest id="1" repeatable="false">
+		<info>
+			<name>Primeira Caçada</name>
+			<desc>Mate 3 Gremili nessa quest.</desc>
+			<icon>icon.skill0018</icon>
+			<sound>tutorial_start</sound>
+		</info>
+		
+		<requirements>
+			<classIds>
+				<class id="0"/>
+				<class id="10"/>
+				<class id="18"/>
+				<class id="25"/>
+				<class id="31"/>
+				<class id="38"/>
+				<class id="44"/>
+				<class id="49"/>
+				<class id="53"/>
+			</classIds>
+		</requirements>
+		
+		<objectives>
+			<kill npcId="5198" count="7"/>
+			<kill npcId="12082" count="5"/>
+		</objectives>
+		
+		<rewards>
+			<reward classId="0" itemId="1835" count="100"/>
+			<reward classId="10" itemId="3947" count="100"/>
+			<reward classId="18" itemId="1835" count="100"/>
+			<reward classId="25" itemId="3947" count="100"/>
+			<reward classId="31" itemId="1835" count="100"/>
+			<reward classId="38" itemId="3947" count="100"/>
+			<reward classId="44" itemId="1835" count="100"/>
+			<reward classId="49" itemId="3947" count="100"/>
+			<reward classId="53" itemId="1835" count="100"/>
+		</rewards>
+	</quest>
+	
+	<quest id="2" repeatable="false">
+		<info>
+			<name>Caçada ao Wolk</name>
+			<desc>Mate 3 Wolk nessa quest.</desc>
+			<icon>icon.skill0018</icon>
+			<sound>tutorial_start</sound>
+		</info>
+		
+		<requirements>
+			<classIds>
+				<class id="0"/>
+				<class id="10"/>
+				<class id="18"/>
+				<class id="25"/>
+				<class id="31"/>
+				<class id="38"/>
+				<class id="44"/>
+				<class id="49"/>
+				<class id="53"/>
+			</classIds>
+		</requirements>
+		
+		<objectives>
+			<kill npcId="12082" count="10"/>
+		</objectives>
+		
+		<rewards>
+			<reward classId="0" itemId="1835" count="200"/>
+			<reward classId="10" itemId="3947" count="200"/>
+			<reward classId="18" itemId="1835" count="200"/>
+			<reward classId="25" itemId="3947" count="200"/>
+			<reward classId="31" itemId="1835" count="200"/>
+			<reward classId="38" itemId="3947" count="200"/>
+			<reward classId="44" itemId="1835" count="200"/>
+			<reward classId="49" itemId="3947" count="200"/>
+			<reward classId="53" itemId="1835" count="200"/>
+		</rewards>
+	</quest>
+
+</quests>

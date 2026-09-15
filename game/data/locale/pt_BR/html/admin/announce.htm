@@ -1,0 +1,83 @@
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ </head>
+ <body>
+  <table width="270">
+   <tbody>
+    <tr>
+     <td width="45">
+      <button value="Main" action="bypass -h admin_admin" width="45" height="15" back="sek.cbui94" fore="sek.cbui92">
+     </td>
+     <td width="180" align="center">Menu de anúncios</td>
+     <td width="45">
+      <button value="Back" action="bypass -h admin_admin 4" width="45" height="15" back="sek.cbui94" fore="sek.cbui92">
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <br>
+  <br>
+  <font color="LEVEL">Escreva a mensagem do anúncio:</font>
+  <center>
+   <multiedit var="msg" width="260" height="45">
+  </center>
+  <br>
+  <font color="LEVEL">Configure o anúncio como crítico ou não.</font>
+  <table width="270">
+   <tbody>
+    <tr>
+     <td>Crítico:</td>
+     <td><combobox width="70" height="17" var="crit" list="False;True;"></td>
+    </tr>
+   </tbody>
+  </table>
+  <br>
+  <button value="Add to .xml" action="bypass -h admin_announce add $crit $msg" width="75" height="21" back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+   <br>
+   <br>
+   <font color="LEVEL">Crie uma tarefa automatizada.</font>
+   <table width="270">
+    <tbody>
+     <tr>
+      <td></td>
+      <td></td>
+      <td>Atraso inicial:</td>
+      <td><edit var="idelay" width="45" height="12" type="number"></td>
+     </tr>
+     <tr>
+      <td>Automático:</td>
+      <td><combobox width="70" height="17" var="auto" list="False;True;"></td>
+      <td>Atraso:</td>
+      <td><edit var="delay" width="45" height="12" type="number"></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td>Limite:</td>
+      <td><edit var="limit" width="45" height="12" type="number"></td>
+     </tr>
+    </tbody>
+   </table>
+  
+  <button value="Add to .xml" action="bypass -h admin_announce add_auto $crit $auto $idelay $delay $limit $msg" width="75" height="21" back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"><img src="l2ui.SquareWhite" width="275" height="1">
+   <br>
+   <center>
+    <table>
+     <tbody>
+      <tr>
+       <td>
+        <button value="Show .xml content" action="bypass -h admin_announce list" width="95" height="21" back="bigbutton_over" fore="bigbutton">
+       </td>
+       <td>
+        <button value="Ann. all" action="bypass -h admin_announce all" width="75" height="21" back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+       </td>
+       <td>
+        <button value="Ann. auto" action="bypass -h admin_announce all_auto" width="75" height="21" back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </center>
+ </body>
+</html>

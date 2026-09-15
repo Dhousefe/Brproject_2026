@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+    <item id="9262" type="EtcItem" name="Panda Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9263" type="EtcItem" name="Bamboo Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9264" type="EtcItem" name="Samurai Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9265" type="EtcItem" name="Fairy Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9266" type="EtcItem" name="Snake Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9267" type="EtcItem" name="Hotbird Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9268" type="EtcItem" name="Pegasus Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9269" type="EtcItem" name="Valakas Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9270" type="EtcItem" name="Gorynych Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9271" type="EtcItem" name="Lindvior Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9272" type="EtcItem" name="Orc Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9273" type="EtcItem" name="Woman Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9274" type="EtcItem" name="Grot Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9275" type="EtcItem" name="Angel Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9276" type="EtcItem" name="Sumo Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9575" type="EtcItem" name="Eagle Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9576" type="EtcItem" name="Bat Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9577" type="EtcItem" name="Fenix Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9578" type="EtcItem" name="Baium Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9579" type="EtcItem" name="Zaken Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9580" type="EtcItem" name="Antharas Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+    <item id="9581" type="EtcItem" name="Antharas Collar">
+        <set name="icon" val="icon.etc_pet_collar_i00" />
+        <set name="default_action" val="skill_maintain" />
+        <set name="etcitem_type" val="PET_COLLAR" />
+        <set name="material" val="LEATHER" />
+        <set name="weight" val="10" />
+        <set name="is_oly_restricted" val="true" />
+        <set name="handler" val="AgathionItems" />
+        <set name="item_skill" val="2046-1" />
+        <set name="use_condition" val="{{uc_transmode_exclude;{tt_flying;tt_pure_stat}}}" />
+    </item>
+</list>

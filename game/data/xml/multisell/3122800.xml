@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31228</npc><!-- Galladucci (Weapon Merchant) -->
+	</npcs>
+	<item id="1">
+		<ingredient id="6392" count="5"/><!-- event_medal -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item id="2">
+		<ingredient id="6392" count="10"/><!-- event_medal -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item id="3">
+		<ingredient id="6392" count="10"/><!-- event_medal -->
+		<production id="6036" count="1"/><!-- potion_of_acumen3 -->
+	</item>
+	<item id="4">
+		<ingredient id="6392" count="17"/><!-- event_medal -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+</list>

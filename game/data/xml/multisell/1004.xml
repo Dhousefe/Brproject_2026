@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list applyTaxes="true">
+	<npcs>
+		<npc>30283</npc><!--Altran -->
+		<npc>30298</npc><!--Pinter -->
+		<npc>30300</npc><!--Pushkin -->
+		<npc>30307</npc><!--Karrod -->
+		<npc>30317</npc><!--Kluto -->
+		<npc>30363</npc><!--Aios -->
+		<npc>30458</npc><!--Poitan -->
+		<npc>30471</npc><!--Rupio -->
+		<npc>30526</npc><!--Brunon -->
+		<npc>30527</npc><!--Silvera -->
+		<npc>30564</npc><!--Sumari -->
+		<npc>30678</npc><!--Helton -->
+		<npc>30688</npc><!--Duning -->
+		<npc>30846</npc><!--Wilbert -->
+		<npc>30898</npc><!--Morning -->
+		<npc>31271</npc><!--Hilda -->
+		<npc>31316</npc><!--Vincenz -->
+		<npc>31583</npc><!--Feynn -->
+		<npc>31960</npc><!--Buryun -->
+		<npc>31990</npc><!--Siger -->
+	</npcs>
+	<item>
+		<ingredient id="2135" count="1" maintainIngredient="true"/><!-- rp_braided_hemp -->
+		<ingredient id="1864" count="5"/><!-- stem -->
+		<production id="1878" count="1"/><!-- braided_hemp -->
+		<ingredient id="57" count="500" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2136" count="1" maintainIngredient="true"/><!-- rp_cokes -->
+		<ingredient id="1870" count="3"/><!-- coal -->
+		<ingredient id="1871" count="3"/><!-- charcoal -->
+		<production id="1879" count="1"/><!-- cokes -->
+		<ingredient id="57" count="1200" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2137" count="1" maintainIngredient="true"/><!-- rp_steel -->
+		<ingredient id="1865" count="5"/><!-- varnish -->
+		<ingredient id="1869" count="5"/><!-- iron_ore -->
+		<production id="1880" count="1"/><!-- steel -->
+		<ingredient id="57" count="2000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2138" count="1" maintainIngredient="true"/><!-- rp_coarse_bone_powder -->
+		<ingredient id="1872" count="10"/><!-- animal_bone -->
+		<production id="1881" count="1"/><!-- coarse_bone_powder -->
+		<ingredient id="57" count="1500" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="1814" count="1" maintainIngredient="true"/><!-- rp_leather -->
+		<ingredient id="1867" count="6"/><!-- animal_skin -->
+		<production id="1882" count="1"/><!-- leather -->
+		<ingredient id="57" count="900" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2139" count="1" maintainIngredient="true"/><!-- rp_steel_mold -->
+		<ingredient id="1878" count="5"/><!-- braided_hemp -->
+		<ingredient id="1869" count="5"/><!-- iron_ore -->
+		<ingredient id="1870" count="5"/><!-- coal -->
+		<production id="1883" count="1"/><!-- steel_mold -->
+		<ingredient id="57" count="4500" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="1817" count="1" maintainIngredient="true"/><!-- rp_cord -->
+		<ingredient id="1880" count="2"/><!-- steel -->
+		<ingredient id="1868" count="25"/><!-- thread -->
+		<production id="1884" count="20"/><!-- cord -->
+		<ingredient id="57" count="325" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2140" count="1" maintainIngredient="true"/><!-- rp_high_grade_suede -->
+		<ingredient id="1881" count="1"/><!-- coarse_bone_powder -->
+		<ingredient id="1866" count="3"/><!-- suede -->
+		<production id="1885" count="1"/><!-- high_grade_suede -->
+		<ingredient id="57" count="2500" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2141" count="1" maintainIngredient="true"/><!-- rp_silver_mold -->
+		<ingredient id="1878" count="5"/><!-- braided_hemp -->
+		<ingredient id="1879" count="5"/><!-- cokes -->
+		<ingredient id="1873" count="10"/><!-- silver_nugget -->
+		<production id="1886" count="1"/><!-- silver_mold -->
+		<ingredient id="57" count="13500" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2142" count="1" maintainIngredient="true"/><!-- rp_varnish_of_purity -->
+		<ingredient id="1881" count="3"/><!-- coarse_bone_powder -->
+		<ingredient id="1865" count="3"/><!-- varnish -->
+		<ingredient id="1875" count="1"/><!-- stone_of_purity -->
+		<production id="1887" count="1"/><!-- varnish_of_purity -->
+		<ingredient id="57" count="8100" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2143" count="1" maintainIngredient="true"/><!-- rp_synthesis_cokes -->
+		<ingredient id="1879" count="3"/><!-- cokes -->
+		<ingredient id="1874" count="1"/><!-- oriharukon_ore -->
+		<production id="1888" count="1"/><!-- synthesis_cokes -->
+		<ingredient id="57" count="6600" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2144" count="1" maintainIngredient="true"/><!-- rp_compound_braid -->
+		<ingredient id="1878" count="5"/><!-- braided_hemp -->
+		<ingredient id="1868" count="5"/><!-- thread -->
+		<production id="1889" count="1"/><!-- compound_braid -->
+		<ingredient id="57" count="3000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2145" count="1" maintainIngredient="true"/><!-- rp_mithirl_alloy -->
+		<ingredient id="1887" count="1"/><!-- varnish_of_purity -->
+		<ingredient id="1880" count="2"/><!-- steel -->
+		<ingredient id="1876" count="1"/><!-- mithril_ore -->
+		<production id="1890" count="1"/><!-- mithirl_alloy -->
+		<ingredient id="57" count="13100" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2146" count="1" maintainIngredient="true"/><!-- rp_artisan_s_frame -->
+		<ingredient id="1883" count="1"/><!-- steel_mold -->
+		<ingredient id="1887" count="5"/><!-- varnish_of_purity -->
+		<ingredient id="1877" count="10"/><!-- admantite_nugget -->
+		<production id="1891" count="1"/><!-- artisan_s_frame -->
+		<ingredient id="57" count="95000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2147" count="1" maintainIngredient="true"/><!-- rp_blacksmith_s_frame -->
+		<ingredient id="1886" count="1"/><!-- silver_mold -->
+		<ingredient id="1887" count="5"/><!-- varnish_of_purity -->
+		<ingredient id="1876" count="10"/><!-- mithril_ore -->
+		<production id="1892" count="1"/><!-- blacksmith_s_frame -->
+		<ingredient id="57" count="64000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="1825" count="1" maintainIngredient="true"/><!-- rp_oriharukon -->
+		<ingredient id="1888" count="1"/><!-- synthesis_cokes -->
+		<ingredient id="1873" count="12"/><!-- silver_nugget -->
+		<ingredient id="1874" count="4"/><!-- oriharukon_ore -->
+		<production id="1893" count="1"/><!-- oriharukon -->
+		<ingredient id="57" count="24600" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2148" count="1" maintainIngredient="true"/><!-- rp_crafted_leather -->
+		<ingredient id="1884" count="4"/><!-- cord -->
+		<ingredient id="1882" count="4"/><!-- leather -->
+		<ingredient id="1870" count="4"/><!-- coal -->
+		<production id="1894" count="1"/><!-- crafted_leather -->
+		<ingredient id="57" count="5700" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2149" count="1" maintainIngredient="true"/><!-- rp_metallic_fiber -->
+		<ingredient id="1884" count="20"/><!-- cord -->
+		<ingredient id="1873" count="15"/><!-- silver_nugget -->
+		<production id="1895" count="20"/><!-- metallic_fiber -->
+		<ingredient id="57" count="700" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5472" count="1" maintainIngredient="true"/><!-- rp_iron_thread -->
+		<ingredient id="1868" count="10"/><!-- thread -->
+		<ingredient id="1869" count="5"/><!-- iron_ore -->
+		<production id="5549" count="1"/><!-- iron_thread -->
+		<ingredient id="57" count="2000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5231" count="1" maintainIngredient="true"/><!-- rp_reinforcing_agent -->
+		<ingredient id="1864" count="10"/><!-- stem -->
+		<ingredient id="1865" count="10"/><!-- varnish -->
+		<ingredient id="1869" count="10"/><!-- iron_ore -->
+		<production id="5220" count="1"/><!-- reinforcing_agent -->
+		<ingredient id="57" count="5000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5473" count="1" maintainIngredient="true"/><!-- rp_reinforcing_plate -->
+		<ingredient id="5549" count="5"/><!-- iron_thread -->
+		<ingredient id="1876" count="5"/><!-- mithril_ore -->
+		<production id="5550" count="1"/><!-- reinforcing_plate -->
+		<ingredient id="57" count="15000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="1884" count="40"/><!-- cord -->
+		<ingredient id="5550" count="10"/><!-- reinforcing_plate -->
+		<ingredient id="1877" count="15"/><!-- admantite_nugget -->
+		<production id="5551" count="1"/><!-- reorins_mold -->
+		<ingredient id="57" count="242760" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="1891" count="1"/><!-- artisan_s_frame -->
+		<ingredient id="4041" count="10"/><!-- mold_hardener -->
+		<ingredient id="4042" count="5"/><!-- enria -->
+		<production id="5552" count="1"/><!-- warsmith_mold -->
+		<ingredient id="57" count="392700" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="4046" count="3"/><!-- maestro_anvil_lock -->
+		<ingredient id="4040" count="20"/><!-- mold_lubricant -->
+		<ingredient id="4044" count="10"/><!-- thons -->
+		<production id="5553" count="1"/><!-- arcsmith_anvil -->
+		<ingredient id="57" count="541824" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="4045" count="2"/><!-- maestro_holder -->
+		<ingredient id="4039" count="10"/><!-- mold_glue -->
+		<ingredient id="1868" count="20"/><!-- thread -->
+		<production id="5554" count="1"/><!-- warsmith_holder -->
+		<ingredient id="57" count="901680" isTaxIngredient="true"/><!-- adena -->
+	</item>
+</list>

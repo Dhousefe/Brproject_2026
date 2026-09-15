@@ -1,0 +1,22 @@
+syntax = "proto3";
+package br.project.cluster.v1;
+option java_multiple_files = true;
+option java_package = "br.project.cluster.hpc.network.proto";
+
+service Cluster {
+  rpc OnPlayerJoined(PlayerJoinedRequest) returns (Ack);
+  rpc OnPlayerLeft(PlayerLeftRequest) returns (Ack);
+  rpc Heartbeat(HeartbeatRequest) returns (Ack);
+}
+
+message PlayerJoinedRequest {
+  fixed32 server_id = 1;
+  string account = 2;
+  uint64 char_obj_id = 3;
+  int32 class_id = 4;
+  bytes payload_fb = 5;
+}
+
+message PlayerLeftRequest { fixed32 server_id = 1; uint64 char_obj_id = 2; }
+message HeartbeatRequest { fixed32 server_id = 1; uint64 monotonic_nanos = 2; }
+message Ack { bool ok = 1; string reason = 2; }

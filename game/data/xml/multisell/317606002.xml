@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31760</npc><!-- Miss Queen (Adventurers' Guide) -->
+	</npcs>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7816" count="1"/><!-- guide_apprentice_s_staff -->
+	</item>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7817" count="1"/><!-- guide_bone_club -->
+	</item>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7818" count="1"/><!-- guide_shining_knife -->
+	</item>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7819" count="1"/><!-- guide_cestus -->
+	</item>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7820" count="1"/><!-- guide_bow_of_forest -->
+	</item>
+	<item>
+		<ingredient id="7832" count="1"/><!-- q_adventure_coupon1 -->
+		<production id="7821" count="1"/><!-- guide_long_sword -->
+	</item>
+</list>

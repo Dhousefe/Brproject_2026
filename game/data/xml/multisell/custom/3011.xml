@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1463" count="1000"/><!-- soulshot_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1464" count="1000"/><!-- soulshot_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1465" count="1000"/><!-- soulshot_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1466" count="1000"/><!-- soulshot_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1467" count="1000"/><!-- soulshot_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2510" count="1000"/><!-- spiritshot_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2511" count="1000"/><!-- spiritshot_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2512" count="1000"/><!-- spiritshot_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2513" count="1000"/><!-- spiritshot_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2514" count="1000"/><!-- spiritshot_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3948" count="1000"/><!-- blessed_spiritshot_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3949" count="1000"/><!-- blessed_spiritshot_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3950" count="1000"/><!-- blessed_spiritshot_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3951" count="1000"/><!-- blessed_spiritshot_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3952" count="1000"/><!-- blessed_spiritshot_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1538" count="25"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5858" count="25"/><!-- blessed_scroll_of_escape_to_agit -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1540" count="100"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5592" count="500"/><!-- adv_cp_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8742" count="1"/><!-- mid_grade_life_stone_lvl_76 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8752" count="1"/><!-- high_grade_life_stone_lvl_76 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8762" count="1"/><!-- top_grade_life_stone_lvl_76 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8172" count="1"/><!-- angel_s_soul_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8175" count="1"/><!-- cradle_of_creation -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8176" count="1"/><!-- destruction_tombstone -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8163" count="1"/><!-- dragon_s_heart_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8166" count="1"/><!-- egg_of_earth_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8160" count="1"/><!-- skull_of_the_dead_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8169" count="1"/><!-- false_nucleus_of_life_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1343" count="1000"/><!-- silver_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1344" count="1000"/><!-- mithril_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1345" count="1000"/><!-- shining_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1539" count="1"/><!-- greater_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="728" count="1"/><!-- mana_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6036" count="1"/><!-- potion_of_acumen3 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5589" count="1"/><!-- energy_stone -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3031" count="1"/><!-- spirit_ore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1785" count="1"/><!-- soul_ore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2508" count="1000"/><!-- cursed_bone -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1458" count="1"/><!-- crystal_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1459" count="1"/><!-- crystal_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8594" count="1"/><!-- scroll_recovery_ng -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8595" count="1"/><!-- scroll_recovery_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8596" count="1"/><!-- scroll_recovery_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8597" count="1"/><!-- scroll_recovery_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8598" count="1"/><!-- scroll_recovery_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8599" count="1"/><!-- scroll_recovery_s -->
+	</item>
+</list>

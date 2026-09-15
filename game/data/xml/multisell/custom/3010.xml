@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="882" count="1"/><!-- mithril_ring -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="851" count="1"/><!-- onyxbeast_seye_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="914" count="1"/><!-- necklace_of_darkness -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="852" count="1"/><!-- moonstone_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="854" count="1"/><!-- earing_of_binding -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="855" count="1"/><!-- nassen_s_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="883" count="1"/><!-- aquastone_ring -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="884" count="1"/><!-- ring_of_protection -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="885" count="1"/><!-- ring_of_ages -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="886" count="1"/><!-- ring_of_binding -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="915" count="1"/><!-- aquastone_necklace -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="916" count="1"/><!-- necklace_of_protection -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="917" count="1"/><!-- necklace_of_mermaid -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="119" count="1"/><!-- necklace_of_binding -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="856" count="1"/><!-- adamantite_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="864" count="1"/><!-- earing_of_black_ore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="887" count="1"/><!-- adamantite_ring -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="895" count="1"/><!-- ring_of_black_ore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="918" count="1"/><!-- adamantite_necklace -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="926" count="1"/><!-- necklace_of_black_ore -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="862" count="1"/><!-- majestic_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="868" count="1"/><!-- earing_of_phantom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="871" count="1"/><!-- phoenix_s_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="872" count="1"/><!-- cerberus_s_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="893" count="1"/><!-- majestic_ring -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="899" count="1"/><!-- ring_of_phantom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="871" count="1"/><!-- phoenix_s_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="872" count="1"/><!-- cerberus_s_earing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="924" count="1"/><!-- majestic_necklace -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="930" count="1"/><!-- necklace_of_phantom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="933" count="1"/><!-- phoenix_s_necklace -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="934" count="1"/><!-- cerberus_s_necklace -->
+	</item>
+</list>

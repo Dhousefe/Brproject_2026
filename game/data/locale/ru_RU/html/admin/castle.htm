@@ -1,0 +1,65 @@
+<html><body>
+	<table width=270>
+		<tr>
+			<td width=45><button value="Главное" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=180 align=center>%castleName%</td>
+			<td width=45><button value="Назад" action="bypass -h admin_siege" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	<center>
+	<table width=300>
+		<tr>
+			<td width=100>Айди короны: %circletId%</td><td width=150>Левых серт.: %certificates% (<a action="bypass -h admin_castle certificates %castleAlias%">сбросить</a>)</td>
+		</tr><tr>
+			<td>Шаблоны билетов: %ticketsNumber%</td><td>Количество NPC: %npcsNumber%</td>
+		</tr><tr>
+			<td>Брошенные билеты: %droppedTicketsNumber%</td><td></td>
+		</tr><tr>
+			<td>Башни Живой Жизни : %aliveLifeTowers%</td><td></td>
+		</tr>
+	</table><br>
+	<table width=350>
+		<tr>
+		<tr>
+			<td width=95>По умолчанию: %defaultTax%%</td><td width=175>Текущий/след.: %currentTax%% / %nextTax%%</td>
+		</tr><tr>
+			<td>Налог. система: %taxSysgetRate%%</td><td>Налоговые поступ.: %taxRevenue%</td>
+		</tr><tr>
+			<td>Дань: %tributeRate%%</td><td>Доход от семян: %seedIncome%</td>
+		</tr>
+		</tr>
+		<tr>
+			<td>(<a action="bypass -h admin_castle tax %castleAlias%">обновить</a>)</td><td>Сокровище: %treasury%</td>
+		</tr>
+	</table><br>
+	<table width=270>
+		<tr>
+			<td width=270><font color="LEVEL">Артефакты</font></td>
+		</tr><tr>
+			<td>%artifacts%</td>
+		</tr>
+	</table><br>
+	<table width=270>
+		<tr>
+			<td width=270><font color="LEVEL">Башни контроля</font></td>
+		</tr><tr>
+			<td>%ct%</td>
+		</tr>
+	</table><br>
+	<table width=240>
+		<tr>
+			<td><button value="Добав. напад." action="bypass -h admin_siege attack %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Начать осаду" action="bypass -h admin_siege start %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Дать замок" action="bypass -h admin_castle set %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr><tr>
+			<td><button value="Добав. защит." action="bypass -h admin_siege defend %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Зак. осаду" action="bypass -h admin_siege end %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Удалить замок" action="bypass -h admin_castle remove %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr><tr>
+			<td></td>
+			<td><button value="Очистить спи." action="bypass -h admin_siege clear %castleAlias%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td></td>
+		</tr>
+	</table>
+	</center>
+</body></html>

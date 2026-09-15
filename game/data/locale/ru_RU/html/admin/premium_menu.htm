@@ -1,0 +1,55 @@
+<html><title>Премиум-услуги</title>
+<body>
+<table width=260>
+<tr>
+<td><button value="Главное" action="bypass -h admin_admin" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+<td><button value="Игра" action="bypass -h admin_admin 2" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+<td><button value="Эффекты" action="bypass -h admin_admin 3" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+<td><button value="Сервер" action="bypass -h admin_admin 4" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+</tr>
+</table>
+<table><tr><td><font color="FFFF00">Описание<br></font></td></tr>
+<tr><td>Имя аккаунта: имя игрока.</td></tr>
+<tr><td>Обратите внимание, что если вы добавите месяц и попытаетесь добавить день,</td></tr>
+<tr><td>то месяц будет заменен.</td></tr>
+</table>
+<br>
+<table width=300 bgcolor=000000>
+	<tr>
+		<td width=82>Имя аккаунта:</td>
+		<td width=150><edit var="acc_name" width=150><br></td>
+	</tr>
+</table><br>
+<table width=300 bgcolor=000000>
+	<tr>
+	    <td width=73>Выдать на месяц:</td>
+		<td width=150><edit var="premmonth" width=150><br></td>
+	</tr>
+	<tr>
+		<td><button value="Выдать" action="bypass -h admin_premium_menu add $acc_name $premmonth" width=80 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+	</tr>
+</table><br>
+<table width=300 bgcolor=000000>
+	<tr>
+	    <td width=73>Выдать на день:</td>
+		<td width=150><edit var="daymonth" width=150><br></td>
+	</tr>
+	<tr>
+		<td><button value="Выдать" action="bypass -h admin_premium_menu add2 $acc_name $daymonth" width=80 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+	</tr>
+</table><br>
+<table width=300 bgcolor=000000>
+	<tr>
+	    <td width=73>Выдать на час:</td>
+		<td width=150><edit var="hourofday" width=150><br></td>
+	</tr>
+	<tr>
+		<td><button value="Выдать" action="bypass -h admin_premium_menu add3 $acc_name $hourofday" width=80 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+	</tr>
+</table><br>
+<table width=300>
+   <tr>
+		<td align="center"><button value="Убрать" action="bypass -h admin_premium_remove $acc_name" width=80 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+   </tr>
+</table>
+</body></html>

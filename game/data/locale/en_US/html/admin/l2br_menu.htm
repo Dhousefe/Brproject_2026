@@ -1,0 +1,68 @@
+<html><title>Brproject Pathfinder</title><body><center>
+	<table width=260>
+		<tr>
+			<td><button value="Main" action="bypass -h admin_admin" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Game" action="bypass -h admin_admin 2" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Effects" action="bypass -h admin_admin 3" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Server" action="bypass -h admin_admin 4" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table>
+	<img src="l2ui.SquareWhite" width=275 height=1><br>
+
+	<table width=240>
+		<tr>
+			<td>Brproject Pathfinder</td>
+		</tr>
+	</table><br>
+
+	<!-- Região alvo -->
+	<table width=240>
+		<tr>
+			<td>Region X:</td>
+			<td><edit var="rx" width=60 height=15></td>
+			<td>Region Y:</td>
+			<td><edit var="ry" width=60 height=15></td>
+		</tr>
+	</table><br>
+
+	<!-- Operações de região -->
+	Brproject Regions (.l2br)
+	<table width=240>
+		<tr>
+			<td><button value="Generate +JPS" action="bypass -h admin_l2br_generate $rx $ry jps" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+		</tr>
+		<tr>
+			<td><button value="Region Info" action="bypass -h admin_l2br_info $rx $ry" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+			<td><button value="Generate ALL" action="bypass -h admin_l2br_generate_all force" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+		</tr>
+		<tr>
+			<td><button value="Reload Region" action="bypass -h admin_l2br_reload $rx $ry" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+			<td><button value="Unload Region" action="bypass -h admin_l2br_unload $rx $ry" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+		</tr>
+		<tr>
+			<td><button value="Unload ALL" action="bypass -h admin_l2br_unload" width=110 height=21 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+			<td></td>
+		</tr>
+	</table><br>
+
+	<!-- Status e métricas -->
+	Status / Benchmark
+	<table width=240>
+		<tr>
+			<td><button value="Status" action="bypass -h admin_l2br_status" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Benchmark" action="bypass -h admin_l2br_benchmark" width=85 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Help" action="bypass -h admin_l2br_help" width=65 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table><br>
+
+	<!-- Configuração -->
+	Config
+	<table width=240>
+		<tr>
+			<td><combobox width=90 height=21 var="cfg_key" list=global;fallback;metrics;warmup;></td>
+			<td><combobox width=70 height=21 var="cfg_val" list=true;false;></td>
+			<td><button value="Apply" action="bypass -h admin_l2br_config $cfg_key $cfg_val" width=70 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table>
+
+</center></body></html>

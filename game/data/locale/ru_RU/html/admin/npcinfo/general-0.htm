@@ -1,0 +1,52 @@
+<html><title>Информация о НПС</title><body>
+	<center>
+		<table width=260>
+			<tr>
+				<td><button value="Общий" action="bypass -h admin_info" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="АИ" action="bypass -h admin_info ai" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Спавн" action="bypass -h admin_info spawn" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Статы" action="bypass -h admin_info stat" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			</tr>
+		</table>
+		<img src="l2ui.SquareWhite" width=275 height=1><br>
+		
+		<table width=260>
+			<tr>
+				<td><button value="Агр" action="bypass -h admin_info aggro" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Желание" action="bypass -h admin_info desire" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Список изв." action="bypass -h admin_knownlist" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Скрипт" action="bypass -h admin_info script" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			</tr><tr>
+				<td><button value="Спауны" action="bypass -h admin_list_spawns %id%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Дроп" action="bypass -h admin_info drop" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Спойл" action="bypass -h admin_info spoil" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Магазин" action="bypass -h admin_info shop" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			</tr><tr>
+				<td><button value="Скиллы" action="bypass -h admin_info skill" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td><button value="Эффекты" action="bypass -h admin_effect" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table><br>
+		
+		<table width=260>
+			<tr>
+				<td width=180 align=center><font color="LEVEL">Общая информация</font></td>
+				<td width=20></td>
+				<td width=40>[1]&nbsp;<a action="bypass -h admin_info 1">2</a>&nbsp;<a action="bypass -h admin_info 2">3</a></td>
+			</tr>
+		</table><br>
+		
+	</center>
+	<font color="LEVEL">Идентификатор объекта:</font> %objectId%<br1>
+	<font color="LEVEL">Идентификатор NPC / Шаблон ID:</font> %npcId% / %idTemplate%<br1>
+	<font color="LEVEL">Имя:</font> %name%<br1>
+	<font color="LEVEL">Заголовок:</font> %title%<br1>
+	<font color="LEVEL">Псевдоним:</font> %alias%<br1>
+	<font color="LEVEL">Использовать собст. имя / заголовок:</font> %usingServerSideName% / %usingServerSideTitle%<br1>
+	<font color="LEVEL">Тип:</font> %type%<br1>
+	<font color="LEVEL">Уровень:</font> %level%<br1>
+	<font color="LEVEL">Радиус / Высота:</font> %radius% / %height%<br1>
+	<font color="LEVEL">Фактор времени удара:</font> %hitTimeFactor%<br1>
+	<font color="LEVEL">Правая / Левая рука:</font> %rHand% / %lHand%
+</body></html>

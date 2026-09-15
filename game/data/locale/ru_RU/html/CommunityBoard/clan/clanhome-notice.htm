@@ -1,0 +1,39 @@
+<html><body><br>
+	<table width=610>
+		<tr>
+			<td width=15>&nbsp;</td>
+			<td width=595 height=30><a action="bypass _bbshome">ГЛАВНАЯ</a>&nbsp;>&nbsp;<a action="bypass _bbsclan;clan;1">СООБЩЕСТВО КЛАНА</a>&nbsp;>&nbsp;<a action="bypass _bbsclan;home;%clanid%">&$802;</a></td>
+		</tr>
+	</table>
+	<table width=610>
+		<tr>
+			<td width=5></td>
+			<td width=605><a action="bypass _bbscpost;list;announce;%clanid%">[Объявление Клана]</a>&nbsp;&nbsp;<a action="bypass _bbscpost;list;cbb;%clanid%">[Доска объявлений Клана]</a>&nbsp;&nbsp;<a action="bypass _bbsclan;management;%clanid%">[Управление Кланом]</a>&nbsp;&nbsp;<a action="bypass _bbsclan;mail;%clanid%">[Почта Клана]</a>&nbsp;&nbsp;[Уведомление Клана]</td>
+		</tr>
+	</table>
+	<table width=610>
+		<tr>
+			<td><font color="AAAAAA">Функция Уведомления Клана позволяет лидеру клана отправлять сообщения через всплывающее окно участникам клана при входе в игру.</font></td>
+		</tr><tr>
+			<td height=20></td>
+		</tr><tr>
+			<td>Функция Уведомления Клана: %enabled% <a action="bypass _bbsclan;notice;%flag%">%flag%</a></td>
+		</tr>
+	</table>
+	<img src="L2UI.Squaregray" width="610" height="1"><br><br>
+	<table width=610>
+		<tr>
+			<td>Редактировать Уведомление:</td>
+		</tr><tr>
+			<td height=5></td>
+		</tr><tr>
+			<td><MultiEdit var="Content" width=610 height=100></td>
+		</tr>
+	</table><br>
+	<table width=610>
+		<tr>
+			<td width=65><button value="&$140;" action="Write _bbsclan notice 0 Content Content Content" back="l2ui_ch3.smallbutton2_down" width=65 height=20 fore="l2ui_ch3.smallbutton2"></td>
+			<td width=545></td>
+		</tr>
+	</table>
+</body></html>

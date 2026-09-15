@@ -1,0 +1,57 @@
+<html>
+<title>Chat</title>
+<body>
+<br>
+<center>
+<font color=LEVEL>Checkout</font>
+<br>
+<table cellpadding=4>
+	<tr>
+		<td>
+			Um e-mail foi enviado para voce contendo o link para %payment%. Voce tambem pode gerar um QR Code para acessa-lo no seu celular e pagar atraves do aplicativo ou navegador.
+		</td>
+	</tr>
+	<tr><td></td></tr>
+	<tr>
+		<td>
+			Apos o pagamento, clique no botao abaixo para receber seus itens.
+		</td>
+	</tr>
+</table>
+<br>
+<table bgcolor=000000 cellpadding=4>
+	<tr>
+		<td width=200 align=center>
+			<font color=LEVEL>%resume%</font>
+		</td>
+	</tr>
+</table>
+<br>
+<table cellpadding=4>
+	<tr>
+		<td>
+			<button value="Link" action="bypass donation link %id% false" width=75 height=21 back=L2UI_ch3.Btn1_normalOn fore=L2UI_ch3.Btn1_normal>
+		</td>
+		<td>
+			<button value="QR Code" action="bypass donation qrcode %id%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+		</td>
+		<td>
+			<button value="Paguei" action="bypass donation check %id%" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+		</td>
+	</tr>
+</table>
+<br>
+<br><br>
+<table>
+	<tr>
+		<td width=50>
+			<a action="bypass donation status %id%">Voltar</a>
+		</td>
+		<td width=50>
+			<a action="bypass donation confirm %id% cancel">Cancelar</a>
+		</td>
+	</tr>
+</table>
+</center>
+</body>
+</html>

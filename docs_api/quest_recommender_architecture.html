@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrProject-2026: Arquitetura do Mod Quest Recommender</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a10;
+            --bg-panel: rgba(22, 19, 34, 0.9);
+            --bg-card: #141122;
+            --border-purple: #6f38c5;
+            --neon-cyan: #b98eff;
+            --neon-blue: #00b4d8;
+            --neon-green: #06d6a0;
+            --neon-red: #ff4d6d;
+            --neon-amber: #ffb703;
+            --text-white: #f8f8fc;
+            --text-gray: #a89eb6;
+            --font-main: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2.8rem 1.8rem;
+            background: linear-gradient(180deg, rgba(111, 56, 197, 0.32) 0%, rgba(10, 10, 16, 0.97) 100%);
+            border: 1px solid var(--border-purple);
+            border-radius: 14px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 0 35px rgba(111, 56, 197, 0.28);
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: var(--text-white);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.4rem;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: rgba(111, 56, 197, 0.2);
+            border: 1px solid var(--border-purple);
+            color: var(--neon-cyan);
+            padding: 0.4rem 0.95rem;
+            border-radius: 20px;
+            font-size: 0.84rem;
+            font-weight: 600;
+        }
+
+        .badge.green {
+            background-color: rgba(6, 214, 160, 0.15);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .badge.amber {
+            background-color: rgba(255, 183, 3, 0.15);
+            border-color: var(--neon-amber);
+            color: var(--neon-amber);
+        }
+
+        .badge.blue {
+            background-color: rgba(0, 180, 216, 0.15);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        section {
+            background-color: var(--bg-panel);
+            border: 1px solid rgba(111, 56, 197, 0.3);
+            border-radius: 12px;
+            padding: 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        h2 {
+            font-size: 1.55rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(111, 56, 197, 0.3);
+            padding-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #d1c9db;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: 1fr 1fr; }
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 820px) {
+            .grid-2, .grid-4 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(111, 56, 197, 0.25);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(185, 142, 255, 0.5);
+        }
+
+        .card.danger {
+            border-color: rgba(255, 77, 109, 0.5);
+            background: linear-gradient(180deg, rgba(255, 77, 109, 0.08) 0%, rgba(20, 17, 34, 1) 100%);
+        }
+
+        .card.success {
+            border-color: rgba(6, 214, 160, 0.5);
+            background: linear-gradient(180deg, rgba(6, 214, 160, 0.08) 0%, rgba(20, 17, 34, 1) 100%);
+        }
+
+        .card.info {
+            border-color: rgba(0, 180, 216, 0.5);
+            background: linear-gradient(180deg, rgba(0, 180, 216, 0.08) 0%, rgba(20, 17, 34, 1) 100%);
+        }
+
+        .card.amber {
+            border-color: rgba(255, 183, 3, 0.5);
+            background: linear-gradient(180deg, rgba(255, 183, 3, 0.08) 0%, rgba(20, 17, 34, 1) 100%);
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card.danger h4 { color: var(--neon-red); }
+        .card.success h4 { color: var(--neon-green); }
+        .card.info h4 { color: var(--neon-blue); }
+        .card.amber h4 { color: var(--neon-amber); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(111, 56, 197, 0.2);
+        }
+
+        th {
+            background-color: rgba(111, 56, 197, 0.22);
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        tr:hover td {
+            background-color: rgba(111, 56, 197, 0.08);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+        }
+
+        .mermaid-box {
+            background-color: #0c0a16;
+            border: 1px solid rgba(111, 56, 197, 0.4);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.6rem 0;
+            overflow-x: auto;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-box {
+            background-color: #07060c;
+            border: 1px solid rgba(111, 56, 197, 0.3);
+            border-radius: 8px;
+            padding: 1.1rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #d8cce6;
+            margin: 1.2rem 0;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        .stat-value {
+            font-size: 1.65rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            margin: 0.4rem 0;
+        }
+
+        .stat-value.green { color: var(--neon-green); }
+        .stat-value.red { color: var(--neon-red); }
+        .stat-value.amber { color: var(--neon-amber); }
+        .stat-value.blue { color: var(--neon-blue); }
+
+        footer {
+            text-align: center;
+            margin-top: 3.5rem;
+            color: var(--text-gray);
+            font-size: 0.88rem;
+            border-top: 1px solid rgba(111, 56, 197, 0.2);
+            padding-top: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>BrProject-2026: Arquitetura do Mod Quest Recommender</h1>
+        <div class="subtitle">Motor de Recomendação Vetorial com Mechanical Sympathy, Navegação Inteligente e Resolução Zero-GC</div>
+        <div class="badges">
+            <span class="badge blue">Mod: mod-quest-recommender</span>
+            <span class="badge green">Mechanical Sympathy: Fastutil & Arrays Planos</span>
+            <span class="badge amber">Similaridade: Dot Product 8D em O(N)</span>
+            <span class="badge">Navegação: Radar (&le;5000) &amp; Teleporte (&gt;5000)</span>
+            <span class="badge green">SPI Architecture: Decoupled Hooks</span>
+            <span class="badge blue">Compatibilidade: L2j Interlude Parser Seguro</span>
+        </div>
+    </header>
+
+    <!-- 1. VISÃO GERAL E OBJETIVOS -->
+    <section>
+        <h2>🎯 1. Visão Geral & Motivação Arquitetural</h2>
+        <p>
+            O <strong>Quest Recommender</strong> é um subsistema inteligente de alto rendimento projetado para orientar jogadores em tempo real sobre as melhores missões disponíveis no Lineage 2 Interlude, de acordo com o nível, arquétipo de classe (Fighter / Mage) e recompensas mais vantajosas (Adena, Exp, Equipamentos e Receitas).
+        </p>
+        <p>
+            Inspirado no consagrado <code>mod-levelup-maker</code>, o sistema introduz um motor vetorial nativo em memória cache-friendly com alocação contígua de dados (eliminação completa de boxing de tipos primitivos) e despacho reativo via <code>BypassCommandManager</code> e pacotes de interface do cliente.
+        </p>
+
+        <div class="grid-4">
+            <div class="card info">
+                <h4>Espaço Vetorial</h4>
+                <div class="stat-value blue">8D Flat</div>
+                <p>Nível, arquétipos de classe, Adena, Exp, Itens, Repetibilidade e Party.</p>
+            </div>
+            <div class="card success">
+                <h4>GC Overhead</h4>
+                <div class="stat-value green">0 Alloc</div>
+                <p>Cálculo de score através de loops primitivos contíguos em <span class="mono">float[]</span>.</p>
+            </div>
+            <div class="card amber">
+                <h4>Raio de Radar</h4>
+                <div class="stat-value amber">5000 Range</div>
+                <p>Navegação por bússola/radar em curta distância ou teleporte com cast à cidade mais próxima.</p>
+            </div>
+            <div class="card success">
+                <h4>SPI Integration</h4>
+                <div class="stat-value green">100% Hook</div>
+                <p>Ponto de extensão seguro via <span class="mono">QuestRecommenderHooks</span> desacoplado do Core.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. DIAGRAMA DE FLUXO GERAL -->
+    <section>
+        <h2>🔄 2. Fluxo Geral de Ativação, Busca Vetorial e Navegação</h2>
+        <p>
+            O fluxo a seguir ilustra a cadeia de chamadas desde o gatilho inicial (painel de controle, level up ou tutorial alert) até a apresentação do HTML e a ação de navegação física do personagem no mundo do jogo:
+        </p>
+
+        <div class="mermaid-box">
+            <pre class="mermaid">
+flowchart TD
+    subgraph Gatilhos["1. Gatilhos do Jogador / Sistema"]
+        A["Interface Principal (index.html)"] -->|"bypass -h questrec_show"| B["RequestBypassToServer"]
+        C["Alerta LevelUpMaker (tutorial_alert.htm)"] -->|"bypass -h questrec_show"| B
+        D["Notificação QuestionMark (#2020)"] -->|"RequestTutorialQuestionMark"| E["ClassMaster.onTutorialQuestionMark()"]
+    end
+
+    subgraph Roteamento["2. Roteamento de Bypass & SPI Hooks"]
+        B --> F{"BypassCommandManager.notify()"}
+        F -->|"questrec_*"| G["QuestRecommenderManager.onBypass()"]
+        E --> H{"QuestRecommenderHooks.isEnabled()"}
+        H -->|"Sim (#2020)"| I["QuestRecommenderManager.getTutorialAlertHtml()"]
+    end
+
+    subgraph MotorVetorial["3. Motor Vetorial (QuestVectorEngine)"]
+        G -->|"questrec_show"| J["showRecommendationsWindow()"]
+        J --> K["Constrói Vetor do Jogador (8D: Lvl, Fighter, Mage, Adena...)"]
+        K --> L["Aplica Máscara de Nível & Quests Concluídas"]
+        L --> M["QuestVectorEngine.computeScores() (Dot Product Contíguo)"]
+        M --> N["QuestVectorEngine.getTopK() (Fastutil IntArrayList)"]
+        N --> O["renderRecommendationsHtml()"]
+    end
+
+    subgraph Renderizacao["4. Envio de HTML para o Cliente L2J"]
+        O --> P["NpcHtmlMessage(0)"]
+        P --> Q["msg.disableValidation()"]
+        Q --> R["player.sendPacket(msg)"]
+    end
+
+    subgraph AcaoJogador["5. Seleção de Quest & Deslocamento"]
+        R -->|"Clique: Ir até NPC"| S["bypass -h questrec_nav &lt;questId&gt;"]
+        S --> T["QuestNavigationService.navigateOrTeleportToNpc()"]
+        T --> U{"Distância ao NPC &le; 5000 ou Mesma Cidade?"}
+        U -->|"Sim"| V["Aciona Radar/Bússola para o NPC (SetCompassGoal)"]
+        U -->|"Não"| W["Executa Teleporte com Gauge e Cast para a Cidade Mais Próxima"]
+    end
+            </pre>
+        </div>
+    </section>
+
+    <!-- 3. DETALHAMENTO DO MOTOR VETORIAL 8D -->
+    <section>
+        <h2>🧠 3. O Espaço Vetorial 8D & Mechanical Sympathy</h2>
+        <p>
+            Diferente de sistemas legados que iteram sobre listas de objetos instanciados criando pressão sobre a Garbage Collection (GC), o <strong>QuestVectorEngine</strong> organiza todo o catálogo em uma matriz unidimensional plana contígua de primitivos <code>float[]</code>, explorando a máxima localidade de cache L1/L2 do processador.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Índice</th>
+                    <th>Dimensão Vetorial</th>
+                    <th>Vetor do Jogador (Query)</th>
+                    <th>Vetor da Quest (Catálogo)</th>
+                    <th>Impacto no Score (Dot Product)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="mono">0</td>
+                    <td><strong>Nível Normalizado</strong></td>
+                    <td class="mono">min(1.0, Level / 80.0)</td>
+                    <td class="mono">avg(MinLvl, MaxLvl) / 80.0</td>
+                    <td>Alinha a faixa etária da quest ao momento evolutivo atual do personagem.</td>
+                </tr>
+                <tr>
+                    <td class="mono">1</td>
+                    <td><strong>Afinidade Fighter</strong></td>
+                    <td class="mono">isMage ? 0.2 : 0.9</td>
+                    <td class="mono">0.8</td>
+                    <td>Favorece recompensas e desafios adequados para classes de combate corpo a corpo / arqueiros.</td>
+                </tr>
+                <tr>
+                    <td class="mono">2</td>
+                    <td><strong>Afinidade Mage</strong></td>
+                    <td class="mono">isMage ? 0.9 : 0.2</td>
+                    <td class="mono">0.8</td>
+                    <td>Prioriza missões compatíveis com místicos, conjuradores e curandeiros.</td>
+                </tr>
+                <tr>
+                    <td class="mono">3</td>
+                    <td><strong>Peso de Adena</strong></td>
+                    <td class="mono">0.8</td>
+                    <td class="mono">contains("Adena") ? 1.0 : 0.4</td>
+                    <td>Pontua alto para jogadores em busca de liquidez financeira e farm econômico.</td>
+                </tr>
+                <tr>
+                    <td class="mono">4</td>
+                    <td><strong>Peso de Experiência</strong></td>
+                    <td class="mono">0.9</td>
+                    <td class="mono">contains("Exp") ? 1.0 : 0.5</td>
+                    <td>Garante prioridade para missões de alavancagem de nível rápido (power leveling).</td>
+                </tr>
+                <tr>
+                    <td class="mono">5</td>
+                    <td><strong>Peso de Itens &amp; Receitas</strong></td>
+                    <td class="mono">0.7</td>
+                    <td class="mono">contains("Recipes") ? 1.0 : 0.5</td>
+                    <td>Beneficia artesãos, anões e jogadores em transição de Grade de armadura/armas.</td>
+                </tr>
+                <tr>
+                    <td class="mono">6</td>
+                    <td><strong>Repetibilidade</strong></td>
+                    <td class="mono">0.5</td>
+                    <td class="mono">isRepeatable() ? 1.0 : 0.0</td>
+                    <td>Permite farm sustentável e acúmulo contínuo de materiais no mesmo spot.</td>
+                </tr>
+                <tr>
+                    <td class="mono">7</td>
+                    <td><strong>Party / Raid Focus</strong></td>
+                    <td class="mono">0.3</td>
+                    <td class="mono">minLevel &gt;= 60 ? 0.7 : 0.1</td>
+                    <td>Recomenda missões colaborativas e de alta densidade no endgame (Ketra, Varka, Giants Cave).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="code-box">
+<span style="color: #6f38c5;">// Núcleo Algorítmico Zero-GC (QuestVectorEngine.java)</span>
+<span style="color: #00b4d8;">public void</span> computeScores(<span style="color: #00b4d8;">float</span>[] playerVector, <span style="color: #00b4d8;">float</span>[] outScores) {
+    <span style="color: #00b4d8;">final int</span> total = _totalQuests;
+    <span style="color: #00b4d8;">final float</span>[] m = _matrix;
+    <span style="color: #00b4d8;">for</span> (<span style="color: #00b4d8;">int</span> i = 0; i &lt; total; i++) {
+        <span style="color: #00b4d8;">final int</span> base = i * DIMENSIONS;
+        <span style="color: #00b4d8;">float</span> dot = 0.0f;
+        <span style="color: #00b4d8;">for</span> (<span style="color: #00b4d8;">int</span> d = 0; d &lt; DIMENSIONS; d++) {
+            dot += playerVector[d] * m[base + d];
+        }
+        outScores[i] = dot;
+    }
+}
+        </div>
+    </section>
+
+    <!-- 4. NAVEGAÇÃO INTELIGENTE & RESTRIÇÕES -->
+    <section>
+        <h2>🧭 4. Navegação Inteligente (Radar vs Teleporte)</h2>
+        <p>
+            O serviço <code>QuestNavigationService</code> decide estrategicamente se o jogador deve apenas ser guiado visualmente ou transportado com segurança para a cidade mais próxima do NPC inicial da quest:
+        </p>
+
+        <div class="grid-2">
+            <div class="card success">
+                <h4>🎯 Modo Radar / Bússola (&le; 5000 Range)</h4>
+                <p>
+                    Quando o jogador já se encontra nas proximidades do NPC ou dentro da mesma cidade:
+                </p>
+                <ul style="margin-left: 1.2rem; color: #d1c9db;">
+                    <li>Envia o pacote <span class="mono">SetCompassGoal</span> com as coordenadas 3D exatas do NPC.</li>
+                    <li>Dispara som de confirmação <span class="mono">ItemSound.quest_middle</span>.</li>
+                    <li>Emite notificação visual orientando a seguir a agulha dourada da bússola.</li>
+                </ul>
+            </div>
+
+            <div class="card amber">
+                <h4>⚡ Modo Teleporte para Cidade Mais Próxima (&gt; 5000 Range)</h4>
+                <p>
+                    Quando o jogador se encontra em regiões distantes:
+                </p>
+                <ul style="margin-left: 1.2rem; color: #d1c9db;">
+                    <li>Calcula a cidade mais próxima das coordenadas do NPC através da tabela de vilas e cidades do Core.</li>
+                    <li>Verifica regras de engajamento (bloqueio estrito em combate, flag PvP, karma, olimpíadas ou eventos).</li>
+                    <li>Executa gauge animado de cast (<span class="mono">SetupGauge</span>) e animação de Scroll of Escape antes de materializar o teleporte.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CASOS DE USO E BLINDAGEM DE REGRESSÃO -->
+    <section>
+        <h2>🛡️ 5. Matriz de Casos de Uso & Prevenção de Regressões</h2>
+        <p>
+            Abaixo estão documentados os cenários operacionais cobertos para garantir compatibilidade completa com o cliente Lineage 2 Interlude:
+        </p>
+
+        <div class="grid-3">
+            <div class="card info">
+                <h4>[UC1] Painel de Controle</h4>
+                <p><strong>Ação:</strong> Clique no botão "Quest Recommender" em <span class="mono">index.html</span>.</p>
+                <p><strong>Garantia:</strong> O bypass <span class="mono">questrec_show</span> despacha com <span class="mono">disableValidation()</span> e apresenta a lista de missões ou o aviso informativo de nível.</p>
+            </div>
+
+            <div class="card success">
+                <h4>[UC2] Pop-up LevelUpMaker</h4>
+                <p><strong>Ação:</strong> Clique no botão "Ver Todas as Quests" durante notificação de tutorial.</p>
+                <p><strong>Garantia:</strong> Desacoplado via <span class="mono">QuestRecommenderHooks</span>; abre a janela completa com as Top-K opções sem fechar o diálogo do jogo.</p>
+            </div>
+
+            <div class="card amber">
+                <h4>[UC3] Fechamento Seguro</h4>
+                <p><strong>Ação:</strong> Clique no botão "Fechar".</p>
+                <p><strong>Garantia:</strong> Dispara <span class="mono">questrec_close</span> que consome a ação com <span class="mono">ActionFailed.STATIC_PACKET</span>, sem warnings nem perda de foco do teclado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CONFIGURAÇÃO (questrecommender.properties) -->
+    <section>
+        <h2>⚙️ 6. Parâmetros de Configuração (<span class="mono">questrecommender.properties</span>)</h2>
+        <div class="code-box">
+<span style="color: #b98eff;"># Ativação do Motor de Recomendação</span>
+QuestRecommenderEnabled = True
+
+<span style="color: #b98eff;"># ID único do ícone de tutorial (Question Mark)</span>
+QuestRecommenderQuestionMarkId = 2020
+
+<span style="color: #b98eff;"># Raio máximo para orientação pelo radar antes de acionar o teleporte</span>
+QuestRecommenderRangeLimit = 5000
+
+<span style="color: #b98eff;"># Tempo de cast em milissegundos para o teleporte (barra de gauge)</span>
+QuestRecommenderCastTimeMs = 10000
+
+<span style="color: #b98eff;"># Quantidade máxima de quests sugeridas por consulta</span>
+QuestRecommenderTopK = 4
+
+<span style="color: #b98eff;"># Intervalo em segundos para checagem periódica de notificações aos jogadores</span>
+QuestRecommenderRefreshIntervalSec = 300
+        </div>
+    </section>
+
+    <footer>
+        <p>BrProject-2026 Engine Architecture Documentation • Gerado com padrões de Engenharia de Entrega Contínua, RAG Híbrido e Mechanical Sympathy.</p>
+    </footer>
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'dark',
+        securityLevel: 'loose',
+        themeVariables: {
+            darkMode: true,
+            background: '#0c0a16',
+            primaryColor: '#6f38c5',
+            primaryBorderColor: '#b98eff',
+            primaryTextColor: '#f8f8fc',
+            lineColor: '#b98eff',
+            secondaryColor: '#141122',
+            tertiaryColor: '#1e1932'
+        }
+    });
+</script>
+</body>
+</html>

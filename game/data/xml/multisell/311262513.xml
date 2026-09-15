@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+	</npcs>
+	<item>
+		<ingredient id="78" count="1"/><!-- great_sword -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="79" count="1"/><!-- sword_of_damascus -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="142" count="1"/><!-- kshanberk -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="287" count="1"/><!-- hazard_bow -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="284" count="1"/><!-- dark_elven_long_bow -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="175" count="1"/><!-- art_of_battle_axe -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="171" count="1"/><!-- deadman_s_glory -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="210" count="1"/><!-- staff_of_evil_sprit -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="91" count="1"/><!-- heavy_war_axe -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="92" count="1"/><!-- sprite_s_staff -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="97" count="1"/><!-- lancia -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="300" count="1"/><!-- great_axe -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="7883" count="1"/><!-- guardian_sword -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="7901" count="1"/><!-- star_buster -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="7889" count="1"/><!-- wizard_s_tear -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="7892" count="1"/><!-- spell_breaker -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="7900" count="1"/><!-- ice_storm_hammer -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+</list>

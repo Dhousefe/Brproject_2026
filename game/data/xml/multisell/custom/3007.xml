@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="146" count="1"/><!-- sword_of_ghoul -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="148" count="1"/><!-- sword_of_valhalla -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7892" count="1"/><!-- spell_breaker -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7889" count="1"/><!-- wizard_s_tear -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="137" count="1"/><!-- mist_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="140" count="1"/><!-- eminence_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="139" count="1"/><!-- dusk_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="142" count="1"/><!-- kshanberk -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="141" count="1"/><!-- hazard_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="138" count="1"/><!-- sword_of_desert -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="78" count="1"/><!-- great_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7883" count="1"/><!-- guardian_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="79" count="1"/><!-- sword_of_damascus -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="91" count="1"/><!-- heavy_war_axe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="92" count="1"/><!-- sprite_s_staff -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="210" count="1"/><!-- staff_of_evil_sprit -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="171" count="1"/><!-- deadman_s_glory -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="175" count="1"/><!-- art_of_battle_axe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7900" count="1"/><!-- ice_storm_hammer -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7901" count="1"/><!-- star_buster -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="300" count="1"/><!-- great_axe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="97" count="1"/><!-- lancia -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="284" count="1"/><!-- dark_elven_long_bow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="287" count="1"/><!-- hazard_bow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="243" count="1"/><!-- hell_knife -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="229" count="1"/><!-- kris -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="234" count="1"/><!-- demon_s_sword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2606" count="1"/><!-- caliburs_caliburs -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2610" count="1"/><!-- caliburs_tsurugi -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2624" count="1"/><!-- tsurugi_tsurugi -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2616" count="1"/><!-- sword_of_limit_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2617" count="1"/><!-- sword_of_delusion_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2623" count="1"/><!-- sword_of_nightmare_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2605" count="1"/><!-- raid_sword_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2598" count="1"/><!-- spirits_sword_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2590" count="1"/><!-- katana_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2626" count="1"/><!-- samurai_longsword_samurai_longsword -->
+	</item>
+</list>

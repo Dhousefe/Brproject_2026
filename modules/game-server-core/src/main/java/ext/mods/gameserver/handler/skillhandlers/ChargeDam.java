@@ -1,0 +1,260 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.gameserver.handler.skillhandlers;
+
+import ext.mods.commons.math.MathUtil;
+import ext.mods.commons.util.ArraysUtil;
+import ext.mods.gameserver.cancelmanager.CancelReturnManager;
+import ext.mods.gameserver.enums.items.ShotType;
+import ext.mods.gameserver.enums.items.WeaponType;
+import ext.mods.gameserver.enums.skills.EffectType;
+import ext.mods.gameserver.enums.skills.FlyType;
+import ext.mods.gameserver.enums.skills.ShieldDefense;
+import ext.mods.gameserver.enums.skills.SkillType;
+import ext.mods.gameserver.enums.skills.Stats;
+import ext.mods.gameserver.geoengine.GeoEngine;
+import ext.mods.gameserver.handler.ISkillHandler;
+import ext.mods.gameserver.model.WorldObject;
+import ext.mods.gameserver.model.actor.Creature;
+import ext.mods.gameserver.model.actor.Playable;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.item.instance.ItemInstance;
+import ext.mods.gameserver.model.location.Location;
+import ext.mods.gameserver.model.location.Point2D;
+import ext.mods.gameserver.network.SystemMessageId;
+import ext.mods.gameserver.network.serverpackets.FlyToLocation;
+import ext.mods.gameserver.network.serverpackets.SystemMessage;
+import ext.mods.gameserver.network.serverpackets.ValidateLocation;
+import ext.mods.gameserver.skills.AbstractEffect;
+import ext.mods.gameserver.skills.Formulas;
+import ext.mods.gameserver.skills.L2Skill;
+import ext.mods.gameserver.skills.effects.EffectFear;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Handler responsável por skills que CONSOMEM cargas (Sonic Blaster, Sonic Move, Triple Sonic Slash, Break Duress).
+ * Deve ser usado com SkillType.CHARGEDAM no XML para Gladiator e Tyrant.
+ * @author Dhousefe
+ */
+public class ChargeDam implements ISkillHandler
+{
+    private static final SkillType[] SKILL_IDS =
+    {
+        SkillType.CHARGEDAM
+    };
+    
+    @Override
+    public void useSkill(Creature creature, L2Skill skill, WorldObject[] targets, ItemInstance item)
+    {
+        if (creature == null || creature.isAlikeDead())
+            return;
+        
+        final Player player = creature.getActingPlayer();
+        
+        if (player != null)
+        {
+            int chargesNeeded = skill.getNumCharges(); 
+            if (chargesNeeded > 0)
+            {
+                if (!player.decreaseCharges(chargesNeeded))
+                {
+                    return;
+                }
+            }
+        }
+        
+        final boolean ss = creature.isChargedShot(ShotType.SOULSHOT);
+        final boolean bss = creature.isChargedShot(ShotType.BLESSED_SPIRITSHOT);
+        final ItemInstance weapon = creature.getActiveWeaponInstance();
+        
+        for (WorldObject target : targets)
+        {
+            if (!(target instanceof Creature targetCreature))
+                continue;
+            
+            if (targetCreature.isDead() || (targetCreature.isInvul() && !targetCreature.isParalyzed()))
+                continue;
+            
+            if (target instanceof Playable && ArraysUtil.contains(EffectFear.DOESNT_AFFECT_PLAYABLE, skill.getId()))
+                continue;
+
+            final ShieldDefense sDef = Formulas.calcShldUse(creature, targetCreature, skill, false);
+
+            handleNegateLogic(creature, skill, targetCreature, sDef, bss);
+
+            if (skill.getPower() > 0 && weapon != null && weapon.getItemType() != WeaponType.BOW && Formulas.calcPhysicalSkillEvasion(targetCreature, skill))
+            {
+                if (player != null)
+                    player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(targetCreature));
+                
+                if (target instanceof Player targetPlayer)
+                    targetPlayer.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(creature));
+                
+                continue;
+            }
+            
+            final byte reflect = Formulas.calcSkillReflect(targetCreature, skill);
+            if (skill.hasEffects() && targetCreature.getFirstEffect(EffectType.BLOCK_DEBUFF) == null)
+            {
+                if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0)
+                {
+                    creature.stopSkillEffects(skill.getId());
+                    skill.getEffects(targetCreature, creature);
+                }
+                else
+                {
+                    targetCreature.stopSkillEffects(skill.getId());
+                    skill.getEffects(creature, targetCreature, sDef, false);
+                }
+            }
+            
+            if (skill.getPower() > 0)
+            {
+                final boolean isCrit = skill.getBaseCritRate() > 0 && Formulas.calcCrit(skill.getBaseCritRate() * 10 * Formulas.getSTRBonus(creature));
+                double damage = Formulas.calcPhysicalSkillDamage(creature, targetCreature, skill, sDef, isCrit, ss);
+                
+                if (damage > 0)
+                {
+                    if ((reflect & Formulas.SKILL_COUNTER) != 0)
+                    {
+                        if (target instanceof Player targetPlayer)
+                            targetPlayer.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(creature));
+                        
+                        damage *= targetCreature.getStatus().calcStat(Stats.COUNTER_SKILL_PHYSICAL, 0, targetCreature, null) / 100.;
+                        creature.reduceCurrentHp(damage, targetCreature, skill);
+                        targetCreature.sendDamageMessage(creature, (int) damage, false, false, false);
+                    }
+                    else
+                    {
+                        Formulas.calcCastBreak(targetCreature, damage);
+                        targetCreature.reduceCurrentHp(damage, creature, skill);
+                        creature.sendDamageMessage(targetCreature, (int) damage, false, isCrit, false);
+                    }
+                    Formulas.calcLethalHit(creature, targetCreature, skill);
+                }
+                else
+                {
+                    creature.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+                }
+            }
+        }
+        
+        if (skill.hasSelfEffects())
+        {
+            final AbstractEffect effect = creature.getFirstEffect(skill.getId());
+            if (effect != null && effect.isSelfEffect())
+                effect.exit();
+            
+            skill.getEffectsSelf(creature);
+        }
+        
+        if (skill.getFlyType() == FlyType.CHARGE)
+        {
+            int heading = creature.getHeading();
+            if (targets.length > 0)
+                heading = MathUtil.calculateHeadingFrom(creature.getX(), creature.getY(), targets[0].getX(), targets[0].getY());
+            
+            final Point2D chargePoint = MathUtil.getNewLocationByDistanceAndHeading(creature.getX(), creature.getY(), heading, skill.getFlyRadius());
+            final Location chargeLoc = GeoEngine.getInstance().getValidLocation(creature, chargePoint.getX(), chargePoint.getY(), creature.getZ());
+            
+            creature.broadcastPacket(new FlyToLocation(creature, chargeLoc.getX(), chargeLoc.getY(), chargeLoc.getZ(), FlyType.CHARGE));
+            creature.setXYZ(chargeLoc.getX(), chargeLoc.getY(), chargeLoc.getZ());
+            creature.broadcastPacket(new ValidateLocation(creature));
+        }
+        
+        if (skill.isSuicideAttack())
+            creature.doDie(creature);
+        
+        if (skill.getPower() > 0)
+            creature.setChargedShot(ShotType.SOULSHOT, skill.isStaticReuse());
+        else
+            creature.setChargedShot(bss ? ShotType.BLESSED_SPIRITSHOT : ShotType.SPIRITSHOT, skill.isStaticReuse());
+    }
+
+    /**
+     * Lógica de Negate incorporada para suportar skills como Break Duress
+     */
+    private void handleNegateLogic(Creature creature, L2Skill skill, Creature target, ShieldDefense sDef, boolean bsps)
+    {
+        final List<AbstractEffect> removedEffects = new ArrayList<>();
+
+        if (skill.getNegateId().length != 0)
+        {
+            for (int id : skill.getNegateId())
+            {
+                if (id != 0)
+                {
+                    final AbstractEffect effect = target.getFirstEffect(id);
+                    if (effect != null)
+                        removedEffects.add(effect);
+                    target.stopSkillEffects(id);
+                }
+            }
+        }
+        else if (skill.getNegateStats().length > 0)
+        {
+            for (AbstractEffect effect : target.getAllEffects())
+            {
+                if (effect.getTemplate().getStackOrder() == 99)
+                    continue;
+
+                final L2Skill effectSkill = effect.getSkill();
+                for (SkillType skillType : skill.getNegateStats())
+                {
+                    if (skill.getNegateLvl() == -1)
+                    {
+                        if (effectSkill.getSkillType() == skillType || (effectSkill.getEffectType() != null && effectSkill.getEffectType() == skillType))
+                        {
+                            removedEffects.add(effect);
+                            effect.exit();
+                        }
+                    }
+                    else
+                    {
+                        if (effectSkill.getEffectType() != null && effectSkill.getEffectAbnormalLvl() >= 0)
+                        {
+                            if (effectSkill.getEffectType() == skillType && effectSkill.getEffectAbnormalLvl() <= skill.getNegateLvl())
+                            {
+                                removedEffects.add(effect);
+                                effect.exit();
+                            }
+                        }
+                        else if (effectSkill.getSkillType() == skillType && effectSkill.getAbnormalLvl() <= skill.getNegateLvl())
+                        {
+                            removedEffects.add(effect);
+                            effect.exit();
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!removedEffects.isEmpty())
+        {
+            CancelReturnManager.onNegate(target, skill, removedEffects);
+        }
+    }
+    
+    @Override
+    public SkillType[] getSkillIds()
+    {
+        return SKILL_IDS;
+    }
+}

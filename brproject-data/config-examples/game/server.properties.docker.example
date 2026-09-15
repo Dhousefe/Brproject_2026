@@ -1,0 +1,24 @@
+# GameServer — Docker Compose (Phase 5)
+Hostname = *
+GameserverHostname = *
+GameserverPort = 7777
+LoginHost = login
+LoginPort = 9014
+RequestServerID = 1
+AcceptAlternateID = True
+UseBlowfishCipher = True
+
+sql.url = jdbc:mariadb://db:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8
+sql.login = brproject
+sql.password = brproject
+
+CnameTemplate = .*
+DonateCnameTemplate = .*
+TitleTemplate = .*
+PetNameTemplate = .*
+ClanAllyNameTemplate = .*
+ServerListBrackets = False
+ServerListClock = False
+ServerGMOnly = False
+DeleteCharsAfterDays = 7
+MaximumOnlineUsers = 2000

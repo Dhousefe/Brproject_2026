@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="730" count="5"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="960" count="1"/><!-- scrl_of_ench_am_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="729" count="5"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="959" count="1"/><!-- scrl_of_ench_wp_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6572" count="5"/><!-- blessed_scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6571" count="3"/><!-- blessed_scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6570" count="1"/><!-- blessed_scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6569" count="1"/><!-- blessed_scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6578" count="1"/><!-- blessed_scrl_of_ench_am_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6577" count="1"/><!-- blessed_scrl_of_ench_wp_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5577" count="1"/><!-- red_soul_crystal_11 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5578" count="1"/><!-- green_soul_crystal_11 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5579" count="1"/><!-- blue_soul_crystal_11 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5580" count="1"/><!-- red_soul_crystal_12 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5581" count="1"/><!-- green_soul_crystal_12 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5582" count="1"/><!-- blue_soul_crystal_12 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5914" count="1"/><!-- blue_soul_crystal_13 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5908" count="1"/><!-- red_soul_crystal_13 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5911" count="1"/><!-- green_soul_crystal_13 -->
+	</item>
+</list>

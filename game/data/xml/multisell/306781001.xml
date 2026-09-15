@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list applyTaxes="true">
+	<npcs>
+		<npc>30678</npc><!-- Helton (Blacksmith) -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="203"/><!-- crystal_c -->
+		<ingredient id="57" count="609000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2566" count="1"/><!-- stormbringer_caliburs -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="203"/><!-- crystal_c -->
+		<ingredient id="57" count="609000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2567" count="1"/><!-- stormbringer_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="203"/><!-- crystal_c -->
+		<ingredient id="57" count="609000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2568" count="1"/><!-- stormbringer_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="203"/><!-- crystal_c -->
+		<ingredient id="57" count="609000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2569" count="1"/><!-- stormbringer_sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="203"/><!-- crystal_c -->
+		<ingredient id="57" count="609000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2570" count="1"/><!-- stormbringer_tsurugi -->
+	</item>
+	<item>
+		<ingredient id="73" count="1"/><!-- shamshir -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2577" count="1"/><!-- shamshir_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="73" count="1"/><!-- shamshir -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2578" count="1"/><!-- shamshir_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="74" count="1"/><!-- katana -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2586" count="1"/><!-- katana_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="74" count="1"/><!-- katana -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2587" count="1"/><!-- katana_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="131" count="1"/><!-- spirits_sword -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2594" count="1"/><!-- spirits_sword_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="131" count="1"/><!-- spirits_sword -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2595" count="1"/><!-- spirits_sword_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="133" count="1"/><!-- raid_sword -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2601" count="1"/><!-- raid_sword_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="133" count="1"/><!-- raid_sword -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="350"/><!-- crystal_c -->
+		<ingredient id="57" count="1050000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2602" count="1"/><!-- raid_sword_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="138"/><!-- crystal_c -->
+		<ingredient id="57" count="414000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2571" count="1"/><!-- stormbringer_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2607" count="1"/><!-- caliburs_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2608" count="1"/><!-- caliburs_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<production id="2612" count="1"/><!-- sword_of_limit_sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2613" count="1"/><!-- sword_of_limit_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2614" count="1"/><!-- sword_of_limit_sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2615" count="1"/><!-- sword_of_limit_tsurugi -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2617" count="1"/><!-- sword_of_delusion_sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2618" count="1"/><!-- sword_of_delusion_sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="42"/><!-- crystal_c -->
+		<ingredient id="57" count="126000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2619" count="1"/><!-- sword_of_delusion_tsurugi -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="487"/><!-- crystal_c -->
+		<ingredient id="57" count="1461000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2616" count="1"/><!-- sword_of_limit_samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="1459" count="487"/><!-- crystal_c -->
+		<ingredient id="57" count="1461000" isTaxIngredient="true"/><!-- adena -->
+		<production id="2620" count="1"/><!-- sword_of_delusion_samurai_longsword -->
+	</item>
+</list>

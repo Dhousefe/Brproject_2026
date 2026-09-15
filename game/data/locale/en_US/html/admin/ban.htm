@@ -1,0 +1,32 @@
+<html><title>Ban menu</title><body><center>
+	<table width=260>
+		<tr>
+			<td><button value="Main" action="bypass -h admin_admin" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Game" action="bypass -h admin_admin 2" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Effects" action="bypass -h admin_admin 3" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Server" action="bypass -h admin_admin 4" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table>
+	<img src="l2ui.SquareWhite" width=275 height=1><br>
+	<table width=240>
+		<tr>
+			<td>QuickBox</td>
+			<td><edit var="menu_command" width=120 height=15></td>
+			<td><button value="Help" action="bypass -h admin_help" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	<table width=240>
+		<tr>
+			<td><button value="Ban chat" action="bypass -h admin_ban chat $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Ban Acc." action="bypass -h admin_ban account $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Ban Char." action="bypass -h admin_ban player $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr><tr>
+			<td><button value="Unban chat" action="bypass -h admin_unban chat $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Unban Acc." action="bypass -h admin_unban account $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Unban Char." action="bypass -h admin_unban player $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr><tr>
+			<td><button value="Jail" action="bypass -h admin_jail $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Unjail" action="bypass -h admin_unjail $menu_command" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table>
+</center></body></html>

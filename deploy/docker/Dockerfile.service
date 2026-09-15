@@ -1,0 +1,8 @@
+# Generic BrProject service image. Build with: --build-arg SERVICE_JAR=modules/cluster-hpc/build/libs/brproject-cluster-hpc.jar
+FROM brproject/jre25:latest
+ARG SERVICE_JAR
+ARG MAIN_CLASS
+COPY --chown=brproject:brproject ${SERVICE_JAR} /opt/brproject/app.jar
+ENV JAVA_OPTS="-XX:+UseParallelGC -XX:+AlwaysPreTouch -Xms512m -Xmx2g"
+ENV MAIN_CLASS=${MAIN_CLASS}
+CMD ["sh", "-lc", "java $JAVA_OPTS -cp /opt/brproject/app.jar $MAIN_CLASS"]

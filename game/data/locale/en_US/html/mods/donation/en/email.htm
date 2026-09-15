@@ -1,0 +1,24 @@
+<html>
+<title>Chat</title>
+<body>
+<br>
+<center>
+<table cellpadding=4>
+	<tr>
+		<td>
+			Your email will be used to receive the purchase receipt.
+		</td>
+	</tr>
+</table>
+<table width=280 cellpadding=4>
+	%address%
+</table>
+<br>
+<MultiEdit var="Address" width=220 height=12 length=44>
+<br><br>
+<button value="Confirm" action="bypass -h donation email set $Address" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+<br><br>
+<a action="bypass donation index">Back</a>
+</center>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<npcs>
+		<npc>31688</npc><!-- Monument of Heroes -->
+		<npc>31690</npc><!-- Monument of Heroes -->
+		<npc>31769</npc><!-- Monument of Heroes -->
+		<npc>31770</npc><!-- Monument of Heroes -->
+		<npc>31771</npc><!-- Monument of Heroes -->
+		<npc>31772</npc><!-- Monument of Heroes -->
+	</npcs>
+	<item>
+		<ingredient id="6651" count="450000"/><!-- nobless_gate_pass -->
+		<production id="8621" count="1"/><!-- sb_divine_inspiration4 -->
+	</item>
+	<item>
+		<ingredient id="6651" count="420000"/><!-- nobless_gate_pass -->
+		<production id="6577" count="1"/><!-- blessed_scrl_of_ench_wp_s -->
+	</item>
+	<item>
+		<ingredient id="6651" count="195000"/><!-- nobless_gate_pass -->
+		<production id="6569" count="1"/><!-- blessed_scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6651" count="84000"/><!-- nobless_gate_pass -->
+		<production id="6571" count="1"/><!-- blessed_scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6651" count="63000"/><!-- nobless_gate_pass -->
+		<production id="6578" count="1"/><!-- blessed_scrl_of_ench_am_s -->
+	</item>
+	<item>
+		<ingredient id="6651" count="23400"/><!-- nobless_gate_pass -->
+		<production id="6570" count="1"/><!-- blessed_scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6651" count="9000"/><!-- nobless_gate_pass -->
+		<production id="6572" count="1"/><!-- blessed_scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6651" count="70000"/><!-- nobless_gate_pass -->
+		<production id="959" count="1"/><!-- scrl_of_ench_wp_s -->
+	</item>
+	<item>
+		<ingredient id="6651" count="23400"/><!-- nobless_gate_pass -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6651" count="6000"/><!-- nobless_gate_pass -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6651" count="7000"/><!-- nobless_gate_pass -->
+		<production id="960" count="1"/><!-- scrl_of_ench_am_s -->
+	</item>
+	<item>
+		<ingredient id="6651" count="3120"/><!-- nobless_gate_pass -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="6651" count="960"/><!-- nobless_gate_pass -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="6651" count="10000"/><!-- nobless_gate_pass -->
+		<production id="8916" count="1"/><!-- eye_patch -->
+	</item>
+	<item>
+		<ingredient id="6651" count="5500"/><!-- nobless_gate_pass -->
+		<production id="6622" count="1"/><!-- codex_of_giant -->
+	</item>
+</list>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="80" count="1"/><!-- tallum_blade -->
+		<ingredient id="2500" count="1"/><!-- dark_legion_s_edge -->
+		<ingredient id="5126" count="1"/><!-- dualsword_craft_stamp -->
+		<ingredient id="5575" count="3240000"/><!-- adena_of_ancient -->
+		<production id="6580" count="1"/><!-- tallum_blade_dark_legion_s_edge -->
+	</item>
+</list>

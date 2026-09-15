@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30687</npc><!-- Vergara (Head Blacksmith) -->
+	</npcs>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="8300" count="1"/><!-- rp_infernal_master_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="8314" count="1"/><!-- rp_spiritual_eye_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="8487" count="1"/><!-- rp_destroyer_hammer_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="8316" count="1"/><!-- rp_flaming_dragon_skull_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="8326" count="1"/><!-- rp_doom_crusher_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5434" count="1"/><!-- rp_dragon_slayer_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5464" count="1"/><!-- rp_dark_legion_s_edge_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3484" count="3"/><!-- q_gold_giant -->
+		<production id="5466" count="1"/><!-- rp_sword_of_miracle_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5468" count="1"/><!-- rp_elemental_sword_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5470" count="1"/><!-- rp_tallum_blade_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5442" count="1"/><!-- rp_soul_bow_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5444" count="1"/><!-- rp_carnium_bow_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5446" count="1"/><!-- rp_bloody_orchid_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5448" count="1"/><!-- rp_soul_separator_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5456" count="1"/><!-- rp_tallum_glaive_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5458" count="1"/><!-- rp_halbard_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5438" count="1"/><!-- rp_meteor_shower_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5440" count="1"/><!-- rp_elysian_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5460" count="1"/><!-- rp_dasparion_s_staff_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5462" count="1"/><!-- rp_worldtree_s_branch_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3474" count="3"/><!-- q_blood_basilisk -->
+		<production id="5450" count="1"/><!-- rp_dragon_grinder_i -->
+	</item>
+	<item>
+		<ingredient id="5961" count="10"/><!-- q_kails_silver_basilisk -->
+		<ingredient id="5962" count="10"/><!-- q_kails_gold_golem -->
+		<ingredient id="5963" count="10"/><!-- q_kails_blood_dragon -->
+		<ingredient id="3492" count="2"/><!-- q_silver_dryad -->
+		<production id="5452" count="1"/><!-- rp_blood_tornado_i -->
+	</item>
+</list>

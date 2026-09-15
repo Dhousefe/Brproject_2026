@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31797</npc><!-- Adventure Guildsman -->
+		<npc>31798</npc><!-- Adventure Guildsman -->
+		<npc>31799</npc><!-- Adventure Guildsman -->
+		<npc>31800</npc><!-- Adventure Guildsman -->
+	</npcs>
+	<item>
+		<ingredient id="8158" count="20"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="22"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="2413" count="1"/><!-- chain_hood -->
+	</item>
+	<item>
+		<ingredient id="8158" count="26"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="28"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="4"/><!-- angel_s_soul_c -->
+		<production id="500" count="1"/><!-- great_helmet -->
+	</item>
+	<item>
+		<ingredient id="8158" count="42"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="46"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="517" count="1"/><!-- composite_helmet -->
+	</item>
+	<item>
+		<ingredient id="8158" count="42"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="46"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="1149" count="1"/><!-- shining_circlet -->
+	</item>
+	<item>
+		<ingredient id="8158" count="62"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="66"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="12"/><!-- angel_s_soul_c -->
+		<production id="2414" count="1"/><!-- full_plate_helmet -->
+	</item>
+</list>

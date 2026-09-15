@@ -1,0 +1,50 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.commons.logging.formatter;
+
+import java.util.logging.LogRecord;
+
+import ext.mods.commons.lang.StringUtil;
+import ext.mods.commons.logging.MasterFormatter;
+
+import ext.mods.gameserver.model.item.instance.ItemInstance;
+
+public class ItemLogFormatter extends MasterFormatter
+{
+	@Override
+	public String format(LogRecord logRecord)
+	{
+		final StringBuilder sb = new StringBuilder();
+		
+		StringUtil.append(sb, "[", getFormatedDate(logRecord.getMillis()), "] ", SPACE, logRecord.getMessage());
+		
+		for (Object p : logRecord.getParameters())
+		{
+			if (p == null)
+				continue;
+			
+			if (p instanceof ItemInstance item)
+				StringUtil.append(sb, SPACE, item.getLocation(), SPACE, item.getCount(), ((item.getEnchantLevel() > 0) ? " +" + item.getEnchantLevel() + " " : " "), p.toString());
+			else
+				StringUtil.append(sb, SPACE, p.toString());
+		}
+		sb.append(CRLF);
+		
+		return sb.toString();
+	}
+}

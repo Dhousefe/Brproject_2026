@@ -1,0 +1,75 @@
+services:
+  login-server:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.service
+      args:
+        SERVICE_JAR: libs/server.jar
+        MAIN_CLASS: ext.mods.loginserver.LoginServer
+    image: brproject/login:3.1.0
+    environment:
+      DB_URL: jdbc:sqlite:/data/db/brproject.sqlite
+      DB_MODE: READ_ONLY_POOL
+    volumes:
+      - brproject-db:/data/db
+    depends_on: [api-gateway]
+    cap_add: [IPC_LOCK, SYS_NICE]
+    ulimits:
+      memlock: -1
+
+  game-server:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.service
+      args:
+        SERVICE_JAR: libs/server.jar
+        MAIN_CLASS: ext.mods.gameserver.GameServer
+    image: brproject/game:3.1.0
+    environment:
+      DB_URL: jdbc:sqlite:/data/db/brproject.sqlite
+      DB_MODE: SINGLE_WRITER
+      DISRUPTOR_RING_SIZE: "1048576"
+    volumes:
+      - brproject-db:/data/db
+    depends_on: [login-server, api-gateway]
+    cap_add: [IPC_LOCK, SYS_NICE]
+    ulimits:
+      memlock: -1
+
+  site-service:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.service
+      args:
+        SERVICE_JAR: modules/site/build/libs/site.jar
+        MAIN_CLASS: br.project.site.SiteMain
+    image: brproject/site:3.1.0
+    depends_on: [api-gateway]
+
+  api-gateway:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.service
+      args:
+        SERVICE_JAR: modules/cluster-hpc/build/libs/brproject-cluster-hpc.jar
+        MAIN_CLASS: br.project.cluster.hpc.network.GrpcApiGateway
+    image: brproject/api:3.1.0
+    environment:
+      GRPC_PORT: "9100"
+      FLATBUFFERS_MAX_PAYLOAD_BYTES: "65536"
+    ports: ["9100:9100"]
+
+  dashboardpanel:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.service
+      args:
+        SERVICE_JAR: modules/cluster-hpc/build/libs/brproject-cluster-hpc.jar
+        MAIN_CLASS: br.project.cluster.hpc.dashboard.Dashboardpanel
+    image: brproject/dashboard:3.1.0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    profiles: ["ops"]
+
+volumes:
+  brproject-db:

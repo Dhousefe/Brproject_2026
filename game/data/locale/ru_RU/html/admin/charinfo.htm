@@ -1,0 +1,67 @@
+<html><body><center>
+	<table width=270>
+		<tr>
+			<td width=45><button value="Главная" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=180 align=center>Игрок: %name%</td>
+			<td width=45><button value="Назад" action="bypass -h admin_find" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	
+	<table width=260>
+		<tr>
+			<td><button value="Кикнуть" action="bypass -h admin_kick %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Эффекты" action="bypass -h admin_effect" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Бан пер." action="bypass -h admin_ban player %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Тюрьма" action="bypass -h admin_jail %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr><tr>
+			<td><button value="Убить" action="bypass -h admin_kill %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Навыки" action="bypass -h admin_show_skills" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Бан акк." action="bypass -h admin_ban account %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Разбанить" action="bypass -h admin_unjail %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table><br>
+		
+	<table width=260>
+		<tr>
+			<td><button value="Телепорт. к" action="bypass -h admin_teleportto %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Призвать" action="bypass -h admin_recall %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Призв. клан" action="bypass -h admin_recall clan %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Призв. пати" action="bypass -h admin_recall party %name%" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table><br>
+	<table width=260>
+		<tr>
+			<td><combobox width=65 height=21 var="param" list=access;class;color;exp;karma;level;name;noble;rec;sex;sp;tcolor;title;></td>
+			<td><edit width=130 var="set"></td>
+			<td><button value="Установить" action="bypass -h admin_set $param $set" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table><br>
+	<font color="LEVEL">Общая информация</font>
+	<table width=260>
+		<tr>
+			<td><font color="LEVEL">Аккаунт:</font></td>
+			<td><a action="bypass -h admin_find account %name%">%account%</a></td>
+			<td><font color="LEVEL">IP:</font></td>
+			<td><a action="bypass -h admin_find ip %ip%">%ip%</a></td>
+		</tr><tr>
+			<td><font color="LEVEL">Имя:</font></td>
+			<td>%name%</td>
+			<td><font color="LEVEL">ObjId:</font></td>
+			<td>%objid%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Клан:</font></td>
+			<td>%clan%</td>
+			<td><font color="LEVEL">Класс:</font></td>
+			<td>%baseclass%</td>
+		</tr><tr>
+			<td><font color="LEVEL">Группа:</font></td>
+			<td>%party%</td>
+			<td><font color="LEVEL">Опыт:</font></td>
+			<td>%xp%</td>
+		</tr>
+	</table><br>
+	<font color="LEVEL">Информация о намерениях</font><br1>
+	%curai% <> %nextai%<br>
+	<font color="LEVEL">Координаты</font><br1>
+	%loc%
+</center></body></html>

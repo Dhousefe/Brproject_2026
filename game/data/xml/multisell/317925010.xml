@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31792</npc><!-- Adventure Guildsman -->
+		<npc>31793</npc><!-- Adventure Guildsman -->
+		<npc>31794</npc><!-- Adventure Guildsman -->
+		<npc>31795</npc><!-- Adventure Guildsman -->
+		<npc>31796</npc><!-- Adventure Guildsman -->
+	</npcs>
+	<item>
+		<ingredient id="8158" count="204"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="56"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="224"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="112"/><!-- false_nucleus_of_life_c -->
+		<production id="173" count="1"/><!-- skull_graver -->
+	</item>
+	<item>
+		<ingredient id="8158" count="256"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="70"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="280"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="140"/><!-- false_nucleus_of_life_c -->
+		<production id="2502" count="1"/><!-- dwarven_warhammer -->
+	</item>
+	<item>
+		<ingredient id="8158" count="414"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="112"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="452"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="226"/><!-- false_nucleus_of_life_c -->
+		<production id="162" count="1"/><!-- war_axe -->
+	</item>
+	<item>
+		<ingredient id="8158" count="414"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="112"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="452"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="226"/><!-- false_nucleus_of_life_c -->
+		<production id="7898" count="1"/><!-- karik_horn -->
+	</item>
+	<item>
+		<ingredient id="8158" count="590"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="160"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="644"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="322"/><!-- false_nucleus_of_life_c -->
+		<production id="2503" count="1"/><!-- yaksa_mace -->
+	</item>
+	<item>
+		<ingredient id="8158" count="590"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="160"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="644"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="322"/><!-- false_nucleus_of_life_c -->
+		<production id="7897" count="1"/><!-- dwarven_hammer -->
+	</item>
+	<item>
+		<ingredient id="8159" count="772"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="232"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="772"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="540"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="464"/><!-- angel_s_soul_b -->
+		<production id="91" count="1"/><!-- heavy_war_axe -->
+	</item>
+	<item>
+		<ingredient id="8159" count="772"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="232"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="772"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="540"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="464"/><!-- angel_s_soul_b -->
+		<production id="7900" count="1"/><!-- ice_storm_hammer -->
+	</item>
+	<item>
+		<ingredient id="8159" count="1236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="372"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="1236"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="864"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="744"/><!-- angel_s_soul_b -->
+		<production id="171" count="1"/><!-- deadman_s_glory -->
+	</item>
+	<item>
+		<ingredient id="8159" count="1236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="372"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="1236"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="864"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="744"/><!-- angel_s_soul_b -->
+		<production id="175" count="1"/><!-- art_of_battle_axe -->
+	</item>
+	<item>
+		<ingredient id="8159" count="1236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="372"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="1236"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="864"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="744"/><!-- angel_s_soul_b -->
+		<production id="7901" count="1"/><!-- star_buster -->
+	</item>
+</list>

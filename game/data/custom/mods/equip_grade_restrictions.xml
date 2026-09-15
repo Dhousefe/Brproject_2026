@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Configuração de restrição de equipamentos por grau (grade).
+    Cada entrada define a partir de qual data/hora os itens de determinado grade podem ser equipados.
+    Essa verificação é feita no momento do uso/equipamento do item pelo jogador.
+
+    Atributos:
+    - grade: Nome do grade do item (C, B, A, S, etc.).
+    - enabled: true/false para ativar ou desativar a verificação para este grade.
+    - availableFrom: Data/hora de liberação para equipar os itens desse grade. Formato: yyyy-MM-dd HH:mm:ss
+	- message: mensagem exibida ao jogador se tentar equipar antes da liberação
+    Use {grade} para nome do grade e {date} para data formatada (dd/MM/yyyy HH:mm)
+    Exemplo:
+    O exemplo abaixo define que:
+    - Itens C estão sempre liberados (sem restrição).
+    - Itens B só podem ser equipados após 2025-06-21 às 12h00.
+    - Itens A só podem ser equipados após 2025-06-25 às 12h00.
+    - Itens S só podem ser equipados após 2025-06-30 às 18h00.
+-->
+
+<restrictions>
+    <grade name="C" enabled="false" />
+    <grade name="B" enabled="false" availableFrom="2025-06-21 12:00:00" message="Itens grau {grade} estarão disponíveis em {date}." />
+    <grade name="A" enabled="false" availableFrom="2025-06-25 12:00:00" message="Você ainda não pode equipar itens A. Liberação: {date}." />
+    <grade name="S" enabled="true" availableFrom="2025-06-30 18:00:00" message="Grade {grade} sera liberado as {date}!" />
+</restrictions>

@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31113</npc><!-- Merchant of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="5575" count="240000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="480"/><!-- q_blank_scrl -->
+		<production id="730" count="1"/><!-- scrl_of_ench_am_a -->
+	</item>
+	<item>
+		<ingredient id="5575" count="80000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="160"/><!-- q_blank_scrl -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item>
+		<ingredient id="5575" count="15000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="30"/><!-- q_blank_scrl -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="6000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="12"/><!-- q_blank_scrl -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="50000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="100"/><!-- q_blank_scrl -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="110000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="220"/><!-- q_blank_scrl -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="500000"/><!-- adena_of_ancient -->
+		<ingredient id="5965" count="1000"/><!-- q_blank_scrl -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="5575" count="30000"/><!-- adena_of_ancient -->
+		<production id="2133" count="1"/><!-- gemstone_a -->
+	</item>
+	<item>
+		<ingredient id="5575" count="100000"/><!-- adena_of_ancient -->
+		<production id="2134" count="1"/><!-- gemstone_s -->
+	</item>
+	<item>
+		<ingredient id="5575" count="15000"/><!-- adena_of_ancient -->
+		<production id="1461" count="1"/><!-- crystal_a -->
+	</item>
+	<item>
+		<ingredient id="5575" count="25000"/><!-- adena_of_ancient -->
+		<production id="1462" count="1"/><!-- crystal_s -->
+	</item>
+	<item>
+		<ingredient id="5575" count="150000"/><!-- adena_of_ancient -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="5575" count="400000"/><!-- adena_of_ancient -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4469" count="1"/><!-- dye_s1c1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4470" count="1"/><!-- dye_s1d1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4471" count="1"/><!-- dye_c1s1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4472" count="1"/><!-- dye_c1d1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4473" count="1"/><!-- dye_d1s1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4474" count="1"/><!-- dye_d1c1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4475" count="1"/><!-- dye_i1m1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4476" count="1"/><!-- dye_i1w1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4477" count="1"/><!-- dye_m1i1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4478" count="1"/><!-- dye_m1w1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4479" count="1"/><!-- dye_w1i1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="42000"/><!-- adena_of_ancient -->
+		<production id="4480" count="1"/><!-- dye_w1m1_d -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4553" count="1"/><!-- dye_s1c1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4554" count="1"/><!-- dye_s1d1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4555" count="1"/><!-- dye_c1s1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4556" count="1"/><!-- dye_c1c1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4557" count="1"/><!-- dye_d1s1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4558" count="1"/><!-- dye_d1c1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4559" count="1"/><!-- dye_i1m1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4560" count="1"/><!-- dye_i1w1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4561" count="1"/><!-- dye_m1i1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4562" count="1"/><!-- dye_m1w1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4563" count="1"/><!-- dye_w1i1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="60000"/><!-- adena_of_ancient -->
+		<production id="4564" count="1"/><!-- dye_w1m1_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4589" count="1"/><!-- dye_s2c2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4590" count="1"/><!-- dye_s2d2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4591" count="1"/><!-- dye_c2s2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4592" count="1"/><!-- dye_c2c2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4593" count="1"/><!-- dye_d2s2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4594" count="1"/><!-- dye_d2c2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4595" count="1"/><!-- dye_i2m2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4596" count="1"/><!-- dye_i2w2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4597" count="1"/><!-- dye_m2i2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4598" count="1"/><!-- dye_m2w2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4599" count="1"/><!-- dye_w2i2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="72000"/><!-- adena_of_ancient -->
+		<production id="4600" count="1"/><!-- dye_w2m2_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4601" count="1"/><!-- dye_s3c3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4602" count="1"/><!-- dye_s3d3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4603" count="1"/><!-- dye_c3s3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4604" count="1"/><!-- dye_c3c3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4605" count="1"/><!-- dye_d3s3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4606" count="1"/><!-- dye_d3c3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4607" count="1"/><!-- dye_i3m3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4608" count="1"/><!-- dye_i3w3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4609" count="1"/><!-- dye_m3i3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4610" count="1"/><!-- dye_m3w3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4611" count="1"/><!-- dye_w3i3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="108000"/><!-- adena_of_ancient -->
+		<production id="4612" count="1"/><!-- dye_w3m3_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4613" count="1"/><!-- dye_s4c4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4614" count="1"/><!-- dye_s4d4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4615" count="1"/><!-- dye_c4s4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4616" count="1"/><!-- dye_c4c4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4617" count="1"/><!-- dye_d4s4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4618" count="1"/><!-- dye_d4c4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4619" count="1"/><!-- dye_i4m4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4620" count="1"/><!-- dye_i4w4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4621" count="1"/><!-- dye_m4i4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4622" count="1"/><!-- dye_m4w4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4623" count="1"/><!-- dye_w4i4_c -->
+	</item>
+	<item>
+		<ingredient id="5575" count="174000"/><!-- adena_of_ancient -->
+		<production id="4624" count="1"/><!-- dye_w4m4_c -->
+	</item>
+</list>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dressMeList>
+  <dress skillId="9100" name="Apella Heavy" type="ARMOR" isVip="true" >
+    <visualSet chest="7861" legs="0" gloves="7862" feet="7863" helmet="6841" />
+    <visualEffect skillId="445" level="1" recurring="false" interval="35" />
+  </dress>
+  
+   <dress skillId="9101" name="Apella Light" type="ARMOR" isVip="true" >
+    <visualSet chest="7864" legs="0" gloves="7865" feet="7866" helmet="6841" />
+    <visualEffect skillId="445" level="1" recurring="false" interval="35" />
+  </dress>
+  
+   <dress skillId="9102" name="Apella Robe" type="ARMOR" isVip="true" >
+    <visualSet chest="7867" legs="0" gloves="7868" feet="7869" helmet="6841" />
+    <visualEffect skillId="445" level="1" recurring="false" interval="35" />
+  </dress>
+   
+<!-- Armas Hero -->
+<dress skillId="9203" name="Infinity Blade" type="WEAPON" isVip="true">
+  <visualWep type="SWORD" rhand="6611" lhand="0" lrhand="0" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9204" name="Infinity Cleaver" type="WEAPON" isVip="true">
+  <visualWep type="BIGSWORD" rhand="6612" lhand="0" lrhand="6612" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9205" name="Infinity Axe" type="WEAPON" isVip="true">
+  <visualWep type="BLUNT" rhand="6613" lhand="0" lrhand="0" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9206" name="Infinity Rod" type="WEAPON" isVip="true">
+  <visualWep type="BIGBLUNT" rhand="6614" lhand="0" lrhand="6614" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9207" name="Infinity Crusher" type="WEAPON" isVip="true">
+  <visualWep type="sword" rhand="6615" lhand="0" lrhand="0" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9208" name="Infinity Scepter" type="WEAPON" isVip="true">
+  <visualWep type="BIGBLUNT" rhand="6616" lhand="0" lrhand="6616" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9209" name="Infinity Stinger" type="WEAPON" isVip="true">
+  <visualWep type="DAGGER" rhand="6617" lhand="0" lrhand="0" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9210" name="Infinity Fang" type="WEAPON" isVip="true">
+  <visualWep type="DUALFIST" rhand="6618" lhand="0" lrhand="6618" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+
+</dress>
+<dress skillId="9211" name="Infinity Bow" type="WEAPON" isVip="true">
+  <visualWep type="BOW" rhand="6619" lhand="0" lrhand="0" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+</dress>
+
+<dress skillId="9212" name="Infinity Wing" type="WEAPON" isVip="true">
+  <visualWep type="DUAL" rhand="6620" lhand="0" lrhand="6620" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+</dress>
+
+<dress skillId="9213" name="Infinity Spear" type="WEAPON" isVip="true">
+  <visualWep type="POLE" rhand="6621" lhand="0" lrhand="6621" />
+  <visualEffect skillId="10005" level="1" recurring="false" />
+</dress>
+</dressMeList>

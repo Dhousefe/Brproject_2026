@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Configuração de Itens para Summon de Monstros Customizados
+    Este arquivo define quais itens podem summonar quais monstros
+    
+    Formato:
+    - itemId: ID do item que será usado para summon
+    - monsterId: ID do monstro que será spawnado
+    - monsterName: Nome do monstro (para logs e mensagens)
+    - enabled: Se o item está ativo (true/false)
+    - maxUsesPerDay: Máximo de usos por dia por player (0 = ilimitado)
+    - cooldownMinutes: Cooldown entre usos em minutos (0 = sem cooldown)
+    - requiredClass: Classes permitidas (separadas por vírgula, vazio = todas)
+      Classes disponíveis:
+      HUMAN: Human Fighter, Human Mystic, Human Wizard
+      ELF: Elf Fighter, Elf Mystic, Elf Wizard  
+      DARK_ELF: Dark Fighter, Dark Mystic, Dark Wizard
+      ORC: Orc Fighter, Orc Mystic, Orc Wizard
+      DWARF: Dwarf Fighter, Dwarf Mystic, Dwarf Wizard
+      Exemplo: "HUMAN,ELF" = apenas Human e Elf podem usar
+      Exemplo: "" = todas as classes podem usar
+    - description: Descrição do item para o player
+-->
+<list>
+        
+     <!-- Summon Scroll - Solina Brother -->
+     <summon_item>
+         <itemId>15023</itemId>
+         <monsterId>55022</monsterId>
+         <monsterName>Solina Brother</monsterName>
+         <enabled>true</enabled>
+         <maxUsesPerDay>5</maxUsesPerDay>
+         <cooldownMinutes>1</cooldownMinutes>
+         <requiredClass></requiredClass>
+         <description>Summons an Solina Brother with summon animation (All classes)</description>
+     </summon_item>
+    
+     <!-- Summon Scroll - Lord of Splendor Anays  -->
+     <summon_item>
+         <itemId>15024</itemId>
+         <monsterId>55024</monsterId>
+         <monsterName>Uruka</monsterName>
+         <enabled>true</enabled>
+         <maxUsesPerDay>5</maxUsesPerDay>
+         <cooldownMinutes>1</cooldownMinutes>
+         <requiredClass></requiredClass>
+         <description>Summons a powerful Uruka with epic animation</description>
+     </summon_item>
+    
+     <!-- Summon Scroll - found -->
+     <summon_item>
+         <itemId>15025</itemId>
+         <monsterId>55023</monsterId>
+         <monsterName>Found</monsterName>
+         <enabled>true</enabled>
+         <maxUsesPerDay>5</maxUsesPerDay>
+         <cooldownMinutes>1</cooldownMinutes>
+         <requiredClass></requiredClass>
+         <description>Summons a found with normal animation (All classes)</description>
+     </summon_item>
+</list>

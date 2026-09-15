@@ -1,0 +1,20 @@
+<html><body>
+<font color="LEVEL">[Настройка ставки налога]</font><br>
+Текущая ставка налога сегодня составляет <font color="00FFFF">%currentTaxRate%%</font>, а завтрашняя ставка налога будет <font color="00FFFF">%nextTaxRate%</font><font color="00FFFF">%</font>.<br>
+Ставку налога можно установить в пределах от <font color="LEVEL">0% до %taxLimit%%</font>. Введенная ставка налога будет применяться с полуночи того же дня.<br>
+Обратите внимание, что ставка налога будет установлена на <font color="LEVEL">0%</font>, если кнопка "OK" будет нажата без ввода какого-либо значения.<br>
+<br>
+<center>
+<table width=170 height=27 bgcolor="CCCCCC">
+<tr>
+<td width=40 align=center>Ввод</td>
+<td width=30 align=right><edit type=number var="value" width=30 length=2></td>
+<td width=15 align=left>%</td>
+<td>
+<button action="bypass -h npc_%objectId%_tax_adjust $value" value="OK" width=74 height=21 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal">
+</td>
+</tr>
+</table><br>
+<button action="bypass -h npc_%objectId%_Link chamberlain/chamberlain.htm" value="Назад" width=74 height=21 back="L2UI_CH3.Btn1_normalOn" fore="L2UI_CH3.Btn1_normal">
+</center>
+</body></html>

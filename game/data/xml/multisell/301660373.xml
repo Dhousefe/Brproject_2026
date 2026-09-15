@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30166</npc><!-- Wesley (Magic Trader) -->
+	</npcs>
+	<item>
+		<ingredient id="6022" count="2"/><!-- magma_dust -->
+		<production id="4042" count="1"/><!-- enria -->
+	</item>
+	<item>
+		<ingredient id="6021" count="6"/><!-- dracoplasm -->
+		<production id="4043" count="1"/><!-- asofe -->
+	</item>
+	<item>
+		<ingredient id="6024" count="4"/><!-- necroplasm -->
+		<production id="4044" count="1"/><!-- thons -->
+	</item>
+	<item>
+		<ingredient id="6026" count="4"/><!-- inferno_dust -->
+		<production id="2508" count="100"/><!-- cursed_bone -->
+	</item>
+	<item>
+		<ingredient id="6025" count="7"/><!-- demonplasm -->
+		<production id="735" count="10"/><!-- swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6023" count="8"/><!-- moon_dust -->
+		<production id="737" count="10"/><!-- scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6027" count="1"/><!-- draconic_essence -->
+		<production id="4953" count="1"/><!-- rp_avadon_gloves_i -->
+	</item>
+	<item>
+		<ingredient id="6027" count="1"/><!-- draconic_essence -->
+		<production id="4960" count="1"/><!-- rp_shrnoen_s_gauntlet_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4959" count="1"/><!-- rp_avadon_boots_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4958" count="1"/><!-- rp_shrnoen_s_boots_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4998" count="1"/><!-- rp_blue_wolve_s_gloves_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4992" count="1"/><!-- rp_blue_wolve_s_boots_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4993" count="1"/><!-- rp_doom_gloves_i -->
+	</item>
+	<item>
+		<ingredient id="6030" count="1"/><!-- midnight_oil -->
+		<production id="4999" count="1"/><!-- rp_doom_boots_i -->
+	</item>
+	<item>
+		<ingredient id="6029" count="1"/><!-- lunargent -->
+		<production id="5524" count="1"/><!-- sealed_dark_crystal_gaiters_pattern -->
+	</item>
+	<item>
+		<ingredient id="6029" count="1"/><!-- lunargent -->
+		<production id="5478" count="1"/><!-- sealed_dark_crystal_leather_mail_pattern -->
+	</item>
+	<item>
+		<ingredient id="6031" count="1"/><!-- demonic_essence -->
+		<production id="5520" count="1"/><!-- sealed_dark_crystal_breastplate_pattern -->
+	</item>
+	<item>
+		<ingredient id="6031" count="1"/><!-- demonic_essence -->
+		<production id="5479" count="1"/><!-- sealed_tallum_leather_mail_pattern -->
+	</item>
+	<item>
+		<ingredient id="6032" count="1"/><!-- abyss_oil -->
+		<production id="5521" count="1"/><!-- sealed_tallum_plate_armor_pattern -->
+	</item>
+	<item>
+		<ingredient id="6032" count="1"/><!-- abyss_oil -->
+		<production id="5480" count="1"/><!-- sealed_leather_mail_of_nightmare_fabric -->
+	</item>
+	<item>
+		<ingredient id="6032" count="1"/><!-- abyss_oil -->
+		<production id="5481" count="1"/><!-- sealed_majestic_leather_mail_fabric -->
+	</item>
+	<item>
+		<ingredient id="6028" count="1"/><!-- fire_essence -->
+		<production id="5522" count="1"/><!-- sealed_armor_of_nightmare_pattern -->
+	</item>
+	<item>
+		<ingredient id="6028" count="1"/><!-- fire_essence -->
+		<production id="5523" count="1"/><!-- sealed_majestic_platte_armor_pattern -->
+	</item>
+	<item>
+		<ingredient id="6031" count="8"/><!-- demonic_essence -->
+		<production id="103" count="1"/><!-- tower_shield -->
+	</item>
+	<item>
+		<ingredient id="6032" count="8"/><!-- abyss_oil -->
+		<production id="2437" count="1"/><!-- drake_leather_boots -->
+	</item>
+	<item>
+		<ingredient id="6029" count="5"/><!-- lunargent -->
+		<production id="630" count="1"/><!-- square_shield -->
+	</item>
+	<item>
+		<ingredient id="6033" count="1"/><!-- hellfire_oil -->
+		<production id="612" count="1"/><!-- shrnoen_s_gauntlet -->
+	</item>
+	<item>
+		<ingredient id="6033" count="1"/><!-- hellfire_oil -->
+		<production id="2464" count="1"/><!-- avadon_gloves -->
+	</item>
+	<item>
+		<ingredient id="6033" count="1"/><!-- hellfire_oil -->
+		<production id="554" count="1"/><!-- shrnoen_s_boots -->
+	</item>
+	<item>
+		<ingredient id="6033" count="1"/><!-- hellfire_oil -->
+		<production id="600" count="1"/><!-- avadon_boots -->
+	</item>
+	<item>
+		<ingredient id="6034" count="4"/><!-- nightmare_oil -->
+		<production id="2439" count="1"/><!-- blue_wolve_s_boots -->
+	</item>
+	<item>
+		<ingredient id="6034" count="4"/><!-- nightmare_oil -->
+		<production id="601" count="1"/><!-- doom_boots -->
+	</item>
+	<item>
+		<ingredient id="6034" count="4"/><!-- nightmare_oil -->
+		<production id="2487" count="1"/><!-- blue_wolve_s_gloves -->
+	</item>
+	<item>
+		<ingredient id="6034" count="4"/><!-- nightmare_oil -->
+		<production id="2475" count="1"/><!-- doom_gloves -->
+	</item>
+	<item>
+		<ingredient id="6024" count="5"/><!-- necroplasm -->
+		<production id="7562" count="1"/><!-- q_dimension_diamond -->
+	</item>
+</list>

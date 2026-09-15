@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<dungeon id="1" name="Heretic HexTec" type="solo" sharedInstance="false">
+		<cooldown minutes="30"/>
+		
+		<stage order="1" loc="112804,-76675,8" teleport="true" minutes="10"/>
+		<spawns stage="1">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="1" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="1" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="1" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="1" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="1" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="1" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="1" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="1" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		
+		<stage order="2" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="2">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="2" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="2" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="2" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="2" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="2" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="2" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="2" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="2" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="3" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="3">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="3" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="3" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="3" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="3" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="3" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="3" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="3" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="3" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="4" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="4">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="4" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="4" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="4" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="4" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="4" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="4" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="4" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="4" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="5" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="5">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="5" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="5" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="5" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="5" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="5" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="5" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="5" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="5" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="6" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="6">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="6" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="6" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="6" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="6" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="6" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="6" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="6" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="6" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="7" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="7">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="7" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="7" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="7" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="7" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="7" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="7" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="7" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="7" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="8" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="8">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="8" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="8" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="8" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="8" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="8" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="8" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="8" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="8" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="9" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="9">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="9" range="75" loc="113999,-76601,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="9" range="75" loc="113937,-75940,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="9" range="75" loc="113251,-75299,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="9" range="75" loc="112240,-75345,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="9" range="75" loc="111632,-75969,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="9" range="75" loc="111641,-77058,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="9" range="75" loc="112335,-77688,56" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="9" range="75" loc="113320,-77624,56" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="10" loc="112804,-76675,8" teleport="false" minutes="10"/>
+		<spawns stage="10">
+			<spawn npcId="55000" title="[Dungeon Monster]" count="10" range="75" loc="113177,-76850,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55001" title="[Dungeon Monster]" count="10" range="75" loc="112803,-77015,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55002" title="[Dungeon Monster]" count="10" range="75" loc="112440,-76866,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55003" title="[Dungeon Monster]" count="10" range="75" loc="112297,-76484,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55004" title="[Dungeon Monster]" count="10" range="75" loc="112450,-76147,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55005" title="[Dungeon Monster]" count="10" range="75" loc="112824,-76008,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55006" title="[Dungeon Monster]" count="10" range="75" loc="113163,-76149,8" drops="4037-1-1-500000;" />
+			<spawn npcId="55007" title="[Dungeon Monster]" count="10" range="75" loc="113308,-76494,8" drops="4037-1-1-500000;" />
+		</spawns>
+		<stage order="11" loc="112804,-76675,8" teleport="false" minutes="28"/>
+		<spawns stage="11">
+			<spawn npcId="55010" title="[Dungeon Raid]" count="4" range="75" loc="113177,-76850,8" drops="4037-1-1-500000;" />
+		</spawns>
+	</dungeon>
+	
+	<dungeon id="2" name="Team Trial" type="party" sharedInstance="false">
+		<cooldown hours="3"/>
+		
+		<stage order="1" loc="81664,149056,-3472" teleport="true" minutes="30"/>
+		<spawns stage="1">
+			<spawn npcId="22126" title="Stage 1" count="1" range="100" loc="81664,149056,-3472" drops="4037-1-1-500000;" />
+		</spawns>
+		
+		<stage order="2" loc="81664,149056,-3472" teleport="false" minutes="5"/>
+		<spawns stage="2">
+			<spawn npcId="22126" title="Stage 2" count="1" range="50" loc="81664,149056,-3472" drops="4037-1-1-500000;" />
+		</spawns>
+	</dungeon>
+</list>

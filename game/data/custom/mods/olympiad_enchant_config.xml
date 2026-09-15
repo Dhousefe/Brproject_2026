@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<olympiadEnchant enabled="true" value="6">
+    <!-- Mensagem exibida quando o enchant é modificado para o valor fixo -->
+    <enterMessage>Seus equipamentos foram refinados para +{enchant} para a Olympiad.</enterMessage>
+
+    <!-- Mensagem exibida quando os enchants originais são restaurados -->
+    <exitMessage>Seus equipamentos voltaram ao refino original.</exitMessage>
+</olympiadEnchant>

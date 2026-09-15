@@ -1,0 +1,25 @@
+<html><body>
+	<table width=270>
+		<tr>
+			<td width=110>Минимальная цена ставки:</td>
+			<td width=160><font color="aaccff">%AGIT_AUCTION_MINBID%</font> аден</td>
+		</tr><tr>
+			<td>Цена ставки:</td>
+			<td><font color="aaccff">%AGIT_AUCTION_BID%</font> адена</td>
+		</tr><tr>
+			<td>Дата закрытия аукциона:</td>
+			<td>%AGIT_AUCTION_END%</td>
+		</tr>
+	</table><br>
+	Повторные торги возможны только после того, как была сделана ставка или при повышении цены предложения. При отмене ставки налог за транзакцию (<font color="LEVEL">10 % от цены ставки</font>) не подлежит возврату.<br>
+	Повторную ставку и отмену ставки можно выполнить через раздел «Мои товары» в верхнем меню.<br>
+	Хотите сделать ставку?<br>
+	<img src="L2UI.SquareBlank" width=270 height=10> <img src="L2UI.SquareWhite" width=270 height=1> <img src="L2UI.SquareBlank" width=270 height=5>
+	<table width=270>
+		<tr>
+			<td width=130></td>
+			<td width=70 align=center><button action="%AGIT_LINK_BACK%" value="Назад" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+			<td width=70 align=center><button action="bypass -h npc_%objectId%_bid1" value="Подтвердить" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+		</tr>
+	</table>
+</body></html>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<variable name="enable" value="0" /> <!-- enable(1)/disable(0) event -->
+	<variable name="enable_timer_bonus" value="false" /> <!-- enabled/disable timer bonus -->
+	<variable name="timer_points" value="200" /> <!-- number of points gained from timer based reward -->
+	<variable name="timer_double_points_probability" value="10" /> <!-- probability to gain x2 points -->
+	<variable name="enable_daily_bonus" value="false" /> <!-- enabled/disable daily bonus -->
+	<variable name="daily_bonus_points" value="200" /> <!-- daily bonus gained points -->
+	<variable name="enable_farming_bonus" value="false" /> <!-- enabled/disable farming bonus -->
+	<variable name="farming_bonus_points" value="2" /> <!-- farming bonus gained points -->
+	<variable name="farming_bonus_level_diff" value="76" /> <!-- farming bonus level difference to get points -->
+	<variable name="enable_pvp_bonus" value="false" /> <!-- enabled/disable PvP bonus -->
+	<variable name="pvp_bonus_points" value="2" /> <!-- farming bonus gained points -->
+</list>

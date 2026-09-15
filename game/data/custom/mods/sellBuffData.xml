@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	id - skillId.
+	time - buff effect multiplayer.
+	applyOnPets - apply skill on servants.
+-->
+<list>
+	<skill id="1232" time="1200"/><!-- Blazing Skin -->
+	<skill id="1003" time="1200"/><!-- Pa'agrian Gift -->
+	<skill id="1005" time="1200"/><!-- Blessings of Pa'agrio -->
+	<skill id="1250" time="1200"/><!-- Shield of Pa'agrio -->
+	<skill id="1008" time="1200"/><!-- The Glory of Pa'agrio -->
+	<skill id="1260" time="1200"/><!-- The Tact of Pa'agrio -->
+	<skill id="1004" time="1200"/><!-- The Wisdom of Pa'agrio -->
+	<skill id="1261" time="1200"/><!-- Rage of Pa'agrio -->
+	<skill id="1249" time="1200"/><!-- The Vision of Pa'agrio -->
+	<skill id="1563" time="1200"/><!-- Fury of Pa'agrio -->
+	<skill id="1282" time="1200"/><!-- Pa'agrian Haste -->
+	<skill id="1536" time="1200"/><!-- Combat of Pa'agrio -->
+	<skill id="1538" time="1200"/><!-- Condition of Pa'agrio -->
+	<skill id="1537" time="1200"/><!-- Critical of Pa'agrio -->
+	<skill id="1364" time="1200"/><!-- Eye of Pa'agrio -->
+	<skill id="1365" time="1200"/><!-- Soul of Pa'agrio -->
+	<skill id="1415" time="1200"/><!-- Pa'agrio's Emblem -->
+	<skill id="1416" time="1200"/><!-- Pa'agrio's Fist -->
+	<skill id="1414" time="1200"/><!-- Victory of Pa'agrio -->
+	<skill id="1006" time="1200"/><!-- Chant of Fire -->
+	<skill id="1009" time="1200"/><!-- Chant of Shielding -->
+	<skill id="1007" time="1200"/><!-- Chant of Battle -->
+	<skill id="1002" time="1200"/><!-- Flame Chant -->
+	<skill id="1252" time="1200"/><!-- Chant of Evasion -->
+	<skill id="1308" time="1200"/><!-- Chant of Predator -->
+	<skill id="1253" time="1200"/><!-- Chant of Rage -->
+	<skill id="1562" time="1200"/><!-- Chant of Berserker -->
+	<skill id="1309" time="1200"/><!-- Chant of Eagle -->
+	<skill id="1251" time="1200"/><!-- Chant of Fury -->
+	<skill id="1391" time="1200"/><!-- Earth Chant -->
+	<skill id="1390" time="1200"/><!-- War Chant -->
+	<skill id="1284" time="1200"/><!-- Chant of Revenge -->
+	<skill id="1535" time="1200"/><!-- Chant of Movement -->
+	<skill id="1310" time="1200"/><!-- Chant of Vampire -->
+	<skill id="1519" time="1200"/><!-- Chant of Blood Awakening -->
+	<skill id="1549" time="1200"/><!-- Chant of Elements -->
+	<skill id="1362" time="1200"/><!-- Chant of Spirit -->
+	<skill id="1363" time="1200"/><!-- Chant of Victory -->
+	<skill id="1413" time="1200"/><!-- Magnus' Chant -->
+	<skill id="1461" time="1200"/><!-- Chant of Protection -->
+	<skill id="1078" time="1200"/><!-- Concentration -->
+	<skill id="1068" time="1200"/><!-- Might -->
+	<skill id="1040" time="1200"/><!-- Shield -->
+	<skill id="1035" time="1200"/><!-- Mental Shield -->
+	<skill id="1043" time="1200"/><!-- Holy Weapon -->
+	<skill id="1243" time="1200"/><!-- Bless Shield -->
+	<skill id="1304" time="1200"/><!-- Advanced Block -->
+	<skill id="1259" time="1200"/><!-- Resist Shock -->
+	<skill id="1397" time="1200"/><!-- Clarity -->
+	<skill id="1504" time="1200"/><!-- Improved Movement -->
+	<skill id="1503" time="1200"/><!-- Improved Shield Defense -->
+	<skill id="1303" time="1200"/><!-- Wild Magic -->
+	<skill id="1393" time="1200"/><!-- Resist Dark -->
+	<skill id="1033" time="1200"/><!-- Resist Poison -->
+	<skill id="1044" time="1200"/><!-- Regeneration -->
+	<skill id="1257" time="1200"/><!-- Decrease Weight -->
+	<skill id="1087" time="1200"/><!-- Agility -->
+	<skill id="1204" time="1200"/><!-- Wind Walk -->
+	<skill id="1073" time="1200"/><!-- Kiss of Eva -->
+	<skill id="1354" time="1200"/><!-- Arcane Protection -->
+	<skill id="1353" time="1200"/><!-- Divine Protection -->
+	<skill id="1460" time="1200"/><!-- Mana Gain -->
+	<skill id="1355" time="1200"/><!-- Prophecy of Water -->
+	<skill id="1242" time="1200"/><!-- Death Whisper -->
+	<skill id="1045" time="1200"/><!-- Bless the Body -->
+	<skill id="1048" time="1200"/><!-- Bless the Soul -->
+	<skill id="1388" time="1200"/><!-- Greater Might -->
+	<skill id="1389" time="1200"/><!-- Greater Shield -->
+	<skill id="1392" time="1200"/><!-- Resist Holy -->
+	<skill id="1182" time="1200"/><!-- Resist Aqua -->
+	<skill id="1189" time="1200"/><!-- Resist Wind -->
+	<skill id="1548" time="1200"/><!-- Resist Earth -->
+	<skill id="1191" time="1200"/><!-- Resist Fire -->
+	<skill id="1036" time="1200"/><!-- Magic Barrier -->
+	<skill id="1077" time="1200"/><!-- Focus -->
+	<skill id="1086" time="1200"/><!-- Haste -->
+	<skill id="1062" time="1200"/><!-- Berserker Spirit -->
+	<skill id="1085" time="1200"/><!-- Acumen -->
+	<skill id="1240" time="1200"/><!-- Guidance -->
+	<skill id="1032" time="1200"/><!-- Invigor -->
+	<skill id="1352" time="1200"/><!-- Elemental Protection -->
+	<skill id="1542" time="1200"/><!-- Counter Critical -->
+	<skill id="1356" time="1200"/><!-- Prophecy of Fire -->
+	<skill id="1238" time="1200"/><!-- Freezing Skin -->
+	<skill id="1059" time="1200"/><!-- Empower -->
+	<skill id="1268" time="1200"/><!-- Vampiric Rage -->
+	<skill id="1502" time="1200"/><!-- Improved Critical Attack -->
+	<skill id="1500" time="1200"/><!-- Improved Magic -->
+	<skill id="1357" time="1200"/><!-- Prophecy of Wind -->
+	<skill id="307" time="1200"/><!-- Dance of Aqua Guard -->
+	<skill id="309" time="1200"/><!-- Dance of Earth Guard -->
+	<skill id="311" time="1200"/><!-- Dance of Protection -->
+	<skill id="276" time="1200"/><!-- Dance of Concentration -->
+	<skill id="273" time="1200"/><!-- Dance of the Mystic -->
+	<skill id="274" time="1200"/><!-- Dance of Fire -->
+	<skill id="275" time="1200"/><!-- Dance of Fury -->
+	<skill id="272" time="1200"/><!-- Dance of Inspiration -->
+	<skill id="277" time="1200"/><!-- Dance of Light -->
+	<skill id="310" time="1200"/><!-- Dance of the Vampire -->
+	<skill id="271" time="1200"/><!-- Dance of the Warrior -->
+	<skill id="365" time="1200"/><!-- Dance of Siren -->
+	<skill id="915" time="1200"/><!-- Dance of Berserker -->
+	<skill id="264" time="1200" applyOnPets="true"/><!-- Song of Earth -->
+	<skill id="306" time="1200"/><!-- Song of Flame Guard -->
+	<skill id="269" time="1200"/><!-- Song of Hunter -->
+	<skill id="270" time="1200"/><!-- Song of Invocation -->
+	<skill id="265" time="1200"/><!-- Song of Life -->
+	<skill id="308" time="1200"/><!-- Song of Storm Guard -->
+	<skill id="305" time="1200"/><!-- Song of Vengeance -->
+	<skill id="304" time="1200"/><!-- Song of Vitality -->
+	<skill id="267" time="1200"/><!-- Song of Warding -->
+	<skill id="266" time="1200"/><!-- Song of Water -->
+	<skill id="268" time="1200"/><!-- Song of Wind -->
+	<skill id="364" time="1200"/><!-- Song of Champion -->
+	<skill id="363" time="1200"/><!-- Song of Meditation -->
+	<skill id="349" time="1200"/><!-- Song of Renewal -->
+	<skill id="4699" time="285"/><!-- Blessing of Queen -->
+	<skill id="4700" time="285"/><!-- Gift of Queen -->
+	<skill id="4702" time="285"/><!-- Blessing of Seraphim -->
+	<skill id="4703" time="285"/><!-- Gift of Seraphim -->
+</list>

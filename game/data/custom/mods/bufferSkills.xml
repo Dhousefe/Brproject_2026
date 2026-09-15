@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<!-- time add count (if you add 3600, that = 1 hour) -->
+	<!-- DEFAULT: buff id="skill id" level="max level" time="0" price="0" desc="" -->
+	<!-- Todos os Buffs são exibidos no HTML conforme configurado neste XML, e os Buffs listados aqui também serão aplicados como regra de exibição no perfil do Scheme. -->
+	<!-- All Buffs are rendered in the HTML according to the configuration in this XML file, and those listed here will also serve as display rules within the Scheme profile. -->
+	<category type="Buffs">
+		<buff id="1035" level="4" time="7200" price="1000" desc="Increases resistance to mental attacks."/><!-- Mental Shield -->
+		<buff id="1036" level="2" time="7200" price="1000" desc="Increases M. Def."/><!-- Magic Barrier -->
+		<buff id="1040" level="3" time="7200" price="1000" desc="Increases P. Def."/><!-- Shield -->
+		<buff id="1045" level="6" time="7200" price="1000" desc="Increases maximum HP."/><!-- Blessed Body -->
+		<buff id="1048" level="6" time="7200" price="1000" desc="Increases maximum MP."/><!-- Blessed Soul -->
+		<buff id="1059" level="3" time="7200" price="1000" desc="Increases M. Atk."/><!-- Empower -->
+		<buff id="1062" level="2" time="7200" price="1000" desc="Reduces def. and increase atk. power."/><!-- Berserker Spirit -->
+		<buff id="1068" level="3" time="7200" price="1000" desc="Increases P. Atk."/><!-- Might -->
+		<buff id="1077" level="3" time="7200" price="1000" desc="Increases critical attack rate."/><!-- Focus -->
+		<buff id="1078" level="6" time="7200" price="1000" desc="Increases magic concentration."/><!-- Concentration -->
+		<buff id="1085" level="3" time="7200" price="1000" desc="Increases Casting Spd."/><!-- Acumen -->
+		<buff id="1086" level="2" time="7200" price="1000" desc="Increases Atk. Spd."/><!-- Haste -->
+		<buff id="1087" level="3" time="7200" price="1000" desc="Increases Evasion."/><!-- Agility -->
+		<buff id="1204" level="2" time="7200" price="1000" desc="Increases Speed."/><!-- Wind Walk -->
+		<buff id="1240" level="3" time="7200" price="1000" desc="Increases Accuracy."/><!-- Guidance -->
+		<buff id="1242" level="3" time="7200" price="1000" desc="Increases critical attack."/><!-- Death Whisper -->
+		<buff id="1044" level="3" time="7200" price="1000" desc="Increases regenetion."/><!-- Regeneration -->
+		<buff id="1243" level="6" time="7200" price="1000" desc="Increases shield defense rate."/><!-- Bless Shield -->
+		<buff id="1259" level="4" time="7200" price="1000" desc="Increases resistance to stun attack."/><!-- Resist Shock -->
+		<buff id="1268" level="4" time="7200" price="1000" desc="Restores HP using inflicted damage."/><!-- Vampiric Rage -->
+		<buff id="1303" level="2" time="7200" price="1000" desc="Increases crit. rate of magic attacks."/><!-- Wild Magic -->
+		<buff id="1304" level="3" time="7200" price="1000" desc="Increases shield defense power."/><!-- Advanced Block -->
+		<buff id="1352" level="1" time="7200" price="1000" desc="Increases resistance to elements."/><!-- Elemental Protection -->
+		<buff id="1353" level="1" time="7200" price="1000" desc="Increases resistance to dark attack."/><!-- Divine Protection -->
+		<buff id="1354" level="1" time="7200" price="1000" desc="Increases resistance to de-buff attack."/><!-- Arcane Protection -->
+		<buff id="1355" level="1" time="7200" price="1000" desc="Increases mage abilities."/><!-- Prophecy of Water -->
+		<buff id="1356" level="1" time="7200" price="1000" desc="Increases fighter abilities."/><!-- Prophecy of Fire -->
+		<buff id="1357" level="1" time="7200" price="1000" desc="Increases dagger abilities."/><!-- Prophecy of Wind -->
+		<buff id="1363" level="1" time="7200" price="1000" desc="Increases combat abilities."/><!-- Chant of Victory -->
+		<buff id="1388" level="3" time="7200" price="1000" desc="Increases P. Atk."/><!-- Greater Might -->
+		<buff id="1389" level="3" time="7200" price="1000" desc="Increases P. Def."/><!-- Greater Shield -->
+		<buff id="1390" level="3" time="7200" price="1000" desc="Increases P. Atk."/><!-- War Chant -->
+		<buff id="1391" level="3" time="7200" price="1000" desc="Increases P. Def."/><!-- Earth Chant -->
+		<buff id="1397" level="3" time="7200" price="1000" desc="Decreases MP consumption rate."/><!-- Clarity -->
+		<buff id="1413" level="1" time="7200" price="1000" desc="Increases mage abilities."/><!-- Magnus' Chant -->
+	</category>
+	<category type="Dances">
+		<buff id="271" level="1" time="7200" price="1000" desc="Increases P. Atk."/><!-- Dance of the Warrior -->
+		<buff id="272" level="1" time="7200" price="1000" desc="Increases Accuracy."/><!-- Dance of Inspiration -->
+		<buff id="273" level="1" time="7200" price="1000" desc="Increases M. Atk."/><!-- Dance of the Mystic -->
+		<buff id="274" level="1" time="7200" price="1000" desc="Increases critical damage."/><!-- Dance of Fire -->
+		<buff id="275" level="1" time="7200" price="1000" desc="Increases attack speed."/><!-- Dance of Fury -->
+		<buff id="276" level="1" time="7200" price="1000" desc="Increases Casting Spd."/><!-- Dance of Concentration -->
+		<buff id="277" level="1" time="7200" price="1000" desc="Sacred power to physical attack."/><!-- Dance of Light -->
+		<buff id="307" level="1" time="7200" price="1000" desc="Increases water resistance."/><!-- Dance of Aqua Guard -->
+		<buff id="309" level="1" time="7200" price="1000" desc="Increases earth resistance."/><!-- Dance of Earth Guard -->
+		<buff id="310" level="1" time="7200" price="1000" desc="Restores HP by inflicted damage."/><!-- Dance of the Vampire -->
+		<buff id="311" level="1" time="7200" price="1000" desc="Increases resistance to terrain damage."/><!-- Dance of Protection -->
+		<buff id="365" level="1" time="7200" price="1000" desc="Increases rate of magic crit. damage."/><!-- Siren's Dance -->
+	</category>
+	<category type="Songs">
+		<buff id="264" level="1" time="7200" price="1000" desc="Increases P. Def."/><!-- Song of Earth -->
+		<buff id="265" level="1" time="7200" price="1000" desc="Increases HP regeneration."/><!-- Song of Life -->
+		<buff id="266" level="1" time="7200" price="1000" desc="Increases Evasion."/><!-- Song of Water -->
+		<buff id="267" level="1" time="7200" price="1000" desc="Increases M. Def."/><!-- Song of Warding -->
+		<buff id="268" level="1" time="7200" price="1000" desc="Increases movement."/><!-- Song of Wind -->
+		<buff id="269" level="1" time="7200" price="1000" desc="Increases critical rate."/><!-- Song of Hunter -->
+		<buff id="270" level="1" time="7200" price="1000" desc="Increases resistance to dark magic."/><!-- Song of Invocation -->
+		<buff id="304" level="1" time="7200" price="1000" desc="Increases maximum HP."/><!-- Song of Vitality -->
+		<buff id="305" level="1" time="7200" price="1000" desc="Reflects damage received."/><!-- Song of Vengeance -->
+		<buff id="306" level="1" time="7200" price="1000" desc="Increases resistance to fire."/><!-- Song of Flame Guard -->
+		<buff id="308" level="1" time="7200" price="1000" desc="Increases resistance to wind."/><!-- Song of Storm Guard -->
+		<buff id="349" level="1" time="7200" price="1000" desc="Decreases re-use time."/><!-- Song of Renewal -->
+		<buff id="363" level="1" time="7200" price="1000" desc="Increases MP regeneration rate."/><!-- Song of Meditation -->
+		<buff id="364" level="1" time="7200" price="1000" desc="Decreases re-use time of physical skills."/><!-- Song of Champion -->
+	</category>
+	<category type="Premium">
+		<buff id="1416" level="1" time="7200" price="1000" desc="Pa'agrio's Fist"/><!-- Pa'agrio's Fist -->
+		<buff id="1284" level="3" time="7200" price="1000" desc="Chant of Revenge"/><!-- Chant of Revenge -->
+		<buff id="1259" level="4" time="7200" price="1000" desc="Resist Shock"/><!-- Resist Shock -->
+		<buff id="1352" level="1" time="7200" price="1000" desc="Elemental Protect"/><!-- Elemental Protect -->
+		<buff id="1353" level="1" time="7200" price="1000" desc="Divine Protect"/><!-- Divine Protect -->
+		<buff id="1354" level="1" time="7200" price="1000" desc="Arcane Protect"/><!-- Arcane Protect -->
+		<buff id="1393" level="3" time="7200" price="1000" desc="Unholy Resist"/><!-- Unholy Resist -->
+		<buff id="1032" level="3" time="7200" price="1000" desc="Invigor"/><!-- Invigor -->
+		<buff id="1392" level="3" time="7200" price="1000" desc="Holy Resist"/><!-- Holy Resist -->
+		<buff id="1191" level="3" time="7200" price="1000" desc="Resist Fire"/><!-- Resist Fire -->
+		<buff id="1043" level="1" time="7200" price="1000" desc="Holy Weapon"/><!-- Holy Weapon -->
+		<buff id="1033" level="3" time="7200" price="1000" desc="Resist Poison"/><!-- Resist Poison -->
+		<buff id="1182" level="3" time="7200" price="1000" desc="Resist Aqua"/><!-- Resist Aqua -->
+		<buff id="1189" level="3" time="7200" price="1000" desc="Resist Wind"/><!-- Resist Wind -->
+		<buff id="4699" level="13" time="7200" price="1000" desc="Blessing of Queen"/><!-- Blessing of Queen -->
+		<buff id="4703" level="13" time="7200" price="1000" desc="Gift of Seraphim"/><!-- Gift of Seraphim -->
+		<buff id="4700" level="13" time="7200" price="1000" desc="Gift of Queen"/><!-- Gift of Queen -->
+		<buff id="4702" level="13" time="7200" price="1000" desc="Blessing of Seraphim"/><!-- Blessing of Seraphim -->
+		<buff id="4553" level="4" time="7200" price="1000" desc="Hot Spring Flu"/><!-- Hot Spring Flu -->
+		<buff id="4554" level="4" time="7200" price="1000" desc="Hot Springs Malaria"/><!-- Hot Springs Malaria -->
+		<buff id="306" level="1" time="7200" price="1000" desc="Flame Guard"/><!-- Flame Guard -->
+		<buff id="308" level="1" time="7200" price="1000" desc="Storm Guard"/><!-- Storm Guard -->
+		<buff id="270" level="1" time="7200" price="1000" desc="Invocation"/><!-- Invocation -->
+		<buff id="305" level="1" time="7200" price="1000" desc="Vengeance"/><!-- Vengeance -->
+		<buff id="307" level="1" time="7200" price="1000" desc="Aqua Guard"/><!-- Aqua Guard -->
+		<buff id="309" level="1" time="7200" price="1000" desc="Earth Guard"/><!-- Earth Guard -->
+		<buff id="311" level="1" time="7200" price="1000" desc="Protection"/><!-- Protection -->
+	</category>
+	<!-- Aqui são aplicados todos os buffs destinados ao botão de buff Fighter, sendo uma opção para quem não possui um Scheme configurado, permitindo buffar de forma rápida, geralmente voltada para o PVE. -->
+	<!-- All buffs intended for the Fighter buff button are applied here. This serves as an option for users who do not have a configured Scheme, allowing for quick buffing, generally aimed at PvE. -->
+	<scheme type="Fighter">
+		<buff id="1035" time="7200"/><!-- Mental Shield -->
+		<buff id="1036" time="7200"/><!-- Magic Barrier -->
+		<buff id="1040" time="7200"/><!-- Shield -->
+		<buff id="1045" time="7200"/><!-- Blessed Body -->
+		<buff id="1062" time="7200"/><!-- Berserker Spirit -->
+		<buff id="1068" time="7200"/><!-- Might -->
+		<buff id="1077" time="7200"/><!-- Focus -->
+		<buff id="1086" time="7200"/><!-- Haste -->
+		<buff id="1204" time="7200"/><!-- Wind Walk -->
+		<buff id="1242" time="7200"/><!-- Death Whisper -->
+		<buff id="1259" time="7200"/><!-- Resist Shock -->
+		<buff id="1268" time="7200"/><!-- Vampiric Rage -->
+		<buff id="1363" time="7200"/><!-- Chant of Victory -->
+		<buff id="1388" time="7200"/><!-- Greater Might -->
+		<buff id="271" time="7200"/><!-- Dance of the Warrior -->
+		<buff id="274" time="7200"/><!-- Dance of Fire -->
+		<buff id="275" time="7200"/><!-- Dance of Fury -->
+		<buff id="310" time="7200"/><!-- Dance of the Vampire -->
+		<buff id="264" time="7200"/><!-- Song of Earth -->
+		<buff id="267" time="7200"/><!-- Song of Warding -->
+		<buff id="268" time="7200"/><!-- Song of Wind -->
+		<buff id="269" time="7200"/><!-- Song of Hunter -->
+		<buff id="364" time="7200"/><!-- Song of Champion -->
+		<buff id="4699" time="285"/><!-- Blessing of Queen -->
+	</scheme>
+	<!-- Aqui são aplicados todos os buffs destinados ao botão de buff Mago, sendo uma opção para quem não possui um Scheme configurado, permitindo buffar de forma rápida, geralmente voltada para o PVE. -->
+	<!-- All buffs intended for the Mage buff button are applied here. This serves as an option for users who do not have a configured Scheme, allowing for quick buffing, generally aimed at PvE. -->
+	<scheme type="Mage">
+		<buff id="1035" time="7200"/><!-- Mental Shield -->
+		<buff id="1036" time="7200"/><!-- Magic Barrier -->
+		<buff id="1040" time="7200"/><!-- Shield -->
+		<buff id="1045" time="7200"/><!-- Blessed Body -->
+		<buff id="1048" time="7200"/><!-- Blessed Soul -->
+		<buff id="1059" time="7200"/><!-- Empower -->
+		<buff id="1062" time="7200"/><!-- Berserker Spirit -->
+		<buff id="1078" time="7200"/><!-- Concentration -->
+		<buff id="1085" time="7200"/><!-- Acumen -->
+		<buff id="1204" time="7200"/><!-- Wind Walk -->
+		<buff id="1243" time="7200"/><!-- Bless Shield -->
+		<buff id="1259" time="7200"/><!-- Resist Shock -->
+		<buff id="1303" time="7200"/><!-- Wild Magic -->
+		<buff id="1355" time="7200"/><!-- Prophecy of Water -->
+		<buff id="1389" time="7200"/><!-- Greater Shield -->
+		<buff id="1397" time="7200"/><!-- Clarity -->
+		<buff id="273" time="7200"/><!-- Dance of the Mystic -->
+		<buff id="276" time="7200"/><!-- Dance of Concentration -->
+		<buff id="365" time="7200"/><!-- Siren's Dance -->
+		<buff id="264" time="7200"/><!-- Song of Earth -->
+		<buff id="267" time="7200"/><!-- Song of Warding -->
+		<buff id="268" time="7200"/><!-- Song of Wind -->
+		<buff id="349" time="7200"/><!-- Song of Renewal -->
+		<buff id="4703" time="285"/><!-- Gift of Seraphim -->
+	</scheme>
+</list>

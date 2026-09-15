@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+	isEnable - включить статик spawn.
+	id - id босса.
+	days - дни в которые появляется босс (1 день это воскресенье и так далее).
+	time - время в которое появляется босс.
+	randomTime - рандом при спавне босса.
+	earthQuake - эффект дрожания камеры при спавне босса.
+	announce - аннонс появления босса.
+-->
+<list>
+	<!--<npc isEnable="true" id="25415" days="1;4" time="08:50;10:50;12:50;19:15" randomTime="60" earthQuake="true"/>-->
+	<!--<npc isEnable="true" id="29001" days="1;2;3;4" time="08:50;10:50;13:10;20:58" earthQuake="true" announce="true"/>-->
+</list>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>32054</npc><!-- Ghost of a Railroad Engineer -->
+	</npcs>
+	<item>
+		<ingredient id="1060" count="3"/><!-- lesser_healing_potion -->
+		<ingredient id="8514" count="9"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="5135" count="1"/><!-- comp_soulshot_d -->
+	</item>
+	<item>
+		<ingredient id="8514" count="15"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="5141" count="1"/><!-- comp_spiritshot_d -->
+	</item>
+	<item>
+		<ingredient id="1061" count="1"/><!-- healing_potion -->
+		<ingredient id="8514" count="38"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="5147" count="1"/><!-- comp_bspiritshot_d -->
+	</item>
+	<item>
+		<ingredient id="8514" count="1"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="1061" count="1"/><!-- healing_potion -->
+	</item>
+	<item>
+		<ingredient id="1060" count="1"/><!-- lesser_healing_potion -->
+		<ingredient id="8514" count="3"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="734" count="1"/><!-- quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="1060" count="3"/><!-- lesser_healing_potion -->
+		<ingredient id="8514" count="6"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="735" count="1"/><!-- swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="1060" count="3"/><!-- lesser_healing_potion -->
+		<ingredient id="8514" count="2"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="736" count="1"/><!-- scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="8514" count="6"/><!-- remnants_of_old_dwarves__dreams -->
+		<production id="737" count="1"/><!-- scroll_of_resurrection -->
+	</item>
+</list>

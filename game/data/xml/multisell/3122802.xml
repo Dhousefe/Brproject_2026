@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31228</npc><!-- Galladucci (Weapon Merchant) -->
+	</npcs>
+	<item id="1">
+		<ingredient id="6392" count="5"/><!-- event_medal -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item id="2">
+		<ingredient id="6392" count="10"/><!-- event_medal -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item id="3">
+		<ingredient id="6392" count="10"/><!-- event_medal -->
+		<production id="6036" count="1"/><!-- potion_of_acumen3 -->
+	</item>
+	<item id="4">
+		<ingredient id="6392" count="17"/><!-- event_medal -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item id="5">
+		<ingredient id="6392" count="250"/><!-- event_medal -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item id="6">
+		<ingredient id="6392" count="667"/><!-- event_medal -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item id="7">
+		<ingredient id="6392" count="25"/><!-- event_medal -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item id="8">
+		<ingredient id="6392" count="83"/><!-- event_medal -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item id="9">
+		<ingredient id="6392" count="67"/><!-- event_medal -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item id="10">
+		<ingredient id="6392" count="183"/><!-- event_medal -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item id="11">
+		<ingredient id="6392" count="267"/><!-- event_medal -->
+		<production id="948" count="1"/><!-- scrl_of_ench_am_b -->
+	</item>
+	<item id="12">
+		<ingredient id="6392" count="833"/><!-- event_medal -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+</list>

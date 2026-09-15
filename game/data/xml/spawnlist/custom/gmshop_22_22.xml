@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<territory name="gmshop_82385148596" minZ="-3464" maxZ="-3448">
+		<node x="82435" y="148646" />
+		<node x="82335" y="148646" />
+		<node x="82335" y="148546" />
+		<node x="82435" y="148546" />
+	</territory>
+	<npcmaker name="gmshop_823851485961" territory="gmshop_82385148596" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50009" pos="82385;148596;-3464;25686" total="1" respawn="60sec" /> <!-- GM Shop -->
+	</npcmaker>
+</list>

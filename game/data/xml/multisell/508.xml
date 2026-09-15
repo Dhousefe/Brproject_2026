@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30232</npc><!-- Warehouse Keeper Sorint -->
+	</npcs>
+	<item>
+		<ingredient id="3488" count="1"/><!-- q_manaks_gold_giant -->
+		<production id="2435" count="1"/><!-- demon_s_boots -->
+	</item>
+	<item>
+		<ingredient id="3497" count="1"/><!-- q_manaks_silver_dryad -->
+		<ingredient id="3492" count="1"/><!-- q_silver_dryad -->
+		<production id="472" count="1"/><!-- demon_s_hose -->
+	</item>
+	<item>
+		<ingredient id="3488" count="1"/><!-- q_manaks_gold_giant -->
+		<production id="2459" count="1"/><!-- demon_s_gloves -->
+	</item>
+	<item>
+		<ingredient id="3479" count="1"/><!-- q_manaks_blood_werewolf -->
+		<ingredient id="3484" count="1"/><!-- q_gold_giant -->
+		<ingredient id="3486" count="1"/><!-- q_gold_wyrm -->
+		<production id="2414" count="1"/><!-- full_plate_helmet -->
+	</item>
+</list>

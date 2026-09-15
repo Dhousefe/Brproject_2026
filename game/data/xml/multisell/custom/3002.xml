@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2376" count="1"/><!-- avadon_breastplate -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2379" count="1"/><!-- avadon_gaiters -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="357" count="1"/><!-- shrnoen_s_breastplate -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="383" count="1"/><!-- shrnoen_s_gaiters -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="358" count="1"/><!-- blue_wolve_s_breastplate -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2380" count="1"/><!-- blue_wolve_s_gaiters -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2381" count="1"/><!-- doom_plate_armor -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2390" count="1"/><!-- avadon_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2384" count="1"/><!-- shrnoen_s_leather_shirts -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2388" count="1"/><!-- shrnoen_s_leather_gaiters -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2391" count="1"/><!-- blue_wolve_s_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2392" count="1"/><!-- leather_mail_of_doom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2406" count="1"/><!-- avadon_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2397" count="1"/><!-- tunic_of_shrnoen -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2402" count="1"/><!-- hose_of_shrnoen -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2398" count="1"/><!-- blue_wolve_s_tunic -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2403" count="1"/><!-- blue_wolve_s_hose -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2399" count="1"/><!-- tunic_of_doom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2404" count="1"/><!-- hose_of_doom -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5714" count="1"/><!-- avadon_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5715" count="1"/><!-- avadon_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5716" count="1"/><!-- avadon_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5710" count="1"/><!-- shrnoen_s_gauntlet_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5711" count="1"/><!-- shrnoen_s_gauntlet_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5712" count="1"/><!-- shrnoen_s_gauntlet_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5718" count="1"/><!-- blue_wolve_s_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5719" count="1"/><!-- blue_wolve_s_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5720" count="1"/><!-- blue_wolve_s_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5722" count="1"/><!-- doom_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5723" count="1"/><!-- doom_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5724" count="1"/><!-- doom_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5730" count="1"/><!-- avadon_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5731" count="1"/><!-- avadon_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5732" count="1"/><!-- avadon_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5726" count="1"/><!-- shrnoen_s_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5727" count="1"/><!-- shrnoen_s_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5728" count="1"/><!-- shrnoen_s_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5734" count="1"/><!-- blue_wolve_s_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5735" count="1"/><!-- blue_wolve_s_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5736" count="1"/><!-- blue_wolve_s_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5738" count="1"/><!-- doom_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5739" count="1"/><!-- doom_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5740" count="1"/><!-- doom_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2415" count="1"/><!-- avadon_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="503" count="1"/><!-- shrnoen_s_helmet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2416" count="1"/><!-- blue_wolve_s_helmet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2417" count="1"/><!-- doom_helmet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="673" count="1"/><!-- avadon_shield -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="633" count="1"/><!-- shrnoen_s_shield -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="110" count="1"/><!-- doom_shield -->
+	</item>
+</list>

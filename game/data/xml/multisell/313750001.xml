@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31375</npc><!-- Jumara (Trader) -->
+	</npcs>
+	<item>
+		<ingredient id="7186" count="55"/><!-- q_buffalo_horn -->
+		<production id="7634" count="1"/><!-- q_clean_brown_pouch -->
+	</item>
+	<item>
+		<ingredient id="7186" count="80"/><!-- q_buffalo_horn -->
+		<production id="7618" count="1"/><!-- escape_scroll_ketra -->
+	</item>
+</list>

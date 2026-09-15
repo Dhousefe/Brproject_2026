@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6843" count="1"/><!-- cat_ear -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7680" count="1"/><!-- racoon_ear -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7683" count="1"/><!-- rabbit_ear -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6846" count="1"/><!-- monocle -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8569" count="1"/><!-- half_face_mask -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6844" count="1"/><!-- hair_pin_of_lady -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7682" count="1"/><!-- maidens_hairpin -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7695" count="1"/><!-- forget_me_not_hairpin -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7696" count="1"/><!-- daisy_hairpin -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6845" count="1"/><!-- eye_bandage_of_pirate -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7681" count="1"/><!-- outlaw_eyepatch -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7059" count="1"/><!-- taiwan_hair_accessory -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7060" count="1"/><!-- ad_tateossian -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7836" count="1"/><!-- santas_cap -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7837" count="1"/><!-- guide_mask_goldline_white -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="7839" count="1"/><!-- guide_mask_goldline_black -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8177" count="1"/><!-- raid_challenger_s_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8178" count="1"/><!-- raid_adventurer_s_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8179" count="1"/><!-- raid_master_s_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8567" count="1"/><!-- valakas_slayer_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8568" count="1"/><!-- antharas_slayer_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8566" count="1"/><!-- event_iron_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8180" count="1"/><!-- circlet_of_ice_fairy_sirra -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8184" count="1"/><!-- party_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8185" count="1"/><!-- feathered_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8186" count="1"/><!-- artisan_s_goggles -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8187" count="1"/><!-- demon_horns -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8188" count="1"/><!-- little_angel_wing -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8189" count="1"/><!-- fairy_antennae -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8552" count="1"/><!-- mask_of_spirits -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8557" count="1"/><!-- blue_party_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8558" count="1"/><!-- eva_mark -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8559" count="1"/><!-- diadem -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8560" count="1"/><!-- teddy_bear_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8561" count="1"/><!-- piggy_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8562" count="1"/><!-- jester_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8563" count="1"/><!-- wizard_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8564" count="1"/><!-- dapper_cap -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8565" count="1"/><!-- romantic_chapeau -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8910" count="1"/><!-- event_black_feather_mask -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8911" count="1"/><!-- event_black_half_mask -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8912" count="1"/><!-- single_stem_flower -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8913" count="1"/><!-- butterfly_hairpin -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8914" count="1"/><!-- luxurious_gold_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8915" count="1"/><!-- luxurious_silver_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8916" count="1"/><!-- eye_patch -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8917" count="1"/><!-- goddess_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8918" count="1"/><!-- m_era_leather_cap -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8919" count="1"/><!-- first_mate_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8920" count="1"/><!-- angel_halo -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8921" count="1"/><!-- demon_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8922" count="1"/><!-- pirate_hat -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8923" count="1"/><!-- scar -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8936" count="1"/><!-- __santa_antlers -->
+	</item>
+</list>

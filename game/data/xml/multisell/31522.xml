@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31522</npc><!-- Mysterious Wizard -->
+	</npcs>
+	<item>
+		<ingredient id="7543" count="27"/><!-- q_brain_of_lost_forest -->
+		<production id="4040" count="1"/><!-- mold_lubricant -->
+	</item>
+	<item>
+		<ingredient id="7543" count="32"/><!-- q_brain_of_lost_forest -->
+		<production id="4042" count="1"/><!-- enria -->
+	</item>
+	<item>
+		<ingredient id="7543" count="62"/><!-- q_brain_of_lost_forest -->
+		<production id="4041" count="1"/><!-- mold_hardener -->
+	</item>
+	<item>
+		<ingredient id="7543" count="13"/><!-- q_brain_of_lost_forest -->
+		<production id="1877" count="1"/><!-- admantite_nugget -->
+	</item>
+</list>

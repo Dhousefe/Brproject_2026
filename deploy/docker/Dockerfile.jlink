@@ -1,0 +1,15 @@
+# Custom Java 25 runtime for BrProject services.
+FROM eclipse-temurin:25-jdk-alpine AS jlink
+RUN $JAVA_HOME/bin/jlink \
+    --add-modules java.base,java.logging,java.sql,java.net.http,java.management,jdk.crypto.ec \
+    --strip-debug --no-man-pages --no-header-files --compress=zip-9 \
+    --output /opt/brproject-jre
+
+FROM alpine:3.20
+RUN apk add --no-cache bash tini curl libstdc++ && addgroup -S brproject && adduser -S brproject -G brproject
+ENV JAVA_HOME=/opt/brproject-jre
+ENV PATH="$JAVA_HOME/bin:$PATH"
+COPY --from=jlink /opt/brproject-jre /opt/brproject-jre
+WORKDIR /opt/brproject
+USER brproject
+ENTRYPOINT ["/sbin/tini", "--"]

@@ -1,0 +1,24 @@
+# LoginServer — Docker Compose (Phase 5)
+Hostname = *
+LoginserverHostname = *
+LoginserverPort = 2106
+LoginHostname = *
+LoginPort = 9014
+# GS registration port — bind to docker network only in prod (not public *)
+LoginTryBeforeBan = 5
+LoginBlockAfterBan = 600
+AcceptNewGameServer = False
+ShowLicence = True
+
+sql.url = jdbc:mariadb://db:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8
+sql.login = brproject
+sql.password = CHANGE_ME_STRONG_PASSWORD
+
+AutoCreateAccounts = False
+FloodProtection = True
+FastConnectionLimit = 15
+NormalConnectionTime = 700
+FastConnectionTime = 350
+MaxConnectionPerIP = 50
+ShowConnect = False
+Proxy = False

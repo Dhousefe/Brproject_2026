@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<donate id="1" value="0" price="4037-15" /> <!-- noble -->
+	<donate id="2" value="365" price="4037-365" /> <!-- hero -->
+	<donate id="3" value="0" price="4037-100" /> <!-- name color -->
+	<donate id="4" value="0" price="4037-100" /> <!-- title color -->
+	<donate id="5" value="0" price="4037-50" /> <!-- change name -->
+	<donate id="6" value="1" price="4037-1" /> <!-- premium 1 -->
+	<donate id="7" value="7" price="4037-5" /> <!-- premium 7 -->
+	<donate id="8" value="14" price="4037-10" /> <!-- premium 14 -->
+	<donate id="9" value="21" price="4037-18" /> <!-- premium 21 -->
+	<donate id="10" value="31" price="4037-31" /> <!-- premium 31 -->
+	<donate id="11" value="0" price="4037-3" /> <!-- gender -->
+	<donate id="12" value="0" price="4037-3" /> <!-- nullpk -->
+	<donate id="13" value="1" price="4037-50" /> <!-- clan lvl 1 -->
+	<donate id="14" value="2" price="4037-100" /> <!-- clan lvl 2 -->
+	<donate id="15" value="3" price="4037-200" /> <!-- clan lvl 3 -->
+	<donate id="16" value="4" price="4037-300" /> <!-- clan lvl 4 -->
+	<donate id="17" value="5" price="4037-400" /> <!-- clan lvl 5 -->
+	<donate id="18" value="6" price="4037-500" /> <!-- clan lvl 6 -->
+	<donate id="19" value="7" price="4037-600" /> <!-- clan lvl 7 -->
+	<donate id="20" value="8" price="4037-800" /> <!-- clan lvl 8 -->
+	<donate id="21" value="0" price="4037-100" /> <!-- clan skills -->
+	<donate id="22" value="100000" price="4037-100" /> <!-- clan reputation -->
+</list>

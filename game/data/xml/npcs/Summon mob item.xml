@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+	<npc id="55022" idTemplate="22124" name="Solina Brother" title="" alias="solina_brother">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="Monster"/>
+		<set name="level" val="78"/>
+		<set name="radius" val="9.0"/>
+		<set name="height" val="23.4"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8212"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="false"/>
+		<set name="NoRespawn" val="true"/>
+		<set name="exp" val="33265.24086397502"/>
+		<set name="sp" val="3601.0"/>
+		<set name="hp" val="2975.2369188"/>
+		<set name="mp" val="1742.976"/>
+		<set name="hpRegen" val="8.721"/>
+		<set name="mpRegen" val="3.0804"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="938.20801458"/>
+		<set name="pDef" val="354.8183475"/>
+		<set name="mAtk" val="656.66638089"/>
+		<set name="mDef" val="259.6406685"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="61.0"/>
+		<set name="runSpd" val="180.0"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="20"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="300"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="true"/>
+		<ai>
+			<set name="MoveAroundSocial" val="80"/>
+			<set name="MoveAroundSocial1" val="80"/>
+			<set name="MoveAroundSocial2" val="112"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4032" level="9" type="PHYSICAL_SPECIAL"/>
+			<skill id="4336" level="2" type="PASSIVE"/>
+			<skill id="4408" level="12" type="PASSIVE"/>
+			<skill id="4410" level="16" type="PASSIVE"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="3" type="PASSIVE"/>
+			<skill id="4467" level="3" type="DEBUFF2"/>
+			<skill id="4574" level="9" type="SELF_RANGE_PHYSICAL_SPECIAL"/>
+			<skill id="4589" level="10" type="DEBUFF"/>
+		</skills>
+	</npc>
+	<npc id="55023" idTemplate="29096" name="Lord of Splendor Anays" title="Raid Boss" alias="anais_brilliance_master">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
+		<set name="type" val="RaidBoss"/>
+		<set name="NoRespawn" val="true"/>
+		<set name="level" val="80"/>
+		<set name="radius" val="16.0"/>
+		<set name="height" val="41.8"/>
+		<set name="hitTimeFactor" val="0.43"/>
+		<set name="rHand" val="8214"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="true"/>
+		<set name="exp" val="8827525.095953152"/>
+		<set name="sp" val="2036475.0"/>
+		<set name="hp" val="480890.35095576"/>
+		<set name="mp" val="2051.19"/>
+		<set name="hpRegen" val="147.845481058836"/>
+		<set name="mpRegen" val="3.21"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="30"/>
+		<set name="pAtk" val="3064.77740579339"/>
+		<set name="pDef" val="1185.643995"/>
+		<set name="mAtk" val="1222.08861964511"/>
+		<set name="mDef" val="578.3992"/>
+		<set name="crit" val="4.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="60.0"/>
+		<set name="runSpd" val="160.0"/>
+		<set name="str" val="60"/>
+		<set name="int" val="76"/>
+		<set name="dex" val="73"/>
+		<set name="wit" val="70"/>
+		<set name="con" val="57"/>
+		<set name="men" val="80"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="clan" val="solina_clan"/>
+		<set name="clanRange" val="1000"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="1000"/>
+		<set name="aggro" val="true"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<ai>
+			<set name="RaidSpawnMusic" val="Rm02_A"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="0.0">
+				<drop itemid="4037" min="1" max="1" chance="0.0"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4045" level="1" type="PASSIVE"/>
+			<skill id="4180" level="10" type="PHYSICAL_SPECIAL_B"/>
+			<skill id="4416" level="8" type="PASSIVE"/>
+			<skill id="4423" level="1" type="PASSIVE"/>
+			<skill id="4494" level="1" type="PASSIVE"/>
+			<skill id="5032" level="1" type="PASSIVE"/>
+		</skills>
+	</npc>
+	<npc id="55024" idTemplate="25527" name="Uruka Summon" title="Raid Boss" alias="uruka">
+		<set name="type" val="RaidBoss"/>
+		<set name="NoRespawn" val="true"/>
+		<set name="level" val="80"/>
+		<set name="radius" val="30.0"/>
+		<set name="height" val="42.5105"/>
+		<set name="hitTimeFactor" val="0.6"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="canSeeThrough" val="true"/>
+		<set name="exp" val="3775960.823162368"/>
+		<set name="sp" val="557272.0"/>
+		<set name="hp" val="675862.82488359"/>
+		<set name="mp" val="203.52"/>
+		<set name="hpRegen" val="259.751563024682"/>
+		<set name="mpRegen" val="3.18"/>
+		<set name="baseAttackRange" val="40"/>
+		<set name="baseDamageRange" val="0;0;80;120"/>
+		<set name="baseRandomDamage" val="50"/>
+		<set name="pAtk" val="3068.49967024509"/>
+		<set name="pDef" val="1162.672236"/>
+		<set name="mAtk" val="1381.13520659718"/>
+		<set name="mDef" val="567.1848"/>
+		<set name="crit" val="1.0"/>
+		<set name="atkSpd" val="253.0"/>
+		<set name="walkSpd" val="60.0"/>
+		<set name="runSpd" val="190.0"/>
+		<set name="str" val="60"/>
+		<set name="int" val="76"/>
+		<set name="dex" val="73"/>
+		<set name="wit" val="70"/>
+		<set name="con" val="57"/>
+		<set name="men" val="80"/>
+		<set name="ssCount" val="0"/>
+		<set name="spsCount" val="0"/>
+		<set name="undying" val="false"/>
+		<set name="canBeAttacked" val="true"/>
+		<set name="corpseTime" val="7"/>
+		<set name="noSleepMode" val="false"/>
+		<set name="aggroRange" val="0"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<ai>
+			<set name="RaidSpawnMusic" val="Rm03_A"/>
+		</ai>
+		<drops>
+			<category type="DROP" chance="49.4563">
+				<drop itemid="6724" min="1" max="1" chance="5.9961"/>
+				<drop itemid="6725" min="1" max="1" chance="8.9942"/>
+				<drop itemid="6726" min="1" max="1" chance="4.4961"/>
+				<drop itemid="6698" min="81" max="243" chance="11.8869"/>
+				<drop itemid="6699" min="40" max="120" chance="26.71"/>
+				<drop itemid="6700" min="14" max="42" chance="41.9167"/>
+			</category>
+			<category type="DROP" chance="68.7123">
+				<drop itemid="6365" min="1" max="1" chance="0.3713"/>
+				<drop itemid="6366" min="1" max="1" chance="0.3713"/>
+				<drop itemid="6369" min="1" max="1" chance="0.3713"/>
+				<drop itemid="6579" min="1" max="1" chance="0.3713"/>
+				<drop itemid="6689" min="2" max="6" chance="42.0931"/>
+				<drop itemid="6690" min="11" max="31" chance="8.1873"/>
+				<drop itemid="6693" min="6" max="18" chance="14.5597"/>
+				<drop itemid="6697" min="3" max="7" chance="33.6747"/>
+			</category>
+		</drops>
+		<skills>
+			<skill id="4045" level="1" type="PASSIVE"/>
+			<skill id="4172" level="10" type="SELF_RANGE_PHYSICAL_SPECIAL_A"/>
+			<skill id="4173" level="10" type="SELF_BUFF_A"/>
+			<skill id="4177" level="10" type="SELF_RANGE_CANCEL_A"/>
+			<skill id="4416" level="6" type="PASSIVE"/>
+			<skill id="4494" level="1" type="PASSIVE"/>
+			<skill id="4721" level="10" type="PHYSICAL_SPECIAL_A"/>
+			<skill id="5179" level="1" type="PASSIVE"/>
+		</skills>
+	</npc>
+</list>
+	

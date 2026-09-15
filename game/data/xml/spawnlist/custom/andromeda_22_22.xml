@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<territory name="andromeda_83875148619" minZ="-3392" maxZ="-3376">
+		<node x="83925" y="148669" />
+		<node x="83825" y="148669" />
+		<node x="83825" y="148569" />
+		<node x="83925" y="148569" />
+	</territory>
+	<npcmaker name="andromeda_838751486191" territory="andromeda_83875148619" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50001" pos="83875;148619;-3392;59815" total="1" respawn="60sec" /> <!-- Andromeda -->
+	</npcmaker>
+</list>

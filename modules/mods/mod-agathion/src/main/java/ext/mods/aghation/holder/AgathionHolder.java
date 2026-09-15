@@ -1,0 +1,73 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.aghation.holder;
+
+import ext.mods.commons.data.StatSet;
+import ext.mods.extensions.api.IAgathionSpec;
+
+public class AgathionHolder implements IAgathionSpec
+{
+	private final int _NpcId;
+	private final boolean _runSpeed;
+	
+	private final int _healAmount;
+	private final int _healDelay;
+	private final int _randomAnimDelay;
+	private final int _followCheckDelay;
+	
+	public AgathionHolder(StatSet set)
+	{
+		_NpcId = set.getInteger("NpcId", 0);
+		_runSpeed = set.getBool("runSpeed", true);
+		
+		_healAmount = set.getInteger("healAmount", 500);
+		_healDelay = set.getInteger("healDelay", 10);
+		_randomAnimDelay = set.getInteger("randomAnimDelay", 45);
+		_followCheckDelay = set.getInteger("followDelay", 2);
+	}
+	
+	public int getNpcId()
+	{
+		return _NpcId;
+	}
+	
+	public boolean getRunSpeed()
+	{
+		return _runSpeed;
+	}
+	
+	public int getHealAmount()
+	{
+		return _healAmount;
+	}
+	
+	public int getHealDelay()
+	{
+		return _healDelay;
+	}
+	
+	public int getRandomAnimDelay()
+	{
+		return _randomAnimDelay;
+	}
+	
+	public int getFollowCheckDelay()
+	{
+		return _followCheckDelay;
+	}
+}

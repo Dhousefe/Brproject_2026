@@ -1,0 +1,77 @@
+<html>
+<title>Chat</title>
+<body>
+<br>
+<table cellpadding=4 width=300>
+	<tr>
+		<td align=center>
+			<font color=LEVEL>Detalhes da Compra</font>
+		</td>
+	</tr>
+	<tr><td></td></tr>
+	<tr>
+		<td>
+			<font color=LEVEL>ID Local:</font> %id%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>ID %payment%:</font> %id_externo%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>Metodo:</font> %payment% %payment_type% %currency%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>E-mail:</font> %email%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>Status:</font> %status%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>Data:</font> %date% (expirará em %expiration%)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>Jogador:</font> %player%
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font color=LEVEL>Produto:</font> %resume%
+		</td>
+	</tr>
+</table>
+%terms%
+%msg%
+<center>
+<br>
+<table cellpadding=4>
+	<tr>
+		%link%
+		%qrcode%
+		%check%
+	</tr>
+</table>
+<br>
+<table cellpadding=10>
+	<tr>
+		<td width=50>
+			<a action="bypass donation history 1">Voltar</a>
+		</td>
+		<td width=64>
+			<a action="bypass donation confirm %id% cancel">Cancelar</a>
+		</td>
+	</tr>
+</table>
+</center>
+</body>
+</html>

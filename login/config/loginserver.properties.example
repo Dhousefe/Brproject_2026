@@ -1,0 +1,64 @@
+#=============================================================
+#                         Loginserver
+#=============================================================
+
+# This is transmitted to the clients, so it has to be an IP or resolvable hostname
+Hostname = localhost
+
+# Bind ip of the LoginServer, use * to bind on all available IPs
+LoginserverHostname = *
+LoginserverPort = 2106
+
+# The Loginserver host and port.
+LoginHostname = *
+LoginPort = 9014
+
+# How many times you can provide an invalid account/pass before the IP gets banned
+LoginTryBeforeBan = 5
+
+# Time you won't be able to login back again after LoginTryBeforeBan tries to login. Provide a value in seconds. Default 10min. (600)
+LoginBlockAfterBan = 600
+
+# If set to true, any GameServer can register on your login's free slots
+AcceptNewGameServer = False
+
+# If false, the licence (after the login) will not be shown. Default : true.
+ShowLicence = True
+
+#=============================================================
+#                    Database informations
+#=============================================================
+# Default: SQLite (zero-config, no external server needed)
+# Just start the server — it works out of the box!
+#
+# To use a different database, uncomment ONE of the lines below:
+sql.url = jdbc:sqlite:data/brproject.db
+# sql.url = jdbc:mariadb://localhost:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8
+# sql.url = jdbc:postgresql://localhost:5432/l2jdb
+# sql.url = jdbc:sqlserver://localhost:1433;databaseName=l2jdb;encrypt=false
+# sql.url = jdbc:mysql://localhost:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8
+
+# Credentials (not needed for SQLite)
+sql.login = brproject
+sql.password = CHANGE_ME_BEFORE_PRODUCTION
+
+# Usable values: "true" - "false", use this option to choose whether accounts will be created automatically or not.
+AutoCreateAccounts = False
+
+#=============================================================
+#                        Security
+#=============================================================
+
+# FloodProtection. time in ms
+EnableFloodProtection = True
+
+FastConnectionLimit = 5
+NormalConnectionTime = 2
+FastConnectionTime = 3
+MaxConnectionPerIP = 50
+
+# Display player connections on the server in the console.
+ShowConnect = False
+
+# Enabled proxy? (data/xml/proxy.xml).
+Proxy = False

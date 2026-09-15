@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true">
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="5765" count="1"/><!-- dark_crystal_gloves_for_heavy -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5290" count="1"/><!-- sealed_dark_crystal_gloves -->
+	</item>
+	<item>
+		<ingredient id="5766" count="1"/><!-- dark_crystal_gloves_for_light -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5290" count="1"/><!-- sealed_dark_crystal_gloves -->
+	</item>
+	<item>
+		<ingredient id="5767" count="1"/><!-- dark_crystal_gloves_for_robe -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5290" count="1"/><!-- sealed_dark_crystal_gloves -->
+	</item>
+	<item>
+		<ingredient id="5768" count="1"/><!-- tallum_gloves_for_heavy -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5295" count="1"/><!-- sealed_tallum_gloves -->
+	</item>
+	<item>
+		<ingredient id="5769" count="1"/><!-- tallum_gloves_for_light -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5295" count="1"/><!-- sealed_tallum_gloves -->
+	</item>
+	<item>
+		<ingredient id="5770" count="1"/><!-- tallum_gloves_for_robe -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5295" count="1"/><!-- sealed_tallum_gloves -->
+	</item>
+	<item>
+		<ingredient id="5771" count="1"/><!-- gloves_of_nightmare_for_heavy -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5313" count="1"/><!-- sealed_gloves_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5772" count="1"/><!-- gloves_of_nightmare_for_light -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5313" count="1"/><!-- sealed_gloves_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5773" count="1"/><!-- gloves_of_nightmare_for_robe -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5313" count="1"/><!-- sealed_gloves_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5774" count="1"/><!-- magestic_gloves_for_heavy -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5318" count="1"/><!-- sealed_magestic_gloves -->
+	</item>
+	<item>
+		<ingredient id="5775" count="1"/><!-- magestic_gloves_for_light -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5318" count="1"/><!-- sealed_magestic_gloves -->
+	</item>
+	<item>
+		<ingredient id="5776" count="1"/><!-- magestic_gloves_for_robe -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5318" count="1"/><!-- sealed_magestic_gloves -->
+	</item>
+	<item>
+		<ingredient id="5777" count="1"/><!-- dark_crystal_boots_for_heavy -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5291" count="1"/><!-- sealed_dark_crystal_boots -->
+	</item>
+	<item>
+		<ingredient id="5778" count="1"/><!-- dark_crystal_boots_for_light -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5291" count="1"/><!-- sealed_dark_crystal_boots -->
+	</item>
+	<item>
+		<ingredient id="5779" count="1"/><!-- dark_crystal_boots_for_robe -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5291" count="1"/><!-- sealed_dark_crystal_boots -->
+	</item>
+	<item>
+		<ingredient id="5780" count="1"/><!-- tallum_boots_for_heavy -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5296" count="1"/><!-- sealed_tallum_boots -->
+	</item>
+	<item>
+		<ingredient id="5781" count="1"/><!-- tallum_boots_for_light -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5296" count="1"/><!-- sealed_tallum_boots -->
+	</item>
+	<item>
+		<ingredient id="5782" count="1"/><!-- tallum_boots_for_robe -->
+		<ingredient id="5575" count="4350"/><!-- adena_of_ancient -->
+		<production id="5296" count="1"/><!-- sealed_tallum_boots -->
+	</item>
+	<item>
+		<ingredient id="5783" count="1"/><!-- boots_of_nightmare_for_heavy -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5314" count="1"/><!-- sealed_boots_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5784" count="1"/><!-- boots_of_nightmare_for_light -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5314" count="1"/><!-- sealed_boots_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5785" count="1"/><!-- boots_of_nightmare_for_robe -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5314" count="1"/><!-- sealed_boots_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="5786" count="1"/><!-- magestic_boots_for_heavy -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5319" count="1"/><!-- sealed_magestic_boots -->
+	</item>
+	<item>
+		<ingredient id="5787" count="1"/><!-- magestic_boots_for_light -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5319" count="1"/><!-- sealed_magestic_boots -->
+	</item>
+	<item>
+		<ingredient id="5788" count="1"/><!-- magestic_boots_for_robe -->
+		<ingredient id="5575" count="6600"/><!-- adena_of_ancient -->
+		<production id="5319" count="1"/><!-- sealed_magestic_boots -->
+	</item>
+</list>

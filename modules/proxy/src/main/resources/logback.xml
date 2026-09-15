@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BrProject Proxy — Logback configuration for production.
+  
+  Features:
+    - Console output (structured, concise)
+    - Rolling file logs with size+time rotation (max 500MB total)
+    - Separate access log file for HTTP request auditing
+    - Error-only file for fast incident diagnosis
+    - Async appenders to avoid blocking Netty I/O threads
+-->
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <property name="LOG_DIR" value="${PROXY_LOG_DIR:-logs/proxy}"/>
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n"/>
+    <property name="ACCESS_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n"/>
+
+    <!-- ═══ Console (always active) ═══ -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ═══ Main rolling log ═══ -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/proxy.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/proxy.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ═══ Error-only log (quick triage) ═══ -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/proxy-error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/proxy-error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %level %logger{40} - %msg%n%xEx</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ═══ Access log (HTTP requests) ═══ -->
+    <appender name="ACCESS_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/proxy-access.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/proxy-access.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ACCESS_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Async wrappers to avoid blocking Netty event loop -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="ASYNC_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>256</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="ERROR_FILE"/>
+    </appender>
+
+    <appender name="ASYNC_ACCESS" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>2048</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="ACCESS_FILE"/>
+    </appender>
+
+    <!-- ═══ Logger configuration ═══ -->
+
+    <!-- Access log logger (used by proxy for HTTP request logging) -->
+    <logger name="proxy.access" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC_ACCESS"/>
+    </logger>
+
+    <!-- Netty internals: reduce noise -->
+    <logger name="io.netty" level="WARN"/>
+
+    <!-- Rate limiter deny logs -->
+    <logger name="br.project.proxy" level="INFO"/>
+
+    <!-- Root -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+        <appender-ref ref="ASYNC_ERROR"/>
+    </root>
+
+</configuration>

@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+	<npc id="41000" name="Panda" title="Agathion" alias="panda_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41001" name="Bamboo" title="Agathion" alias="bamboo_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41002" name="Samurai" title="Agathion" alias="samurai_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41003" name="Fairy" title="Agathion" alias="fairy_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41004" name="Snake" title="Agathion" alias="snake_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41005" name="Hotbird" title="Agathion" alias="hotbird_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41006" name="Pegasus" title="Agathion" alias="pegasus_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41007" name="Valakas" title="Agathion" alias="valakas_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41008" name="Gorynych" title="Agathion" alias="gorynych_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41009" name="Lindvior" title="Agathion" alias="lindvior_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41010" name="Orc" title="Agathion" alias="orc_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41011" name="Woman" title="Agathion" alias="woman_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41012" name="Grot" title="Agathion" alias="grot_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41013" name="Angel" title="Agathion" alias="angel_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="41014" name="Sumo" title="Agathion" alias="sumo_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.0"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99990" name="Eagle" title="Agathion" alias="eagle_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="400"/>
+		<set name="runSpd" val="400"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99991" name="Bat" title="Agathion" alias="bat_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99992" name="Fenix" title="Agathion" alias="fenix_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99993" name="Baium" title="Agathion" alias="baium_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99994" name="Zaken" title="Agathion" alias="zaken_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99995" name="Valakas" title="Agathion" alias="valakas_agathion2">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+	<npc id="99996" name="Antharas" title="Agathion" alias="antharas_agathion">
+		<set name="type" val="Agathion"/>
+		<set name="level" val="15"/>
+		<set name="radius" val="0.1"/>
+		<set name="height" val="42.5"/>
+		<set name="rHand" val="0"/>
+		<set name="lHand" val="0"/>
+		<set name="exp" val="0"/>
+		<set name="sp" val="0"/>
+		<set name="hp" val="246.95422"/>
+		<set name="mp" val="149.2"/>
+		<set name="hpRegen" val="2.5"/>
+		<set name="mpRegen" val="1.2"/>
+		<set name="baseDamageRange" val="0;0;0;0"/>
+		<set name="pAtk" val="29.61691"/>
+		<set name="pDef" val="73.55216"/>
+		<set name="mAtk" val="20.22451"/>
+		<set name="mDef" val="53.82228"/>
+		<set name="crit" val="4"/>
+		<set name="atkSpd" val="253"/>
+		<set name="str" val="40"/>
+		<set name="int" val="21"/>
+		<set name="dex" val="30"/>
+		<set name="wit" val="20"/>
+		<set name="con" val="43"/>
+		<set name="men" val="25"/>
+		<set name="corpseTime" val="1200"/>
+		<set name="walkSpd" val="24"/>
+		<set name="runSpd" val="250"/>
+		<set name="canMove" val="true"/>
+		<set name="seedable" val="false"/>
+		<set name="canBeAttacked" val="false"/>
+		<ai>
+			<set name="MoveAroundSocial" val="0"/>
+			<set name="MoveAroundSocial1" val="0"/>
+			<set name="MoveAroundSocial2" val="0"/>
+		</ai>
+	</npc>
+</list>

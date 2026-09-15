@@ -1,0 +1,51 @@
+<html><body>
+<br>
+<table cellspacing="-2">
+    <tr>
+        <td><button value="Открытые" action="bypass autofarm list_areas OPEN" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Зоны" action="bypass autofarm list_areas ZONA" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Маршруты" action="bypass autofarm list_areas ROTA" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Опции" action="bypass autofarm options" width=74 height=24 back="L2UI_CH3.summon_tab1" fore="L2UI_CH3.summon_tab1"></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td></td>
+        <td>
+            В зонах типа Открытые и Маршрут вы можете установить <font color=LEVEL>радиус</font> (расстояние), в пределах которого можно атаковать цели.<br>
+            Установив значение, меньшее или равное вашему радиусу атаки (%attack_range%), ваш персонаж не будет выходить за пределы своей зоны.
+        </td>
+    </tr>
+</table>
+<br>
+<center>
+<table>
+    <tr>
+        <td></td>
+        <td width=80>
+            Радиус (%current_radius%)
+        </td>
+        <td>
+            <combobox var=Radius list="%radius%" width=100>
+        </td>
+        <td></td>
+        <td>
+            <button value="Установить" action="bypass autofarm options radius $Radius" width=60 height=17 back="sek.cbui94" fore="sek.cbui92">
+        </td>
+    </tr>
+</table>
+<br>
+%msg%
+<table>
+    <tr>
+        <td width=40>
+			<button value="Назад" action="bypass autofarm index" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2">
+        </td>
+        <td width=80>
+			<button value="Очистить" action="bypass autofarm clearpreview" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2">
+        </td>
+    </tr>
+</table>
+</center>
+</body></html>

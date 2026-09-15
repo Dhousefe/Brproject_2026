@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list enabled="false">
+	<!-- PvP Reward Examble : ItemId-ItemCount;ItemId-ItemCount; -->
+	<reward rewards="4037-5"/>
+	
+	<!-- PvP Color -->
+	<color pvpAmount="5" nameColor="FFFF77" titleColor="FFFF77" />
+	<color pvpAmount="6" nameColor="CC3333" titleColor="CC3333" />	
+	<color pvpAmount="7" nameColor="FF66CC" titleColor="FF66CC" />
+	<color pvpAmount="8" nameColor="003399" titleColor="003399" />
+	<color pvpAmount="9" nameColor="339933" titleColor="339933" />
+	<color pvpAmount="10" nameColor="CC6600" titleColor="CC6600" />
+</list>

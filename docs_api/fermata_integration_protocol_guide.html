@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrProject-2026: Integração de Protocolo e Pacotes Fermata</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #090a10;
+            --bg-panel: rgba(18, 19, 28, 0.88);
+            --bg-card: #13141f;
+            --border-purple: #6d32c9;
+            --neon-cyan: #b48cff;
+            --neon-blue: #00b4d8;
+            --neon-green: #06d6a0;
+            --neon-red: #ff4d6d;
+            --neon-amber: #ffb703;
+            --text-white: #f8f9fa;
+            --text-gray: #a8a2b5;
+            --font-main: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1350px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(180deg, rgba(109, 50, 201, 0.3) 0%, rgba(9, 10, 16, 0.95) 100%);
+            border: 1px solid var(--border-purple);
+            border-radius: 14px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 0 35px rgba(109, 50, 201, 0.25);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: var(--text-white);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        h1 span {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px rgba(180, 140, 255, 0.4);
+        }
+
+        .subtitle {
+            color: var(--text-gray);
+            font-size: 1.15rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge-bar {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.95rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-fermata { background: rgba(180, 140, 255, 0.15); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); }
+        .badge-zero    { background: rgba(6, 214, 160, 0.15); color: var(--neon-green); border: 1px solid var(--neon-green); }
+        .badge-weather { background: rgba(0, 180, 216, 0.15); color: var(--neon-blue); border: 1px solid var(--neon-blue); }
+        .badge-lua     { background: rgba(255, 183, 3, 0.15); color: var(--neon-amber); border: 1px solid var(--neon-amber); }
+        .badge-sky     { background: rgba(255, 112, 67, 0.15); color: #ff7043; border: 1px solid #ff7043; }
+
+        .section {
+            background: var(--bg-panel);
+            border: 1px solid rgba(109, 50, 201, 0.35);
+            border-radius: 12px;
+            padding: 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            color: var(--neon-cyan);
+            border-bottom: 1px solid rgba(180, 140, 255, 0.25);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--neon-blue);
+            margin: 1.6rem 0 0.8rem 0;
+        }
+
+        p, li {
+            color: #dcdce8;
+            font-size: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.45rem;
+        }
+
+        .alert-box {
+            padding: 1.2rem 1.4rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 5px solid;
+            font-size: 0.95rem;
+        }
+
+        .alert-warning {
+            background: rgba(255, 77, 109, 0.12);
+            border-color: var(--neon-red);
+            color: #ffcad4;
+        }
+
+        .alert-info {
+            background: rgba(0, 180, 216, 0.12);
+            border-color: var(--neon-blue);
+            color: #caf0f8;
+        }
+
+        .alert-success {
+            background: rgba(6, 214, 160, 0.12);
+            border-color: var(--neon-green);
+            color: #c7f9cc;
+        }
+
+        .diagram-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(109, 50, 201, 0.35);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.94rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border: 1px solid rgba(109, 50, 201, 0.25);
+        }
+
+        th {
+            background: rgba(109, 50, 201, 0.3);
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background: rgba(109, 50, 201, 0.12);
+        }
+
+        code {
+            font-family: var(--font-mono);
+            background: rgba(109, 50, 201, 0.25);
+            color: #e2d9f3;
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #0c0d14;
+            border: 1px solid rgba(109, 50, 201, 0.35);
+            border-radius: 8px;
+            padding: 1.2rem;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: #d1d5db;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(109, 50, 201, 0.3);
+            border-radius: 8px;
+            padding: 1.4rem;
+        }
+
+        .card h4 {
+            color: var(--neon-cyan);
+            margin-bottom: 0.6rem;
+            font-size: 1.1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 0.4rem;
+        }
+        .tag-cs { background: #3a0ca3; color: #fff; }
+        .tag-sc { background: #0077b6; color: #fff; }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem 0;
+            color: var(--text-gray);
+            font-size: 0.88rem;
+            border-top: 1px solid rgba(109, 50, 201, 0.2);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Integração <span>Fermata Protocol</span> & Pacotes Custom L2J</h1>
+            <p class="subtitle">Guia Oficial de Arquitetura, Pacotes Compilados (0xFD), Barramento FermaUI Lua (0xFE/0xFF), Motor de Clima e Plano de Zero Regressão para o BrProject-2026</p>
+            <div class="badge-bar">
+                <span class="badge badge-fermata">Fermata Protocol v1</span>
+                <span class="badge badge-zero">Zero Regressão Interlude</span>
+                <span class="badge badge-weather">Server-Driven Weather</span>
+                <span class="badge badge-sky">Time & Sky (Ciclo Celestial)</span>
+                <span class="badge badge-lua">FermaUI Lua Bus</span>
+            </div>
+        </header>
+
+        <!-- SEÇÃO 1: VISÃO GERAL DA ARQUITETURA -->
+        <section class="section">
+            <h2>🧭 1. Visão Geral da Arquitetura de Rede</h2>
+            <p>
+                O cliente <strong>Fermata</strong> opera sobre a infraestrutura de rede padrão do Lineage 2 Interlude. Os pacotes trafegam pelo mesmo socket TCP, compartilham o enquadramento de tamanho (header de 2 bytes Little-Endian) e a cifra simétrica <strong>Blowfish/XOR</strong> da sessão autenticada.
+            </p>
+            <p style="margin-top: 0.8rem;">
+                Para assegurar total expansibilidade sem qualquer interferência com os pacotes oficiais, o protocolo do Fermata segmenta o tráfego em três canais independentes:
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>1. Extensão Compilada Nativa (0xFD)</h4>
+                    <p>Implementada em código de máquina no cliente e tratada nativamente no core Java do servidor. Utilizada para negociação de capacidades, cancelamento autoritativo de buffs, chat com links de itens enriquecidos e motor de clima dinâmico.</p>
+                </div>
+                <div class="card">
+                    <h4>2. Barramento Dinâmico FermaUI Lua (0xFE / 0xFF)</h4>
+                    <p>Utilizado para comunicação bidirecional entre janelas e interfaces em Lua (FermaUI) e módulos customizados do servidor. Roda dentro do sandbox protegido do cliente (16 MiB heap, 500.000 instruções/callback).</p>
+                </div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="mermaid">
+flowchart TD
+    subgraph Client["Cliente Fermata / Interlude"]
+        Socket[Socket TCP Criptografado Blowfish]
+    end
+
+    subgraph Pipeline["GamePacketHandler (BrProject-2026)"]
+        OpCheck{Opcode do Frame}
+        OpCheck -->|0x00..0xEF, 0xD0| L2Vanilla[Roteador Clássico Interlude]
+        OpCheck -->|0xFD| FermataRouter[Fermata Compiled Router 0xFD]
+        OpCheck -->|0xFE| FermaLuaRouter[FermaUI Lua Router 0xFE]
+    end
+
+    subgraph Handlers["Despachantes & Handlers"]
+        FermataRouter --> SubCheck{Sub-Opcode u16 LE}
+        SubCheck -->|0x0000| Cap[ClientCapabilities - Estado ENTERING]
+        SubCheck -->|0x0001| Buff[RequestRemoveBuff - Estado IN_GAME]
+        SubCheck -->|0x0002| Chat[RequestItemLinkChat - Estado IN_GAME]
+        
+        Chat --> Ownership[Validação Estrita no Inventário do Remetente]
+        Ownership --> Dispatcher{Destinatário suporta Fermata?}
+        Dispatcher -->|Sim (Bit 0 = 1)| LinkedMsg[LinkedItemChat 0xFD 0x0003]
+        Dispatcher -->|Não (Legado Interlude)| FallbackMsg[CreatureSay com Fallback Textual]
+    end
+
+    Socket --> OpCheck
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: MATRIZ DE PACOTES FERMATA -->
+        <section class="section">
+            <h2>📦 2. Registro de Pacotes Compilados Fermata (0xFD)</h2>
+            <p>
+                Todos os pacotes compilados possuem o envelope: <code>0xFD | sub_opcode: u16 (LE) | payload</code>. O espaço de nomes de sub-opcodes é independente por direção.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Direção</th>
+                        <th>Sub-Opcode</th>
+                        <th>Nome do Pacote</th>
+                        <th>Estado</th>
+                        <th>Tamanho Total</th>
+                        <th>Finalidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-cs">C -> S</span></td>
+                        <td><code>0x0000</code></td>
+                        <td><code>ClientCapabilities</code></td>
+                        <td><code>ENTERING</code></td>
+                        <td>11 bytes</td>
+                        <td>Handshake obrigatório de capacidades do cliente antes de entrar no mundo.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-cs">C -> S</span></td>
+                        <td><code>0x0001</code></td>
+                        <td><code>RequestRemoveBuff</code></td>
+                        <td><code>IN_GAME</code></td>
+                        <td>9 bytes</td>
+                        <td>Solicitação de remoção de buff ativo via Alt+Click pelo jogador.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-cs">C -> S</span></td>
+                        <td><code>0x0002</code></td>
+                        <td><code>RequestItemLinkChat</code></td>
+                        <td><code>IN_GAME</code></td>
+                        <td>Variável</td>
+                        <td>Envio de mensagem de chat contendo de 1 a 4 referências de itens.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-sc">S -> C</span></td>
+                        <td><code>0x0001</code></td>
+                        <td><code>SetWeather</code></td>
+                        <td><code>IN_GAME</code></td>
+                        <td>100 bytes</td>
+                        <td>Instala parâmetros atmosféricos completos definidos pelo servidor.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-sc">S -> C</span></td>
+                        <td><code>0x0002</code></td>
+                        <td><code>RestoreClientWeather</code></td>
+                        <td><code>IN_GAME</code></td>
+                        <td>3 bytes</td>
+                        <td>Devolve o controle do clima às configurações locais do jogador.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-sc">S -> C</span></td>
+                        <td><code>0x0003</code></td>
+                        <td><code>LinkedItemChat</code></td>
+                        <td><code>IN_GAME</code></td>
+                        <td>Variável</td>
+                        <td>Distribui mensagem de chat com snapshots imutáveis de 32B por item.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SEÇÃO 3: DETALHAMENTO DOS PACOTES -->
+        <section class="section">
+            <h2>🔐 3. Especificação Detalhada dos Pacotes</h2>
+
+            <h3>3.1 ClientCapabilities (C->S 0xFD 0x0000)</h3>
+            <p>
+                Enviado pelo cliente Fermata exatamente uma vez durante o estado <code>ENTERING</code>, logo antes de <code>EnterWorld</code>.
+            </p>
+            <pre>
+Offset | Tipo | Campo
+0      | C    | 0xFD (Opcode Fermata)
+1      | H    | 0x0000 (Sub-opcode u16 LE)
+3      | D    | protocol_revision (deve ser exatamente 1)
+7      | D    | capability_flags (bitmask)
+            </pre>
+            <ul>
+                <li><strong>Bit 0 (0x01)</strong>: Item linking no chat habilitado (envio de <code>LinkedItemChat</code>).</li>
+                <li><strong>Bit 1 (0x02)</strong>: Clima e céu controlados pelo servidor (envio de <code>SetWeather</code>).</li>
+            </ul>
+
+            <div class="alert-box alert-warning">
+                <strong>Regra de Segurança:</strong> Se o pacote for enviado mais de uma vez ou fora do estado <code>ENTERING</code>, a conexão é encerrada imediatamente por violação de protocolo.
+            </div>
+
+            <h3>3.2 RequestRemoveBuff (C->S 0xFD 0x0001)</h3>
+            <p>
+                Disparado quando o usuário clica com Alt+Clique sobre um ícone de buff na interface do Fermata.
+            </p>
+            <pre>
+Offset | Tipo | Campo
+0      | C    | 0xFD
+1      | H    | 0x0001
+3      | D    | skill_id (ID da habilidade ativa)
+7      | H    | skill_level (Nível exato da habilidade)
+            </pre>
+            <ul>
+                <li>O servidor busca o efeito correspondente nos efeitos ativos do jogador autenticado.</li>
+                <li><strong>Rejeição Estrita</strong>: Debuffs, habilidades passivas, toggles ativos ou skills marcadas com <code>canBeDispeled = false</code> são rejeitadas.</li>
+                <li>O cliente nunca remove o ícone visualmente antes da confirmação autoritativa do servidor.</li>
+            </ul>
+
+            <h3>3.3 RequestItemLinkChat (C->S 0xFD 0x0002) & LinkedItemChat (S->C 0xFD 0x0003)</h3>
+            <p>
+                Substitui o <code>Say2</code> clássico quando a mensagem inclui referências a itens do inventário através do caractere marcador <code>\uFFFC</code>.
+            </p>
+
+            <div class="card" style="margin-top: 1rem;">
+                <h4>Layout de Memória do Snapshot de Item (Exatamente 32 Bytes)</h4>
+                <p>O snapshot omite intencionalmente o <code>object_id</code> do item para prevenir spoofing e proteger os dados privados do banco de dados:</p>
+                <pre>
+Offset | Tipo | Campo
+0      | H    | type1 (Tipo principal do item)
+2      | D    | item_id (ID do template do item)
+6      | D    | count (Quantidade)
+10     | H    | type2 (Tipo secundário)
+12     | H    | custom_type1
+14     | H    | equipped (1 se equipado, 0 caso contrário)
+16     | D    | body_part (Slot de equipamento / máscara)
+20     | H    | enchant_level (Nível de enchant)
+22     | H    | custom_type2
+24     | D    | augmentation_id (ID de augment / Life Stone ou 0)
+28     | D    | displayed_mana_left (Mana de itens shadow ou -1)
+                </pre>
+            </div>
+
+            <div class="card" style="margin-top: 1rem;">
+                <h4>Padrão Arquitetural: ThreadLocal Scoped Chat</h4>
+                <p>
+                    Para evitar duplicação de dezenas de manipuladores de canais de chat (<code>ALL</code>, <code>SHOUT</code>, <code>TRADE</code>, <code>PARTY</code>, <code>CLAN</code>, etc.), o servidor ativa um <code>ThreadLocal&lt;FermataLinkedItemChat&gt;.Scope</code> ao processar <code>RequestItemLinkChat</code>. O pacote clássico <code>CreatureSay</code> inspeciona esse escopo no construtor via <code>FermataLinkedItemChat.currentFor(content)</code>:
+                </p>
+                <ul>
+                    <li><strong>Para destinatário Fermata (com <code>LINKED_ITEM_CHAT</code>)</strong>: Escreve no buffer o envelope <code>0xFD 0x0003</code> com os 32 bytes de cada snapshot.</li>
+                    <li><strong>Para destinatário Interlude clássico</strong>: Escreve no buffer o opcode tradicional <code>0x4A</code> substituindo <code>\uFFFC</code> pelo texto legível <code>[Nome (Item Linking Unavailable)]</code>.</li>
+                </ul>
+            </div>
+
+            <div class="alert-box alert-success">
+                <strong>Regra de Ouro de Segurança (Inventário Estrito):</strong>
+                Cada <code>object_id</code> enviado na solicitação é resolvido única e exclusivamente no inventário do remetente autenticado (<code>player.getInventory().getItemByObjectId(id)</code>). É terminantemente proibida a busca global por <code>World.findObject()</code>, impossibilitando que um usuário forje links de itens alheios.
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: MOTOR DE CLIMA -->
+        <section class="section">
+            <h2>⛅ 4. Motor de Clima Controlado pelo Servidor (Server-Driven Weather)</h2>
+            <p>
+                O servidor possui controle autoritativo sobre o motor atmosférico e de renderização do cliente Fermata através dos pacotes <code>SetWeather</code> e <code>RestoreClientWeather</code>.
+            </p>
+
+            <div class="alert-box alert-warning">
+                <strong>Alerta Crítico de Protocolo Interlude:</strong> No protocolo Interlude clássico, o opcode <code>0xFD</code> do servidor para o cliente representa <code>L2FriendSay</code>. Qualquer cliente clássico que recebesse <code>SetWeather</code> tentaria lê-lo como mensagem privada de amigo e falharia. Por isso, <strong>o servidor só envia pacotes de clima para clientes que negociaram o Bit 1 de capacidades</strong>.
+            </div>
+
+            <h3>4.1 Layout do Pacote SetWeather (100 Bytes)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Offset</th>
+                        <th>Tipo</th>
+                        <th>Campo</th>
+                        <th>Faixa Permitida</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>C</td><td><code>0xFD</code></td><td>Constante</td><td>Opcode Fermata</td></tr>
+                    <tr><td>1</td><td>H</td><td><code>0x0001</code></td><td>Constante</td><td>Sub-opcode SetWeather</td></tr>
+                    <tr><td>3</td><td>C</td><td><code>precipitation</code></td><td>0..2</td><td>0 = Nenhuma, 1 = Chuva, 2 = Neve</td></tr>
+                    <tr><td>4</td><td>F</td><td><code>intensity</code></td><td>0.0..1.0</td><td>Densidade da precipitação</td></tr>
+                    <tr><td>12</td><td>F</td><td><code>wind_direction_degrees</code></td><td>0.0..360.0</td><td>Direção do vento (graus normalizados)</td></tr>
+                    <tr><td>20</td><td>F</td><td><code>wind_strength</code></td><td>0.0..1.0</td><td>Força constante do vento</td></tr>
+                    <tr><td>28</td><td>F</td><td><code>gustiness</code></td><td>0.0..1.0</td><td>Amplitude de rajadas de vento</td></tr>
+                    <tr><td>36</td><td>F</td><td><code>cloud_cover</code></td><td>0.0..1.0</td><td>Cobertura de nuvens no céu</td></tr>
+                    <tr><td>44</td><td>F</td><td><code>lightning_per_minute</code></td><td>0.0..20.0</td><td>Média de raios por minuto</td></tr>
+                    <tr><td>52</td><td>F</td><td><code>transition_seconds</code></td><td>1.0..120.0</td><td>Duração da transição do clima</td></tr>
+                    <tr><td>60</td><td>F</td><td><code>wetting_seconds</code></td><td>5.0..900.0</td><td>Tempo até superfícies ficarem molhadas</td></tr>
+                    <tr><td>68</td><td>F</td><td><code>drying_seconds</code></td><td>10.0..1800.0</td><td>Tempo de secagem sem chuva</td></tr>
+                    <tr><td>76</td><td>F</td><td><code>puddle_amount</code></td><td>0.0..1.0</td><td>Proporção de poças no solo</td></tr>
+                    <tr><td>84</td><td>F</td><td><code>snow_accumulation_seconds</code></td><td>15.0..1800.0</td><td>Tempo até acúmulo total de neve</td></tr>
+                    <tr><td>92</td><td>F</td><td><code>snow_melt_seconds</code></td><td>15.0..1800.0</td><td>Tempo para a neve derreter sem precipitação</td></tr>
+                </tbody>
+            </table>
+
+            <h3>4.2 Presets Prontos em WeatherProfile</h3>
+            <ul>
+                <li><code>CLEAR</code>: Céu aberto, brisa suave e sem nuvens.</li>
+                <li><code>CLOUDY</code>: Céu encoberto com vento moderado.</li>
+                <li><code>LIGHT_RAIN</code>: Chuva suave com formação de poças d'água.</li>
+                <li><code>THUNDERSTORM</code>: Tempestade densa com raios frequentes (12/min) e ventania forte.</li>
+                <li><code>LIGHT_SNOW</code>: Queda de neve suave com cobertura gradual.</li>
+                <li><code>BLIZZARD</code>: Nevasca violenta com vento forte e acúmulo acelerado de gelo.</li>
+            </ul>
+
+            <h3>4.3 Comandos Administrativos GM</h3>
+            <pre>
+//setweather &lt;clear|cloudy|rain|storm|snow|blizzard&gt;  - Instala o clima globalmente no servidor
+//restoreweather                                      - Restaura o controle do clima local para todos
+//myweather &lt;preset&gt;                                  - Aplica o clima apenas no cliente do GM
+//myweather_restore                                   - Restaura o clima local do GM
+            </pre>
+        </section>
+
+        <!-- SEÇÃO 5: PLANO ZERO REGRESSÃO -->
+        <section class="section">
+            <h2>🛡️ 5. Plano de Zero Regressão com Interlude Clássico</h2>
+            <p>
+                O servidor <strong>BrProject-2026</strong> garante que clientes clássicos Interlude e clientes modernos Fermata coabitem no mesmo mundo sem qualquer incompatibilidade:
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Comportamento para Clientes Fermata</h4>
+                    <ul>
+                        <li>Negociação bem-sucedida de capacidades em <code>ENTERING</code>.</li>
+                        <li>Exibição nativa de tooltips de itens no chat via <code>LinkedItemChat</code>.</li>
+                        <li>Controle atmosférico em tempo real via <code>SetWeather</code>.</li>
+                        <li>Remoção instantânea de buffs com Alt+Click via <code>RequestRemoveBuff</code>.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Comportamento para Clientes Interlude Clássicos</h4>
+                    <ul>
+                        <li>O servidor <strong>nunca</strong> envia opcodes <code>0xFD</code>, <code>0xFE</code> ou <code>0xFF</code>.</li>
+                        <li>Itens linkados no chat são convertidos dinamicamente para texto comum em <code>CreatureSay</code>: <code>[NomeDoItem (Item Linking Unavailable)]</code>.</li>
+                        <li>Nenhum crash, corrupção de memória ou desconexão por opcode desconhecido.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor FermataPlayer as Jogador Fermata
+    participant Server as GameServer (BrProject-2026)
+    actor ClassicPlayer as Jogador Clássico
+
+    FermataPlayer->>Server: RequestItemLinkChat (0xFD 0x0002 com Marcador \uFFFC)
+    Note over Server: Valida itens no inventário do remetente
+    Server->>FermataPlayer: LinkedItemChat (0xFD 0x0003 com Snapshots 32B)
+    Note over Server: Gera Fallback Textual para cliente legado
+    Server->>ClassicPlayer: CreatureSay clássico: "[Draconian Bow (Item Linking Unavailable)]"
+    Note over ClassicPlayer: Visualiza mensagem legível sem receber 0xFD
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: HORA E CÉU (TIME AND SKY) -->
+        <section class="section">
+            <h2>🌅 6. Ciclo Dia/Noite, Hora e Céu Celestial (Time and Sky)</h2>
+            <p>
+                No Lineage 2, o tempo de jogo avança em uma escala proporcional onde <strong>1 dia de jogo equivale a 4 horas da vida real</strong> (taxa de avanço <code>ratio = 6</code>: 1 minuto real = 6 minutos in-game). O cliente Fermata renderiza um motor de atmosfera imersivo acoplado a esse relógio, exibindo o sol, sombras dinâmicas, lua, estrelas e efeitos celestiais especiais de Seven Signs.
+            </p>
+            <p style="margin-top: 0.8rem;">
+                A transição de iluminação do cliente ocorre nos marcos astronômicos oficiais:
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Nascer do Sol (SunRise 0x1C) - 06:00</h4>
+                    <ul>
+                        <li>Disparado pontualmente no minuto de jogo 360 (06:00).</li>
+                        <li>Transição suave para iluminação solar diurna e projeção de sombras.</li>
+                        <li>Notificação ao jogador e remoção automática da passiva <em>Shadow Sense</em>.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Pôr do Sol (SunSet 0x1D) - 00:00</h4>
+                    <ul>
+                        <li>Disparado pontualmente no minuto de jogo 0 (00:00).</li>
+                        <li>Transição suave para atmosfera noturna com abóbada celeste escura, estrelas e lua.</li>
+                        <li>Notificação ao jogador e aplicação automática da passiva <em>Shadow Sense</em>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Especificação dos Pacotes de Tempo e Céu</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pacote</th>
+                            <th>Opcode</th>
+                            <th>Direção</th>
+                            <th>Tamanho</th>
+                            <th>Estrutura & Parâmetros</th>
+                            <th>Efeito no Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>CharSelected</code></td>
+                            <td><code>0x15</code></td>
+                            <td>S ➔ C</td>
+                            <td>Variável</td>
+                            <td><code>D gameTimeMinutes (offset)</code></td>
+                            <td>Inicia o relógio do cliente com os minutos do dia de jogo (0 a 1439).</td>
+                        </tr>
+                        <tr>
+                            <td><code>ClientSetTime</code></td>
+                            <td><code>0xEC</code></td>
+                            <td>S ➔ C</td>
+                            <td>9 Bytes</td>
+                            <td><code>C(0xEC) D(minutes) D(ratio=6)</code></td>
+                            <td>Sincroniza o relógio no <code>EnterWorld</code> e define a velocidade de avanço.</td>
+                        </tr>
+                        <tr>
+                            <td><code>SunRise</code></td>
+                            <td><code>0x1C</code></td>
+                            <td>S ➔ C</td>
+                            <td>1 Byte</td>
+                            <td><code>C(0x1C)</code> (sem corpo)</td>
+                            <td>Ajusta o relógio do cliente para 06:00 e aciona o nascer do sol e luz diurna.</td>
+                        </tr>
+                        <tr>
+                            <td><code>SunSet</code></td>
+                            <td><code>0x1D</code></td>
+                            <td>S ➔ C</td>
+                            <td>1 Byte</td>
+                            <td><code>C(0x1D)</code> (sem corpo)</td>
+                            <td>Ajusta o relógio do cliente para 00:00 e aciona o pôr do sol e noite estelar.</td>
+                        </tr>
+                        <tr>
+                            <td><code>SSQInfo</code></td>
+                            <td><code>0xF8</code></td>
+                            <td>S ➔ C</td>
+                            <td>3 Bytes</td>
+                            <td><code>C(0xF8) H(state)</code></td>
+                            <td>Altera o skybox celestial: 256 (Normal), 257 (Dusk), 258 (Dawn), 259 (Red).</td>
+                        </tr>
+                        <tr>
+                            <td><code>ExRedSky</code></td>
+                            <td><code>0xFE 0x40</code></td>
+                            <td>S ➔ C</td>
+                            <td>7 Bytes</td>
+                            <td><code>C(0xFE) H(0x40) D(seconds)</code></td>
+                            <td>Aciona o céu carmesim dramático com contagem regressiva em segundos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-success">
+                <strong>Zero Regressão Absoluta:</strong> Todos os pacotes de horário e atmosfera (<code>0x15</code>, <code>0x1C</code>, <code>0x1D</code>, <code>0xEC</code>, <code>0xF8</code>, <code>0xFE 0x40</code>) pertencem estritamente à especificação clássica do Lineage 2 Interlude. Portanto, funcionam com 100% de precisão gráfica tanto no cliente Fermata quanto em qualquer cliente clássico Interlude.
+            </div>
+
+            <h3>Comandos Administrativos GM para Tempo e Céu</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Comando</th>
+                            <th>Argumentos</th>
+                            <th>Acesso</th>
+                            <th>Descrição & Funcionamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>//settime</code></td>
+                            <td><code>&lt;horas 0-23&gt; [minutos 0-59]</code></td>
+                            <td>Nível 7</td>
+                            <td>Define o horário do mundo, sincroniza o relógio de todos os jogadores via <code>ClientSetTime</code> e dispara transição se o estado de noite mudou.</td>
+                        </tr>
+                        <tr>
+                            <td><code>//sunrise</code></td>
+                            <td>Nenhum</td>
+                            <td>Nível 7</td>
+                            <td>Força o nascer do sol (06:00), transmitindo <code>SunRise (0x1C)</code> e <code>ClientSetTime</code> para todo o servidor.</td>
+                        </tr>
+                        <tr>
+                            <td><code>//sunset</code></td>
+                            <td>Nenhum</td>
+                            <td>Nível 7</td>
+                            <td>Força o pôr do sol (00:00), transmitindo <code>SunSet (0x1D)</code> e <code>ClientSetTime</code> para todo o servidor.</td>
+                        </tr>
+                        <tr>
+                            <td><code>//setsky</code></td>
+                            <td><code>&lt;regular|dawn|dusk|red&gt;</code></td>
+                            <td>Nível 7</td>
+                            <td>Altera o skybox celestial Seven Signs enviando <code>SSQInfo (0xF8)</code> para todos os jogadores online.</td>
+                        </tr>
+                        <tr>
+                            <td><code>//redsky</code></td>
+                            <td><code>&lt;segundos&gt;</code></td>
+                            <td>Nível 7</td>
+                            <td>Aciona o céu vermelho dramático para todos os jogadores via <code>ExRedSky (0xFE 0x40)</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="diagram-box">
+                <div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant Server as GameTimeTaskManager
+    actor WorldPlayers as Jogadores (Fermata / Clássico)
+
+    Note over Server: Relógio Monotônico avança a cada minuto de jogo (ratio 6)
+    alt Relógio atinge 06:00 (Minuto 360)
+        Server->>WorldPlayers: SunRise (0x1C - 1B)
+        Note over WorldPlayers: Iluminação Solar Diurna + Desativa Shadow Sense
+    else Relógio atinge 00:00 (Minuto 0)
+        Server->>WorldPlayers: SunSet (0x1D - 1B)
+        Note over WorldPlayers: Céu Noturno Estelar + Ativa Shadow Sense
+    end
+
+    Note over WorldPlayers: Novo Jogador conecta ao mundo (EnterWorld)
+    Server->>WorldPlayers: ClientSetTime (0xEC, Minute, Ratio=6)
+    Note over WorldPlayers: Sincronização imediata de relógio e iluminação
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 7: PLANO DE IMPLEMENTAÇÃO E AUDITORIA -->
+        <section class="section">
+            <h2>📋 7. Plano de Implementação & Ferramentas de Auditoria</h2>
+            <p>
+                A integração foi desenvolvida seguindo o workflow <code>[TO DO] ➔ [DOING] ➔ [TESTING] ➔ [COMMIT] ➔ [DONE]</code>:
+            </p>
+            <ol>
+                <li><strong>Fase 1 - Extensão de Capacidades & Protocolo Centralizado</strong>: Criação de <code>FermataProtocol.java</code> com constantes e lógica de negociação, e ciclo de vida isolado em <code>GameClient.java</code>.</li>
+                <li><strong>Fase 2 - Roteamento Netty / MMOCore</strong>: Classificação estrita via <code>FermataDispatch</code> e tratamento unificado de rejeições em <code>GamePacketHandler.java</code>.</li>
+                <li><strong>Fase 3 - Desacoplamento de Chat</strong>: Implementação de <code>ChatRequestSupport.java</code> compartilhando validações e lógica de negócio com <code>Say2.java</code> e <code>RequestItemLinkChat.java</code>.</li>
+                <li><strong>Fase 4 - ThreadLocal Scoped Item Linking</strong>: Arquitetura sem vazamento com <code>FermataLinkedItemChat.java</code> e despacho inteligente em <code>CreatureSay.java</code> para clientes Fermata e legado.</li>
+                <li><strong>Fase 5 - Pacotes de Rede Nativos & Segurança</strong>: Validação estrita de wire-layout, UTF-16 surrogates e remoção autoritativa de buffs com <code>RequestRemoveBuff.java</code> (6 bytes e filtro multi-template).</li>
+                <li><strong>Fase 6 - Motor de Clima & Gerenciador</strong>: Implementação de <code>WeatherProfile.java</code>, <code>FermataWeatherManager.java</code> e <code>AdminFermataWeather.java</code>.</li>
+                <li><strong>Fase 7 - Sincronização de Céu e Tempo</strong>: Broadcast de <code>SunRise</code>/<code>SunSet</code> em <code>GameTimeTaskManager.java</code>, <code>ClientSetTime</code> em <code>EnterWorld.java</code> e <code>AdminFermataSkyTime.java</code>.</li>
+                <li><strong>Fase 8 - Auditoria Automatizada</strong>: Execução do script <code>verify_fermata_compat.bat</code> validando 100% dos componentes (15/15).</li>
+            </ol>
+
+            <h3>Comandos de Validação e Build</h3>
+            <pre>
+# 1. Auditoria estrutural de conformidade Fermata (15/15 componentes):
+.agents\skills\fermata-custom-packets\scripts\verify_fermata_compat.bat
+
+# 2. Compilação paralela do servidor:
+.\gradlew.bat compileJava --parallel
+
+# 3. Atualização do índice semântico RAG:
+.agents\skills\brproject-rag\scripts\update_rag.bat
+            </pre>
+        </section>
+
+        <footer>
+            <p>BrProject-2026 Core &copy; 2026. Documentação técnica desenvolvida para suporte integral ao cliente Fermata com Zero Regressão.</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

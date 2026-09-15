@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31230</npc><!-- Louie the Cat -->
+	</npcs>
+	<item>
+		<ingredient id="6392" count="4"/><!-- event_medal -->
+		<production id="1374" count="1"/><!-- adv_quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="6392" count="9"/><!-- event_medal -->
+		<production id="1375" count="1"/><!-- adv_swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="6392" count="9"/><!-- event_medal -->
+		<production id="6036" count="1"/><!-- potion_of_acumen3 -->
+	</item>
+	<item>
+		<ingredient id="6392" count="16"/><!-- event_medal -->
+		<production id="1540" count="1"/><!-- quick_healing_potion -->
+	</item>
+	<item>
+		<ingredient id="6392" count="275"/><!-- event_medal -->
+		<production id="1538" count="1"/><!-- blessed_scroll_of_escape -->
+	</item>
+	<item>
+		<ingredient id="6392" count="734"/><!-- event_medal -->
+		<production id="3936" count="1"/><!-- blessed_scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="6392" count="91"/><!-- event_medal -->
+		<production id="955" count="1"/><!-- scrl_of_ench_wp_d -->
+	</item>
+	<item>
+		<ingredient id="6392" count="201"/><!-- event_medal -->
+		<production id="951" count="1"/><!-- scrl_of_ench_wp_c -->
+	</item>
+	<item>
+		<ingredient id="6392" count="916"/><!-- event_medal -->
+		<production id="947" count="1"/><!-- scrl_of_ench_wp_b -->
+	</item>
+	<item>
+		<ingredient id="6392" count="3300"/><!-- event_medal -->
+		<production id="729" count="1"/><!-- scrl_of_ench_wp_a -->
+	</item>
+	<item>
+		<ingredient id="6392" count="916"/><!-- event_medal -->
+		<production id="6394" count="1"/><!-- party_mask_01 -->
+	</item>
+</list>

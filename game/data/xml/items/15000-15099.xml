@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<item id="15000" type="Armor" name="Earring of Antharas Rare">
+		<set name="icon" val="icon.antharasbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="185" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="3700000" />
+		<set name="item_skill" val="3558-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15001" type="Armor" name="Earring of Antharas Found">
+		<set name="icon" val="icon.antharasbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="185" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="3700000" />
+		<set name="item_skill" val="3558-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15002" type="Armor" name="Necklace of Valakas Rare">
+		<set name="icon" val="icon.valakasbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="neck" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="247" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="4940000" />
+		<set name="item_skill" val="3557-1" />
+		<for>
+			<baseadd stat="mDef" val="95" />
+			<add stat="maxMp" val="42" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15003" type="Armor" name="Necklace of Valakas Found">
+		<set name="icon" val="icon.valakasbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="neck" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="247" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="4940000" />
+		<set name="item_skill" val="3557-1" />
+		<for>
+			<baseadd stat="mDef" val="95" />
+			<add stat="maxMp" val="42" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15004" type="Armor" name="Ring of Baium Rare">
+		<set name="icon" val="icon.baiumbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="86" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="1730000" />
+		<set name="item_skill" val="3561-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15005" type="Armor" name="Ring of Baium Found">
+		<set name="icon" val="icon.baiumbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="86" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="1730000" />
+		<set name="item_skill" val="3561-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15006" type="Armor" name="Zaken's Earring Rare">
+		<set name="icon" val="icon.zakenbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="129" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="2590000" />
+		<set name="item_skill" val="3559-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15007" type="Armor" name="Zaken's Earring Found">
+		<set name="icon" val="icon.zakenbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="129" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="2590000" />
+		<set name="item_skill" val="3559-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15008" type="Armor" name="Ring of Queen Ant Rare">
+		<set name="icon" val="icon.queenbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="B" />
+		<set name="crystal_count" val="82" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="616000" />
+		<set name="item_skill" val="3562-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15009" type="Armor" name="Ring of Queen Ant Found">
+		<set name="icon" val="icon.queenbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="B" />
+		<set name="crystal_count" val="82" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="616000" />
+		<set name="item_skill" val="3562-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15010" type="Armor" name="Earring of Orfen Rare">
+		<set name="icon" val="icon.orfenbrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="A" />
+		<set name="crystal_count" val="104" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="1300000" />
+		<set name="item_skill" val="3560-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15011" type="Armor" name="Earring of Orfen Found">
+		<set name="icon" val="icon.orfenbrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rear;lear" />
+		<set name="crystal_type" val="A" />
+		<set name="crystal_count" val="104" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="1300000" />
+		<set name="item_skill" val="3560-1" />
+		<for>
+			<baseadd stat="mDef" val="71" />
+			<add stat="maxMp" val="31" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15012" type="Armor" name="Ring of Core Rare">
+		<set name="icon" val="icon.corebrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="A" />
+		<set name="crystal_count" val="69" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="870000" />
+		<set name="item_skill" val="3563-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15013" type="Armor" name="Ring of Core Found">
+		<set name="icon" val="icon.corebrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="rfinger;lfinger" />
+		<set name="crystal_type" val="A" />
+		<set name="crystal_count" val="69" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="price" val="870000" />
+		<set name="item_skill" val="3563-1" />
+		<for>
+			<baseadd stat="mDef" val="48" />
+			<add stat="maxMp" val="21" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15014" type="Armor" name="Frintezza's Necklace Rare">
+		<set name="icon" val="icon.frintessabrproject" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="neck" />
+		<set name="crystal_type" val="A" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="item_skill" val="3604-1" />
+		<for>
+			<baseadd stat="mDef" val="95" />
+			<add stat="maxMp" val="42" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15015" type="Armor" name="Frintezza's Necklace Found">
+		<set name="icon" val="icon.frintessabrproject2" />
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="neck" />
+		<set name="crystal_type" val="A" />
+		<set name="material" val="GOLD" />
+		<set name="weight" val="150" />
+		<set name="item_skill" val="3604-1" />
+		<for>
+			<baseadd stat="mDef" val="95" />
+			<add stat="maxMp" val="42" />
+			<enchant stat="mDef" val="0" />
+		</for>
+	</item>
+	<item id="15017" type="EtcItem" name="Box Standard">
+		<set name="icon" val="icon.boxbrproject" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="CapsuleBox_System" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15018" type="EtcItem" name="Box Premium">
+		<set name="icon" val="icon.boxbrproject2" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="CapsuleBox_System" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15019" type="EtcItem" name="Chest Standard">
+		<set name="icon" val="icon.caixa1brproject" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="CapsuleBox_System" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15020" type="EtcItem" name="Chest Mid-tier">
+		<set name="icon" val="icon.caixa2brproject" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="CapsuleBox_System" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15021" type="EtcItem" name="Chest Rare">
+		<set name="icon" val="icon.caixa3brproject" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="AgathionItems" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15022" type="EtcItem" name="Nobless Item">
+		<set name="icon" val="icon.noblebrproject" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="POTION" />
+		<set name="material" val="LIQUID" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="500" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="ItemNobles" />
+		<set name="is_tradable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+	</item>
+	<item id="15023" type="EtcItem" name="Summon Scroll - normal">
+		<set name="icon" val="icon.summonmonster1" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="SCROLL" />
+		<set name="material" val="PAPER" />
+		<set name="weight" val="5" />
+		<set name="reuse_delay" val="30000" />
+		<set name="is_stackable" val="false" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="ItemMonsterSummon" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="true" />
+		<set name="is_sellable" val="true" />
+	</item>
+	<item id="15024" type="EtcItem" name="Summon Scroll - rare">
+		<set name="icon" val="icon.summonmonster2" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="SCROLL" />
+		<set name="material" val="PAPER" />
+		<set name="weight" val="10" />
+		<set name="reuse_delay" val="120000" />
+		<set name="is_stackable" val="false" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="ItemMonsterSummon" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="true" />
+		<set name="is_sellable" val="true" />
+	</item>
+	<item id="15025" type="EtcItem" name="Summon Scroll - found">
+		<set name="icon" val="icon.summonmonster3" />
+		<set name="default_action" val="skill_reduce" />
+		<set name="etcitem_type" val="SCROLL" />
+		<set name="material" val="PAPER" />
+		<set name="weight" val="10" />
+		<set name="reuse_delay" val="120000" />
+		<set name="is_stackable" val="false" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="ItemMonsterSummon" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="true" />
+		<set name="is_sellable" val="true" />
+	</item>
+</list>

@@ -1,0 +1,19 @@
+# BrProject GameServer image (Phase 5)
+FROM eclipse-temurin:25-jre-alpine
+
+RUN apk add --no-cache bash util-linux \
+    && addgroup -S brproject && adduser -S brproject -G brproject
+
+WORKDIR /l2Brproject
+
+COPY --chown=brproject:brproject libs/ /l2Brproject/libs/
+COPY --chown=brproject:brproject game/ /l2Brproject/game/
+COPY --chown=brproject:brproject deploy/docker/run-game.sh /l2Brproject/run-game.sh
+
+RUN chmod +x /l2Brproject/run-game.sh \
+    && mkdir -p /l2Brproject/game/log /l2Brproject/cache \
+    && chown -R brproject:brproject /l2Brproject
+
+USER brproject
+EXPOSE 7777
+ENTRYPOINT ["/l2Brproject/run-game.sh"]

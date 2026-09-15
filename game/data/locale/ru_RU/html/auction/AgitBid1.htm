@@ -1,0 +1,20 @@
+<html><body>
+	<font color="LEVEL">Ставки разрешены только в одном кланхолле.</font> При подаче ставки сумма в аденах <font color="LEVEL">депонируется</font> со склада клана. на аукцион. <font color="LEVEL">10 % от суммы ставки — это налог с транзакции</font>, который не подлежит возврату, даже если торги отменены.<br>
+	<font color="LEVEL">Цена предложения</font> должна быть выше минимальной цены предложения (или предыдущей цены предложения при повторной ставке), и клан, назначивший самую высокую цену в конце аукциона, выигрывает аукцион. <br>
+	В настоящее время на складе клана имеется <font color="aaccff">%PLEDGE_ADENA%</font> аден. Минимальная сумма ставки составляет <font color="aaccff">%AGIT_AUCTION_MINBID%</font> аден.<br>
+	Сколько вы хотите предложить?
+	<table width=270>
+		<tr>
+			<td width=220 align=right><edit var=bidprice width=220 align=right type=number></td>
+			<td width=50 align=right>аден</td>
+		</tr>
+	</table>
+	<img src="L2UI.SquareBlank" width=270 height=10> <img src="L2UI.SquareWhite" width=270 height=1> <img src="L2UI.SquareBlank" width=270 height=5>
+	<table width=270>
+		<tr>
+			<td width=130></td>
+			<td width=70 align=center><button action="%AGIT_LINK_BACK%" value="Назад" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+			<td width=70 align=center><button action="bypass -h npc_%objectId%_bid $bidprice" value="Подтвердить" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+		</tr>
+	</table>
+</body></html>

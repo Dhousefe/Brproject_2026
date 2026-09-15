@@ -1,0 +1,53 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.gameserver.handler.chathandlers;
+
+import ext.mods.gameserver.enums.SayType;
+import ext.mods.gameserver.handler.IChatHandler;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.group.CommandChannel;
+import ext.mods.gameserver.model.group.Party;
+import ext.mods.gameserver.network.serverpackets.CreatureSay;
+
+public class ChatPartyRoomAll implements IChatHandler
+{
+	private static final SayType[] COMMAND_IDS =
+	{
+		SayType.PARTYROOM_ALL
+	};
+	
+	@Override
+	public void handleChat(SayType type, Player player, String target, String text)
+	{
+		final Party party = player.getParty();
+		if (party == null || !party.isLeader(player))
+			return;
+		
+		final CommandChannel channel = party.getCommandChannel();
+		if (channel == null)
+			return;
+		
+		channel.broadcastCreatureSay(new CreatureSay(player, type, text), player);
+	}
+	
+	@Override
+	public SayType[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+}

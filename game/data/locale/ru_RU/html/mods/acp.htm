@@ -1,0 +1,36 @@
+<html><title>Автоматическое использование CP\HP\MP.</title><body>
+	<center>
+		<table border="0" width="300">
+			<tr>
+				<td align=center><img src="l2font-e.replay_logo-e" width=250 height=70></td>
+			</tr>
+		</table>
+		<img src="l2ui.squaregray" width="298" height="1"><br><br>
+		<table width="230">
+			<tr>
+				<td width="80"><font color="LEVEL">ЦП</font> - <font color="LEVEL">%valueCp%%</font></td><td width="80"><edit var="cp" width="50" height="13"></td><td align="right"><button value="Изменить" action="bypass voiced_setCp $cp" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td><br>
+			</tr>
+			<tr>
+				<td width="80"><font color="FF0000">ХП</font> - <font color="FF0000">%valueHp%%</font></td><td width="80"><edit var="hp" width="50" height="13"></td><td align="right"><button value="Изменить" action="bypass voiced_setHp $hp" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td><br>
+			</tr>
+			<tr>
+				<td width="80"><font color="4169E1">МП</font> - <font color="4169E1">%valueMp%%</font></td><td width="80"><edit var="mp" width="50" height="13"></td><td align="right"><button value="Изменить" action="bypass voiced_setMp $mp" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td><br>
+			</tr>
+		</table>
+		<br>
+		<table width="300">
+			<tr>
+				<td align=center>%msg%</td>
+			</tr>
+		</table>
+		<br>
+		<table>
+			<tr>
+				<td><button value="Включить" action="bypass voiced_acpEnabled" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td><br>
+				<td></td>
+				<td><button value="Выключить" action="bypass voiced_acpDisabled" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td><br>
+			</tr>
+		</table>
+		<br><br><img src="l2ui.squaregray" width="298" height="1">
+	</center>
+</body></html>

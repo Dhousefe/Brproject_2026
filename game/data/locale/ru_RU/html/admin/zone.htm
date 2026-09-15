@@ -1,0 +1,30 @@
+<html><title>Проверка зоны</title><body>
+	<table width=270>
+		<tr>
+			<td width=45><button value="Главная" action="bypass -h admin_admin" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+			<td width=180 align=center>Проверка зоны</td>
+			<td width=45><button value="Назад" action="bypass -h admin_admin 4" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	<center><table width=225>
+		<tr>
+			<td><button value="Обновить" action="bypass -h admin_zone" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Визуа. все" action="bypass -h admin_zone show all" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Очистить" action="bypass -h admin_zone show clear" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table>
+	<br><img src="l2ui.SquareGray" width=270 height=1><br>
+	<table width=300>
+		<tr><td width=60><font color="LEVEL">Идент. зоны:</font> %ZLIST%</td></tr>
+		<tr><td width=100><font color="LEVEL">Гео-регион:</font> %GEOREGION%</td></tr>
+		<tr><td width=250><font color="LEVEL">Область перезапуска:</font> %RA%</td></tr>
+		<tr><td width=300><font color="LEVEL">Рассчитанная точка перезапуска:</font> %CALCULATED_RP%</td></tr>
+		<tr><td width=250><font color="LEVEL">Текущая точка перезапуска:</font> %CURRENT_RP%</td></tr>
+		<tr><td width=100><font color="LEVEL">Текущее местоположение:</font> %CURRENTLOC%</td></tr>
+	</table>
+	<br><img src="l2ui.SquareGray" width=270 height=1><br>
+	Вас в данный момент затрагивают следующие зоны
+	<table width=270>
+		<tr><td><font color="LEVEL">%ZONES%</font></td></tr>
+	</table></center><br>
+</body></html>

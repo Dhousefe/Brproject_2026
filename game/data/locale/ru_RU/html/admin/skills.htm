@@ -1,0 +1,36 @@
+<html><title>Навыки</title><body>
+<table width=260><tr>
+<td width=40><button value="Главная" action="bypass -h admin_admin" width=40 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+<td width=180><center>Меню Навыков</center></td>
+<td width=40><button value="Назад" action="bypass -h admin_show_skills" width=40 height=15 back="sek.cbui94" fore="sek.cbui92"></td></tr></table><br>
+<font color="LEVEL"><table width="310">
+	<tr>
+		<td><button value="Навыки Людей" action="bypass -h admin_link skills/human.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+		<td><button value="Навыки Эльфов" action="bypass -h admin_link skills/elf.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+	</tr>
+	<tr>
+		<td><button value="Навыки Т. Эльфов" action="bypass -h admin_link skills/delf.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+		<td><button value="Навыки Орков" action="bypass -h admin_link skills/orc.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+	</tr>
+	<tr>
+		<td><button value="Навыки Гномов" action="bypass -h admin_link skills/dwarf.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+		<td><button value="Навыки Клана" action="bypass -h admin_link skills/Clan_Skills.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+	</tr>
+	<tr>
+		<td><button value="Навыки Героя" action="bypass -h admin_link skills/Hero_Skills.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+		<td><button value="Навыки Дворян" action="bypass -h admin_link skills/Nobless_Skills.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+	</tr>
+	<tr>
+		<td><button value="Навыки ГМ" action="bypass -h admin_link skills/GM_Skills.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+		<td><button value="Навыки Рыбалки" action="bypass -h admin_link skills/Fishing_Skills.htm" width=140 height=21 back="bigbutton3_over" fore="bigbutton3"></td>
+	</tr>
+</table></font><br><br>
+<center>Добавить Навык по ID:
+<table width=350>
+	<tr>
+		<td width=55>Id:<edit var="id" width=40></td>
+		<td width=65>Уровень:<edit var="level" width=40></td>
+		<td width=55>&nbsp;<button value="Добавить" action="bypass -h admin_add_skill $id $level" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+	</tr>
+</table></center>
+</body></html>

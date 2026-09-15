@@ -1,0 +1,51 @@
+<html><body>
+<br>
+<table cellspacing="-2">
+    <tr>
+        <td><button value="Open" action="bypass autofarm list_areas OPEN" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Zones" action="bypass autofarm list_areas ZONA" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Routes" action="bypass autofarm list_areas ROTA" width=74 height=24 back="L2UI_CH3.summon_tab2_over" fore="L2UI_CH3.summon_tab2"></td>
+        <td><button value="Options" action="bypass autofarm options" width=74 height=24 back="L2UI_CH3.summon_tab1" fore="L2UI_CH3.summon_tab1"></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <td></td>
+        <td>
+            In areas of type Open and Route, you can set a <font color=LEVEL>radius</font> (distance) within which targets can be attacked.<br>
+            By setting a value less than or equal to your attack range (%attack_range%), your character will not move outside of its area.
+        </td>
+    </tr>
+</table>
+<br>
+<center>
+<table>
+    <tr>
+        <td></td>
+        <td width=80>
+            Radius (%current_radius%)
+        </td>
+        <td>
+            <combobox var=Radius list="%radius%" width=100>
+        </td>
+        <td></td>
+        <td>
+            <button value="Set" action="bypass autofarm options radius $Radius" width=60 height=17 back="sek.cbui94" fore="sek.cbui92">
+        </td>
+    </tr>
+</table>
+<br>
+%msg%
+<table>
+    <tr>
+        <td width=40>
+			<button value="Back" action="bypass autofarm index" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2">
+        </td>
+        <td width=80>
+			<button value="Clear" action="bypass autofarm clearpreview" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2">
+        </td>
+    </tr>
+</table>
+</center>
+</body></html>

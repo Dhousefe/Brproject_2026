@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<npcs>
+		<npc>31255</npc><!-- Buzz the Cat (Event Manager) -->
+	</npcs>
+	<item>
+		<ingredient id="6391" count="1"/><!-- gourd_nectar1 -->
+		<production id="6389" count="1"/><!-- small_gourd_seed -->
+	</item>
+	<item>
+		<ingredient id="6391" count="50"/><!-- gourd_nectar1 -->
+		<production id="6390" count="1"/><!-- big_gourd_seed -->
+	</item>
+</list>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+
+	<!-- 1x1 -->
+	<event id="2001" name="Duel Masters" type="pvp">
+		<enabled>true</enabled>
+		<duration>20</duration>
+		<days>1,2,3,4,5,6</days>
+		<times>
+			<time>23:56</time>
+		</times>
+		
+		<info>
+			<name>Duel Masters</name>
+			<desc>
+				<line>Evento 1x1 para provar sua força individual.</line>
+				<line>Tempo de luta: 5 minutos.</line>
+				<line>Vitória por morte ou maior HP+CP.</line>
+			</desc>
+			<announce>
+				<line>Duel Masters (1x1) começou! Use .battleboss e prove sua força!</line>
+			</announce>
+			<icon>icon.etc_sword_i00</icon>
+		</info>
+		
+		<registration minPlayers="2" maxPlayers="100" groupSize="1" waitingTimeMatches="10"/>
+		
+		<battle duration="300">
+			<rules stayDownOnDeath="true" winnerByHpCp="true" multiMatches="true"/>
+		</battle>
+		
+		<teleport>
+			<arena x="150000" y="46700" z="-3400"/>
+			<returnSpot x="83456" y="148376" z="-3400" delay="30"/>
+		</teleport>
+		
+		<rewards>
+			<winner>
+				<reward itemId="57" count="30000"/>
+				<reward itemId="6392" count="1"/>
+			</winner>
+			<loser>
+				<reward itemId="57" count="15000"/>
+			</loser>
+		</rewards>
+	</event>
+	
+	
+	<!-- 2x2 -->
+	<event id="2002" name="Duel of Pairs" type="pvp">
+		<enabled>true</enabled>
+		<duration>21</duration>
+		<days>2,3,4</days>
+		<times>
+			<time>23:20</time>
+		</times>
+		
+		<info>
+			<name>Duel of Pairs</name>
+			<desc>
+				<line>Evento 2x2 com luta de 6 minutos.</line>
+				<line>Se restar 1x1, vence quem tiver mais HP+CP.</line>
+				<line>O time vencedor enfrenta um monstro extra.</line>
+				<line>O time perdedor recebe metade da recompensa.</line>
+			</desc>
+			<announce>
+				<line>Duel of Pairs (2x2) começou! Forme sua dupla e use .battleboss!</line>
+			</announce>
+			<icon>icon.etc_leash_i00</icon>
+		</info>
+		
+		<registration minPlayers="4" maxPlayers="100" groupSize="2" waitingTimeMatches="5"/>
+		
+		<battle duration="600">
+			<rules stayDownOnDeath="true" winnerByHpCp="true" multiMatches="true"/>
+		</battle>
+		
+		<monsterChallenge npcId="20237" timeLimit="1800" reviveTeam="true">
+			<spawn x="148959" y="46867" z="-3408"/>
+		</monsterChallenge>
+		
+		<teleport>
+			<arena x="149557" y="46761" z="-3408"/>
+			<returnSpot x="83456" y="148376" z="-3400" delay="45"/>
+		</teleport>
+		
+		<rewards>
+			<winner>
+				<reward itemId="57" count="50000"/>
+				<reward itemId="6392" count="1"/>
+			</winner>
+			<loser>
+				<reward itemId="57" count="25000"/>
+			</loser>
+		</rewards>
+	</event>
+	
+	
+	<!-- 3x3 -->
+	<event id="2003" name="Trio Clash" type="pvp">
+		<enabled>true</enabled>
+		<duration>25</duration>
+		<days>3,5,7</days>
+		<times>
+			<time>20:30</time>
+		</times>
+		
+		<info>
+			<name>Trio Clash</name>
+			<desc>
+				<line>Evento 3x3 em batalhas intensas de 7 minutos.</line>
+				<line>Coordenação e sinergia são essenciais.</line>
+			</desc>
+			<announce>
+				<line>Trio Clash (3x3) começou! Monte seu trio e use .battleboss!</line>
+			</announce>
+			<icon>icon.etc_crystal_ball_i00</icon>
+		</info>
+		
+		<registration minPlayers="6" maxPlayers="100" groupSize="3" waitingTimeMatches="8"/>
+		
+		<battle duration="420">
+			<rules stayDownOnDeath="true" winnerByHpCp="true" multiMatches="true"/>
+		</battle>
+		
+		<teleport>
+			<arena x="152000" y="46500" z="-3400"/>
+			<returnSpot x="83456" y="148376" z="-3400" delay="45"/>
+		</teleport>
+		
+		<rewards>
+			<winner>
+				<reward itemId="57" count="75000"/>
+				<reward itemId="6392" count="2"/>
+			</winner>
+			<loser>
+				<reward itemId="57" count="30000"/>
+			</loser>
+		</rewards>
+	</event>
+	
+	
+	<!-- 4x4 -->
+	<event id="2004" name="Squad Showdown" type="pvp">
+		<enabled>true</enabled>
+		<duration>30</duration>
+		<days>1,4,6</days>
+		<times>
+			<time>22:15</time>
+		</times>
+		
+		<info>
+			<name>Squad Showdown</name>
+			<desc>
+				<line>Evento 4x4 com duração de 8 minutos.</line>
+				<line>O trabalho em equipe define os vencedores.</line>
+			</desc>
+			<announce>
+				<line>Squad Showdown (4x4) começou! Reúna sua equipe e use .battleboss!</line>
+			</announce>
+			<icon>icon.etc_flag_i00</icon>
+		</info>
+		
+		<registration minPlayers="8" maxPlayers="100" groupSize="4" waitingTimeMatches="10"/>
+		
+		<battle duration="480">
+			<rules stayDownOnDeath="true" winnerByHpCp="true" multiMatches="true"/>
+		</battle>
+		
+		<teleport>
+			<arena x="153500" y="47000" z="-3400"/>
+			<returnSpot x="83456" y="148376" z="-3400" delay="45"/>
+		</teleport>
+		
+		<rewards>
+			<winner>
+				<reward itemId="57" count="100000"/>
+				<reward itemId="6392" count="3"/>
+			</winner>
+			<loser>
+				<reward itemId="57" count="40000"/>
+			</loser>
+		</rewards>
+	</event>
+	
+	
+	<!-- FFA Survival -->
+	<event id="2005" name="Survival Arena" type="ffa">
+		<enabled>true</enabled>
+		<duration>15</duration>
+		<days>2,3,5</days>
+		<times>
+			<time>19:14</time>
+		</times>
+		
+		<info>
+			<name>Survival Arena</name>
+			<desc>
+				<line>Cada um por si, último sobrevivente vence!</line>
+				<line>Duração máxima de 5 minutos.</line>
+			</desc>
+			<announce>
+				<line>Survival Arena começou! Entre e prove que é o último a ficar de pé com .battleboss!</line>
+			</announce>
+			<icon>icon.etc_skull_i00</icon>
+		</info>
+		
+		<registration minPlayers="10" maxPlayers="200" groupSize="1" waitingTimeMatches="20"/>
+		
+		<battle duration="300">
+			<rules stayDownOnDeath="true" winnerByHpCp="false" multiMatches="true"/>
+		</battle>
+		
+		<teleport>
+			<arena x="14800" y="12200" z="-400"/>
+			<returnSpot x="83456" y="148376" z="-3400" delay="30"/>
+		</teleport>
+		
+		<rewards>
+			<winner>
+				<reward itemId="57" count="75000"/>
+				<reward itemId="6673" count="2"/>
+			</winner>
+		</rewards>
+	</event>
+
+</events>

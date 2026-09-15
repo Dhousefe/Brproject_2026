@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30731</npc><!-- Martin (Pet Manager) -->
+		<npc>30827</npc><!-- Lundy (Pet Manager ) -->
+		<npc>30828</npc><!-- Waters (Pet Manager ) -->
+		<npc>30829</npc><!-- Cooper (Pet Manager ) -->
+		<npc>30830</npc><!-- Joey (Pet Manager ) -->
+		<npc>30831</npc><!-- Nelson (Pet Manager ) -->
+		<npc>30869</npc><!-- Lemper (Pet Manager) -->
+		<npc>31067</npc><!-- Rood (Pet Manager) -->
+		<npc>31265</npc><!-- Annette (Pet Manager) -->
+		<npc>31309</npc><!-- Woods (Pet Manager) -->
+		<npc>31954</npc><!-- Saroyan (Pet Manager) -->
+	</npcs>
+	<item>
+		<ingredient id="7584" count="1"/><!-- ticket_cougar_chime -->
+		<production id="6649" count="1"/><!-- baby_cougar_chime -->
+	</item>
+	<item>
+		<ingredient id="7583" count="1"/><!-- ticket_buffalo_panpipe -->
+		<production id="6648" count="1"/><!-- baby_buffalo_panpipe -->
+	</item>
+	<item>
+		<ingredient id="7585" count="1"/><!-- ticket_kukaburo_ocarina -->
+		<production id="6650" count="1"/><!-- baby_kukaburo_ocarina -->
+	</item>
+</list>

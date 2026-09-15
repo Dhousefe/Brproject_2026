@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31760</npc><!-- Miss Queen (Adventurers' Guide) -->
+	</npcs>
+	<item>
+		<ingredient id="7822" count="1"/><!-- guide_mace_of_prayer -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7823" count="1"/><!-- guide_dark_elven_bow -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7824" count="1"/><!-- guide_long_bow -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7825" count="1"/><!-- guide_staff_of_mana -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7826" count="1"/><!-- guide_bastard_sword -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7827" count="1"/><!-- guide_divine_tome -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7828" count="1"/><!-- guide_single_edged_jamadhr -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7829" count="1"/><!-- guide_tomahawk -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7830" count="1"/><!-- guide_poniard_dagger -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+	<item>
+		<ingredient id="7831" count="1"/><!-- guide_pike -->
+		<production id="7833" count="1"/><!-- q_adventure_coupon2 -->
+	</item>
+</list>

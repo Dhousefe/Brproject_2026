@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31388</npc><!-- Mina -->
+	</npcs>
+	<item>
+		<ingredient id="7545" count="14"/><!-- q_bone_of_lost_forest -->
+		<production id="4039" count="1"/><!-- mold_glue -->
+	</item>
+	<item>
+		<ingredient id="7545" count="14"/><!-- q_bone_of_lost_forest -->
+		<production id="4043" count="1"/><!-- asofe -->
+	</item>
+	<item>
+		<ingredient id="7545" count="14"/><!-- q_bone_of_lost_forest -->
+		<production id="4044" count="1"/><!-- thons -->
+	</item>
+	<item>
+		<ingredient id="7545" count="2"/><!-- q_bone_of_lost_forest -->
+		<production id="1876" count="1"/><!-- mithril_ore -->
+	</item>
+	<item>
+		<ingredient id="7545" count="6"/><!-- q_bone_of_lost_forest -->
+		<production id="1875" count="1"/><!-- stone_of_purity -->
+	</item>
+</list>

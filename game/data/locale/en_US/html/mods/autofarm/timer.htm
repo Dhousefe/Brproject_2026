@@ -1,0 +1,18 @@
+<html><body>
+<br>
+<center><font color=LEVEL>Duration</font></center>
+<br>
+You can set how many minutes the AutoFarm should stay active before automatically shutting down. If no value is specified, the system will remain active until you manually stop it.
+<br>
+By using this option, you also gain the ability to use a <a action="bypass autofarm macro">macro</a> that allows for a custom action to be performed when the timer ends.
+<br>
+<center>
+%msg%
+%current%
+<edit var="Timer" width=40 type=number length=3>
+<br>
+<button value="Set" action="bypass autofarm timer set $Timer" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+<br>
+<button value="Back" action="bypass autofarm index" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2">
+</center>
+</body></html>

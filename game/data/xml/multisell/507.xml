@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30232</npc><!-- Warehouse Keeper Sorint -->
+	</npcs>
+	<item>
+		<ingredient id="3478" count="1"/><!-- q_bereths_blood_dragon -->
+		<ingredient id="3493" count="1"/><!-- q_silver_dragon -->
+		<ingredient id="3486" count="13"/><!-- q_gold_wyrm -->
+		<production id="206" count="1"/><!-- demon_s_staff -->
+	</item>
+	<item>
+		<ingredient id="3487" count="1"/><!-- q_bereths_gold_dragon -->
+		<ingredient id="3477" count="1"/><!-- q_blood_dragon -->
+		<ingredient id="3492" count="1"/><!-- q_silver_dryad -->
+		<ingredient id="3484" count="1"/><!-- q_gold_giant -->
+		<production id="233" count="1"/><!-- dark_screamer -->
+	</item>
+	<item>
+		<ingredient id="3496" count="1"/><!-- q_bereths_silver_dragon -->
+		<ingredient id="3481" count="1"/><!-- q_gold_dragon -->
+		<ingredient id="3476" count="1"/><!-- q_blood_succubus -->
+		<ingredient id="3474" count="2"/><!-- q_blood_basilisk -->
+		<production id="303" count="1"/><!-- widow_maker -->
+	</item>
+	<item>
+		<ingredient id="3477" count="1"/><!-- q_blood_dragon -->
+		<ingredient id="3493" count="1"/><!-- q_silver_dragon -->
+		<ingredient id="3481" count="1"/><!-- q_gold_dragon -->
+		<ingredient id="3495" count="1"/><!-- q_silver_undine -->
+		<production id="132" count="1"/><!-- sword_of_limit -->
+	</item>
+</list>

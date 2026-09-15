@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30098</npc><!-- Alexandria (Armor Merchant) -->
+	</npcs>
+	<item>
+		<ingredient id="1458" count="500"/><!-- crystal_d -->
+		<ingredient id="1459" count="100"/><!-- crystal_c -->
+		<production id="4636" count="1"/><!-- red_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="1458" count="500"/><!-- crystal_d -->
+		<ingredient id="1459" count="100"/><!-- crystal_c -->
+		<production id="4647" count="1"/><!-- green_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="1458" count="500"/><!-- crystal_d -->
+		<ingredient id="1459" count="100"/><!-- crystal_c -->
+		<production id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="1458" count="567"/><!-- crystal_d -->
+		<ingredient id="1459" count="120"/><!-- crystal_c -->
+		<production id="4637" count="1"/><!-- red_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="1458" count="567"/><!-- crystal_d -->
+		<ingredient id="1459" count="120"/><!-- crystal_c -->
+		<production id="4648" count="1"/><!-- green_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="1458" count="567"/><!-- crystal_d -->
+		<ingredient id="1459" count="120"/><!-- crystal_c -->
+		<production id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="135"/><!-- crystal_c -->
+		<ingredient id="1460" count="44"/><!-- crystal_b -->
+		<production id="4638" count="1"/><!-- red_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="135"/><!-- crystal_c -->
+		<ingredient id="1460" count="44"/><!-- crystal_b -->
+		<production id="4649" count="1"/><!-- green_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="135"/><!-- crystal_c -->
+		<ingredient id="1460" count="44"/><!-- crystal_b -->
+		<production id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="150"/><!-- crystal_c -->
+		<ingredient id="1460" count="50"/><!-- crystal_b -->
+		<production id="4639" count="1"/><!-- red_soul_crystal_10 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="150"/><!-- crystal_c -->
+		<ingredient id="1460" count="50"/><!-- crystal_b -->
+		<production id="4650" count="1"/><!-- green_soul_crystal_10 -->
+	</item>
+	<item>
+		<ingredient id="1459" count="150"/><!-- crystal_c -->
+		<ingredient id="1460" count="50"/><!-- crystal_b -->
+		<production id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+	</item>
+</list>

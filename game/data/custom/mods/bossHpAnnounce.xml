@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list enabled="true">
+	<boss npcId="29001" name="Queen Ant">
+		<hp percent="80" message="%boss% atingiu %hp%% de vida!" />
+		<hp percent="60" />
+		<hp percent="40" message="Preparem-se! %boss% está com %hp%% de HP!" />
+		<hp percent="20" />
+	</boss>
+	<boss npcId="29006" name="Core">
+		<hp percent="75" />
+		<hp percent="50" />
+		<hp percent="25" message="%boss% está quase morrendo com apenas %hp%%!" />
+	</boss>
+</list>

@@ -1,0 +1,1655 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true">
+	<npcs>
+		<npc>31126</npc><!-- Blacksmith of Mammon -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="4681" count="1"/><!-- stormbringer_crt_anger -->
+		<production id="72" count="1"/><!-- stormbringer -->
+	</item>
+	<item>
+		<ingredient id="4682" count="1"/><!-- stormbringer_focus -->
+		<production id="72" count="1"/><!-- stormbringer -->
+	</item>
+	<item>
+		<ingredient id="4683" count="1"/><!-- stormbringer_light -->
+		<production id="72" count="1"/><!-- stormbringer -->
+	</item>
+	<item>
+		<ingredient id="4711" count="1"/><!-- flamberge_crt_damage -->
+		<production id="71" count="1"/><!-- flamberge -->
+	</item>
+	<item>
+		<ingredient id="4712" count="1"/><!-- flamberge_focus -->
+		<production id="71" count="1"/><!-- flamberge -->
+	</item>
+	<item>
+		<ingredient id="4713" count="1"/><!-- flamberge_light -->
+		<production id="71" count="1"/><!-- flamberge -->
+	</item>
+	<item>
+		<ingredient id="4726" count="1"/><!-- big_hammer_health -->
+		<production id="89" count="1"/><!-- big_hammer -->
+	</item>
+	<item>
+		<ingredient id="4727" count="1"/><!-- big_hammer_rsk_focus -->
+		<production id="89" count="1"/><!-- big_hammer -->
+	</item>
+	<item>
+		<ingredient id="4728" count="1"/><!-- big_hammer_haste -->
+		<production id="89" count="1"/><!-- big_hammer -->
+	</item>
+	<item>
+		<ingredient id="4729" count="1"/><!-- battle_axe_anger -->
+		<production id="160" count="1"/><!-- battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4730" count="1"/><!-- battle_axe_rsk_focus -->
+		<production id="160" count="1"/><!-- battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4731" count="1"/><!-- battle_axe_haste -->
+		<production id="160" count="1"/><!-- battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4732" count="1"/><!-- war_pick_anger -->
+		<production id="161" count="1"/><!-- war_pick -->
+	</item>
+	<item>
+		<ingredient id="4733" count="1"/><!-- war_pick_rsk_focus -->
+		<production id="161" count="1"/><!-- war_pick -->
+	</item>
+	<item>
+		<ingredient id="4734" count="1"/><!-- war_pick_haste -->
+		<production id="161" count="1"/><!-- war_pick -->
+	</item>
+	<item>
+		<ingredient id="4735" count="1"/><!-- skull_graver_anger -->
+		<production id="173" count="1"/><!-- skull_graver -->
+	</item>
+	<item>
+		<ingredient id="4736" count="1"/><!-- skull_graver_health -->
+		<production id="173" count="1"/><!-- skull_graver -->
+	</item>
+	<item>
+		<ingredient id="4737" count="1"/><!-- skull_graver_rsk_focus -->
+		<production id="173" count="1"/><!-- skull_graver -->
+	</item>
+	<item>
+		<ingredient id="4759" count="1"/><!-- cursed_dagger_crt_bleed -->
+		<production id="226" count="1"/><!-- cursed_dagger -->
+	</item>
+	<item>
+		<ingredient id="4760" count="1"/><!-- cursed_dagger_crt_poison -->
+		<production id="226" count="1"/><!-- cursed_dagger -->
+	</item>
+	<item>
+		<ingredient id="4761" count="1"/><!-- cursed_dagger_rsk_haste -->
+		<production id="226" count="1"/><!-- cursed_dagger -->
+	</item>
+	<item>
+		<ingredient id="4762" count="1"/><!-- darkelven_dagger_focus -->
+		<production id="232" count="1"/><!-- darkelven_dagger -->
+	</item>
+	<item>
+		<ingredient id="4763" count="1"/><!-- darkelven_dagger_backblow -->
+		<production id="232" count="1"/><!-- darkelven_dagger -->
+	</item>
+	<item>
+		<ingredient id="6356" count="1"/><!-- darkelven_dagger_rsk_haste -->
+		<production id="232" count="1"/><!-- darkelven_dagger -->
+	</item>
+	<item>
+		<ingredient id="4764" count="1"/><!-- darkelven_dagger_mightmotal -->
+		<production id="232" count="1"/><!-- darkelven_dagger -->
+	</item>
+	<item>
+		<ingredient id="4789" count="1"/><!-- chakram_crt_drain -->
+		<production id="263" count="1"/><!-- chakram -->
+	</item>
+	<item>
+		<ingredient id="4790" count="1"/><!-- chakram_crt_poison -->
+		<production id="263" count="1"/><!-- chakram -->
+	</item>
+	<item>
+		<ingredient id="4791" count="1"/><!-- chakram_rsk_haste -->
+		<production id="263" count="1"/><!-- chakram -->
+	</item>
+	<item>
+		<ingredient id="4810" count="1"/><!-- crystallized_ice_bow_guidence -->
+		<production id="281" count="1"/><!-- crystallized_ice_bow -->
+	</item>
+	<item>
+		<ingredient id="4811" count="1"/><!-- crystallized_ice_bow_evasion -->
+		<production id="281" count="1"/><!-- crystallized_ice_bow -->
+	</item>
+	<item>
+		<ingredient id="4812" count="1"/><!-- crystallized_ice_bow_quickrecovery -->
+		<production id="281" count="1"/><!-- crystallized_ice_bow -->
+	</item>
+	<item>
+		<ingredient id="4834" count="1"/><!-- scythe_anger -->
+		<production id="96" count="1"/><!-- scythe -->
+	</item>
+	<item>
+		<ingredient id="4835" count="1"/><!-- scythe_crt_stun -->
+		<production id="96" count="1"/><!-- scythe -->
+	</item>
+	<item>
+		<ingredient id="4836" count="1"/><!-- scythe_light -->
+		<production id="96" count="1"/><!-- scythe -->
+	</item>
+	<item>
+		<ingredient id="4837" count="1"/><!-- orcish_glaive_anger -->
+		<production id="298" count="1"/><!-- orcish_glaive -->
+	</item>
+	<item>
+		<ingredient id="4838" count="1"/><!-- orcish_glaive_crt_stun -->
+		<production id="298" count="1"/><!-- orcish_glaive -->
+	</item>
+	<item>
+		<ingredient id="4839" count="1"/><!-- orcish_glaive_longblow -->
+		<production id="298" count="1"/><!-- orcish_glaive -->
+	</item>
+	<item>
+		<ingredient id="4840" count="1"/><!-- body_slasher_crt_stun -->
+		<production id="302" count="1"/><!-- body_slasher -->
+	</item>
+	<item>
+		<ingredient id="4841" count="1"/><!-- body_slasher_longblow -->
+		<production id="302" count="1"/><!-- body_slasher -->
+	</item>
+	<item>
+		<ingredient id="4842" count="1"/><!-- body_slasher_wideblow -->
+		<production id="302" count="1"/><!-- body_slasher -->
+	</item>
+	<item>
+		<ingredient id="4864" count="1"/><!-- heavy_doom_hammer_magicregen -->
+		<production id="191" count="1"/><!-- heavy_doom_hammer -->
+	</item>
+	<item>
+		<ingredient id="4865" count="1"/><!-- heavy_doom_hammer_magicmshield -->
+		<production id="191" count="1"/><!-- heavy_doom_hammer -->
+	</item>
+	<item>
+		<ingredient id="4866" count="1"/><!-- heavy_doom_hammer_magichold -->
+		<production id="191" count="1"/><!-- heavy_doom_hammer -->
+	</item>
+	<item>
+		<ingredient id="4867" count="1"/><!-- crystal_staff_rsk_evasion -->
+		<production id="192" count="1"/><!-- crystal_staff -->
+	</item>
+	<item>
+		<ingredient id="4868" count="1"/><!-- crystal_staff_manaup -->
+		<production id="192" count="1"/><!-- crystal_staff -->
+	</item>
+	<item>
+		<ingredient id="4869" count="1"/><!-- crystal_staff_magicblessthebody -->
+		<production id="192" count="1"/><!-- crystal_staff -->
+	</item>
+	<item>
+		<ingredient id="4870" count="1"/><!-- heavy_doom_axe_magicpoison -->
+		<production id="194" count="1"/><!-- heavy_doom_axe -->
+	</item>
+	<item>
+		<ingredient id="4871" count="1"/><!-- heavy_doom_axe_magicweakness -->
+		<production id="194" count="1"/><!-- heavy_doom_axe -->
+	</item>
+	<item>
+		<ingredient id="4872" count="1"/><!-- heavy_doom_axe_magicchaos -->
+		<production id="194" count="1"/><!-- heavy_doom_axe -->
+	</item>
+	<item>
+		<ingredient id="7701" count="1"/><!-- stick_of_faith_manaup -->
+		<production id="193" count="1"/><!-- stick_of_faith -->
+	</item>
+	<item>
+		<ingredient id="7702" count="1"/><!-- stick_of_faith_magichold -->
+		<production id="193" count="1"/><!-- stick_of_faith -->
+	</item>
+	<item>
+		<ingredient id="7703" count="1"/><!-- stick_of_faith_magicmshield -->
+		<production id="193" count="1"/><!-- stick_of_faith -->
+	</item>
+	<item>
+		<ingredient id="4684" count="1"/><!-- shamshir_guidence -->
+		<production id="73" count="1"/><!-- shamshir -->
+	</item>
+	<item>
+		<ingredient id="4685" count="1"/><!-- shamshir_backblow -->
+		<production id="73" count="1"/><!-- shamshir -->
+	</item>
+	<item>
+		<ingredient id="4686" count="1"/><!-- shamshir_rsk_evasion -->
+		<production id="73" count="1"/><!-- shamshir -->
+	</item>
+	<item>
+		<ingredient id="4687" count="1"/><!-- katana_focus -->
+		<production id="74" count="1"/><!-- katana -->
+	</item>
+	<item>
+		<ingredient id="4688" count="1"/><!-- katana_crt_damage -->
+		<production id="74" count="1"/><!-- katana -->
+	</item>
+	<item>
+		<ingredient id="4689" count="1"/><!-- katana_haste -->
+		<production id="74" count="1"/><!-- katana -->
+	</item>
+	<item>
+		<ingredient id="4690" count="1"/><!-- spirits_sword_crt_damage -->
+		<production id="131" count="1"/><!-- spirits_sword -->
+	</item>
+	<item>
+		<ingredient id="4691" count="1"/><!-- spirits_sword_crt_poison -->
+		<production id="131" count="1"/><!-- spirits_sword -->
+	</item>
+	<item>
+		<ingredient id="4692" count="1"/><!-- spirits_sword_haste -->
+		<production id="131" count="1"/><!-- spirits_sword -->
+	</item>
+	<item>
+		<ingredient id="4693" count="1"/><!-- raid_sword_focus -->
+		<production id="133" count="1"/><!-- raid_sword -->
+	</item>
+	<item>
+		<ingredient id="4694" count="1"/><!-- raid_sword_crt_drain -->
+		<production id="133" count="1"/><!-- raid_sword -->
+	</item>
+	<item>
+		<ingredient id="4695" count="1"/><!-- raid_sword_crt_poison -->
+		<production id="133" count="1"/><!-- raid_sword -->
+	</item>
+	<item>
+		<ingredient id="7810" count="1"/><!-- dagger_of_magicflame_manaup -->
+		<production id="242" count="1"/><!-- dagger_of_magicflame -->
+	</item>
+	<item>
+		<ingredient id="7811" count="1"/><!-- dagger_of_magicflame_magichold -->
+		<production id="242" count="1"/><!-- dagger_of_magicflame -->
+	</item>
+	<item>
+		<ingredient id="7812" count="1"/><!-- dagger_of_magicflame_magicsilence -->
+		<production id="242" count="1"/><!-- dagger_of_magicflame -->
+	</item>
+	<item>
+		<ingredient id="4738" count="1"/><!-- dwarven_warhammer_anger -->
+		<production id="2502" count="1"/><!-- dwarven_warhammer -->
+	</item>
+	<item>
+		<ingredient id="4739" count="1"/><!-- dwarven_warhammer_health -->
+		<production id="2502" count="1"/><!-- dwarven_warhammer -->
+	</item>
+	<item>
+		<ingredient id="4740" count="1"/><!-- dwarven_warhammer_haste -->
+		<production id="2502" count="1"/><!-- dwarven_warhammer -->
+	</item>
+	<item>
+		<ingredient id="4765" count="1"/><!-- stiletto_crt_bleed -->
+		<production id="227" count="1"/><!-- stiletto -->
+	</item>
+	<item>
+		<ingredient id="4766" count="1"/><!-- stiletto_crt_poison -->
+		<production id="227" count="1"/><!-- stiletto -->
+	</item>
+	<item>
+		<ingredient id="6357" count="1"/><!-- stiletto_rsk_haste -->
+		<production id="227" count="1"/><!-- stiletto -->
+	</item>
+	<item>
+		<ingredient id="4767" count="1"/><!-- stiletto_mightmotal -->
+		<production id="227" count="1"/><!-- stiletto -->
+	</item>
+	<item>
+		<ingredient id="4798" count="1"/><!-- knuckle_dust_rsk_evasion -->
+		<production id="4233" count="1"/><!-- knuckle_dust -->
+	</item>
+	<item>
+		<ingredient id="4799" count="1"/><!-- knuckle_dust_rsk_haste -->
+		<production id="4233" count="1"/><!-- knuckle_dust -->
+	</item>
+	<item>
+		<ingredient id="4800" count="1"/><!-- knuckle_dust_haste -->
+		<production id="4233" count="1"/><!-- knuckle_dust -->
+	</item>
+	<item>
+		<ingredient id="4813" count="1"/><!-- elemental_bow_guidence -->
+		<production id="282" count="1"/><!-- elemental_bow -->
+	</item>
+	<item>
+		<ingredient id="4814" count="1"/><!-- elemental_bow_miser -->
+		<production id="282" count="1"/><!-- elemental_bow -->
+	</item>
+	<item>
+		<ingredient id="4815" count="1"/><!-- elemental_bow_quickrecovery -->
+		<production id="282" count="1"/><!-- elemental_bow -->
+	</item>
+	<item>
+		<ingredient id="4816" count="1"/><!-- noble_elven_bow_evasion -->
+		<production id="285" count="1"/><!-- noble_elven_bow -->
+	</item>
+	<item>
+		<ingredient id="4817" count="1"/><!-- noble_elven_bow_miser -->
+		<production id="285" count="1"/><!-- noble_elven_bow -->
+	</item>
+	<item>
+		<ingredient id="4818" count="1"/><!-- noble_elven_bow_cheapshot -->
+		<production id="285" count="1"/><!-- noble_elven_bow -->
+	</item>
+	<item>
+		<ingredient id="4843" count="1"/><!-- bech_de_corbin_crt_stun -->
+		<production id="94" count="1"/><!-- bech_de_corbin -->
+	</item>
+	<item>
+		<ingredient id="4844" count="1"/><!-- bech_de_corbin_longblow -->
+		<production id="94" count="1"/><!-- bech_de_corbin -->
+	</item>
+	<item>
+		<ingredient id="4845" count="1"/><!-- bech_de_corbin_light -->
+		<production id="94" count="1"/><!-- bech_de_corbin -->
+	</item>
+	<item>
+		<ingredient id="4873" count="1"/><!-- cursed_staff_magichold -->
+		<production id="195" count="1"/><!-- cursed_staff -->
+	</item>
+	<item>
+		<ingredient id="4874" count="1"/><!-- cursed_staff_magicpoison -->
+		<production id="195" count="1"/><!-- cursed_staff -->
+	</item>
+	<item>
+		<ingredient id="4875" count="1"/><!-- cursed_staff_magicweakness -->
+		<production id="195" count="1"/><!-- cursed_staff -->
+	</item>
+	<item>
+		<ingredient id="7704" count="1"/><!-- stick_of_eternity_empower -->
+		<production id="196" count="1"/><!-- stick_of_eternity -->
+	</item>
+	<item>
+		<ingredient id="7705" count="1"/><!-- stick_of_eternity_rsk_evasion -->
+		<production id="196" count="1"/><!-- stick_of_eternity -->
+	</item>
+	<item>
+		<ingredient id="7706" count="1"/><!-- stick_of_eternity_magicblessthebody -->
+		<production id="196" count="1"/><!-- stick_of_eternity -->
+	</item>
+	<item>
+		<ingredient id="7707" count="1"/><!-- nirvana_axe_magicpower -->
+		<production id="174" count="1"/><!-- nirvana_axe -->
+	</item>
+	<item>
+		<ingredient id="7708" count="1"/><!-- nirvana_axe_magicpoison -->
+		<production id="174" count="1"/><!-- nirvana_axe -->
+	</item>
+	<item>
+		<ingredient id="7709" count="1"/><!-- nirvana_axe_magicweakness -->
+		<production id="174" count="1"/><!-- nirvana_axe -->
+	</item>
+	<item>
+		<ingredient id="7710" count="1"/><!-- club_of_nature_acumen -->
+		<production id="201" count="1"/><!-- club_of_nature -->
+	</item>
+	<item>
+		<ingredient id="7711" count="1"/><!-- club_of_nature_magicmshield -->
+		<production id="201" count="1"/><!-- club_of_nature -->
+	</item>
+	<item>
+		<ingredient id="7712" count="1"/><!-- club_of_nature_magichold -->
+		<production id="201" count="1"/><!-- club_of_nature -->
+	</item>
+	<item>
+		<ingredient id="7713" count="1"/><!-- mace_of_underworld_manaup -->
+		<production id="202" count="1"/><!-- mace_of_underworld -->
+	</item>
+	<item>
+		<ingredient id="7714" count="1"/><!-- mace_of_underworld_magicsilence -->
+		<production id="202" count="1"/><!-- mace_of_underworld -->
+	</item>
+	<item>
+		<ingredient id="7715" count="1"/><!-- mace_of_underworld_updown -->
+		<production id="202" count="1"/><!-- mace_of_underworld -->
+	</item>
+	<item>
+		<ingredient id="7716" count="1"/><!-- inferno_staff_acumen -->
+		<production id="198" count="1"/><!-- inferno_staff -->
+	</item>
+	<item>
+		<ingredient id="7717" count="1"/><!-- inferno_staff_magicsilence -->
+		<production id="198" count="1"/><!-- inferno_staff -->
+	</item>
+	<item>
+		<ingredient id="7718" count="1"/><!-- inferno_staff_magicparalysis -->
+		<production id="198" count="1"/><!-- inferno_staff -->
+	</item>
+	<item>
+		<ingredient id="7719" count="1"/><!-- poleaxe_crt_stun -->
+		<production id="95" count="1"/><!-- poleaxe -->
+	</item>
+	<item>
+		<ingredient id="7720" count="1"/><!-- poleaxe_longblow -->
+		<production id="95" count="1"/><!-- poleaxe -->
+	</item>
+	<item>
+		<ingredient id="7721" count="1"/><!-- poleaxe_wideblow -->
+		<production id="95" count="1"/><!-- poleaxe -->
+	</item>
+	<item>
+		<ingredient id="4696" count="1"/><!-- caliburs_guidence -->
+		<production id="75" count="1"/><!-- caliburs -->
+	</item>
+	<item>
+		<ingredient id="4697" count="1"/><!-- caliburs_focus -->
+		<production id="75" count="1"/><!-- caliburs -->
+	</item>
+	<item>
+		<ingredient id="4698" count="1"/><!-- caliburs_crt_damage -->
+		<production id="75" count="1"/><!-- caliburs -->
+	</item>
+	<item>
+		<ingredient id="4699" count="1"/><!-- sword_of_delusion_focus -->
+		<production id="76" count="1"/><!-- sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="4700" count="1"/><!-- sword_of_delusion_health -->
+		<production id="76" count="1"/><!-- sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="4701" count="1"/><!-- sword_of_delusion_rsk_haste -->
+		<production id="76" count="1"/><!-- sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="4702" count="1"/><!-- tsurugi_focus -->
+		<production id="77" count="1"/><!-- tsurugi -->
+	</item>
+	<item>
+		<ingredient id="4703" count="1"/><!-- tsurugi_crt_damage -->
+		<production id="77" count="1"/><!-- tsurugi -->
+	</item>
+	<item>
+		<ingredient id="4704" count="1"/><!-- tsurugi_haste -->
+		<production id="77" count="1"/><!-- tsurugi -->
+	</item>
+	<item>
+		<ingredient id="4705" count="1"/><!-- sword_of_nightmare_health -->
+		<production id="134" count="1"/><!-- sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="4706" count="1"/><!-- sword_of_nightmare_focus -->
+		<production id="134" count="1"/><!-- sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="4707" count="1"/><!-- sword_of_nightmare_light -->
+		<production id="134" count="1"/><!-- sword_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="4741" count="1"/><!-- war_axe_anger -->
+		<production id="162" count="1"/><!-- war_axe -->
+	</item>
+	<item>
+		<ingredient id="4742" count="1"/><!-- war_axe_health -->
+		<production id="162" count="1"/><!-- war_axe -->
+	</item>
+	<item>
+		<ingredient id="4743" count="1"/><!-- war_axe_haste -->
+		<production id="162" count="1"/><!-- war_axe -->
+	</item>
+	<item>
+		<ingredient id="4768" count="1"/><!-- grace_dagger_evasion -->
+		<production id="231" count="1"/><!-- grace_dagger -->
+	</item>
+	<item>
+		<ingredient id="4769" count="1"/><!-- grace_dagger_focus -->
+		<production id="231" count="1"/><!-- grace_dagger -->
+	</item>
+	<item>
+		<ingredient id="4770" count="1"/><!-- grace_dagger_backblow -->
+		<production id="231" count="1"/><!-- grace_dagger -->
+	</item>
+	<item>
+		<ingredient id="4771" count="1"/><!-- dark_screamer_evasion -->
+		<production id="233" count="1"/><!-- dark_screamer -->
+	</item>
+	<item>
+		<ingredient id="4772" count="1"/><!-- dark_screamer_focus -->
+		<production id="233" count="1"/><!-- dark_screamer -->
+	</item>
+	<item>
+		<ingredient id="4773" count="1"/><!-- dark_screamer_crt_bleed -->
+		<production id="233" count="1"/><!-- dark_screamer -->
+	</item>
+	<item>
+		<ingredient id="4792" count="1"/><!-- fist_blade_rsk_evasion -->
+		<production id="265" count="1"/><!-- fist_blade -->
+	</item>
+	<item>
+		<ingredient id="4793" count="1"/><!-- fist_blade_rsk_haste -->
+		<production id="265" count="1"/><!-- fist_blade -->
+	</item>
+	<item>
+		<ingredient id="4794" count="1"/><!-- fist_blade_haste -->
+		<production id="265" count="1"/><!-- fist_blade -->
+	</item>
+	<item>
+		<ingredient id="4819" count="1"/><!-- akat_long_bow_guidence -->
+		<production id="283" count="1"/><!-- akat_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4820" count="1"/><!-- akat_long_bow_evasion -->
+		<production id="283" count="1"/><!-- akat_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4821" count="1"/><!-- akat_long_bow_miser -->
+		<production id="283" count="1"/><!-- akat_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4876" count="1"/><!-- paradia_staff_magicregen -->
+		<production id="197" count="1"/><!-- paradia_staff -->
+	</item>
+	<item>
+		<ingredient id="4877" count="1"/><!-- paradia_staff_magicmshield -->
+		<production id="197" count="1"/><!-- paradia_staff -->
+	</item>
+	<item>
+		<ingredient id="4878" count="1"/><!-- paradia_staff_magichold -->
+		<production id="197" count="1"/><!-- paradia_staff -->
+	</item>
+	<item>
+		<ingredient id="4879" count="1"/><!-- paagrio_hammer_rsk_evasion -->
+		<production id="199" count="1"/><!-- paagrio_hammer -->
+	</item>
+	<item>
+		<ingredient id="4880" count="1"/><!-- paagrio_hammer_magicpoison -->
+		<production id="199" count="1"/><!-- paagrio_hammer -->
+	</item>
+	<item>
+		<ingredient id="4881" count="1"/><!-- paagrio_hammer_magicweakness -->
+		<production id="199" count="1"/><!-- paagrio_hammer -->
+	</item>
+	<item>
+		<ingredient id="4882" count="1"/><!-- sage_s_staff_magichold -->
+		<production id="200" count="1"/><!-- sage_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4883" count="1"/><!-- sage_s_staff_magicpoison -->
+		<production id="200" count="1"/><!-- sage_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4884" count="1"/><!-- sage_s_staff_magicweakness -->
+		<production id="200" count="1"/><!-- sage_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4846" count="1"/><!-- scorpion_anger -->
+		<production id="301" count="1"/><!-- scorpion -->
+	</item>
+	<item>
+		<ingredient id="4847" count="1"/><!-- scorpion_crt_stun -->
+		<production id="301" count="1"/><!-- scorpion -->
+	</item>
+	<item>
+		<ingredient id="4848" count="1"/><!-- scorpion_longblow -->
+		<production id="301" count="1"/><!-- scorpion -->
+	</item>
+	<item>
+		<ingredient id="4849" count="1"/><!-- widow_maker_crt_stun -->
+		<production id="303" count="1"/><!-- widow_maker -->
+	</item>
+	<item>
+		<ingredient id="4850" count="1"/><!-- widow_maker_longblow -->
+		<production id="303" count="1"/><!-- widow_maker -->
+	</item>
+	<item>
+		<ingredient id="4851" count="1"/><!-- widow_maker_wideblow -->
+		<production id="303" count="1"/><!-- widow_maker -->
+	</item>
+	<item>
+		<ingredient id="4885" count="1"/><!-- paagrio_axe_manaup -->
+		<production id="203" count="1"/><!-- paagrio_axe -->
+	</item>
+	<item>
+		<ingredient id="4886" count="1"/><!-- paagrio_axe_magicweakness -->
+		<production id="203" count="1"/><!-- paagrio_axe -->
+	</item>
+	<item>
+		<ingredient id="4887" count="1"/><!-- paagrio_axe_magicchaos -->
+		<production id="203" count="1"/><!-- paagrio_axe -->
+	</item>
+	<item>
+		<ingredient id="4708" count="1"/><!-- samurai_longsword_focus -->
+		<production id="135" count="1"/><!-- samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="4709" count="1"/><!-- samurai_longsword_crt_damage -->
+		<production id="135" count="1"/><!-- samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="4710" count="1"/><!-- samurai_longsword_haste -->
+		<production id="135" count="1"/><!-- samurai_longsword -->
+	</item>
+	<item>
+		<ingredient id="4744" count="1"/><!-- yaksa_mace_anger -->
+		<production id="2503" count="1"/><!-- yaksa_mace -->
+	</item>
+	<item>
+		<ingredient id="4745" count="1"/><!-- yaksa_mace_health -->
+		<production id="2503" count="1"/><!-- yaksa_mace -->
+	</item>
+	<item>
+		<ingredient id="4746" count="1"/><!-- yaksa_mace_rsk_focus -->
+		<production id="2503" count="1"/><!-- yaksa_mace -->
+	</item>
+	<item>
+		<ingredient id="4774" count="1"/><!-- crystal_dagger_crt_bleed -->
+		<production id="228" count="1"/><!-- crystal_dagger -->
+	</item>
+	<item>
+		<ingredient id="4775" count="1"/><!-- crystal_dagger_crt_poison -->
+		<production id="228" count="1"/><!-- crystal_dagger -->
+	</item>
+	<item>
+		<ingredient id="6358" count="1"/><!-- crystal_dagger_crt_damage -->
+		<production id="228" count="1"/><!-- crystal_dagger -->
+	</item>
+	<item>
+		<ingredient id="4776" count="1"/><!-- crystal_dagger_mightmotal -->
+		<production id="228" count="1"/><!-- crystal_dagger -->
+	</item>
+	<item>
+		<ingredient id="4795" count="1"/><!-- great_pata_crt_drain -->
+		<production id="266" count="1"/><!-- great_pata -->
+	</item>
+	<item>
+		<ingredient id="4796" count="1"/><!-- great_pata_crt_poison -->
+		<production id="266" count="1"/><!-- great_pata -->
+	</item>
+	<item>
+		<ingredient id="4797" count="1"/><!-- great_pata_rsk_haste -->
+		<production id="266" count="1"/><!-- great_pata -->
+	</item>
+	<item>
+		<ingredient id="4822" count="1"/><!-- eminence_bow_guidence -->
+		<production id="286" count="1"/><!-- eminence_bow -->
+	</item>
+	<item>
+		<ingredient id="4823" count="1"/><!-- eminence_bow_miser -->
+		<production id="286" count="1"/><!-- eminence_bow -->
+	</item>
+	<item>
+		<ingredient id="4824" count="1"/><!-- eminence_bow_cheapshot -->
+		<production id="286" count="1"/><!-- eminence_bow -->
+	</item>
+	<item>
+		<ingredient id="4852" count="1"/><!-- orcish_poleaxe_crt_stun -->
+		<production id="299" count="1"/><!-- orcish_poleaxe -->
+	</item>
+	<item>
+		<ingredient id="4853" count="1"/><!-- orcish_poleaxe_longblow -->
+		<production id="299" count="1"/><!-- orcish_poleaxe -->
+	</item>
+	<item>
+		<ingredient id="4854" count="1"/><!-- orcish_poleaxe_wideblow -->
+		<production id="299" count="1"/><!-- orcish_poleaxe -->
+	</item>
+	<item>
+		<ingredient id="4888" count="1"/><!-- deadman_s_staff_magicregen -->
+		<production id="204" count="1"/><!-- deadman_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4889" count="1"/><!-- deadman_s_staff_magicmshield -->
+		<production id="204" count="1"/><!-- deadman_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4890" count="1"/><!-- deadman_s_staff_magichold -->
+		<production id="204" count="1"/><!-- deadman_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4891" count="1"/><!-- ghoul_s_staff_rsk_evasion -->
+		<production id="205" count="1"/><!-- ghoul_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4892" count="1"/><!-- ghoul_s_staff_manaup -->
+		<production id="205" count="1"/><!-- ghoul_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4893" count="1"/><!-- ghoul_s_staff_magicblessthebody -->
+		<production id="205" count="1"/><!-- ghoul_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4894" count="1"/><!-- demon_s_staff_magicpoison -->
+		<production id="206" count="1"/><!-- demon_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4895" count="1"/><!-- demon_s_staff_magicweakness -->
+		<production id="206" count="1"/><!-- demon_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4896" count="1"/><!-- demon_s_staff_magicchaos -->
+		<production id="206" count="1"/><!-- demon_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4714" count="1"/><!-- kshanberk_guidence -->
+		<production id="142" count="1"/><!-- kshanberk -->
+	</item>
+	<item>
+		<ingredient id="4715" count="1"/><!-- kshanberk_focus -->
+		<production id="142" count="1"/><!-- kshanberk -->
+	</item>
+	<item>
+		<ingredient id="4716" count="1"/><!-- kshanberk_backblow -->
+		<production id="142" count="1"/><!-- kshanberk -->
+	</item>
+	<item>
+		<ingredient id="4723" count="1"/><!-- great_sword_health -->
+		<production id="78" count="1"/><!-- great_sword -->
+	</item>
+	<item>
+		<ingredient id="4724" count="1"/><!-- great_sword_crt_damage -->
+		<production id="78" count="1"/><!-- great_sword -->
+	</item>
+	<item>
+		<ingredient id="4725" count="1"/><!-- great_sword_focus -->
+		<production id="78" count="1"/><!-- great_sword -->
+	</item>
+	<item>
+		<ingredient id="4747" count="1"/><!-- heavy_war_axe_anger -->
+		<production id="91" count="1"/><!-- heavy_war_axe -->
+	</item>
+	<item>
+		<ingredient id="4748" count="1"/><!-- heavy_war_axe_health -->
+		<production id="91" count="1"/><!-- heavy_war_axe -->
+	</item>
+	<item>
+		<ingredient id="4749" count="1"/><!-- heavy_war_axe_rsk_focus -->
+		<production id="91" count="1"/><!-- heavy_war_axe -->
+	</item>
+	<item>
+		<ingredient id="7813" count="1"/><!-- hell_knife_magicregen -->
+		<production id="243" count="1"/><!-- hell_knife -->
+	</item>
+	<item>
+		<ingredient id="7814" count="1"/><!-- hell_knife_magicmshield -->
+		<production id="243" count="1"/><!-- hell_knife -->
+	</item>
+	<item>
+		<ingredient id="7815" count="1"/><!-- hell_knife_magicweakness -->
+		<production id="243" count="1"/><!-- hell_knife -->
+	</item>
+	<item>
+		<ingredient id="4777" count="1"/><!-- kris_evasion -->
+		<production id="229" count="1"/><!-- kris -->
+	</item>
+	<item>
+		<ingredient id="4778" count="1"/><!-- kris_focus -->
+		<production id="229" count="1"/><!-- kris -->
+	</item>
+	<item>
+		<ingredient id="4779" count="1"/><!-- kris_backblow -->
+		<production id="229" count="1"/><!-- kris -->
+	</item>
+	<item>
+		<ingredient id="4801" count="1"/><!-- arthro_nail_crt_poison -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="4802" count="1"/><!-- arthro_nail_rsk_evasion -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="4803" count="1"/><!-- arthro_nail_rsk_haste -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="4825" count="1"/><!-- dark_elven_long_bow_evasion -->
+		<production id="284" count="1"/><!-- dark_elven_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4826" count="1"/><!-- dark_elven_long_bow_crt_bleed -->
+		<production id="284" count="1"/><!-- dark_elven_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4827" count="1"/><!-- dark_elven_long_bow_miser -->
+		<production id="284" count="1"/><!-- dark_elven_long_bow -->
+	</item>
+	<item>
+		<ingredient id="4855" count="1"/><!-- great_axe_anger -->
+		<production id="300" count="1"/><!-- great_axe -->
+	</item>
+	<item>
+		<ingredient id="4856" count="1"/><!-- great_axe_crt_stun -->
+		<production id="300" count="1"/><!-- great_axe -->
+	</item>
+	<item>
+		<ingredient id="4857" count="1"/><!-- great_axe_light -->
+		<production id="300" count="1"/><!-- great_axe -->
+	</item>
+	<item>
+		<ingredient id="4897" count="1"/><!-- sprite_s_staff_magicregen -->
+		<production id="92" count="1"/><!-- sprite_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4898" count="1"/><!-- sprite_s_staff_magicmshield -->
+		<production id="92" count="1"/><!-- sprite_s_staff -->
+	</item>
+	<item>
+		<ingredient id="4899" count="1"/><!-- sprite_s_staff_magichold -->
+		<production id="92" count="1"/><!-- sprite_s_staff -->
+	</item>
+	<item>
+		<ingredient id="7722" count="1"/><!-- sword_of_valhalla_acumen -->
+		<production id="148" count="1"/><!-- sword_of_valhalla -->
+	</item>
+	<item>
+		<ingredient id="7723" count="1"/><!-- sword_of_valhalla_magicweakness -->
+		<production id="148" count="1"/><!-- sword_of_valhalla -->
+	</item>
+	<item>
+		<ingredient id="7724" count="1"/><!-- sword_of_valhalla_magicregen -->
+		<production id="148" count="1"/><!-- sword_of_valhalla -->
+	</item>
+	<item>
+		<ingredient id="4717" count="1"/><!-- sword_of_damascus_focus -->
+		<production id="79" count="1"/><!-- sword_of_damascus -->
+	</item>
+	<item>
+		<ingredient id="4718" count="1"/><!-- sword_of_damascus_crt_damage -->
+		<production id="79" count="1"/><!-- sword_of_damascus -->
+	</item>
+	<item>
+		<ingredient id="4719" count="1"/><!-- sword_of_damascus_haste -->
+		<production id="79" count="1"/><!-- sword_of_damascus -->
+	</item>
+	<item>
+		<ingredient id="4750" count="1"/><!-- deadman_s_glory_anger -->
+		<production id="171" count="1"/><!-- deadman_s_glory -->
+	</item>
+	<item>
+		<ingredient id="4751" count="1"/><!-- deadman_s_glory_health -->
+		<production id="171" count="1"/><!-- deadman_s_glory -->
+	</item>
+	<item>
+		<ingredient id="4752" count="1"/><!-- deadman_s_glory_haste -->
+		<production id="171" count="1"/><!-- deadman_s_glory -->
+	</item>
+	<item>
+		<ingredient id="4753" count="1"/><!-- art_of_battle_axe_health -->
+		<production id="175" count="1"/><!-- art_of_battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4754" count="1"/><!-- art_of_battle_axe_rsk_focus -->
+		<production id="175" count="1"/><!-- art_of_battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4755" count="1"/><!-- art_of_battle_axe_haste -->
+		<production id="175" count="1"/><!-- art_of_battle_axe -->
+	</item>
+	<item>
+		<ingredient id="4780" count="1"/><!-- demon_s_sword_crt_bleed -->
+		<production id="234" count="1"/><!-- demon_s_sword -->
+	</item>
+	<item>
+		<ingredient id="4781" count="1"/><!-- demon_s_sword_crt_poison -->
+		<production id="234" count="1"/><!-- demon_s_sword -->
+	</item>
+	<item>
+		<ingredient id="6359" count="1"/><!-- demon_s_sword_crt_damage -->
+		<production id="234" count="1"/><!-- demon_s_sword -->
+	</item>
+	<item>
+		<ingredient id="4782" count="1"/><!-- demon_s_sword_mightmotal -->
+		<production id="234" count="1"/><!-- demon_s_sword -->
+	</item>
+	<item>
+		<ingredient id="4804" count="1"/><!-- bellion_cestus_crt_drain -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="4805" count="1"/><!-- bellion_cestus_crt_poison -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="4806" count="1"/><!-- bellion_cestus_rsk_haste -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="4828" count="1"/><!-- hazard_bow_guidence -->
+		<production id="287" count="1"/><!-- hazard_bow -->
+	</item>
+	<item>
+		<ingredient id="4829" count="1"/><!-- hazard_bow_quickrecovery -->
+		<production id="287" count="1"/><!-- hazard_bow -->
+	</item>
+	<item>
+		<ingredient id="4830" count="1"/><!-- hazard_bow_cheapshot -->
+		<production id="287" count="1"/><!-- hazard_bow -->
+	</item>
+	<item>
+		<ingredient id="4858" count="1"/><!-- lancia_anger -->
+		<production id="97" count="1"/><!-- lancia -->
+	</item>
+	<item>
+		<ingredient id="4859" count="1"/><!-- lancia_crt_stun -->
+		<production id="97" count="1"/><!-- lancia -->
+	</item>
+	<item>
+		<ingredient id="4860" count="1"/><!-- lancia_longblow -->
+		<production id="97" count="1"/><!-- lancia -->
+	</item>
+	<item>
+		<ingredient id="4900" count="1"/><!-- staff_of_evil_sprit_magicfocus -->
+		<production id="210" count="1"/><!-- staff_of_evil_sprit -->
+	</item>
+	<item>
+		<ingredient id="4901" count="1"/><!-- staff_of_evil_sprit_magicblessthebody -->
+		<production id="210" count="1"/><!-- staff_of_evil_sprit -->
+	</item>
+	<item>
+		<ingredient id="4902" count="1"/><!-- staff_of_evil_sprit_magicpoison -->
+		<production id="210" count="1"/><!-- staff_of_evil_sprit -->
+	</item>
+	<item>
+		<ingredient id="6307" count="1"/><!-- sword_of_limit_guidence -->
+		<production id="132" count="1"/><!-- sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="6308" count="1"/><!-- sword_of_limit_Crt_drain -->
+		<production id="132" count="1"/><!-- sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="6309" count="1"/><!-- sword_of_limit_health -->
+		<production id="132" count="1"/><!-- sword_of_limit -->
+	</item>
+	<item>
+		<ingredient id="6310" count="1"/><!-- deathbreath_sword_empower -->
+		<production id="145" count="1"/><!-- deathbreath_sword -->
+	</item>
+	<item>
+		<ingredient id="6311" count="1"/><!-- deathbreath_sword_magicpower -->
+		<production id="145" count="1"/><!-- deathbreath_sword -->
+	</item>
+	<item>
+		<ingredient id="6312" count="1"/><!-- deathbreath_sword_magicsilence -->
+		<production id="145" count="1"/><!-- deathbreath_sword -->
+	</item>
+	<item>
+		<ingredient id="6313" count="1"/><!-- homunkulus_s_sword_acumen -->
+		<production id="84" count="1"/><!-- homunkulus_s_sword -->
+	</item>
+	<item>
+		<ingredient id="6314" count="1"/><!-- homunkulus_s_sword_updown -->
+		<production id="84" count="1"/><!-- homunkulus_s_sword -->
+	</item>
+	<item>
+		<ingredient id="6315" count="1"/><!-- homunkulus_s_sword_magicparalysis -->
+		<production id="84" count="1"/><!-- homunkulus_s_sword -->
+	</item>
+	<item>
+		<ingredient id="6347" count="1"/><!-- berserker_blade_focus -->
+		<production id="5286" count="1"/><!-- berserker_blade -->
+	</item>
+	<item>
+		<ingredient id="6348" count="1"/><!-- berserker_blade_crt_damage -->
+		<production id="5286" count="1"/><!-- berserker_blade -->
+	</item>
+	<item>
+		<ingredient id="6349" count="1"/><!-- berserker_blade_haste -->
+		<production id="5286" count="1"/><!-- berserker_blade -->
+	</item>
+	<item>
+		<ingredient id="5596" count="1"/><!-- dasparion_s_staff_manaup -->
+		<production id="212" count="1"/><!-- dasparion_s_staff -->
+	</item>
+	<item>
+		<ingredient id="5597" count="1"/><!-- dasparion_s_staff_updown -->
+		<production id="212" count="1"/><!-- dasparion_s_staff -->
+	</item>
+	<item>
+		<ingredient id="5598" count="1"/><!-- dasparion_s_staff_acumen -->
+		<production id="212" count="1"/><!-- dasparion_s_staff -->
+	</item>
+	<item>
+		<ingredient id="5599" count="1"/><!-- meteor_shower_focus -->
+		<production id="2504" count="1"/><!-- meteor_shower -->
+	</item>
+	<item>
+		<ingredient id="5600" count="1"/><!-- meteor_shower_crt_bleed -->
+		<production id="2504" count="1"/><!-- meteor_shower -->
+	</item>
+	<item>
+		<ingredient id="5601" count="1"/><!-- meteor_shower_rsk_haste -->
+		<production id="2504" count="1"/><!-- meteor_shower -->
+	</item>
+	<item>
+		<ingredient id="5602" count="1"/><!-- elysian_health -->
+		<production id="164" count="1"/><!-- elysian -->
+	</item>
+	<item>
+		<ingredient id="5603" count="1"/><!-- elysian_anger -->
+		<production id="164" count="1"/><!-- elysian -->
+	</item>
+	<item>
+		<ingredient id="5604" count="1"/><!-- elysian_crt_drain -->
+		<production id="164" count="1"/><!-- elysian -->
+	</item>
+	<item>
+		<ingredient id="5605" count="1"/><!-- worldtree_s_branch_updown -->
+		<production id="213" count="1"/><!-- worldtree_s_branch -->
+	</item>
+	<item>
+		<ingredient id="5606" count="1"/><!-- worldtree_s_branch_magicdamage -->
+		<production id="213" count="1"/><!-- worldtree_s_branch -->
+	</item>
+	<item>
+		<ingredient id="5607" count="1"/><!-- worldtree_s_branch_acumen -->
+		<production id="213" count="1"/><!-- worldtree_s_branch -->
+	</item>
+	<item>
+		<ingredient id="5608" count="1"/><!-- carnium_bow_light -->
+		<production id="288" count="1"/><!-- carnium_bow -->
+	</item>
+	<item>
+		<ingredient id="5609" count="1"/><!-- carnium_bow_crt_bleed -->
+		<production id="288" count="1"/><!-- carnium_bow -->
+	</item>
+	<item>
+		<ingredient id="5610" count="1"/><!-- carnium_bow_manaup -->
+		<production id="288" count="1"/><!-- carnium_bow -->
+	</item>
+	<item>
+		<ingredient id="5611" count="1"/><!-- soul_bow_cheapshot -->
+		<production id="289" count="1"/><!-- soul_bow -->
+	</item>
+	<item>
+		<ingredient id="5612" count="1"/><!-- soul_bow_quickrecovery -->
+		<production id="289" count="1"/><!-- soul_bow -->
+	</item>
+	<item>
+		<ingredient id="5613" count="1"/><!-- soul_bow_crt_poison -->
+		<production id="289" count="1"/><!-- soul_bow -->
+	</item>
+	<item>
+		<ingredient id="5614" count="1"/><!-- bloody_orchid_focus -->
+		<production id="235" count="1"/><!-- bloody_orchid -->
+	</item>
+	<item>
+		<ingredient id="5615" count="1"/><!-- bloody_orchid_backblow -->
+		<production id="235" count="1"/><!-- bloody_orchid -->
+	</item>
+	<item>
+		<ingredient id="5616" count="1"/><!-- bloody_orchid_crt_bleed -->
+		<production id="235" count="1"/><!-- bloody_orchid -->
+	</item>
+	<item>
+		<ingredient id="5617" count="1"/><!-- soul_separator_guidence -->
+		<production id="236" count="1"/><!-- soul_separator -->
+	</item>
+	<item>
+		<ingredient id="5618" count="1"/><!-- soul_separator_crt_damage -->
+		<production id="236" count="1"/><!-- soul_separator -->
+	</item>
+	<item>
+		<ingredient id="5619" count="1"/><!-- soul_separator_rsk_haste -->
+		<production id="236" count="1"/><!-- soul_separator -->
+	</item>
+	<item>
+		<ingredient id="5620" count="1"/><!-- blood_tornado_haste -->
+		<production id="269" count="1"/><!-- blood_tornado -->
+	</item>
+	<item>
+		<ingredient id="5621" count="1"/><!-- blood_tornado_focus -->
+		<production id="269" count="1"/><!-- blood_tornado -->
+	</item>
+	<item>
+		<ingredient id="5622" count="1"/><!-- blood_tornado_anger -->
+		<production id="269" count="1"/><!-- blood_tornado -->
+	</item>
+	<item>
+		<ingredient id="5623" count="1"/><!-- dragon_grinder_Rsk_evasion -->
+		<production id="270" count="1"/><!-- dragon_grinder -->
+	</item>
+	<item>
+		<ingredient id="5624" count="1"/><!-- dragon_grinder_guidence -->
+		<production id="270" count="1"/><!-- dragon_grinder -->
+	</item>
+	<item>
+		<ingredient id="5625" count="1"/><!-- dragon_grinder_health -->
+		<production id="270" count="1"/><!-- dragon_grinder -->
+	</item>
+	<item>
+		<ingredient id="5626" count="1"/><!-- halbard_haste -->
+		<production id="98" count="1"/><!-- halbard -->
+	</item>
+	<item>
+		<ingredient id="5627" count="1"/><!-- halbard_crt_stun -->
+		<production id="98" count="1"/><!-- halbard -->
+	</item>
+	<item>
+		<ingredient id="5628" count="1"/><!-- halbard_wideblow -->
+		<production id="98" count="1"/><!-- halbard -->
+	</item>
+	<item>
+		<ingredient id="5632" count="1"/><!-- tallum_glaive_guidence -->
+		<production id="305" count="1"/><!-- tallum_glaive -->
+	</item>
+	<item>
+		<ingredient id="5633" count="1"/><!-- tallum_glaive_health -->
+		<production id="305" count="1"/><!-- tallum_glaive -->
+	</item>
+	<item>
+		<ingredient id="5634" count="1"/><!-- tallum_glaive_wideblow -->
+		<production id="305" count="1"/><!-- tallum_glaive -->
+	</item>
+	<item>
+		<ingredient id="5635" count="1"/><!-- tallum_blade_crt_poison -->
+		<production id="80" count="1"/><!-- tallum_blade -->
+	</item>
+	<item>
+		<ingredient id="5636" count="1"/><!-- tallum_blade_haste -->
+		<production id="80" count="1"/><!-- tallum_blade -->
+	</item>
+	<item>
+		<ingredient id="5637" count="1"/><!-- tallum_blade_anger -->
+		<production id="80" count="1"/><!-- tallum_blade -->
+	</item>
+	<item>
+		<ingredient id="5638" count="1"/><!-- elemental_sword_magicpower -->
+		<production id="150" count="1"/><!-- elemental_sword -->
+	</item>
+	<item>
+		<ingredient id="5639" count="1"/><!-- elemental_sword_magicparalysis -->
+		<production id="150" count="1"/><!-- elemental_sword -->
+	</item>
+	<item>
+		<ingredient id="5640" count="1"/><!-- elemental_sword_empower -->
+		<production id="150" count="1"/><!-- elemental_sword -->
+	</item>
+	<item>
+		<ingredient id="5641" count="1"/><!-- sword_of_miracle_magicpower -->
+		<production id="151" count="1"/><!-- sword_of_miracle -->
+	</item>
+	<item>
+		<ingredient id="5642" count="1"/><!-- sword_of_miracle_magicsilence -->
+		<production id="151" count="1"/><!-- sword_of_miracle -->
+	</item>
+	<item>
+		<ingredient id="5643" count="1"/><!-- sword_of_miracle_acumen -->
+		<production id="151" count="1"/><!-- sword_of_miracle -->
+	</item>
+	<item>
+		<ingredient id="5644" count="1"/><!-- dragon_slayer_health -->
+		<production id="81" count="1"/><!-- dragon_slayer -->
+	</item>
+	<item>
+		<ingredient id="5645" count="1"/><!-- dragon_slayer_crt_bleed -->
+		<production id="81" count="1"/><!-- dragon_slayer -->
+	</item>
+	<item>
+		<ingredient id="5646" count="1"/><!-- dragon_slayer_crt_drain -->
+		<production id="81" count="1"/><!-- dragon_slayer -->
+	</item>
+	<item>
+		<ingredient id="5647" count="1"/><!-- dark_legion_s_edge_crt_damage -->
+		<production id="2500" count="1"/><!-- dark_legion_s_edge -->
+	</item>
+	<item>
+		<ingredient id="5648" count="1"/><!-- dark_legion_s_edge_health -->
+		<production id="2500" count="1"/><!-- dark_legion_s_edge -->
+	</item>
+	<item>
+		<ingredient id="5649" count="1"/><!-- dark_legion_s_edge_rsk_focus -->
+		<production id="2500" count="1"/><!-- dark_legion_s_edge -->
+	</item>
+	<item>
+		<ingredient id="6581" count="1"/><!-- forgotten_blade_haste -->
+		<production id="6364" count="1"/><!-- forgotten_blade -->
+	</item>
+	<item>
+		<ingredient id="6582" count="1"/><!-- forgotten_blade_health -->
+		<production id="6364" count="1"/><!-- forgotten_blade -->
+	</item>
+	<item>
+		<ingredient id="6583" count="1"/><!-- forgotten_blade_focus -->
+		<production id="6364" count="1"/><!-- forgotten_blade -->
+	</item>
+	<item>
+		<ingredient id="6584" count="1"/><!-- basalt_battlehammer_hpdrain -->
+		<production id="6365" count="1"/><!-- basalt_battlehammer -->
+	</item>
+	<item>
+		<ingredient id="6585" count="1"/><!-- basalt_battlehammer_health -->
+		<production id="6365" count="1"/><!-- basalt_battlehammer -->
+	</item>
+	<item>
+		<ingredient id="6586" count="1"/><!-- basalt_battlehammer_hpregen -->
+		<production id="6365" count="1"/><!-- basalt_battlehammer -->
+	</item>
+	<item>
+		<ingredient id="6587" count="1"/><!-- imperial_staff_magicpower -->
+		<production id="6366" count="1"/><!-- imperial_staff -->
+	</item>
+	<item>
+		<ingredient id="6588" count="1"/><!-- imperial_staff_mpregen -->
+		<production id="6366" count="1"/><!-- imperial_staff -->
+	</item>
+	<item>
+		<ingredient id="6589" count="1"/><!-- imperial_staff_magichold -->
+		<production id="6366" count="1"/><!-- imperial_staff -->
+	</item>
+	<item>
+		<ingredient id="6590" count="1"/><!-- angel_slayer_crt_damage -->
+		<production id="6367" count="1"/><!-- angel_slayer -->
+	</item>
+	<item>
+		<ingredient id="6591" count="1"/><!-- angel_slayer_hpdrain -->
+		<production id="6367" count="1"/><!-- angel_slayer -->
+	</item>
+	<item>
+		<ingredient id="6592" count="1"/><!-- angel_slayer_haste -->
+		<production id="6367" count="1"/><!-- angel_slayer -->
+	</item>
+	<item>
+		<ingredient id="7576" count="1"/><!-- draconic_bow_cheapshot -->
+		<production id="7575" count="1"/><!-- draconic_bow -->
+	</item>
+	<item>
+		<ingredient id="7577" count="1"/><!-- draconic_bow_focus -->
+		<production id="7575" count="1"/><!-- draconic_bow -->
+	</item>
+	<item>
+		<ingredient id="7578" count="1"/><!-- draconic_bow_crt_slow -->
+		<production id="7575" count="1"/><!-- draconic_bow -->
+	</item>
+	<item>
+		<ingredient id="6593" count="1"/><!-- shining_bow_cheapshot -->
+		<production id="6368" count="1"/><!-- shining_bow -->
+	</item>
+	<item>
+		<ingredient id="6594" count="1"/><!-- shining_bow_focus -->
+		<production id="6368" count="1"/><!-- shining_bow -->
+	</item>
+	<item>
+		<ingredient id="6595" count="1"/><!-- shining_bow_crt_slow -->
+		<production id="6368" count="1"/><!-- shining_bow -->
+	</item>
+	<item>
+		<ingredient id="6596" count="1"/><!-- dragon_hunter_axe_hpregen -->
+		<production id="6369" count="1"/><!-- dragon_hunter_axe -->
+	</item>
+	<item>
+		<ingredient id="6597" count="1"/><!-- dragon_hunter_axe_health -->
+		<production id="6369" count="1"/><!-- dragon_hunter_axe -->
+	</item>
+	<item>
+		<ingredient id="6598" count="1"/><!-- dragon_hunter_axe_hpdrain -->
+		<production id="6369" count="1"/><!-- dragon_hunter_axe -->
+	</item>
+	<item>
+		<ingredient id="6599" count="1"/><!-- saint_spear_health -->
+		<production id="6370" count="1"/><!-- saint_spear -->
+	</item>
+	<item>
+		<ingredient id="6600" count="1"/><!-- saint_spear_guidance -->
+		<production id="6370" count="1"/><!-- saint_spear -->
+	</item>
+	<item>
+		<ingredient id="6601" count="1"/><!-- saint_spear_haste -->
+		<production id="6370" count="1"/><!-- saint_spear -->
+	</item>
+	<item>
+		<ingredient id="6602" count="1"/><!-- demon_splinter_focus -->
+		<production id="6371" count="1"/><!-- demon_splinter -->
+	</item>
+	<item>
+		<ingredient id="6603" count="1"/><!-- demon_splinter_health -->
+		<production id="6371" count="1"/><!-- demon_splinter -->
+	</item>
+	<item>
+		<ingredient id="6604" count="1"/><!-- demon_splinter_crt_stun -->
+		<production id="6371" count="1"/><!-- demon_splinter -->
+	</item>
+	<item>
+		<ingredient id="6605" count="1"/><!-- heavens_divider_haste -->
+		<production id="6372" count="1"/><!-- heavens_divider -->
+	</item>
+	<item>
+		<ingredient id="6606" count="1"/><!-- heavens_divider_health -->
+		<production id="6372" count="1"/><!-- heavens_divider -->
+	</item>
+	<item>
+		<ingredient id="6607" count="1"/><!-- heavens_divider_focus -->
+		<production id="6372" count="1"/><!-- heavens_divider -->
+	</item>
+	<item>
+		<ingredient id="6608" count="1"/><!-- arcana_mace_acumen -->
+		<production id="6579" count="1"/><!-- arcana_mace -->
+	</item>
+	<item>
+		<ingredient id="6609" count="1"/><!-- arcana_mace_mpregen -->
+		<production id="6579" count="1"/><!-- arcana_mace -->
+	</item>
+	<item>
+		<ingredient id="6610" count="1"/><!-- arcana_mace_manaup -->
+		<production id="6579" count="1"/><!-- arcana_mace -->
+	</item>
+	<item>
+		<ingredient id="8121" count="1"/><!-- dwarven_hammer_anger -->
+		<production id="7897" count="1"/><!-- dwarven_hammer -->
+	</item>
+	<item>
+		<ingredient id="8120" count="1"/><!-- dwarven_hammer_health -->
+		<production id="7897" count="1"/><!-- dwarven_hammer -->
+	</item>
+	<item>
+		<ingredient id="8122" count="1"/><!-- dwarven_hammer_crt_bleed -->
+		<production id="7897" count="1"/><!-- dwarven_hammer -->
+	</item>
+	<item>
+		<ingredient id="8138" count="1"/><!-- ecliptic_axe_conversion -->
+		<production id="7891" count="1"/><!-- ecliptic_axe -->
+	</item>
+	<item>
+		<ingredient id="8139" count="1"/><!-- ecliptic_axe_magic_power -->
+		<production id="7891" count="1"/><!-- ecliptic_axe -->
+	</item>
+	<item>
+		<ingredient id="8140" count="1"/><!-- ecliptic_axe_magic_hold -->
+		<production id="7891" count="1"/><!-- ecliptic_axe -->
+	</item>
+	<item>
+		<ingredient id="8114" count="1"/><!-- ecliptic_sword_empower -->
+		<production id="7888" count="1"/><!-- ecliptic_sword -->
+	</item>
+	<item>
+		<ingredient id="8115" count="1"/><!-- ecliptic_sword_magic_power -->
+		<production id="7888" count="1"/><!-- ecliptic_sword -->
+	</item>
+	<item>
+		<ingredient id="8116" count="1"/><!-- ecliptic_sword_magic_silence -->
+		<production id="7888" count="1"/><!-- ecliptic_sword -->
+	</item>
+	<item>
+		<ingredient id="8125" count="1"/><!-- karik_horn_crt_drain -->
+		<production id="7898" count="1"/><!-- karik_horn -->
+	</item>
+	<item>
+		<ingredient id="8124" count="1"/><!-- karik_horn_haste -->
+		<production id="7898" count="1"/><!-- karik_horn -->
+	</item>
+	<item>
+		<ingredient id="8123" count="1"/><!-- karik_horn_focus -->
+		<production id="7898" count="1"/><!-- karik_horn -->
+	</item>
+	<item>
+		<ingredient id="8111" count="1"/><!-- mysterious_sword_acumen -->
+		<production id="7887" count="1"/><!-- mysterious_sword -->
+	</item>
+	<item>
+		<ingredient id="8112" count="1"/><!-- mysterious_sword_magic_power -->
+		<production id="7887" count="1"/><!-- mysterious_sword -->
+	</item>
+	<item>
+		<ingredient id="8113" count="1"/><!-- mysterious_sword_magic_weakness -->
+		<production id="7887" count="1"/><!-- mysterious_sword -->
+	</item>
+	<item>
+		<ingredient id="8102" count="1"/><!-- pa_agrian_sword_focus -->
+		<production id="7882" count="1"/><!-- pa_agrian_sword -->
+	</item>
+	<item>
+		<ingredient id="8103" count="1"/><!-- pa_agrian_sword_health -->
+		<production id="7882" count="1"/><!-- pa_agrian_sword -->
+	</item>
+	<item>
+		<ingredient id="8104" count="1"/><!-- pa_agrian_sword_crt_drain -->
+		<production id="7882" count="1"/><!-- pa_agrian_sword -->
+	</item>
+	<item>
+		<ingredient id="8105" count="1"/><!-- guardian_sword_crt_drain -->
+		<production id="7883" count="1"/><!-- guardian_sword -->
+	</item>
+	<item>
+		<ingredient id="8106" count="1"/><!-- guardian_sword_health -->
+		<production id="7883" count="1"/><!-- guardian_sword -->
+	</item>
+	<item>
+		<ingredient id="8107" count="1"/><!-- guardian_sword_crt_bleed -->
+		<production id="7883" count="1"/><!-- guardian_sword -->
+	</item>
+	<item>
+		<ingredient id="8129" count="1"/><!-- ice_storm_hammer_focus -->
+		<production id="7900" count="1"/><!-- ice_storm_hammer -->
+	</item>
+	<item>
+		<ingredient id="8130" count="1"/><!-- ice_storm_hammer_anger -->
+		<production id="7900" count="1"/><!-- ice_storm_hammer -->
+	</item>
+	<item>
+		<ingredient id="8131" count="1"/><!-- ice_storm_hammer_crt_bleed -->
+		<production id="7900" count="1"/><!-- ice_storm_hammer -->
+	</item>
+	<item>
+		<ingredient id="8144" count="1"/><!-- kaim_vanul_s_bones_mana_up -->
+		<production id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+	</item>
+	<item>
+		<ingredient id="8145" count="1"/><!-- kaim_vanul_s_bones_magic_silence -->
+		<production id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+	</item>
+	<item>
+		<ingredient id="8146" count="1"/><!-- kaim_vanul_s_bones_conversion -->
+		<production id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+	</item>
+	<item>
+		<ingredient id="8141" count="1"/><!-- spell_breaker_acumen -->
+		<production id="7892" count="1"/><!-- spell_breaker -->
+	</item>
+	<item>
+		<ingredient id="8142" count="1"/><!-- spell_breaker_magic_mental_shield -->
+		<production id="7892" count="1"/><!-- spell_breaker -->
+	</item>
+	<item>
+		<ingredient id="8143" count="1"/><!-- spell_breaker_magic_hold -->
+		<production id="7892" count="1"/><!-- spell_breaker -->
+	</item>
+	<item>
+		<ingredient id="8132" count="1"/><!-- star_buster_health -->
+		<production id="7901" count="1"/><!-- star_buster -->
+	</item>
+	<item>
+		<ingredient id="8133" count="1"/><!-- star_buster_haste -->
+		<production id="7901" count="1"/><!-- star_buster -->
+	</item>
+	<item>
+		<ingredient id="8134" count="1"/><!-- star_buster_rsk_focus -->
+		<production id="7901" count="1"/><!-- star_buster -->
+	</item>
+	<item>
+		<ingredient id="8117" count="1"/><!-- wizard_s_tear_acumen -->
+		<production id="7889" count="1"/><!-- wizard_s_tear -->
+	</item>
+	<item>
+		<ingredient id="8118" count="1"/><!-- wizard_s_tear_magic_power -->
+		<production id="7889" count="1"/><!-- wizard_s_tear -->
+	</item>
+	<item>
+		<ingredient id="8119" count="1"/><!-- wizard_s_tear_conversion -->
+		<production id="7889" count="1"/><!-- wizard_s_tear -->
+	</item>
+	<item>
+		<ingredient id="8794" count="1"/><!-- barakiel_axe_health -->
+		<production id="8680" count="1"/><!-- barakiel_axe -->
+	</item>
+	<item>
+		<ingredient id="8795" count="1"/><!-- barakiel_axe_haste -->
+		<production id="8680" count="1"/><!-- barakiel_axe -->
+	</item>
+	<item>
+		<ingredient id="8796" count="1"/><!-- barakiel_axe_focus -->
+		<production id="8680" count="1"/><!-- barakiel_axe -->
+	</item>
+	<item>
+		<ingredient id="8797" count="1"/><!-- behemoth_tuning_fork_focus -->
+		<production id="8681" count="1"/><!-- behemoth_tuning_fork -->
+	</item>
+	<item>
+		<ingredient id="8798" count="1"/><!-- behemoth_tuning_fork_health -->
+		<production id="8681" count="1"/><!-- behemoth_tuning_fork -->
+	</item>
+	<item>
+		<ingredient id="8799" count="1"/><!-- behemoth_tuning_fork_anger -->
+		<production id="8681" count="1"/><!-- behemoth_tuning_fork -->
+	</item>
+	<item>
+		<ingredient id="8818" count="1"/><!-- daimon_crystal_mana_up -->
+		<production id="8688" count="1"/><!-- daimon_crystal -->
+	</item>
+	<item>
+		<ingredient id="8819" count="1"/><!-- daimon_crystal_acumen -->
+		<production id="8688" count="1"/><!-- daimon_crystal -->
+	</item>
+	<item>
+		<ingredient id="8820" count="1"/><!-- daimon_crystal_mental_shield -->
+		<production id="8688" count="1"/><!-- daimon_crystal -->
+	</item>
+	<item>
+		<ingredient id="8126" count="1"/><!-- destroyer_hammer_health -->
+		<production id="7899" count="1"/><!-- destroyer_hammer -->
+	</item>
+	<item>
+		<ingredient id="8127" count="1"/><!-- destroyer_hammer_haste -->
+		<production id="7899" count="1"/><!-- destroyer_hammer -->
+	</item>
+	<item>
+		<ingredient id="8128" count="1"/><!-- destroyer_hammer_crt_drain -->
+		<production id="7899" count="1"/><!-- destroyer_hammer -->
+	</item>
+	<item>
+		<ingredient id="8135" count="1"/><!-- doom_crusher_health -->
+		<production id="7902" count="1"/><!-- doom_crusher -->
+	</item>
+	<item>
+		<ingredient id="8136" count="1"/><!-- doom_crusher_anger -->
+		<production id="7902" count="1"/><!-- doom_crusher -->
+	</item>
+	<item>
+		<ingredient id="8137" count="1"/><!-- doom_crusher_rsk_haste -->
+		<production id="7902" count="1"/><!-- doom_crusher -->
+	</item>
+	<item>
+		<ingredient id="8150" count="1"/><!-- flaming_dragon_skull_acumen -->
+		<production id="7895" count="1"/><!-- flaming_dragon_skull -->
+	</item>
+	<item>
+		<ingredient id="8151" count="1"/><!-- flaming_dragon_skull_magic_power -->
+		<production id="7895" count="1"/><!-- flaming_dragon_skull -->
+	</item>
+	<item>
+		<ingredient id="8152" count="1"/><!-- flaming_dragon_skull_magic_silence -->
+		<production id="7895" count="1"/><!-- flaming_dragon_skull -->
+	</item>
+	<item>
+		<ingredient id="8108" count="1"/><!-- infernal_master_haste -->
+		<production id="7884" count="1"/><!-- infernal_master -->
+	</item>
+	<item>
+		<ingredient id="8109" count="1"/><!-- infernal_master_crt_damage -->
+		<production id="7884" count="1"/><!-- infernal_master -->
+	</item>
+	<item>
+		<ingredient id="8110" count="1"/><!-- infernal_master_focus -->
+		<production id="7884" count="1"/><!-- infernal_master -->
+	</item>
+	<item>
+		<ingredient id="8800" count="1"/><!-- naga_storm_focus -->
+		<production id="8682" count="1"/><!-- naga_storm -->
+	</item>
+	<item>
+		<ingredient id="8801" count="1"/><!-- naga_storm_crt_damage -->
+		<production id="8682" count="1"/><!-- naga_storm -->
+	</item>
+	<item>
+		<ingredient id="8802" count="1"/><!-- naga_storm_backblow -->
+		<production id="8682" count="1"/><!-- naga_storm -->
+	</item>
+	<item>
+		<ingredient id="8806" count="1"/><!-- shyeed_bow_cheapshot -->
+		<production id="8684" count="1"/><!-- shyeed_bow -->
+	</item>
+	<item>
+		<ingredient id="8807" count="1"/><!-- shyeed_bow_focus -->
+		<production id="8684" count="1"/><!-- shyeed_bow -->
+	</item>
+	<item>
+		<ingredient id="8808" count="1"/><!-- shyeed_bow_quick_recovery -->
+		<production id="8684" count="1"/><!-- shyeed_bow -->
+	</item>
+	<item>
+		<ingredient id="8788" count="1"/><!-- sirra_blade_haste -->
+		<production id="8678" count="1"/><!-- sirra_blade -->
+	</item>
+	<item>
+		<ingredient id="8789" count="1"/><!-- sirra_blade_health -->
+		<production id="8678" count="1"/><!-- sirra_blade -->
+	</item>
+	<item>
+		<ingredient id="8790" count="1"/><!-- sirra_blade_crt_poison -->
+		<production id="8678" count="1"/><!-- sirra_blade -->
+	</item>
+	<item>
+		<ingredient id="8809" count="1"/><!-- sobekk_hurricane_rsk_haste -->
+		<production id="8685" count="1"/><!-- sobekk_hurricane -->
+	</item>
+	<item>
+		<ingredient id="8810" count="1"/><!-- sobekk_hurricane_haste -->
+		<production id="8685" count="1"/><!-- sobekk_hurricane -->
+	</item>
+	<item>
+		<ingredient id="8811" count="1"/><!-- sobekk_hurricane_crt_drain -->
+		<production id="8685" count="1"/><!-- sobekk_hurricane -->
+	</item>
+	<item>
+		<ingredient id="8147" count="1"/><!-- spiritual_eye_mana_up -->
+		<production id="7894" count="1"/><!-- spiritual_eye -->
+	</item>
+	<item>
+		<ingredient id="8148" count="1"/><!-- spiritual_eye_magic_poison -->
+		<production id="7894" count="1"/><!-- spiritual_eye -->
+	</item>
+	<item>
+		<ingredient id="8149" count="1"/><!-- spiritual_eye_acumen -->
+		<production id="7894" count="1"/><!-- spiritual_eye -->
+	</item>
+	<item>
+		<ingredient id="8791" count="1"/><!-- sword_of_ipos_focus -->
+		<production id="8679" count="1"/><!-- sword_of_ipos -->
+	</item>
+	<item>
+		<ingredient id="8792" count="1"/><!-- sword_of_ipos_haste -->
+		<production id="8679" count="1"/><!-- sword_of_ipos -->
+	</item>
+	<item>
+		<ingredient id="8793" count="1"/><!-- sword_of_ipos_health -->
+		<production id="8679" count="1"/><!-- sword_of_ipos -->
+	</item>
+	<item>
+		<ingredient id="8812" count="1"/><!-- themis_tongue_mana_up -->
+		<production id="8686" count="1"/><!-- themis_tongue -->
+	</item>
+	<item>
+		<ingredient id="8813" count="1"/><!-- themis_tongue_mental_shield -->
+		<production id="8686" count="1"/><!-- themis_tongue -->
+	</item>
+	<item>
+		<ingredient id="8814" count="1"/><!-- themis_tongue_magic_focus -->
+		<production id="8686" count="1"/><!-- themis_tongue -->
+	</item>
+	<item>
+		<ingredient id="8803" count="1"/><!-- tiphon_spear_crt_stun -->
+		<production id="8683" count="1"/><!-- tiphon_spear -->
+	</item>
+	<item>
+		<ingredient id="8804" count="1"/><!-- tiphon_spear_longblow -->
+		<production id="8683" count="1"/><!-- tiphon_spear -->
+	</item>
+	<item>
+		<ingredient id="8805" count="1"/><!-- tiphon_spear_wideblow -->
+		<production id="8683" count="1"/><!-- tiphon_spear -->
+	</item>
+</list>

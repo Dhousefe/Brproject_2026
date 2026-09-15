@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<npcs>
+		<npc>31255</npc><!-- Buzz the Cat (Event Manager) -->
+	</npcs>
+	<item>
+		<ingredient id="6391" count="2"/><!-- gourd_nectar1 -->
+		<production id="4202" count="1"/><!-- chrono_cithara -->
+	</item>
+	<item>
+		<ingredient id="6391" count="2"/><!-- gourd_nectar1 -->
+		<production id="5133" count="1"/><!-- chrono_tambourine -->
+	</item>
+	<item>
+		<ingredient id="6391" count="2"/><!-- gourd_nectar1 -->
+		<production id="5817" count="1"/><!-- chrono_campana -->
+	</item>
+	<item>
+		<ingredient id="6391" count="2"/><!-- gourd_nectar1 -->
+		<production id="7058" count="1"/><!-- chrono_darbuka -->
+	</item>
+	<item>
+		<ingredient id="6391" count="2"/><!-- gourd_nectar1 -->
+		<production id="8350" count="1"/><!-- chrono_maracas -->
+	</item>
+</list>

@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="365" count="1"/><!-- dark_crystal_breastplate -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2383" count="1"/><!-- majestic_plate_armor -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="374" count="1"/><!-- armor_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2382" count="1"/><!-- tallum_plate_armor -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2385" count="1"/><!-- dark_crystal_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2394" count="1"/><!-- leather_mail_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2395" count="1"/><!-- majestic_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2393" count="1"/><!-- tallum_leather_mail -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2407" count="1"/><!-- dark_crystal_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2409" count="1"/><!-- majestic_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2408" count="1"/><!-- robe_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2400" count="1"/><!-- tallum_tunic -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="388" count="1"/><!-- dark_crystal_gaiters -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2389" count="1"/><!-- legging_of_dark_crystal -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2405" count="1"/><!-- tallum_hose -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="512" count="1"/><!-- dark_crystal_helmet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2419" count="1"/><!-- magestic_circlet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2418" count="1"/><!-- helm_of_nightmare -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="547" count="1"/><!-- tallum_bonnet -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5765" count="1"/><!-- dark_crystal_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5766" count="1"/><!-- dark_crystal_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5767" count="1"/><!-- dark_crystal_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5768" count="1"/><!-- tallum_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5769" count="1"/><!-- tallum_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5770" count="1"/><!-- tallum_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5771" count="1"/><!-- gloves_of_nightmare_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5772" count="1"/><!-- gloves_of_nightmare_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5773" count="1"/><!-- gloves_of_nightmare_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5774" count="1"/><!-- magestic_gloves_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5775" count="1"/><!-- magestic_gloves_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5776" count="1"/><!-- magestic_gloves_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5777" count="1"/><!-- dark_crystal_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5778" count="1"/><!-- dark_crystal_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5779" count="1"/><!-- dark_crystal_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5780" count="1"/><!-- tallum_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5781" count="1"/><!-- tallum_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5782" count="1"/><!-- tallum_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5783" count="1"/><!-- boots_of_nightmare_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5784" count="1"/><!-- boots_of_nightmare_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5785" count="1"/><!-- boots_of_nightmare_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5786" count="1"/><!-- magestic_boots_for_heavy -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5787" count="1"/><!-- magestic_boots_for_light -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="5788" count="1"/><!-- magestic_boots_for_robe -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2498" count="1"/><!-- shield_of_nightmare -->
+	</item>
+</list>

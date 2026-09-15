@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>31805</npc><!-- Adventure Guildsman -->
+		<npc>31806</npc><!-- Adventure Guildsman -->
+		<npc>31807</npc><!-- Adventure Guildsman -->
+		<npc>31808</npc><!-- Adventure Guildsman -->
+	</npcs>
+	<item>
+		<ingredient id="8158" count="204"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="56"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="224"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="112"/><!-- false_nucleus_of_life_c -->
+		<production id="263" count="1"/><!-- chakram -->
+	</item>
+	<item>
+		<ingredient id="8158" count="256"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="70"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="280"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="140"/><!-- false_nucleus_of_life_c -->
+		<production id="4233" count="1"/><!-- knuckle_dust -->
+	</item>
+	<item>
+		<ingredient id="8158" count="414"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="112"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="452"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="226"/><!-- false_nucleus_of_life_c -->
+		<production id="265" count="1"/><!-- fist_blade -->
+	</item>
+	<item>
+		<ingredient id="8158" count="590"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8161" count="160"/><!-- dragon_s_heart_c -->
+		<ingredient id="8164" count="644"/><!-- egg_of_earth_c -->
+		<ingredient id="8167" count="322"/><!-- false_nucleus_of_life_c -->
+		<production id="266" count="1"/><!-- great_pata -->
+	</item>
+	<item>
+		<ingredient id="8159" count="772"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="232"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="772"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="540"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="464"/><!-- angel_s_soul_b -->
+		<production id="267" count="1"/><!-- arthro_nail -->
+	</item>
+	<item>
+		<ingredient id="8159" count="1236"/><!-- skull_of_the_dead_b -->
+		<ingredient id="8162" count="372"/><!-- dragon_s_heart_b -->
+		<ingredient id="8165" count="1236"/><!-- egg_of_earth_b -->
+		<ingredient id="8168" count="864"/><!-- false_nucleus_of_life_b -->
+		<ingredient id="8171" count="744"/><!-- angel_s_soul_b -->
+		<production id="268" count="1"/><!-- bellion_cestus -->
+	</item>
+	<item>
+		<ingredient id="8158" count="14"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="16"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="631" count="1"/><!-- eldarake -->
+	</item>
+	<item>
+		<ingredient id="8158" count="14"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="16"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="2495" count="1"/><!-- chain_shield -->
+	</item>
+	<item>
+		<ingredient id="8158" count="16"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="18"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="2"/><!-- angel_s_soul_c -->
+		<production id="2496" count="1"/><!-- dwarven_chain_shield -->
+	</item>
+	<item>
+		<ingredient id="8158" count="30"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="32"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="6"/><!-- angel_s_soul_c -->
+		<production id="103" count="1"/><!-- tower_shield -->
+	</item>
+	<item>
+		<ingredient id="8158" count="30"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="32"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="6"/><!-- angel_s_soul_c -->
+		<production id="107" count="1"/><!-- composite_shield -->
+	</item>
+	<item>
+		<ingredient id="8158" count="42"/><!-- skull_of_the_dead_c -->
+		<ingredient id="8164" count="46"/><!-- egg_of_earth_c -->
+		<ingredient id="8170" count="8"/><!-- angel_s_soul_c -->
+		<production id="2497" count="1"/><!-- full_plate_shield -->
+	</item>
+</list>

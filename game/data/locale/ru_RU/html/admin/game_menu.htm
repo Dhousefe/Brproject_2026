@@ -1,0 +1,52 @@
+<html><title>Меню игры</title><body><center>
+	<table width=260>
+		<tr>
+			<td><button value="Главная" action="bypass -h admin_admin" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Игра" action="bypass -h admin_admin 2" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Эффекты" action="bypass -h admin_admin 3" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+			<td><button value="Сервер" action="bypass -h admin_admin 4" width=65 height=19 back="L2UI_ch3.smallbutton2_over" fore="L2UI_ch3.smallbutton2"></td>
+		</tr>
+	</table>
+	<img src="l2ui.SquareWhite" width=275 height=1><br>
+	<table width=240>
+		<tr>
+			<td>Поиск</td>
+			<td><edit var="menu_command" width=120 height=15></td>
+			<td><button value="Помощь" action="bypass -h admin_help" width=45 height=15 back="sek.cbui94" fore="sek.cbui92"></td>
+		</tr>
+	</table><br>
+	Клан
+	<table width=240>
+		<tr>
+			<td><button value="Создать" action="bypass -h admin_pledge create $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Удалить" action="bypass -h admin_pledge dismiss $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Уровень" action="bypass -h admin_pledge level $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+		<tr>
+			<td><button value="Репутация" action="bypass -h admin_pledge rep $menu_command" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Навыки" action="bypass -h admin_clan_skill" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Информация" action="bypass -h admin_pledge info" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table><br>
+	Системы
+	<table width=240>
+		<tr>
+			<td><button value="Замки" action="bypass -h admin_siege" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="КланХоллы" action="bypass -h admin_ch" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Усадьбы" action="bypass -h admin_manor" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+		<tr>
+			<td><button value="Прокл. Ор." action="bypass -h admin_cw" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Марш. Патр." action="bypass -h admin_show walker" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="Заверш. Оли." action="bypass -h admin_endoly" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table><br>
+	События
+	<table width=240>
+		<tr>
+			<td><button value="Стандарт." action="bypass -h admin_link events/default.htm" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="События" action="bypass -h admin_link events/events.htm" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+			<td><button value="" action="" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal"></td>
+		</tr>
+	</table>
+</center></body></html>

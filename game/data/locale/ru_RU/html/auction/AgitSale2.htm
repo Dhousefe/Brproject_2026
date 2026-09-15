@@ -1,0 +1,22 @@
+<html><body>
+	Стандартная системная цена для этого кланхолла составляет <font color="aaccff">%AGIT_LAST_PRICE%</font> аден, а последняя торговая цена составляла <font color="aaccff">%AGIT_LAST_PRICE%</font> аден.<br >
+	Сумма, полученная в конце аукциона, — это сумма, оставшаяся после вычета <font color="LEVEL"> налога с транзакции (10 %) </font> из суммы успешного предложения.<br>
+	На каком уровне вы хотели бы установить стандартную цену аукциона (минимальную цену предложения)?
+	<table width=270>
+		<tr>
+			<td width=110><edit var=minbid width=110 type=number></td>
+			<td width=160>аден</td>
+		</tr>
+	</table><br>
+	Сколько дней вы хотите, чтобы аукцион длился?<br>
+	<combobox width=50 var=day list="7;3;1"><br>
+	Напишите объяснение кланхолла. <multiedit var="comment" width=270>
+	<img src="L2UI.SquareBlank" width=270 height=10> <img src="L2UI.SquareWhite" width=270 height=1> <img src="L2UI.SquareBlank" width=270 height=5>
+	<table width=270>
+		<tr>
+			<td width=130></td>
+			<td width=70 align=center><button action="%AGIT_LINK_BACK%" value="Назад" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td>
+			<td width=70 align=center><button action="bypass -h npc_%objectId%_auction $day $minbid" value="Продать" width=70 height=21 back="L2UI.DefaultButton_click" fore="L2UI.DefaultButton"></td> 
+		</tr>
+	</table>
+</body></html>

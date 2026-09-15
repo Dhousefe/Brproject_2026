@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+
+	<!-- MOVEMENT -->
+	<aCar name="admin_move_debug" accessLevel="7" params="" desc="Show the movement debug information."/>
+	<aCar name="admin_move_test" accessLevel="7" params="" desc="Test the movement system."/>
+	<aCar name="admin_move_cache" accessLevel="7" params="" desc="Invalidate the movement cache."/>
+	<aCar name="admin_move_dbg" accessLevel="7" params="" desc="Toggle the movement debug mode."/>
+	<aCar name="admin_path_dbg" accessLevel="7" params="" desc="Toggle the pathfinding debug mode."/>
+	
+	<!-- Farm Event e drops -->
+	<aCar name="admin_farm_event" accessLevel="7" params="" desc="Evento de farm."/>
+
+	<!-- SUMMON MOB ITEM -->
+	<aCar name="admin_reload_summon_items" accessLevel="7" params="" desc="Reload the summon items configuration."/>
+	<aCar name="admin_reload_summon_mobs" accessLevel="7" params="" desc="Reload the summon mobs configuration."/>
+
+	<!-- GEOENGINE -->
+	<aCar name="admin_geo" accessLevel="7" params="bug|pos|see|move|fly" desc="Run one of the geoengine related checks."/>
+	<aCar name="admin_path" accessLevel="7" params="find|info" desc="Run one of the pathfinding related checks."/>
+
+	<!-- PATHFINDING -->
+	<aCar name="admin_pathfinding" accessLevel="7" params="stats|clear" desc="Run one of the pathfinding related checks."/>
+	<aCar name="admin_pf_stats" accessLevel="7" params="" desc="Show the pathfinding stats."/>
+	<aCar name="admin_pf_clear" accessLevel="7" params="" desc="Clear the pathfinding cache."/>
+
+	<!-- L2BR Pathfinder (.l2br) -->
+	<aCar name="admin_l2br_generate" accessLevel="7" params="regionX regionY" desc="Generate .l2br file for region."/>
+	<aCar name="admin_l2br_generate_all" accessLevel="7" params="[force]" desc="Generate .l2br files for all regions."/>
+	<aCar name="admin_l2br_info" accessLevel="7" params="regionX regionY" desc="Show information about region data sources."/>
+	<aCar name="admin_l2br_status" accessLevel="7" params="" desc="Show L2BR status and metrics."/>
+	<aCar name="admin_l2br_reload" accessLevel="7" params="regionX regionY" desc="Reload L2BR region."/>
+	<aCar name="admin_l2br_unload" accessLevel="7" params="[regionX regionY]" desc="Unload L2BR region or all."/>
+	<aCar name="admin_l2br_benchmark" accessLevel="7" params="" desc="Run L2BR pathfinding benchmark."/>
+	<aCar name="admin_l2br_config" accessLevel="7" params="[key value]" desc="Show or set L2BR config."/>
+	<aCar name="admin_l2br_help" accessLevel="7" params="" desc="Show L2BR commands help."/>
+
+	<!-- L2j Roboto -->
+	<aCar name="admin_fakes" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	<aCar name="admin_spawnrandom" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	<aCar name="admin_spawnrandomgrupe" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	<aCar name="admin_findfake" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	<aCar name="admin_deletefake" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	
+	<!-- ZONE CREATE -->
+	<aCar name="admin_createzone" accessLevel="7"/>
+	<aCar name="admin_setType" accessLevel="7"/>
+	<aCar name="admin_saveLoc" accessLevel="7"/>
+	<aCar name="admin_setRad" accessLevel="7"/>
+	<aCar name="admin_reset" accessLevel="7"/>
+	<aCar name="admin_removeLoc" accessLevel="7"/>
+	<aCar name="admin_storeLocs" accessLevel="7"/>
+	<aCar name="admin_setZoneType" accessLevel="7"/>
+	
+	<aCar name="admin_hwid_ban" accessLevel="7" />
+	
+	<!-- ADMIN -->
+	<aCar name="admin_admin" accessLevel="7" params="[1-4]" desc="Go through the different admin panels."/>
+	<aCar name="admin_buy" accessLevel="7" params="[id]" desc="Open the GM Shop panel, or the associated BuyList."/>
+	<aCar name="admin_camera" accessLevel="7" params="" desc="Toggle the CameraMode."/>
+	<aCar name="admin_gmlist" accessLevel="7" params="" desc="Toggle you from /gmlist results."/>
+	<aCar name="admin_gmoff" accessLevel="7" params="[duration]" desc="Toggle off your GM status, 1min by default."/>
+	<aCar name="admin_help" accessLevel="7" params="[page]" desc="Open this panel."/>
+	<aCar name="admin_link" accessLevel="7" params="file name" desc="Open the proper admin htm."/>
+	<aCar name="admin_msg" accessLevel="7" params="id" desc="Send the associated SystemMessage id."/>
+	<aCar name="admin_show" accessLevel="7" params="clear|door|html|manor|move|restart|path|walker" desc="Show visual paths. For html, show the complete folder."/>
+	
+	<!-- ANNOUNCEMENTS -->
+	<aCar name="admin_announce" accessLevel="7" params="[list|all|add|add_auto|del]" desc="Open the Announcements panel."/>
+	<aCar name="admin_ann" accessLevel="7" params="message" desc="Broadcast the message, with 'Announcements:' tag."/>
+	<aCar name="admin_say" accessLevel="7" params="message" desc="Broadcast the message."/>
+	<aCar name="admin_gmchat" accessLevel="7" params="message" desc="Broadcast the message to all GMs."/>
+
+	<!-- BOOKMARK -->
+	<aCar name="admin_bk" accessLevel="7" params="[name|page]" desc="Open the Bookmark panel or register a new Bookmark."/>
+	<aCar name="admin_delbk" accessLevel="7" params="name" desc="Delete the associated Bookmark."/>
+
+	<!-- CLANHALL -->
+	<aCar name="admin_ch" accessLevel="7" params="[set|remove|open|close|teleportto|end|siege chId]" desc="Open the Clan Hall panel."/>
+
+	<!-- CURSED WEAPONS -->
+	<aCar name="admin_cw" accessLevel="7" params="[set|remove|teleportto itemid|name]" desc="Open the Cursed Weapons panel."/>
+
+	<!-- DOOR -->
+	<aCar name="admin_open" accessLevel="7" params="[doorId]" desc="Open the Door set as parameter/target."/>
+	<aCar name="admin_close" accessLevel="7" params="[doorId]" desc="Close the Door set as parameter/target."/>
+
+	<!-- EDIT CHAR -->
+	<aCar name="admin_debug" accessLevel="7" params="[name]" desc="Similar to //info for Players."/>
+	<aCar name="admin_party_info" accessLevel="7" params="[name]" desc="Show selected Player's Party infos."/>
+	<aCar name="admin_remove" accessLevel="7" params="clan_penalty|death_penalty|skill_reuse" desc="Remove the penalty from the selected target."/>
+	<aCar name="admin_reset" accessLevel="7" params="clan_graduate" desc="Reset the associated system from the selected target."/>
+	<aCar name="admin_set" accessLevel="7" params="access|class|color|exp|karma|level|name|..." desc="Set the value to the selected target."/>
+
+	<!-- EFFECTS -->
+	<aCar name="admin_abnormal" accessLevel="7" params="mask" desc="Affect your target (or you) with the abnormal effect."/>
+	<aCar name="admin_atmosphere" accessLevel="7" params="ssqinfo|sky" desc="Broadcast the given sky to everyone logged in."/>
+	<aCar name="admin_earthquake" accessLevel="7" params="intensity duration" desc="Broadcast an Earthquake effect to everyone logged in."/>
+	<aCar name="admin_effect" accessLevel="7" params="[set id level|remove id|visual id [page]]" desc="Add/remove a buff to/from selected Creature."/>
+	<aCar name="admin_gmspeed" accessLevel="7" params="[0-4]" desc="Affect you with the GM Haste skill."/>
+	<aCar name="admin_hide" accessLevel="7" params="" desc="Toggle your hide state."/>
+	<aCar name="admin_invul" accessLevel="7" params="" desc="Toggle your invincible state - effects are denied."/>
+	<aCar name="admin_jukebox" accessLevel="7" params="" desc="Open the jukebox panel."/>
+	<aCar name="admin_para" accessLevel="7" params="" desc="Paralyze on/off your target."/>
+	<aCar name="admin_play_sound" accessLevel="7" params="soundFile" desc=">Broadcast the associated client music."/>
+	<aCar name="admin_social" accessLevel="7" params="id" desc="Affect your target (or you) with the social animation."/>
+	<aCar name="admin_undying" accessLevel="7" params="" desc="Toggle your immortal state - leave you at 1 HP."/>
+
+	<!-- ENCHANT -->
+	<aCar name="admin_enchant" accessLevel="7" params="slot enchant" desc="Enchant your target's item slot."/>
+	
+	<!-- FIND -->
+	<aCar name="admin_find" accessLevel="7" params="[account|dualbox|ip|item|npc|player]" desc="Find chosen entity based on account/name/ip."/>
+
+	<!-- INFO -->
+	<aCar name="admin_info" accessLevel="7" params="[ai|aggro|desire|drop|spoil|skill|spawn|stat]" desc="Provide informations of your target."/>
+
+	<!-- ITEM -->
+	<aCar name="admin_give" accessLevel="7" params="itemId" desc="Create an Item for the selected Player."/>
+	<aCar name="admin_item" accessLevel="7" params="[coin|set]" desc="Create an Item for the selected Player."/>
+
+	<!-- KNOWNLIST -->
+	<aCar name="admin_knownlist" accessLevel="7" params="[page]" desc="Show the knownlist of the selected target."/>
+
+	<!-- MAINTENANCE -->
+	<aCar name="admin_server" accessLevel="7" params="[shutdown|restart|abort|gmonly|all|max]" desc="Run one of the server related commands."/>
+
+	<!-- MANAGE -->
+	<aCar name="admin_cancel" accessLevel="7" params="[name[radius]] - by default, your target or you" desc="Cancel all buffs from Creature(s)."/>
+	<aCar name="admin_heal" accessLevel="7" params="[name[radius]] - by default, your target or you" desc="Heal Creature(s)."/>
+	<aCar name="admin_kill" accessLevel="7" params="[name[radius]] - by default, your target or you" desc="Kill Creature(s)."/>
+	<aCar name="admin_res" accessLevel="7" params="[name[radius]] - by default, your target or you" desc="Resurrect Creature(s)."/>
+
+	<!-- MANOR -->
+	<aCar name="admin_manor" accessLevel="7" params="" desc="Open the Manor panel."/>
+
+	<!-- MOVIE MAKER -->
+	<aCar name="admin_movie" accessLevel="7" params="[play|broadcast]" desc="Open the Movie Maker panel."/>
+	<aCar name="admin_sequence" accessLevel="7" params="[add|delete|play|broadcast]" desc="Manipulate a Movie Maker's Sequence."/>
+
+	<!-- OLYMPIADS -->
+	<aCar name="admin_endoly" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_sethero" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_oly" accessLevel="7" params="[cancel|setDay|changeMonth|update|save|reset]" desc="Olympiad time manipulation for debug purpose."/>
+
+	<!-- PETITION -->
+	<aCar name="admin_petition" accessLevel="7" params="[join|reject|reset|show|unfollow|view]" desc="Open the Petition panel."/>
+	<aCar name="admin_force_peti" accessLevel="7" params="" desc="Force your target to enter in Petition mode with you."/>
+	<aCar name="admin_add_peti_chat" accessLevel="7" params="" desc="Add your target to your active Petition."/>
+
+	<!-- PLEDGE -->
+	<aCar name="admin_pledge" accessLevel="7" params="create|dismiss|info|level|rep|transfer" desc="Affect your target's Clan."/>
+
+	<!-- POLYMORPH -->
+	<aCar name="admin_polymorph" accessLevel="7" params="npcId" desc="Polymorph on/off your target (Player or Npc) into a Npc."/>
+
+	<!-- PUNISH -->
+	<aCar name="admin_ban" accessLevel="7" params="account|chat|player [name] [duration]" desc="Punish the Player or Account for the given duration."/>
+	<aCar name="admin_jail" accessLevel="7" params="[name] [duration]" desc="Jail the Player for the given duration."/>
+	<aCar name="admin_kick" accessLevel="7" params="[all|name]" desc="Kick all non-GMs Players, or the Player name/target."/>
+	<aCar name="admin_unban" accessLevel="7" params="account|chat|player [name]" desc="Lift the punishment."/>
+	<aCar name="admin_unjail" accessLevel="7" params="name" desc="Lift the jail punishment."/>
+
+	<!-- RELOAD -->
+	<aCar name="admin_reload" accessLevel="7" params="admin|announcement|config|crest|cw..." desc="Reload the proper system. Can be stacked."/>
+
+	<!-- SIEGE -->
+	<aCar name="admin_siege" accessLevel="7" params="[attack|clear|defend|end|list|start castleName]" desc="Run one of the siege related commands."/>
+	<aCar name="admin_castle" accessLevel="7" params="[set|remove|certificates|tax castleName]" desc="Run one of the castle related commands."/>
+
+	<!-- SKILL -->
+	<aCar name="admin_show_skills" accessLevel="7"/>
+	<aCar name="admin_remove_skills" accessLevel="7"/>
+	<aCar name="admin_skill_list" accessLevel="7"/>
+	<aCar name="admin_skill_index" accessLevel="7"/>
+	<aCar name="admin_add_skill" accessLevel="7"/>
+	<aCar name="admin_remove_skill" accessLevel="7"/>
+	<aCar name="admin_give_all_skills" accessLevel="7"/>
+	<aCar name="admin_remove_all_skills" accessLevel="7"/>
+	<aCar name="admin_show_skills_by_class" accessLevel="7"/>
+	<aCar name="admin_learn_skill" accessLevel="7"/>
+	<aCar name="admin_clan_skill" accessLevel="7"/>
+
+	<!-- SPAWN -->
+	<aCar name="admin_list_spawns" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_show_spawns" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_spawn" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_spawn_index" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_unspawnall" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_respawnall" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_npc_index" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_spawn_once" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_show_npcs" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_delete" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_spawnfence" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_deletefence" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_listfence" accessLevel="7" params="" desc=""/>
+
+	<!-- SPAWN -->
+	<aCar name="admin_maker" accessLevel="7" params="[delete|respawn|switch|scripts|spawn [name]]" desc="Open the Maker panel."/>
+	<aCar name="admin_terr" accessLevel="7" params="[go|visual|visual_clear [name]]" desc="Run one Territory-based command."/>
+	<aCar name="admin_spawn_event" accessLevel="7" params="name" desc="Spawn NPCs of Makers with given event name."/>
+	<aCar name="admin_despawn_event" accessLevel="7" params="name" desc="Despawn NPCs of Makers with given event name."/>
+ 
+ 	<!-- SUMMON -->
+	<aCar name="admin_ride" accessLevel="7" params="1|2 or strider|wyvern" desc="Ride the associated mount. Most checks are undone."/>
+	<aCar name="admin_unride" accessLevel="7" params="" desc="Force dismount your mount."/>
+	<aCar name="admin_unsummon" accessLevel="7" params="" desc="Unsummon the targeted Summon."/>
+	<aCar name="admin_summon" accessLevel="7" params="food|inventory|level" desc=""/>
+ 
+	<!-- TARGET -->
+	<aCar name="admin_target" accessLevel="7" params="name" desc="Target the specified Player."/>
+
+	<!-- TELEPORT -->
+	<aCar name="admin_instant_move" accessLevel="7" params="[0|1|2]" desc="Teleport you on mouse click (0 stop, 1 once, 2 forever)."/>
+	<aCar name="admin_recall" accessLevel="7" params="[party|clan] name" desc="Recall the Player (can be also Party / Clan) to you."/>
+	<aCar name="admin_sendhome" accessLevel="7" params="[name]" desc="Send the Player (name, target or you) to nearest town."/>
+	<aCar name="admin_tele" accessLevel="7" params="" desc="Open the Teleport panel."/>
+	<aCar name="admin_teleport" accessLevel="7" params="X Y [Z]" desc="Teleport you to coords. If no Z is set, calculate it."/>
+	<aCar name="admin_teleportto" accessLevel="7" params="name" desc="Teleport you to the Player."/>
+
+	<!-- TEST -->
+	<aCar name="admin_test" accessLevel="7" params="" desc="Used to easily craft commands for debug purpose."/>
+
+	<!-- ZONE -->
+	<aCar name="admin_zone" accessLevel="7" params="[show - all|clear|id]" desc="Show the zone panel, or the zone visually."/>
+	
+	<!-- RUSaCis -->
+	<!-- CTF -->
+	<aCar name="admin_ctf_add" accessLevel="1" />
+	<aCar name="admin_ctf_remove" accessLevel="1" />
+	<aCar name="admin_ctf_advance" accessLevel="1" />
+	
+	<aCar name="admin_event_start" accessLevel="1" />
+	<aCar name="admin_event_stop" accessLevel="1" />
+	
+	<!-- DM -->
+	<aCar name="admin_dm_add" accessLevel="1" />
+	<aCar name="admin_dm_remove" accessLevel="1" />
+	<aCar name="admin_dm_advance" accessLevel="1" />
+
+	<!-- LM -->
+	<aCar name="admin_lm_add" accessLevel="1" />
+	<aCar name="admin_lm_remove" accessLevel="1" />
+	<aCar name="admin_lm_advance" accessLevel="1" />
+
+	<!-- TVT -->
+	<aCar name="admin_tvt_add" accessLevel="1" />
+	<aCar name="admin_tvt_remove" accessLevel="1" />
+	<aCar name="admin_tvt_advance" accessLevel="1" />
+
+	<!-- PREMIUM -->
+	<aCar name="admin_premium_menu" accessLevel="7" params="add|add2|add3" desc=""/>
+	<aCar name="admin_premium_remove" accessLevel="7" params="" desc=""/>
+
+	<!-- MANAGE -->
+	<aCar name="admin_suicide" accessLevel="1" params="" desc="To kill yourself."/>
+	
+	<aCar name="admin_addolypoints" accessLevel="7" />
+	<aCar name="admin_removeolypoints" accessLevel="7" />
+	<aCar name="admin_setolypoints" accessLevel="7" />
+	<aCar name="admin_getolypoints" accessLevel="7" />
+	
+	<aCar name="admin_time" accessLevel="7" />
+	
+	<aCar name="admin_ssq_change" accessLevel="7" params="" desc=""/>
+	<aCar name="admin_ssq_time" accessLevel="7" params="" desc=""/>
+
+	<!-- FERMATA WEATHER -->
+	<aCar name="admin_setweather" accessLevel="7" params="clear|cloudy|rain|storm|snow|blizzard" desc="Altera clima global do motor Fermata."/>
+	<aCar name="admin_restoreweather" accessLevel="7" params="" desc="Restaura clima global para padrao do cliente."/>
+	<aCar name="admin_myweather" accessLevel="7" params="clear|cloudy|rain|storm|snow|blizzard" desc="Altera clima local do GM no cliente Fermata."/>
+	<aCar name="admin_myweather_restore" accessLevel="7" params="" desc="Restaura clima local do GM."/>
+
+	<!-- FERMATA TIME & SKY -->
+	<aCar name="admin_settime" accessLevel="7" params="hours [minutes]" desc="Define o horario do mundo e sincroniza o relogio."/>
+	<aCar name="admin_sunrise" accessLevel="7" params="" desc="Forca o nascer do sol e iluminacao diurna (06:00)."/>
+	<aCar name="admin_sunset" accessLevel="7" params="" desc="Forca o por do sol e iluminacao noturna (00:00)."/>
+	<aCar name="admin_setsky" accessLevel="7" params="regular|dawn|dusk|red" desc="Altera o skybox celestial Seven Signs."/>
+	<aCar name="admin_redsky" accessLevel="7" params="seconds" desc="Ativa o ceu vermelho com contagem de segundos."/>
+</list>

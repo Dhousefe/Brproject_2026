@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<territory name="mission_83205147918" minZ="-3368" maxZ="-3352">
+		<node x="83255" y="147968" />
+		<node x="83155" y="147968" />
+		<node x="83155" y="147868" />
+		<node x="83255" y="147868" />
+	</territory>
+	<npcmaker name="mission_832051479181" territory="mission_83205147918" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50012" pos="83205;147918;-3368;56411" total="1" respawn="60sec" /> <!-- Mission -->
+	</npcmaker>
+</list>

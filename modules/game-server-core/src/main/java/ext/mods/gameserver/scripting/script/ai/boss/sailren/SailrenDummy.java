@@ -1,0 +1,189 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.gameserver.scripting.script.ai.boss.sailren;
+
+import ext.mods.commons.random.Rnd;
+
+import ext.mods.gameserver.data.manager.SpawnManager;
+import ext.mods.gameserver.model.actor.Creature;
+import ext.mods.gameserver.model.actor.Npc;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.group.Party;
+import ext.mods.gameserver.model.spawn.NpcMaker;
+import ext.mods.gameserver.network.serverpackets.SpecialCamera;
+import ext.mods.gameserver.scripting.script.ai.individual.DefaultNpc;
+
+public class SailrenDummy extends DefaultNpc
+{
+	public SailrenDummy()
+	{
+		super("ai/boss/sailren");
+	}
+	
+	public SailrenDummy(String descr)
+	{
+		super(descr);
+	}
+	
+	protected final int[] _npcIds =
+	{
+		32110
+	};
+	
+	@Override
+	public void onCreated(Npc npc)
+	{
+		npc._i_ai0 = 0;
+		
+		super.onCreated(npc);
+	}
+	
+	@Override
+	public String onTimer(String name, Npc npc, Player player)
+	{
+		if (name.matches("(?i)1001|1002|1003|1004"))
+		{
+			npc.getAI().getDesires().clear();
+			
+			npc.getAI().addCastDesire(npc, 5090, 1, 1000000);
+		}
+		else if (name.matches("(?i)1005|1006"))
+		{
+			npc.getAI().getDesires().clear();
+			
+			npc.getAI().addCastDesire(npc, 5091, 1, 1000000);
+		}
+		else if (name.equalsIgnoreCase("2000"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 100, 180, 30, 3000, 20000, 0, 50, 1, 0));
+			
+			startQuestTimer("2001", npc, null, 3000);
+		}
+		else if (name.equalsIgnoreCase("2001"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 150, 270, 25, 3000, 20000, 0, 30, 1, 0));
+			
+			startQuestTimer("2002", npc, null, 3000);
+		}
+		else if (name.equalsIgnoreCase("2002"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 160, 360, 20, 3000, 20000, 10, 15, 1, 0));
+			
+			startQuestTimer("2003", npc, null, 3000);
+		}
+		else if (name.equalsIgnoreCase("2003"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 160, 450, 10, 3000, 20000, 0, 10, 1, 0));
+			
+			startQuestTimer("2004", npc, null, 3000);
+		}
+		else if (name.equalsIgnoreCase("2004"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 160, 560, 0, 3000, 20000, 0, 10, 1, 0));
+			
+			startQuestTimer("2005", npc, null, 7000);
+		}
+		else if (name.equalsIgnoreCase("2005"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 70, 560, 0, 500, 7000, -15, 20, 1, 0));
+			
+			startQuestTimer("2006", npc, null, 15000);
+		}
+		else if (name.equalsIgnoreCase("2006"))
+			broadcastScriptEventEx(npc, 11055, npc._i_ai0, 0, 1000);
+		else if (name.equalsIgnoreCase("3001"))
+		{
+			npc.broadcastPacket(new SpecialCamera(npc.getObjectId(), 60, 110, 30, 4000, 20000, 0, 65, 1, 0));
+			npc.getAI().addCastDesire(npc, 5090, 1, 1000000);
+			startQuestTimer("1001", npc, null, 3400);
+			npc.getAI().addCastDesire(npc, 5090, 1, 1000000);
+			startQuestTimer("1002", npc, null, 6800);
+			npc.getAI().addCastDesire(npc, 5090, 1, 1000000);
+			startQuestTimer("1003", npc, null, 10000);
+			npc.getAI().addCastDesire(npc, 5090, 1, 1000000);
+			startQuestTimer("1004", npc, null, 13200);
+			npc.getAI().addCastDesire(npc, 5091, 1, 1000000);
+			startQuestTimer("1005", npc, null, 16500);
+			npc.getAI().addCastDesire(npc, 5091, 1, 1000000);
+			startQuestTimer("1006", npc, null, 23500);
+			startQuestTimer("2000", npc, null, 4100);
+		}
+		return super.onTimer(name, npc, player);
+	}
+	
+	@Override
+	public void onSeeCreature(Npc npc, Creature creature)
+	{
+		if (creature instanceof Player)
+		{
+			final Party party0 = creature.getParty();
+			if (party0 != null)
+				npc._i_ai0 = party0.getLeader().getObjectId();
+		}
+	}
+	
+	@Override
+	public void onScriptEvent(Npc npc, int eventId, int arg1, int arg2)
+	{
+		if (eventId == 11044)
+			startQuestTimer("3001", npc, null, 180006);
+		else if (eventId == 11046 || eventId == 11048)
+			oustPlayers(npc);
+		else if (eventId == 11051)
+		{
+			oustPlayers(npc);
+			
+			NpcMaker maker0 = SpawnManager.getInstance().getNpcMaker("rune20_mb2017_01m1");
+			if (maker0 != null)
+			{
+				maker0.getMaker().onMakerScriptEvent("11052", maker0, 0, 0);
+				maker0.getMaker().onMakerScriptEvent("1000", maker0, 0, 0);
+			}
+			
+			maker0 = SpawnManager.getInstance().getNpcMaker("rune20_mb2017_02m1");
+			if (maker0 != null)
+			{
+				maker0.getMaker().onMakerScriptEvent("11052", maker0, 0, 0);
+				maker0.getMaker().onMakerScriptEvent("1000", maker0, 0, 0);
+			}
+			
+			maker0 = SpawnManager.getInstance().getNpcMaker("rune20_mb2017_03m1");
+			if (maker0 != null)
+			{
+				maker0.getMaker().onMakerScriptEvent("11052", maker0, 0, 0);
+				maker0.getMaker().onMakerScriptEvent("1000", maker0, 0, 0);
+			}
+			
+			maker0 = SpawnManager.getInstance().getNpcMaker("rune16_npc2017_01m1");
+			if (maker0 != null)
+				maker0.getMaker().onMakerScriptEvent("11050", maker0, 0, 0);
+		}
+		else if (eventId == 11054)
+			createOnePrivateEx(npc, 32107, 27644, -6638, -2008, 0, 0, true);
+		else if (eventId == 11047)
+			oustPlayers(npc);
+	}
+	
+	private static void oustPlayers(Npc npc)
+	{
+		if (Rnd.get(100) < 50)
+			npc.getSpawn().instantTeleportInMyTerritory(23575, -7727, -1272, 100);
+		else
+			npc.getSpawn().instantTeleportInMyTerritory(23421, -8167, -1326, 100);
+	}
+}

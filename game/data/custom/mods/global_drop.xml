@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+    <config 
+        enable="true" 
+        DropsOriginals="true"
+        minLevel="70"
+        maxLevel="80"
+        UseServerRates="true"
+        ChanceMultiplier="1.0"
+        drops="57-200000-100;4037-1-50;6393-1-100;6392-1-100" 
+        IgnoreMonsters="29001,29006,29014,29019,29020,29022,29028,29047"
+    />    
+</list>

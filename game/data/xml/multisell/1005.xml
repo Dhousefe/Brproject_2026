@@ -1,0 +1,1972 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list maintainEnchantment="true" applyTaxes="true">
+	<npcs>
+		<npc>30298</npc><!-- Pinter (Blacksmith) -->
+		<npc>30300</npc><!-- Pushkin (Blacksmith) -->
+		<npc>30317</npc><!-- Kluto (Blacksmith) -->
+		<npc>30458</npc><!-- Poitan (Blacksmith) -->
+		<npc>30471</npc><!-- Rupio (Blacksmith) -->
+		<npc>30678</npc><!-- Helton (Blacksmith) -->
+		<npc>30688</npc><!-- Duning (Blacksmith) -->
+		<npc>30846</npc><!-- Wilbert (Blacksmith) -->
+		<npc>30898</npc><!-- Morning (Blacksmith) -->
+		<npc>31271</npc><!-- Hilda (Blacksmith) -->
+		<npc>31316</npc><!-- Vincenz (Blacksmith) -->
+		<npc>31583</npc><!-- Feynn (Blacksmith) -->
+		<npc>31960</npc><!-- Buryun (Blacksmith) -->
+		<npc>31990</npc><!-- Siger (Blacksmith) -->
+		<npc>50009</npc><!-- win37rus (Gm-shop) -->
+	</npcs>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4681" count="1"/><!-- stormbringer_crt_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4682" count="1"/><!-- stormbringer_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="72" count="1"/><!-- stormbringer -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4683" count="1"/><!-- stormbringer_light -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="71" count="1"/><!-- flamberge -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4711" count="1"/><!-- flamberge_crt_damage -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="71" count="1"/><!-- flamberge -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4712" count="1"/><!-- flamberge_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="71" count="1"/><!-- flamberge -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4713" count="1"/><!-- flamberge_light -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="89" count="1"/><!-- big_hammer -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4726" count="1"/><!-- big_hammer_health -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="89" count="1"/><!-- big_hammer -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4727" count="1"/><!-- big_hammer_rsk_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="89" count="1"/><!-- big_hammer -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4728" count="1"/><!-- big_hammer_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="160" count="1"/><!-- battle_axe -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4729" count="1"/><!-- battle_axe_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="160" count="1"/><!-- battle_axe -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4730" count="1"/><!-- battle_axe_rsk_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="160" count="1"/><!-- battle_axe -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4731" count="1"/><!-- battle_axe_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="161" count="1"/><!-- war_pick -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4732" count="1"/><!-- war_pick_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="161" count="1"/><!-- war_pick -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4733" count="1"/><!-- war_pick_rsk_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="161" count="1"/><!-- war_pick -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4734" count="1"/><!-- war_pick_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="173" count="1"/><!-- skull_graver -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4735" count="1"/><!-- skull_graver_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="173" count="1"/><!-- skull_graver -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4736" count="1"/><!-- skull_graver_health -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="173" count="1"/><!-- skull_graver -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4737" count="1"/><!-- skull_graver_rsk_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="226" count="1"/><!-- cursed_dagger -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4759" count="1"/><!-- cursed_dagger_crt_bleed -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="226" count="1"/><!-- cursed_dagger -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4760" count="1"/><!-- cursed_dagger_crt_poison -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="226" count="1"/><!-- cursed_dagger -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4761" count="1"/><!-- cursed_dagger_rsk_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="232" count="1"/><!-- darkelven_dagger -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4762" count="1"/><!-- darkelven_dagger_focus -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="232" count="1"/><!-- darkelven_dagger -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4763" count="1"/><!-- darkelven_dagger_backblow -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="232" count="1"/><!-- darkelven_dagger -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="6356" count="1"/><!-- darkelven_dagger_rsk_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="263" count="1"/><!-- chakram -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4789" count="1"/><!-- chakram_crt_drain -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="263" count="1"/><!-- chakram -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4790" count="1"/><!-- chakram_crt_poison -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="263" count="1"/><!-- chakram -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4791" count="1"/><!-- chakram_rsk_haste -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="281" count="1"/><!-- crystallized_ice_bow -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4810" count="1"/><!-- crystallized_ice_bow_guidence -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="281" count="1"/><!-- crystallized_ice_bow -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4811" count="1"/><!-- crystallized_ice_bow_evasion -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="281" count="1"/><!-- crystallized_ice_bow -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4812" count="1"/><!-- crystallized_ice_bow_quickrecovery -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="96" count="1"/><!-- scythe -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4834" count="1"/><!-- scythe_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="96" count="1"/><!-- scythe -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4835" count="1"/><!-- scythe_crt_stun -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="96" count="1"/><!-- scythe -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4836" count="1"/><!-- scythe_light -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="298" count="1"/><!-- orcish_glaive -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4837" count="1"/><!-- orcish_glaive_anger -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="298" count="1"/><!-- orcish_glaive -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4838" count="1"/><!-- orcish_glaive_crt_stun -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="298" count="1"/><!-- orcish_glaive -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4839" count="1"/><!-- orcish_glaive_longblow -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="302" count="1"/><!-- body_slasher -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4840" count="1"/><!-- body_slasher_crt_stun -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="302" count="1"/><!-- body_slasher -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4841" count="1"/><!-- body_slasher_longblow -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="302" count="1"/><!-- body_slasher -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4842" count="1"/><!-- body_slasher_wideblow -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="191" count="1"/><!-- heavy_doom_hammer -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4864" count="1"/><!-- heavy_doom_hammer_magicregen -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="191" count="1"/><!-- heavy_doom_hammer -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4865" count="1"/><!-- heavy_doom_hammer_magicmshield -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="191" count="1"/><!-- heavy_doom_hammer -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4866" count="1"/><!-- heavy_doom_hammer_magichold -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="192" count="1"/><!-- crystal_staff -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4867" count="1"/><!-- crystal_staff_rsk_evasion -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="192" count="1"/><!-- crystal_staff -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4868" count="1"/><!-- crystal_staff_manaup -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="192" count="1"/><!-- crystal_staff -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4869" count="1"/><!-- crystal_staff_magicblessthebody -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="194" count="1"/><!-- heavy_doom_axe -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4870" count="1"/><!-- heavy_doom_axe_magicpoison -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="194" count="1"/><!-- heavy_doom_axe -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4871" count="1"/><!-- heavy_doom_axe_magicweakness -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="194" count="1"/><!-- heavy_doom_axe -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="4872" count="1"/><!-- heavy_doom_axe_magicchaos -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="193" count="1"/><!-- stick_of_faith -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="7701" count="1"/><!-- stick_of_faith_manaup -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="193" count="1"/><!-- stick_of_faith -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="7702" count="1"/><!-- stick_of_faith_magichold -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="193" count="1"/><!-- stick_of_faith -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="7703" count="1"/><!-- stick_of_faith_magicmshield -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7887" count="1"/><!-- mysterious_sword -->
+		<ingredient id="4634" count="1"/><!-- red_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="8111" count="1"/><!-- mysterious_sword_acumen -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7887" count="1"/><!-- mysterious_sword -->
+		<ingredient id="4645" count="1"/><!-- green_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="8112" count="1"/><!-- mysterious_sword_magic_power -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7887" count="1"/><!-- mysterious_sword -->
+		<ingredient id="4656" count="1"/><!-- blue_soul_crystal_5 -->
+		<ingredient id="2131" count="97"/><!-- gemstone_c -->
+		<production id="8113" count="1"/><!-- mysterious_sword_magic_weakness -->
+		<ingredient id="57" count="291000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="73" count="1"/><!-- shamshir -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4684" count="1"/><!-- shamshir_guidence -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="73" count="1"/><!-- shamshir -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4685" count="1"/><!-- shamshir_backblow -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="73" count="1"/><!-- shamshir -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4686" count="1"/><!-- shamshir_rsk_evasion -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="74" count="1"/><!-- katana -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4687" count="1"/><!-- katana_focus -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="74" count="1"/><!-- katana -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4688" count="1"/><!-- katana_crt_damage -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="74" count="1"/><!-- katana -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4689" count="1"/><!-- katana_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="131" count="1"/><!-- spirits_sword -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4690" count="1"/><!-- spirits_sword_crt_damage -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="131" count="1"/><!-- spirits_sword -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4691" count="1"/><!-- spirits_sword_crt_poison -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="131" count="1"/><!-- spirits_sword -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4692" count="1"/><!-- spirits_sword_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="133" count="1"/><!-- raid_sword -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4693" count="1"/><!-- raid_sword_focus -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="133" count="1"/><!-- raid_sword -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4694" count="1"/><!-- raid_sword_crt_drain -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="133" count="1"/><!-- raid_sword -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4695" count="1"/><!-- raid_sword_crt_poison -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="242" count="1"/><!-- dagger_of_magicflame -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="7810" count="1"/><!-- dagger_of_magicflame_manaup -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="242" count="1"/><!-- dagger_of_magicflame -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="7811" count="1"/><!-- dagger_of_magicflame_magichold -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="242" count="1"/><!-- dagger_of_magicflame -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="7812" count="1"/><!-- dagger_of_magicflame_magicsilence -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2502" count="1"/><!-- dwarven_warhammer -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4738" count="1"/><!-- dwarven_warhammer_anger -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2502" count="1"/><!-- dwarven_warhammer -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4739" count="1"/><!-- dwarven_warhammer_health -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2502" count="1"/><!-- dwarven_warhammer -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4740" count="1"/><!-- dwarven_warhammer_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="227" count="1"/><!-- stiletto -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4765" count="1"/><!-- stiletto_crt_bleed -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="227" count="1"/><!-- stiletto -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4766" count="1"/><!-- stiletto_crt_poison -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="227" count="1"/><!-- stiletto -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="6357" count="1"/><!-- stiletto_rsk_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="4233" count="1"/><!-- knuckle_dust -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4798" count="1"/><!-- knuckle_dust_rsk_evasion -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="4233" count="1"/><!-- knuckle_dust -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4799" count="1"/><!-- knuckle_dust_rsk_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="4233" count="1"/><!-- knuckle_dust -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4800" count="1"/><!-- knuckle_dust_haste -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="282" count="1"/><!-- elemental_bow -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4813" count="1"/><!-- elemental_bow_guidence -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="282" count="1"/><!-- elemental_bow -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4814" count="1"/><!-- elemental_bow_miser -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="282" count="1"/><!-- elemental_bow -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4815" count="1"/><!-- elemental_bow_quickrecovery -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="285" count="1"/><!-- noble_elven_bow -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4816" count="1"/><!-- noble_elven_bow_evasion -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="285" count="1"/><!-- noble_elven_bow -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4817" count="1"/><!-- noble_elven_bow_miser -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="285" count="1"/><!-- noble_elven_bow -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4818" count="1"/><!-- noble_elven_bow_cheapshot -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="94" count="1"/><!-- bech_de_corbin -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4843" count="1"/><!-- bech_de_corbin_crt_stun -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="94" count="1"/><!-- bech_de_corbin -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4844" count="1"/><!-- bech_de_corbin_longblow -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="94" count="1"/><!-- bech_de_corbin -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4845" count="1"/><!-- bech_de_corbin_light -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="195" count="1"/><!-- cursed_staff -->
+		<ingredient id="4635" count="1"/><!-- red_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4873" count="1"/><!-- cursed_staff_magichold -->
+	</item>
+	<item>
+		<ingredient id="195" count="1"/><!-- cursed_staff -->
+		<ingredient id="4646" count="1"/><!-- green_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4874" count="1"/><!-- cursed_staff_magicpoison -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="195" count="1"/><!-- cursed_staff -->
+		<ingredient id="4657" count="1"/><!-- blue_soul_crystal_6 -->
+		<ingredient id="2131" count="238"/><!-- gemstone_c -->
+		<production id="4875" count="1"/><!-- cursed_staff_magicweakness -->
+		<ingredient id="57" count="714000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="196" count="1"/><!-- stick_of_eternity -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7704" count="1"/><!-- stick_of_eternity_empower -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="196" count="1"/><!-- stick_of_eternity -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7705" count="1"/><!-- stick_of_eternity_rsk_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="196" count="1"/><!-- stick_of_eternity -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7706" count="1"/><!-- stick_of_eternity_magicblessthebody -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="174" count="1"/><!-- nirvana_axe -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7708" count="1"/><!-- nirvana_axe_magicpoison -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="174" count="1"/><!-- nirvana_axe -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7707" count="1"/><!-- nirvana_axe_magicpower -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="174" count="1"/><!-- nirvana_axe -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7709" count="1"/><!-- nirvana_axe_magicweakness -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="201" count="1"/><!-- club_of_nature -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7712" count="1"/><!-- club_of_nature_magichold -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="201" count="1"/><!-- club_of_nature -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7711" count="1"/><!-- club_of_nature_magicmshield -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="201" count="1"/><!-- club_of_nature -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7710" count="1"/><!-- club_of_nature_acumen -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="202" count="1"/><!-- mace_of_underworld -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7713" count="1"/><!-- mace_of_underworld_manaup -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="202" count="1"/><!-- mace_of_underworld -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7714" count="1"/><!-- mace_of_underworld_magicsilence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="202" count="1"/><!-- mace_of_underworld -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7715" count="1"/><!-- mace_of_underworld_updown -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="198" count="1"/><!-- inferno_staff -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7717" count="1"/><!-- inferno_staff_magicsilence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="198" count="1"/><!-- inferno_staff -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7716" count="1"/><!-- inferno_staff_acumen -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="198" count="1"/><!-- inferno_staff -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7718" count="1"/><!-- inferno_staff_magicparalysis -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="95" count="1"/><!-- poleaxe -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7721" count="1"/><!-- poleaxe_wideblow -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="95" count="1"/><!-- poleaxe -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7720" count="1"/><!-- poleaxe_longblow -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="95" count="1"/><!-- poleaxe -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="7719" count="1"/><!-- poleaxe_crt_stun -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4696" count="1"/><!-- caliburs_guidence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4697" count="1"/><!-- caliburs_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="75" count="1"/><!-- caliburs -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4698" count="1"/><!-- caliburs_crt_damage -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4699" count="1"/><!-- sword_of_delusion_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4700" count="1"/><!-- sword_of_delusion_health -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="76" count="1"/><!-- sword_of_delusion -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4701" count="1"/><!-- sword_of_delusion_rsk_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4702" count="1"/><!-- tsurugi_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4703" count="1"/><!-- tsurugi_crt_damage -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="77" count="1"/><!-- tsurugi -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4704" count="1"/><!-- tsurugi_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4705" count="1"/><!-- sword_of_nightmare_health -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4706" count="1"/><!-- sword_of_nightmare_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="134" count="1"/><!-- sword_of_nightmare -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4707" count="1"/><!-- sword_of_nightmare_light -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="162" count="1"/><!-- war_axe -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4741" count="1"/><!-- war_axe_anger -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="162" count="1"/><!-- war_axe -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4742" count="1"/><!-- war_axe_health -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="162" count="1"/><!-- war_axe -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4743" count="1"/><!-- war_axe_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="231" count="1"/><!-- grace_dagger -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4768" count="1"/><!-- grace_dagger_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="231" count="1"/><!-- grace_dagger -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4769" count="1"/><!-- grace_dagger_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="231" count="1"/><!-- grace_dagger -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4770" count="1"/><!-- grace_dagger_backblow -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="233" count="1"/><!-- dark_screamer -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4771" count="1"/><!-- dark_screamer_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="233" count="1"/><!-- dark_screamer -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4772" count="1"/><!-- dark_screamer_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="233" count="1"/><!-- dark_screamer -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4773" count="1"/><!-- dark_screamer_crt_bleed -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="265" count="1"/><!-- fist_blade -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4792" count="1"/><!-- fist_blade_rsk_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="265" count="1"/><!-- fist_blade -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4793" count="1"/><!-- fist_blade_rsk_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="265" count="1"/><!-- fist_blade -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4794" count="1"/><!-- fist_blade_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="283" count="1"/><!-- akat_long_bow -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4819" count="1"/><!-- akat_long_bow_guidence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="283" count="1"/><!-- akat_long_bow -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4820" count="1"/><!-- akat_long_bow_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="283" count="1"/><!-- akat_long_bow -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4821" count="1"/><!-- akat_long_bow_miser -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="197" count="1"/><!-- paradia_staff -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4876" count="1"/><!-- paradia_staff_magicregen -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="197" count="1"/><!-- paradia_staff -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4877" count="1"/><!-- paradia_staff_magicmshield -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="197" count="1"/><!-- paradia_staff -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4878" count="1"/><!-- paradia_staff_magichold -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="199" count="1"/><!-- paagrio_hammer -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4879" count="1"/><!-- paagrio_hammer_rsk_evasion -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="199" count="1"/><!-- paagrio_hammer -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4880" count="1"/><!-- paagrio_hammer_magicpoison -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="199" count="1"/><!-- paagrio_hammer -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4881" count="1"/><!-- paagrio_hammer_magicweakness -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="200" count="1"/><!-- sage_s_staff -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4882" count="1"/><!-- sage_s_staff_magichold -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="200" count="1"/><!-- sage_s_staff -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4883" count="1"/><!-- sage_s_staff_magicpoison -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="200" count="1"/><!-- sage_s_staff -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="4884" count="1"/><!-- sage_s_staff_magicweakness -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7882" count="1"/><!-- pa_agrian_sword -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8102" count="1"/><!-- pa_agrian_sword_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7882" count="1"/><!-- pa_agrian_sword -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8103" count="1"/><!-- pa_agrian_sword_health -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7882" count="1"/><!-- pa_agrian_sword -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8104" count="1"/><!-- pa_agrian_sword_crt_drain -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7898" count="1"/><!-- karik_horn -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8125" count="1"/><!-- karik_horn_crt_drain -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7898" count="1"/><!-- karik_horn -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8124" count="1"/><!-- karik_horn_haste -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7898" count="1"/><!-- karik_horn -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="8123" count="1"/><!-- karik_horn_focus -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="301" count="1"/><!-- scorpion -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4846" count="1"/><!-- scorpion_anger -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="301" count="1"/><!-- scorpion -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4847" count="1"/><!-- scorpion_crt_stun -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="301" count="1"/><!-- scorpion -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4848" count="1"/><!-- scorpion_longblow -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="303" count="1"/><!-- widow_maker -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4849" count="1"/><!-- widow_maker_crt_stun -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="303" count="1"/><!-- widow_maker -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4850" count="1"/><!-- widow_maker_longblow -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="303" count="1"/><!-- widow_maker -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4851" count="1"/><!-- widow_maker_wideblow -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="203" count="1"/><!-- paagrio_axe -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4885" count="1"/><!-- paagrio_axe_manaup -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="203" count="1"/><!-- paagrio_axe -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4886" count="1"/><!-- paagrio_axe_magicweakness -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="203" count="1"/><!-- paagrio_axe -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="225"/><!-- gemstone_c -->
+		<production id="4887" count="1"/><!-- paagrio_axe_magicchaos -->
+		<ingredient id="57" count="675000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7897" count="1"/><!-- dwarven_hammer -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8121" count="1"/><!-- dwarven_hammer_anger -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7897" count="1"/><!-- dwarven_hammer -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8120" count="1"/><!-- dwarven_hammer_health -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7897" count="1"/><!-- dwarven_hammer -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8122" count="1"/><!-- dwarven_hammer_crt_bleed -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4708" count="1"/><!-- samurai_longsword_focus -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4709" count="1"/><!-- samurai_longsword_crt_damage -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="135" count="1"/><!-- samurai_longsword -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4710" count="1"/><!-- samurai_longsword_haste -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2503" count="1"/><!-- yaksa_mace -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4744" count="1"/><!-- yaksa_mace_anger -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2503" count="1"/><!-- yaksa_mace -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4745" count="1"/><!-- yaksa_mace_health -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="2503" count="1"/><!-- yaksa_mace -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4746" count="1"/><!-- yaksa_mace_rsk_focus -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7891" count="1"/><!-- ecliptic_axe -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8138" count="1"/><!-- ecliptic_axe_conversion -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7891" count="1"/><!-- ecliptic_axe -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8139" count="1"/><!-- ecliptic_axe_magic_power -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7891" count="1"/><!-- ecliptic_axe -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8140" count="1"/><!-- ecliptic_axe_magic_hold -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="228" count="1"/><!-- crystal_dagger -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4774" count="1"/><!-- crystal_dagger_crt_bleed -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="228" count="1"/><!-- crystal_dagger -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4775" count="1"/><!-- crystal_dagger_crt_poison -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="228" count="1"/><!-- crystal_dagger -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="6358" count="1"/><!-- crystal_dagger_crt_damage -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="266" count="1"/><!-- great_pata -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4795" count="1"/><!-- great_pata_crt_drain -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="266" count="1"/><!-- great_pata -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4796" count="1"/><!-- great_pata_crt_poison -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="266" count="1"/><!-- great_pata -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4797" count="1"/><!-- great_pata_rsk_haste -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="286" count="1"/><!-- eminence_bow -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4822" count="1"/><!-- eminence_bow_guidence -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="286" count="1"/><!-- eminence_bow -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4823" count="1"/><!-- eminence_bow_miser -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="286" count="1"/><!-- eminence_bow -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4824" count="1"/><!-- eminence_bow_cheapshot -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="299" count="1"/><!-- orcish_poleaxe -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4852" count="1"/><!-- orcish_poleaxe_crt_stun -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="299" count="1"/><!-- orcish_poleaxe -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4853" count="1"/><!-- orcish_poleaxe_longblow -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="299" count="1"/><!-- orcish_poleaxe -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4854" count="1"/><!-- orcish_poleaxe_wideblow -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="204" count="1"/><!-- deadman_s_staff -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4888" count="1"/><!-- deadman_s_staff_magicregen -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="204" count="1"/><!-- deadman_s_staff -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4889" count="1"/><!-- deadman_s_staff_magicmshield -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="204" count="1"/><!-- deadman_s_staff -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4890" count="1"/><!-- deadman_s_staff_magichold -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="205" count="1"/><!-- ghoul_s_staff -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4891" count="1"/><!-- ghoul_s_staff_rsk_evasion -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="205" count="1"/><!-- ghoul_s_staff -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4892" count="1"/><!-- ghoul_s_staff_manaup -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="205" count="1"/><!-- ghoul_s_staff -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4893" count="1"/><!-- ghoul_s_staff_magicblessthebody -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="206" count="1"/><!-- demon_s_staff -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4894" count="1"/><!-- demon_s_staff_magicpoison -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="206" count="1"/><!-- demon_s_staff -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4895" count="1"/><!-- demon_s_staff_magicweakness -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="206" count="1"/><!-- demon_s_staff -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="4896" count="1"/><!-- demon_s_staff_magicchaos -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="142" count="1"/><!-- kshanberk -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4714" count="1"/><!-- kshanberk_guidence -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="142" count="1"/><!-- kshanberk -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4715" count="1"/><!-- kshanberk_focus -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="142" count="1"/><!-- kshanberk -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4716" count="1"/><!-- kshanberk_backblow -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="78" count="1"/><!-- great_sword -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4723" count="1"/><!-- great_sword_health -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="78" count="1"/><!-- great_sword -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4724" count="1"/><!-- great_sword_crt_damage -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="78" count="1"/><!-- great_sword -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4725" count="1"/><!-- great_sword_focus -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="91" count="1"/><!-- heavy_war_axe -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4747" count="1"/><!-- heavy_war_axe_anger -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="91" count="1"/><!-- heavy_war_axe -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4748" count="1"/><!-- heavy_war_axe_health -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="91" count="1"/><!-- heavy_war_axe -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4749" count="1"/><!-- heavy_war_axe_rsk_focus -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="243" count="1"/><!-- hell_knife -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7813" count="1"/><!-- hell_knife_magicregen -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="243" count="1"/><!-- hell_knife -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7814" count="1"/><!-- hell_knife_magicmshield -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="243" count="1"/><!-- hell_knife -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7815" count="1"/><!-- hell_knife_magicweakness -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="229" count="1"/><!-- kris -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4777" count="1"/><!-- kris_evasion -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="229" count="1"/><!-- kris -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4778" count="1"/><!-- kris_focus -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="229" count="1"/><!-- kris -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4779" count="1"/><!-- kris_backblow -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7900" count="1"/><!-- ice_storm_hammer -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8129" count="1"/><!-- ice_storm_hammer_focus -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7900" count="1"/><!-- ice_storm_hammer -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8130" count="1"/><!-- ice_storm_hammer_anger -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7900" count="1"/><!-- ice_storm_hammer -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8131" count="1"/><!-- ice_storm_hammer_crt_bleed -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7892" count="1"/><!-- spell_breaker -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8143" count="1"/><!-- spell_breaker_magic_hold -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7892" count="1"/><!-- spell_breaker -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8142" count="1"/><!-- spell_breaker_magic_mental_shield -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7892" count="1"/><!-- spell_breaker -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="8141" count="1"/><!-- spell_breaker_acumen -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="267" count="1"/><!-- arthro_nail -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4801" count="1"/><!-- arthro_nail_crt_poison -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="267" count="1"/><!-- arthro_nail -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4802" count="1"/><!-- arthro_nail_rsk_evasion -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="267" count="1"/><!-- arthro_nail -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4803" count="1"/><!-- arthro_nail_rsk_haste -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="284" count="1"/><!-- dark_elven_long_bow -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4825" count="1"/><!-- dark_elven_long_bow_evasion -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="284" count="1"/><!-- dark_elven_long_bow -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4826" count="1"/><!-- dark_elven_long_bow_crt_bleed -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="284" count="1"/><!-- dark_elven_long_bow -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4827" count="1"/><!-- dark_elven_long_bow_miser -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="300" count="1"/><!-- great_axe -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4855" count="1"/><!-- great_axe_anger -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="300" count="1"/><!-- great_axe -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4856" count="1"/><!-- great_axe_crt_stun -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="300" count="1"/><!-- great_axe -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4857" count="1"/><!-- great_axe_light -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="92" count="1"/><!-- sprite_s_staff -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4897" count="1"/><!-- sprite_s_staff_magicregen -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="92" count="1"/><!-- sprite_s_staff -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4898" count="1"/><!-- sprite_s_staff_magicmshield -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="92" count="1"/><!-- sprite_s_staff -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="4899" count="1"/><!-- sprite_s_staff_magichold -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="148" count="1"/><!-- sword_of_valhalla -->
+		<ingredient id="4638" count="1"/><!-- red_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7722" count="1"/><!-- sword_of_valhalla_acumen -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="148" count="1"/><!-- sword_of_valhalla -->
+		<ingredient id="4649" count="1"/><!-- green_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7723" count="1"/><!-- sword_of_valhalla_magicweakness -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="148" count="1"/><!-- sword_of_valhalla -->
+		<ingredient id="4660" count="1"/><!-- blue_soul_crystal_9 -->
+		<ingredient id="2132" count="222"/><!-- gemstone_b -->
+		<production id="7724" count="1"/><!-- sword_of_valhalla_magicregen -->
+		<ingredient id="57" count="2220000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="79" count="1"/><!-- sword_of_damascus -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4717" count="1"/><!-- sword_of_damascus_focus -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="79" count="1"/><!-- sword_of_damascus -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4718" count="1"/><!-- sword_of_damascus_crt_damage -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="79" count="1"/><!-- sword_of_damascus -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4719" count="1"/><!-- sword_of_damascus_haste -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="171" count="1"/><!-- deadman_s_glory -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4750" count="1"/><!-- deadman_s_glory_anger -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="171" count="1"/><!-- deadman_s_glory -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4751" count="1"/><!-- deadman_s_glory_health -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="171" count="1"/><!-- deadman_s_glory -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4752" count="1"/><!-- deadman_s_glory_haste -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="175" count="1"/><!-- art_of_battle_axe -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4753" count="1"/><!-- art_of_battle_axe_health -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="175" count="1"/><!-- art_of_battle_axe -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4754" count="1"/><!-- art_of_battle_axe_rsk_focus -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="175" count="1"/><!-- art_of_battle_axe -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4755" count="1"/><!-- art_of_battle_axe_haste -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="234" count="1"/><!-- demon_s_sword -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4780" count="1"/><!-- demon_s_sword_crt_bleed -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="234" count="1"/><!-- demon_s_sword -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4781" count="1"/><!-- demon_s_sword_crt_poison -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="234" count="1"/><!-- demon_s_sword -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="6359" count="1"/><!-- demon_s_sword_crt_damage -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="268" count="1"/><!-- bellion_cestus -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4804" count="1"/><!-- bellion_cestus_crt_drain -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="268" count="1"/><!-- bellion_cestus -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4805" count="1"/><!-- bellion_cestus_crt_poison -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="268" count="1"/><!-- bellion_cestus -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4806" count="1"/><!-- bellion_cestus_rsk_haste -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="287" count="1"/><!-- hazard_bow -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4828" count="1"/><!-- hazard_bow_guidence -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="287" count="1"/><!-- hazard_bow -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4829" count="1"/><!-- hazard_bow_quickrecovery -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="287" count="1"/><!-- hazard_bow -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4830" count="1"/><!-- hazard_bow_cheapshot -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7883" count="1"/><!-- guardian_sword -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8105" count="1"/><!-- guardian_sword_crt_drain -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7883" count="1"/><!-- guardian_sword -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8106" count="1"/><!-- guardian_sword_health -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7883" count="1"/><!-- guardian_sword -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8107" count="1"/><!-- guardian_sword_crt_bleed -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7901" count="1"/><!-- star_buster -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8132" count="1"/><!-- star_buster_health -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7901" count="1"/><!-- star_buster -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8133" count="1"/><!-- star_buster_haste -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7901" count="1"/><!-- star_buster -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8134" count="1"/><!-- star_buster_rsk_focus -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7889" count="1"/><!-- wizard_s_tear -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8117" count="1"/><!-- wizard_s_tear_acumen -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7889" count="1"/><!-- wizard_s_tear -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8118" count="1"/><!-- wizard_s_tear_magic_power -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7889" count="1"/><!-- wizard_s_tear -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8119" count="1"/><!-- wizard_s_tear_conversion -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8144" count="1"/><!-- kaim_vanul_s_bones_mana_up -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8145" count="1"/><!-- kaim_vanul_s_bones_magic_silence -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7893" count="1"/><!-- kaim_vanul_s_bones -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="8146" count="1"/><!-- kaim_vanul_s_bones_conversion -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="97" count="1"/><!-- lancia -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4858" count="1"/><!-- lancia_anger -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="97" count="1"/><!-- lancia -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4859" count="1"/><!-- lancia_crt_stun -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="97" count="1"/><!-- lancia -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4860" count="1"/><!-- lancia_longblow -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="210" count="1"/><!-- staff_of_evil_sprit -->
+		<ingredient id="4639" count="1"/><!-- red_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4900" count="1"/><!-- staff_of_evil_sprit_magicfocus -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="210" count="1"/><!-- staff_of_evil_sprit -->
+		<ingredient id="4650" count="1"/><!-- green_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4901" count="1"/><!-- staff_of_evil_sprit_magicblessthebody -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="210" count="1"/><!-- staff_of_evil_sprit -->
+		<ingredient id="4661" count="1"/><!-- blue_soul_crystal_10 -->
+		<ingredient id="2132" count="339"/><!-- gemstone_b -->
+		<production id="4902" count="1"/><!-- staff_of_evil_sprit_magicpoison -->
+		<ingredient id="57" count="3390000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6307" count="1"/><!-- sword_of_limit_guidence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6308" count="1"/><!-- sword_of_limit_Crt_drain -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="132" count="1"/><!-- sword_of_limit -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6309" count="1"/><!-- sword_of_limit_health -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="145" count="1"/><!-- deathbreath_sword -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6310" count="1"/><!-- deathbreath_sword_empower -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="145" count="1"/><!-- deathbreath_sword -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6311" count="1"/><!-- deathbreath_sword_magicpower -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="145" count="1"/><!-- deathbreath_sword -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6312" count="1"/><!-- deathbreath_sword_magicsilence -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="84" count="1"/><!-- homunkulus_s_sword -->
+		<ingredient id="4636" count="1"/><!-- red_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6313" count="1"/><!-- homunkulus_s_sword_acumen -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="84" count="1"/><!-- homunkulus_s_sword -->
+		<ingredient id="4647" count="1"/><!-- green_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6314" count="1"/><!-- homunkulus_s_sword_updown -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="84" count="1"/><!-- homunkulus_s_sword -->
+		<ingredient id="4658" count="1"/><!-- blue_soul_crystal_7 -->
+		<ingredient id="2131" count="306"/><!-- gemstone_c -->
+		<production id="6315" count="1"/><!-- homunkulus_s_sword_magicparalysis -->
+		<ingredient id="57" count="918000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7888" count="1"/><!-- ecliptic_sword -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8114" count="1"/><!-- ecliptic_sword_empower -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7888" count="1"/><!-- ecliptic_sword -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8115" count="1"/><!-- ecliptic_sword_magic_power -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="7888" count="1"/><!-- ecliptic_sword -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="8116" count="1"/><!-- ecliptic_sword_magic_silence -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5286" count="1"/><!-- berserker_blade -->
+		<ingredient id="4637" count="1"/><!-- red_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="6347" count="1"/><!-- berserker_blade_focus -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5286" count="1"/><!-- berserker_blade -->
+		<ingredient id="4648" count="1"/><!-- green_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="6348" count="1"/><!-- berserker_blade_crt_damage -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+	<item>
+		<ingredient id="5286" count="1"/><!-- berserker_blade -->
+		<ingredient id="4659" count="1"/><!-- blue_soul_crystal_8 -->
+		<ingredient id="2131" count="555"/><!-- gemstone_c -->
+		<production id="6349" count="1"/><!-- berserker_blade_haste -->
+		<ingredient id="57" count="1665000" isTaxIngredient="true"/><!-- adena -->
+	</item>
+</list>

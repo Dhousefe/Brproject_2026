@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30097</npc><!-- Galladucci (Weapon Merchant) -->
+	</npcs>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="71" count="1"/><!-- flamberge -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="72" count="1"/><!-- stormbringer -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="76" count="1"/><!-- sword_of_delusion -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="161" count="1"/><!-- war_pick -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="162" count="1"/><!-- war_axe -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="192" count="1"/><!-- crystal_staff -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="200" count="1"/><!-- sage_s_staff -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="226" count="1"/><!-- cursed_dagger -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="233" count="1"/><!-- dark_screamer -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="263" count="1"/><!-- chakram -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="265" count="1"/><!-- fist_blade -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="281" count="1"/><!-- crystallized_ice_bow -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="283" count="1"/><!-- akat_long_bow -->
+	</item>
+	<item>
+		<ingredient id="1459" count="573"/><!-- crystal_c -->
+		<ingredient id="1458" count="2865"/><!-- crystal_d -->
+		<production id="298" count="1"/><!-- orcish_glaive -->
+	</item>
+	<item>
+		<ingredient id="1459" count="1075"/><!-- crystal_c -->
+		<ingredient id="1458" count="5375"/><!-- crystal_d -->
+		<production id="95" count="1"/><!-- poleaxe -->
+	</item>
+</list>

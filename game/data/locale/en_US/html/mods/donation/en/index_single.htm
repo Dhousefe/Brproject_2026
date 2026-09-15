@@ -1,0 +1,99 @@
+<html>
+<title>Chat</title>
+<body>
+<br>
+<center>
+<font color=3c3c3c>________________</font>   <font color=ae9977>MOD.PAY</font>   <font color=3c3c3c>________________</font>
+</center>
+<br>
+<table>
+	<tr>
+		<td width=5></td>
+		<td>
+			<table bgcolor=000000>
+				<tr><td height=10></td></tr>
+				<tr>
+					<td align=center width=265>
+						<table>
+							<tr>
+								<td align=center width=265>
+									<img src="icon.etc_coins_gold_i00" width=32 height=32>
+								</td>
+							</tr>
+							<tr><td height=10></td></tr>
+							<tr>
+								<td align=center>
+									<font color=LEVEL>%item_name% %price%</font>
+								</td>
+							</tr>
+							<tr><td></td></tr>
+							<tr>
+								<td align=center>
+									<table>
+										<tr>
+											<td align=center>
+												<button value="Payment" action=" " width=86 height=17 back="sek.cbui94" fore="sek.cbui92">
+											</td>
+											<td align=center>
+												<button value="Currency" action=" " width=62 height=17 back="sek.cbui94" fore="sek.cbui92">
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr><td height=10></td></tr>
+							<tr>
+								<td align=center>
+									<table>
+										%list%
+									</table>
+								</td>
+							</tr>
+							<tr><td height=15></td></tr>
+							<tr>
+								<td align=center>
+									<table>
+										<tr>
+											<td align=center>
+												%quantity%
+											</td>
+											<td></td>
+											<td align=center>
+												<button value="Buy" action="bypass donation buy $Quantity" width=75 height=21 back="L2UI_ch3.Btn1_normalOn" fore="L2UI_ch3.Btn1_normal">
+											</td>
+											%refresh%
+											<td height=40></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	%banner%
+</table>
+<br><br>
+<table cellpadding=5 width=310>
+	<tr>
+		<td align=center>
+			<a action="bypass donation history 1">Purchase History</a>
+		</td>
+	</tr>
+	<tr>
+		<td align=center>
+			<a action="bypass donation email view">Email</a>
+		</td>
+	</tr>
+	<tr>
+		<td align=center>
+			<a action="bypass donation htm info.htm">Information</a>
+		</td>
+	</tr>
+	%calculator%
+</table>
+<br>
+</body>
+</html>

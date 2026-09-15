@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<territory name="donatemanager_82639147771" minZ="-3464" maxZ="-3448">
+		<node x="82689" y="147821" />
+		<node x="82589" y="147821" />
+		<node x="82589" y="147721" />
+		<node x="82689" y="147721" />
+	</territory>
+	<npcmaker name="donatemanager_826391477711" territory="donatemanager_82639147771" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50003" pos="82639;147771;-3464;6427" total="1" respawn="60sec" /> <!-- Donate Manager -->
+	</npcmaker>
+</list>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30834</npc><!-- Cema (Magic Trader) -->
+	</npcs>
+	<item>
+		<ingredient id="4364" count="10"/><!-- q_nebulite_orb -->
+		<production id="734" count="1"/><!-- quick_step_potion -->
+	</item>
+	<item>
+		<ingredient id="4364" count="15"/><!-- q_nebulite_orb -->
+		<production id="737" count="1"/><!-- scroll_of_resurrection -->
+	</item>
+	<item>
+		<ingredient id="4364" count="20"/><!-- q_nebulite_orb -->
+		<production id="735" count="1"/><!-- swift_attack_potion -->
+	</item>
+	<item>
+		<ingredient id="4364" count="20"/><!-- q_nebulite_orb -->
+		<production id="2508" count="10"/><!-- cursed_bone -->
+	</item>
+	<item>
+		<ingredient id="4364" count="100"/><!-- q_nebulite_orb -->
+		<production id="956" count="1"/><!-- scrl_of_ench_am_d -->
+	</item>
+	<item>
+		<ingredient id="4364" count="400"/><!-- q_nebulite_orb -->
+		<production id="952" count="1"/><!-- scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="4364" count="200"/><!-- q_nebulite_orb -->
+		<production id="4365" count="1"/><!-- q_ectoplasm_liqueur -->
+	</item>
+</list>

@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Gerenciar Loja de Buffs</title>
+</head>
+<body>
+<center>
+    <table width=300 border=0 cellpadding=0 cellspacing=0 background="L2UI_CT1.Windows_DF_Drawer_Bg_Darker">
+        <tr>
+            <td align=center>
+                <br>
+                <table width=280 border=0>
+                    <tr>
+                        <td width=70>Título Loja:</td>
+                        <td width=120><edit var="new_title" type="text" width=120 length=28></td>
+                        <td width=90 align=center><button value="Definir" action="bypass -h settitle $new_title" width=80 height=19 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+                    </tr>
+                    <tr>
+                        <td width=70>Preço Buff:</td>
+                        <td width=120><edit var="new_price" type="number" width=120 length=9></td>
+                        <td width=90 align=center><button value="Definir" action="bypass -h setprice $new_price" width=80 height=19 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+                    </tr>
+                </table>
+
+                <br>
+                <img src="L2UI.SquareGray" width=280 height=1>
+                <br1>
+
+                <table width=280 border=0>
+                    <tr>
+						<td align=center><font color=c1b39d>Buffs:</font> <font color=00FF00>%shop_buff_count%</font> / %max_buff_count%</td><br1>
+						<td align=center><font color=c1b39d>Preço:</font> <font color=00FF00>%,d</font></td><br1>
+                        <td align=center><font color=LEVEL>Título:</font> %shop_title%</td><br1>
+                    </tr>
+                    <tr>
+                        <td align=center>
+                            
+                            <br1>
+                        </td>
+                    </tr>
+                </table>
+				<br1>
+                <img src="L2UI.SquareGray" width=280 height=1>
+                <br1>
+                
+
+                <table width=290 height=160>
+                    %skill_list%
+                </table>
+
+                <img src="L2UI.SquareGray" width=280 height=1>
+                
+                <table width=280>
+                    <tr>
+                        <td align=left width=100>%prev_button%</td>
+                        <td align=center width=80>%page_info%</td>
+                        <td align=right width=100>%next_button%</td>
+                    </tr>
+                </table>
+
+                <br1>
+                <table width=280>
+                    <tr>
+                        <td align=center width=90><button value="Abrir Loja" action="bypass -h startshop" width=80 height=19 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+                        <td align=center width=90><button value="Fechar Loja" action="bypass -h stopshop" width=80 height=19 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+                        <td align=center width=90><button value="Voltar" action="bypass -h index" width=80 height=19 back="L2butom.bitbuttom8_over" fore="L2butom.bitbuttom8"></td>
+                    </tr>
+                </table>
+                <br1>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

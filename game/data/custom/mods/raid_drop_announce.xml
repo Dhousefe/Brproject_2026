@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	============================================================
+	   Raid Drop Announce Configuration
+	============================================================
+	
+	Este arquivo controla o anúncio global de drops de raid bosses.
+
+	Atributo "enabled":
+	 - Define se o sistema está ativado ou não (true/false).
+
+	Cada entrada <grade> representa um nível de cristal do item (C, B, A, S, etc.).
+
+	Atributos disponíveis por <grade>:
+	- name      : Nome da grade de cristal (C, B, A, S...).
+	- announce  : true para ativar o anúncio dessa grade; false para ignorar.
+	- message   : (Opcional) Mensagem personalizada de anúncio. Suporta variáveis:
+		- {player} = Nome do jogador que matou o boss
+		- {boss}   = Nome do Raid Boss
+		- {item}   = Nome do item dropado
+		- {amount} = Quantidade do item
+	- itemIds   : (Opcional) Lista separada por vírgulas com os IDs dos itens a serem anunciados.
+	              Se este campo for omitido, todos os itens da grade serão considerados.
+	              Se definido, apenas os itens especificados serão anunciados.
+
+	Exemplos:
+	- Uma grade com announce="true" e sem itemIds => anuncia qualquer item daquela grade.
+	- Uma grade com itemIds="123,456" => só anuncia se o item dropado estiver listado.
+
+	============================================================
+-->
+
+<list enabled="true">
+	<grade name="C" announce="false" />
+	<grade name="B" announce="true" message="{player} derrotou {boss} e dropou {amount}x {item}!" itemIds="123,456,789" />
+	<grade name="A" announce="true" message="{player} derrotou {boss} e dropou {amount}x {item}!" />
+	<grade name="S" announce="true" message="{player} derrotou {boss} e dropou {amount}x {item}!" />
+</list>

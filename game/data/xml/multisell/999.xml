@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>30731</npc><!-- Martin (Pet Manager) -->
+		<npc>30827</npc><!-- Lundy (Pet Manager ) -->
+		<npc>30828</npc><!-- Waters (Pet Manager ) -->
+		<npc>30829</npc><!-- Cooper (Pet Manager ) -->
+		<npc>30830</npc><!-- Joey (Pet Manager ) -->
+		<npc>30831</npc><!-- Nelson (Pet Manager ) -->
+		<npc>30869</npc><!-- Lemper (Pet Manager) -->
+		<npc>31067</npc><!-- Rood (Pet Manager) -->
+		<npc>31265</npc><!-- Annette (Pet Manager) -->
+		<npc>31309</npc><!-- Woods (Pet Manager) -->
+		<npc>31954</npc><!-- Saroyan (Pet Manager) -->
+	</npcs>
+	<item>
+		<ingredient id="3918" count="1"/><!-- hatchlings_mithril_coat -->
+		<ingredient id="57" count="80000"/><!-- adena -->
+		<production id="5170" count="1"/><!-- mithril_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5170" count="1"/><!-- mithril_panzer_coat -->
+		<ingredient id="57" count="80000"/><!-- adena -->
+		<production id="3918" count="1"/><!-- hatchlings_mithril_coat -->
+	</item>
+	<item>
+		<ingredient id="5182" count="1"/><!-- hatchlings_gorgon_coat -->
+		<ingredient id="57" count="115000"/><!-- adena -->
+		<production id="5171" count="1"/><!-- brigandine_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5171" count="1"/><!-- brigandine_panzer_coat -->
+		<ingredient id="57" count="115000"/><!-- adena -->
+		<production id="5182" count="1"/><!-- hatchlings_gorgon_coat -->
+	</item>
+	<item>
+		<ingredient id="5183" count="1"/><!-- hatchlings_ophidian_plate -->
+		<ingredient id="57" count="170000"/><!-- adena -->
+		<production id="5172" count="1"/><!-- draconic_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5172" count="1"/><!-- draconic_panzer_coat -->
+		<ingredient id="57" count="170000"/><!-- adena -->
+		<production id="5183" count="1"/><!-- hatchlings_ophidian_plate -->
+	</item>
+	<item>
+		<ingredient id="5184" count="1"/><!-- hatchlings_crimson_plate -->
+		<ingredient id="57" count="245000"/><!-- adena -->
+		<production id="5173" count="1"/><!-- blood_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5173" count="1"/><!-- blood_panzer_coat -->
+		<ingredient id="57" count="245000"/><!-- adena -->
+		<production id="5184" count="1"/><!-- hatchlings_crimson_plate -->
+	</item>
+	<item>
+		<ingredient id="5185" count="1"/><!-- hatchlings_draconic_plate -->
+		<ingredient id="57" count="365000"/><!-- adena -->
+		<production id="5174" count="1"/><!-- ophidian_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5174" count="1"/><!-- ophidian_panzer_coat -->
+		<ingredient id="57" count="365000"/><!-- adena -->
+		<production id="5185" count="1"/><!-- hatchlings_draconic_plate -->
+	</item>
+	<item>
+		<ingredient id="5186" count="1"/><!-- hatchlings_inferno_plate -->
+		<ingredient id="57" count="500000"/><!-- adena -->
+		<production id="5175" count="1"/><!-- inferno_panzer_coat -->
+	</item>
+	<item>
+		<ingredient id="5175" count="1"/><!-- inferno_panzer_coat -->
+		<ingredient id="57" count="500000"/><!-- adena -->
+		<production id="5186" count="1"/><!-- hatchlings_inferno_plate -->
+	</item>
+	<item>
+		<ingredient id="3925" count="1"/><!-- antiplaque -->
+		<ingredient id="57" count="80000"/><!-- adena -->
+		<production id="5176" count="1"/><!-- serpentine_spike -->
+	</item>
+	<item>
+		<ingredient id="5176" count="1"/><!-- serpentine_spike -->
+		<ingredient id="57" count="80000"/><!-- adena -->
+		<production id="3925" count="1"/><!-- antiplaque -->
+	</item>
+	<item>
+		<ingredient id="5187" count="1"/><!-- serpentine_grinder -->
+		<ingredient id="57" count="115000"/><!-- adena -->
+		<production id="5177" count="1"/><!-- drake_horn -->
+	</item>
+	<item>
+		<ingredient id="5177" count="1"/><!-- drake_horn -->
+		<ingredient id="57" count="115000"/><!-- adena -->
+		<production id="5187" count="1"/><!-- serpentine_grinder -->
+	</item>
+	<item>
+		<ingredient id="5188" count="1"/><!-- fang_of_dahak -->
+		<ingredient id="57" count="170000"/><!-- adena -->
+		<production id="5178" count="1"/><!-- assault_alicorn -->
+	</item>
+	<item>
+		<ingredient id="5178" count="1"/><!-- assault_alicorn -->
+		<ingredient id="57" count="170000"/><!-- adena -->
+		<production id="5188" count="1"/><!-- fang_of_dahak -->
+	</item>
+	<item>
+		<ingredient id="5189" count="1"/><!-- crimson_bloodfang -->
+		<ingredient id="57" count="245000"/><!-- adena -->
+		<production id="5179" count="1"/><!-- draconic_slicer -->
+	</item>
+	<item>
+		<ingredient id="5179" count="1"/><!-- draconic_slicer -->
+		<ingredient id="57" count="245000"/><!-- adena -->
+		<production id="5189" count="1"/><!-- crimson_bloodfang -->
+	</item>
+	<item>
+		<ingredient id="5190" count="1"/><!-- draconic_chopper -->
+		<ingredient id="57" count="365000"/><!-- adena -->
+		<production id="5180" count="1"/><!-- ophidian_lancer -->
+	</item>
+	<item>
+		<ingredient id="5180" count="1"/><!-- ophidian_lancer -->
+		<ingredient id="57" count="365000"/><!-- adena -->
+		<production id="5190" count="1"/><!-- draconic_chopper -->
+	</item>
+	<item>
+		<ingredient id="5191" count="1"/><!-- diabolic_grinder -->
+		<ingredient id="57" count="500000"/><!-- adena -->
+		<production id="5181" count="1"/><!-- diamond_drill -->
+	</item>
+	<item>
+		<ingredient id="5181" count="1"/><!-- diamond_drill -->
+		<ingredient id="57" count="500000"/><!-- adena -->
+		<production id="5191" count="1"/><!-- diabolic_grinder -->
+	</item>
+</list>

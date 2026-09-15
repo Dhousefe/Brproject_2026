@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+    <event name="Christmas">
+        <item id="5556" count="1" chance="20" minLvl="20"/>
+        <item id="5557" count="1" chance="20" minLvl="20"/>
+        <item id="5558" count="1" chance="50" minLvl="20"/>
+        <item id="5559" count="1" chance="5" minLvl="20"/>
+    </event>
+    <event name="HeavyMedal">
+        <item id="6392" count="1" chance="100" minLvl="20"/>
+        <item id="6393" count="1" chance="50" minLvl="20"/>
+    </event>
+    <event name="L2Day">
+        <item id="3875" count="1" chance="70" minLvl="20"/>
+        <item id="3876" count="1" chance="70" minLvl="20"/>
+        <item id="3877" count="1" chance="70" minLvl="20"/>
+        <item id="3878" count="1" chance="70" minLvl="20"/>
+        <item id="3879" count="1" chance="70" minLvl="20"/>
+        <item id="3881" count="1" chance="70" minLvl="20"/>
+        <item id="3882" count="1" chance="70" minLvl="20"/>
+        <item id="3883" count="1" chance="70" minLvl="20"/>
+        <item id="3884" count="1" chance="70" minLvl="20"/>
+        <item id="3886" count="1" chance="70" minLvl="20"/>
+        <item id="3887" count="1" chance="70" minLvl="20"/>
+        <item id="3888" count="1" chance="70" minLvl="20"/>
+    </event>
+    <event name="Squash">
+        <item id="6391" count="1" chance="100" minLvl="20"/>
+    </event>
+</list>

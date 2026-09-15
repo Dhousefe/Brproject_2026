@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<npcs>
+		<npc>32024</npc><!-- Mulia (Clan Trader) -->
+		<npc>32025</npc><!-- Ilia (Clan Trader) -->
+	</npcs>
+	<item>
+		<ingredient id="65336" count="3480"/><!-- pledge_point -->
+		<production id="7870" count="1"/><!-- sealed_apella_helm -->
+	</item>
+	<item>
+		<ingredient id="65336" count="13540"/><!-- pledge_point -->
+		<production id="7871" count="1"/><!-- sealed_apella_plate_armor -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7872" count="1"/><!-- sealed_apella_gauntlet -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7873" count="1"/><!-- sealed_apella_solleret -->
+	</item>
+	<item>
+		<ingredient id="65336" count="10160"/><!-- pledge_point -->
+		<production id="7874" count="1"/><!-- sealed_apella_brigandine -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7875" count="1"/><!-- sealed_apella_leather_gloves -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7876" count="1"/><!-- sealed_apella_boots -->
+	</item>
+	<item>
+		<ingredient id="65336" count="10160"/><!-- pledge_point -->
+		<production id="7877" count="1"/><!-- sealed_apella_doublet -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7878" count="1"/><!-- sealed_apella_gloves -->
+	</item>
+	<item>
+		<ingredient id="65336" count="2320"/><!-- pledge_point -->
+		<production id="7879" count="1"/><!-- sealed_apella_sandals -->
+	</item>
+</list>

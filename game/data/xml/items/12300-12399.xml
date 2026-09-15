@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	
+	<item id="12370" type="EtcItem" name="Packet Vitality">
+		<set name="icon" val="icon.skill0370" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillVitality" />
+	</item>
+	<item id="12371" type="EtcItem" name="Packet Spirituality">
+		<set name="icon" val="icon.skill0371" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillSpirituality" />
+	</item>
+	<item id="12372" type="EtcItem" name="Packet Essence">
+		<set name="icon" val="icon.skill0372" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillEssence" />
+	</item>
+	<item id="12373" type="EtcItem" name="Packet Lifeblood">
+		<set name="icon" val="icon.skill0373" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillLifeblood" />
+	</item>
+	<item id="12374" type="EtcItem" name="Packet Morale">
+		<set name="icon" val="icon.skill0374" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMorale" />
+	</item>
+	<item id="12375" type="EtcItem" name="Packet Clarity">
+		<set name="icon" val="icon.skill0375" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillClarity" />
+	</item>
+	<item id="12376" type="EtcItem" name="Packet Might">
+		<set name="icon" val="icon.skill0376" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMight" />
+	</item>
+	<item id="12377" type="EtcItem" name="Packet Aegis">
+		<set name="icon" val="icon.skill0377" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillAegis" />
+	</item>
+	<item id="12378" type="EtcItem" name="Packet Empowerment">
+		<set name="icon" val="icon.skill0378" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillEmpowerment" />
+	</item>
+	<item id="12379" type="EtcItem" name="Packet Magic Protection">
+		<set name="icon" val="icon.skill0379" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMagicProtection" />
+	</item>
+	<item id="12380" type="EtcItem" name="Packet Guidance">
+		<set name="icon" val="icon.skill0380" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillGuidance" />
+	</item>
+	<item id="12381" type="EtcItem" name="Packet Agility">
+		<set name="icon" val="icon.skill0381" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillAgility" />
+	</item>
+	<item id="12382" type="EtcItem" name="Packet Withstand-Attack">
+		<set name="icon" val="icon.skill0382" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillWithstandAttack" />
+	</item>
+	<item id="12383" type="EtcItem" name="Packet Shield Boost">
+		<set name="icon" val="icon.skill0383" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillShieldBoost" />
+	</item>
+	<item id="12384" type="EtcItem" name="Packet Cyclonic Resistance">
+		<set name="icon" val="icon.skill0384" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillCyclonicResistance" />
+	</item>
+	<item id="12385" type="EtcItem" name="Packet Magmatic Resistance">
+		<set name="icon" val="icon.skill0385" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMagmaticResistance" />
+	</item>
+	<item id="12386" type="EtcItem" name="Packet Fortitude">
+		<set name="icon" val="icon.skill0386" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillFortitude" />
+	</item>
+	<item id="12387" type="EtcItem" name="Packet Freedom">
+		<set name="icon" val="icon.skill0387" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillFreedom" />
+	</item>
+	<item id="12388" type="EtcItem" name="Packet Vigilance">
+		<set name="icon" val="icon.skill0388" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillVigilance" />
+	</item>
+	<item id="12389" type="EtcItem" name="Packet March">
+		<set name="icon" val="icon.skill0389" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMarch" />
+	</item>
+	<item id="12390" type="EtcItem" name="Packet Luck">
+		<set name="icon" val="icon.skill0390" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillLuck" />
+	</item>
+	<item id="12391" type="EtcItem" name="Packet Imperium">
+		<set name="icon" val="icon.skill0391" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillImperium" />
+	</item>
+	<item id="12392" type="EtcItem" name="Packet Experience">
+		<set name="icon" val="favero_l2_icons03.skill_clan_6" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillExperience" />
+	</item>
+	<item id="12393" type="EtcItem" name="Packet Meditation">
+		<set name="icon" val="favero_l2_icons03.skill_clan_12" />
+		<set name="default_action" val="capsule" />
+		<set name="material" val="STEEL" />
+		<set name="weight" val="20" />
+		<set name="is_tradable" val="true" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
+		<set name="is_depositable" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="is_oly_restricted" val="true" />
+		<set name="handler" val="SkillMeditation" />
+	</item>
+
+</list>

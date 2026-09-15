@@ -1,0 +1,12 @@
+namespace br.project.cluster.fb;
+
+table PlayerJoined {
+  server_id:uint32;
+  char_name:string;
+  x:int32;
+  y:int32;
+  z:int32;
+  clan_id:uint32;
+  karma:int32;
+}
+root_type PlayerJoined;
