@@ -1,0 +1,74 @@
+/*
+* Copyleft © 2024-2026 L2Brproject
+* * This file is part of L2Brproject derived from aCis409/RusaCis3.8
+* * L2Brproject is free software: you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation, either version 3 of the License.
+* * L2Brproject is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details.
+* * You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+* Our main Developers, Dhousefe-L2JBR, Agazes33, Ban-L2jDev, Warman, SrEli.
+* Our special thanks, Nattan Felipe, Diego Fonseca, Junin, ColdPlay, Denky, MecBew, Localhost, MundvayneHELLBOY, 
+* SonecaL2, Eduardo.SilvaL2J, biLL, xpower, xTech, kakuzo, Tiagorosendo, Schuster, LucasStark, damedd
+* as a contribution for the forum L2JBrasil.com
+ */
+package ext.mods.gameserver.skills.effects;
+
+import ext.mods.gameserver.enums.skills.EffectType;
+import ext.mods.gameserver.model.actor.Creature;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.actor.instance.Monster;
+import ext.mods.gameserver.network.SystemMessageId;
+import ext.mods.gameserver.skills.AbstractEffect;
+import ext.mods.gameserver.skills.Formulas;
+import ext.mods.gameserver.skills.L2Skill;
+
+public class EffectSpoil extends AbstractEffect
+{
+	public EffectSpoil(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
+	{
+		super(template, skill, effected, effector);
+	}
+	
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.SPOIL;
+	}
+	
+	@Override
+	public boolean onStart()
+	{
+		if (!(getEffector() instanceof Player player))
+			return false;
+		
+		if (!(getEffected() instanceof Monster targetMonster))
+			return false;
+		
+		if (targetMonster.isDead())
+			return false;
+		
+		if (targetMonster.getSpoilState().isSpoiled())
+		{
+			player.sendPacket(SystemMessageId.ALREADY_SPOILED);
+			return false;
+		}
+		
+		if (Formulas.calcMagicSuccess(player, targetMonster, getSkill()))
+		{
+			targetMonster.getSpoilState().setSpoilerId(player.getObjectId());
+			player.sendPacket(SystemMessageId.SPOIL_SUCCESS);
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
+}
