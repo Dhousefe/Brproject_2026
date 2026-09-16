@@ -475,7 +475,7 @@ Processo de borda autônomo e sentinela baseado em Netty 4.2 que deve ser expost
 - **HTTP Reverse Proxy (Porta 8090 / 80 / 443)**: Encaminha requisições HTTP para o backend web (Ktor / Game API) com auditoria de IP real e preservação de headers de proxy.
 - **RateLimiter por IP**: Protege contra floods de conexão e requisições repetitivas (`maxConnections`, `maxRequests`, `windowSeconds`).
 - **Homologação JMH**: Sustenta mais de **28,9 milhões de verificações por segundo** sob Java 25.
-- **Configuração via XML**: `game/data/custom/mods/proxy.xml` e flags de isolamento em `server.properties` (`EnableNativeProxy`, `EnableFail2Ban`). Documentação técnica detalhada em [**`docs/architecture_proxy_fail2ban_flow.html`**](docs/architecture_proxy_fail2ban_flow.html) e [**`doc/ARCHITECTURE_PROXY_FAIL2BAN_FLOW.md`**](doc/ARCHITECTURE_PROXY_FAIL2BAN_FLOW.md).
+- **Configuração via XML**: `game/data/custom/mods/proxy.xml` e flags de isolamento em `server.properties` (`EnableNativeProxy`, `EnableFail2Ban`). Documentação técnica detalhada em [**`docs_api/architecture_proxy_fail2ban_flow.html`**](docs_api/architecture_proxy_fail2ban_flow.html) e [**`docs_api/architecture_proxy_fail2ban_flow.md`**](docs_api/architecture_proxy_fail2ban_flow.md).
 
 ### Fail2BanDashboard & Sincronização Atômica de Rotas
 
@@ -513,8 +513,7 @@ Serviço Netty HTTP interno de altíssima performance embutido no GameServer (po
   - **Doações PIX, Loja & Votos**: `donation/config`, `donation/create` (QR Code PIX instantâneo), `donation/status`, `donation/history`, `donation/shop/buy` (compra de itens no shopping virtual com idempotência estrita via `idempotencyKey`), `vote/status`, `vote/intent`, `vote/intent/status` e `vote/deliver` (Top L2JBrasil).
   - **Rankings Públicos**: `/internal/site/rankings/{pvp|pk|clan}` (com cache em memória).
 - **Documentação & Portal Interativo**:
-  - 🌐 **Portal HTML Interativo com Tailwind CSS**: [**`docs/game_api_integration_guide.html`**](docs/game_api_integration_guide.html) (com busca instantânea, abas de payloads e snippets prontos em cURL, JavaScript, Kotlin e Python).
-  - 📄 **Especificação Técnica Completa**: [**`doc/GAME_API_CONTRACTS_AND_INTEGRATION.md`**](doc/GAME_API_CONTRACTS_AND_INTEGRATION.md).
+  - 🌐 **Portal HTML Interativo com Tailwind CSS**: [**`docs_api/game_api_integration_guide.html`**](docs_api/game_api_integration_guide.html) (com busca instantânea, abas de payloads e snippets prontos em cURL, JavaScript, Kotlin e Python).
 
 ### Cluster HPC & Telemetria Intel PCM (`:cluster-hpc`)
 
