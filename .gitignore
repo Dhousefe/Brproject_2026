@@ -1,0 +1,67 @@
+# === BrProject Phase 0 hygiene ===
+
+# Build
+build/
+.hermes/
+.gradle/
+.agents/
+game/cache/
+login/cache/
+out/
+*.class
+*.rej
+*.class.encrypted
+*.encrypted
+*.probe
+*.lock
+*.pyc
+*.war
+*.nar
+*.ear
+*.tar.gz
+*.rar
+*.backup
+*.meta
+*.7z
+# zip archives of dist (keep intentional assets out)
+Brproject_Distribution/
+Brproject_7z/
+docs/
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+*.ctxt
+.mtj.tmp/
+hs_err_pid*
+replay_pid*
+
+# Logs
+*.log
+game/log/
+login/log/
+
+# Geodata / heavy runtime
+game/data/geodata/*
+game/data/prevention/
+
+# --- Secrets / local config (use *.example.properties in Git) ---
+.env
+.env.*
+!.env.example
+*.local.properties
+secrets/
+**/license.xml
+**/data/license.xml
+
+login/config/hexid.txt
+game/config/hexid.txt
+**/hexid.txt
+
+# Local config backup (never commit)
+.local-config-backup/
+
