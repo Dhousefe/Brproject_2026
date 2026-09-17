@@ -58,10 +58,6 @@ secrets/
 **/license.xml
 **/data/license.xml
 
-login/config/hexid.txt
-game/config/hexid.txt
-**/hexid.txt
-
 # Local config backup (never commit)
 .local-config-backup/
 
