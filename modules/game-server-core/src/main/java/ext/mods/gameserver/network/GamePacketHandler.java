@@ -522,6 +522,7 @@ public final class GamePacketHandler implements IPacketHandler<GameClient>, ICli
 						msg = new SendTimeCheck();
 						break;
 					case 0x9d:
+						msg = new DummyPacket();
 						break;
 					case 0x9e:
 						msg = new RequestPackageSendableItemList();

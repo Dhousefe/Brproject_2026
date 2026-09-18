@@ -18,6 +18,7 @@
 package ext.mods.gameserver.network.serverpackets;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.List;
 
 import ext.mods.commons.lang.StringUtil;
@@ -46,7 +47,7 @@ public class ShowBoard extends L2GameServerPacket
 		for (String h : headers)
 			totalBytes += (h.length() + 1) * 2;
 		
-		final ByteBuffer buf = ByteBuffer.allocate(totalBytes);
+		final ByteBuffer buf = ByteBuffer.allocate(totalBytes).order(ByteOrder.LITTLE_ENDIAN);
 		for (String h : headers)
 		{
 			for (int i = 0; i < h.length(); i++)

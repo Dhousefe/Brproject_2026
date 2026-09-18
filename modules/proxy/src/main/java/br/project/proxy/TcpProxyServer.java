@@ -163,6 +163,24 @@ public final class TcpProxyServer implements AutoCloseable {
                             public void channelRead(ChannelHandlerContext backendCtx, Object msg) {
                                 ctx.writeAndFlush(msg);
                             }
+
+                            @Override
+                            public void channelWritabilityChanged(ChannelHandlerContext backendCtx) throws Exception {
+                                boolean writable = backendCtx.channel().isWritable();
+                                ctx.channel().config().setAutoRead(writable);
+                                super.channelWritabilityChanged(backendCtx);
+                            }
+
+                            @Override
+                            public void channelInactive(ChannelHandlerContext backendCtx) {
+                                ctx.close();
+                            }
+
+                            @Override
+                            public void exceptionCaught(ChannelHandlerContext backendCtx, Throwable cause) {
+                                LOG.debug("[proxy/tcp] backend error route='{}'", route.name(), cause);
+                                backendCtx.close();
+                            }
                         });
                     }
                 });
@@ -197,6 +215,15 @@ public final class TcpProxyServer implements AutoCloseable {
             } else {
                 pendingMessages.add(msg);
             }
+        }
+
+        @Override
+        public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+            boolean writable = ctx.channel().isWritable();
+            if (outboundChannel != null && outboundChannel.isActive()) {
+                outboundChannel.config().setAutoRead(writable);
+            }
+            super.channelWritabilityChanged(ctx);
         }
 
         @Override

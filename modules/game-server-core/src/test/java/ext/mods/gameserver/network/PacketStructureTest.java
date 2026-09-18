@@ -2,6 +2,7 @@ package ext.mods.gameserver.network;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
@@ -10,6 +11,7 @@ import java.nio.ByteOrder;
 
 import org.junit.jupiter.api.Test;
 
+import ext.mods.gameserver.network.serverpackets.ShowBoard;
 import ext.mods.loginserver.network.serverpackets.GGAuth;
 import ext.mods.loginserver.network.serverpackets.LoginFail;
 
@@ -403,5 +405,83 @@ class PacketStructureTest
 		assertEquals(y, buf.getInt(), "ValidateLocation y must match");
 		assertEquals(z, buf.getInt(), "ValidateLocation z must match");
 		assertEquals(heading, buf.getInt(), "ValidateLocation heading must match");
+	}
+
+	// ---------------------------------------------------------------
+	// ShowBoard Tests (Opcode 0x6E, UTF-16LE BBS Header Validation)
+	// ---------------------------------------------------------------
+
+	@Test
+	void showBoard_writesCorrectOpcodeAndLittleEndianHeaders() throws Exception
+	{
+		final ShowBoard packet = new ShowBoard("<html>Hello</html>", "101");
+		final ByteBuffer buf = writePacket(packet);
+
+		// Opcode check
+		assertEquals(0x6E, buf.get() & 0xFF, "ShowBoard opcode must be 0x6E");
+		// CanShow flag
+		assertEquals(0x01, buf.get() & 0xFF, "ShowBoard canShow must be 0x01");
+
+		// Validate all 8 static headers are valid Little-Endian UTF-16 strings
+		final String[] expectedHeaders = {
+			"bypass _bbshome",
+			"bypass _bbsgetfav",
+			"bypass _bbsloc",
+			"bypass _bbsclan",
+			"bypass _bbsmemo",
+			"bypass _maillist_0_1_0_",
+			"bypass _friendlist_0_",
+			"bypass _bbsgetfav_add"
+		};
+
+		for (String expected : expectedHeaders)
+		{
+			final String actual = readLittleEndianUtf16String(buf);
+			assertEquals(expected, actual, "Header must be Little-Endian UTF-16 encoded without byte swapping");
+		}
+
+		// Body check
+		final String body = readLittleEndianUtf16String(buf);
+		assertEquals("101\u0008<html>Hello</html>", body, "Body string must match");
+	}
+
+	@Test
+	void showBoard_closePacketWritesCanShowZero() throws Exception
+	{
+		final ShowBoard packet = ShowBoard.STATIC_CLOSE;
+		final ByteBuffer buf = writePacket(packet);
+
+		// Opcode check
+		assertEquals(0x6E, buf.get() & 0xFF, "ShowBoard opcode must be 0x6E");
+		// CanShow flag
+		assertEquals(0x00, buf.get() & 0xFF, "ShowBoard STATIC_CLOSE canShow must be 0x00");
+		assertEquals(0, buf.remaining(), "STATIC_CLOSE must not write any header or body bytes");
+	}
+
+	@Test
+	void npcInfo_spawnAnimation_doesNotForceSummonAnimationOnNormalNpc() throws Exception
+	{
+		// Regressão do crash 0xc0000409 do cliente Fermata:
+		// Em cidades com alta densidade (Gludio tem 241 NPCs), enviar spawn_animation = 2
+		// dispara 241 efeitos de summon simultâneos, estourando a pilha do cliente Fermata.
+		// O ternário DEVE ser _isSummoned ? 2 : 0, e NUNCA _isSummoned ? 2 : 2.
+		final java.nio.file.Path sourcePath = java.nio.file.Path.of("src/main/java/ext/mods/gameserver/network/serverpackets/AbstractNpcInfo.java");
+		final String content = java.nio.file.Files.readString(sourcePath);
+
+		assertTrue(content.contains("writeC(_isSummoned ? 2 : 0);"),
+			"AbstractNpcInfo must write 0 for normal NPCs to avoid Fermata 0xc0000409 crash");
+		assertFalse(content.contains("writeC(_isSummoned ? 2 : 2);"),
+			"AbstractNpcInfo must NEVER hardcode '2 : 2' which causes mass summon particles on teleports");
+	}
+
+	private static String readLittleEndianUtf16String(ByteBuffer buf)
+	{
+		final StringBuilder sb = new StringBuilder();
+		char ch;
+		while (buf.hasRemaining() && (ch = (char) buf.getShort()) != 0)
+		{
+			sb.append(ch);
+		}
+		return sb.toString();
 	}
 }

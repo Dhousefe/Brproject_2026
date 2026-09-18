@@ -108,3 +108,12 @@ tasks.register<JavaExec>("runStartupBenchmark") {
     jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-Dfile.encoding=UTF-8")
 }
 
+tasks.register<JavaExec>("runGameCryptBenchmark") {
+    group = "benchmark"
+    description = "Executes the JMH GameCrypt Mechanical Sympathy Benchmark (Synchronized vs Lock-Free)."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("ext.mods.benchmark.network.GameCryptBenchmarkRunner")
+    jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-Dfile.encoding=UTF-8")
+}
+
+

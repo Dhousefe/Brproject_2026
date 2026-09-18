@@ -168,6 +168,7 @@ public final class PlayerInventoryAccess
 		}
 
 		refreshExpertisePenalty();
+		_player.sendIU();
 		_player.broadcastUserInfo();
 
 		if (abortAttack)

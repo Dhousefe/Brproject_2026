@@ -28,11 +28,14 @@ public abstract class L2GameServerPacket extends SendablePacket<GameClient>
 {
 	protected static final CLogger LOGGER = new CLogger(L2GameServerPacket.class.getName());
 	
+	private boolean _hasFailed = false;
+
 	protected abstract void writeImpl();
 	
 	@Override
 	protected void write()
 	{
+		_hasFailed = false;
 		if (ConfigServer.PACKET_HANDLER_DEBUG && !ConfigServer.SERVER_PACKETS.contains(getClass().getSimpleName()))
 			LOGGER.info(getType());
 		
@@ -42,8 +45,14 @@ public abstract class L2GameServerPacket extends SendablePacket<GameClient>
 		}
 		catch (Exception e)
 		{
+			_hasFailed = true;
 			LOGGER.error("Failed writing {} for {}. ", e, getType(), getClient() != null ? getClient().toString() : "null");
 		}
+	}
+	
+	public boolean hasFailed()
+	{
+		return _hasFailed;
 	}
 	
 	public void runImpl()

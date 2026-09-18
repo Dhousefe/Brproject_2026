@@ -79,7 +79,6 @@ public class Pet extends Summon
 	private final Map<Integer, Timestamp> _reuseTimeStamps = new ConcurrentHashMap<>();
 	
 	private final PetInventory _inventory = new PetInventory(this);
-	private final PetInventoryUpdate _iu = new PetInventoryUpdate(this);
 	
 	private final int _controlItemId;
 	private final boolean _isMountable;
@@ -739,6 +738,9 @@ public class Pet extends Summon
 	@Override
 	public void sendIU()
 	{
-		sendPacket(_iu);
+		if (_inventory.getUpdateList().isEmpty())
+			return;
+		
+		sendPacket(new PetInventoryUpdate(this));
 	}
 }

@@ -128,7 +128,15 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	
 	// Suporte ao Protocolo Fermata
 	private volatile int _fermataCapabilities;
-	private boolean _fermataCapabilitiesNegotiated;
+	private volatile boolean _fermataCapabilitiesNegotiated;
+
+	// Telemetria forense de pacotes S->C e C->S
+	private final ext.mods.gameserver.network.netty.PacketAuditTrail _auditTrail = new ext.mods.gameserver.network.netty.PacketAuditTrail();
+
+	public ext.mods.gameserver.network.netty.PacketAuditTrail getAuditTrail()
+	{
+		return _auditTrail;
+	}
 	
 	// Suporte a Guard Legada (DLL russa / aCis legada)
 	private boolean _hasLegacyGuard;

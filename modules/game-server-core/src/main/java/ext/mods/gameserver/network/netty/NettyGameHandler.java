@@ -87,6 +87,8 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 			
 			// Identifica e instancia o ReceivablePacket
 			final ReceivablePacket<GameClient> packet = _packetHandler.handlePacket(byteBuffer, client);
+			client.getAuditTrail().recordInbound(packet != null ? packet.getClass().getSimpleName() : "Unknown_0x" + Integer.toHexString(opcode), opcode, readable, client.getState());
+
 			if (packet != null)
 			{
 				if (packet.readPacket(client, byteBuffer))
@@ -135,6 +137,7 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 		final GameClient client = ctx.channel().attr(CLIENT_KEY).get();
 		if (client != null)
 		{
+			client.getAuditTrail().dumpForensicReport(client.toString(), ctx.channel().remoteAddress(), client.getState());
 			client.onDisconnection();
 		}
 		

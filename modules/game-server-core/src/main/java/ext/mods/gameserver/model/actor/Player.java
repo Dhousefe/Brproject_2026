@@ -375,7 +375,6 @@ public class Player extends Playable
 	private final Location _savedLocation = new Location(0, 0, 0);
 	
 	private final PcInventory _inventory = new PcInventory(this);
-	private final InventoryUpdate _iu = new InventoryUpdate(this);
 	
 	/** Core trade/store + persistence components (att-ver-3.0). */
 	private final PlayerStorage _storage = new PlayerStorage(this);
@@ -5337,7 +5336,10 @@ public class Player extends Playable
 	@Override
 	public void sendIU()
 	{
-		sendPacket(_iu);
+		if (_inventory.getUpdateList().isEmpty())
+			return;
+		
+		sendPacket(new InventoryUpdate(this));
 	}
 	
 	public BoatInfo getBoatInfo()

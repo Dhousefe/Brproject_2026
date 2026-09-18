@@ -348,7 +348,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 				writeC(_npc.isRunning() ? 1 : 0);
 				writeC(_npc.isInCombat() ? 1 : 0);
 				writeC(_npc.isAlikeDead() ? 1 : 0);
-				writeC(_isSummoned ? 2 : 2);
+				writeC(_isSummoned ? 2 : 0);
 				
 				writeS(_name);
 				writeS(_title);

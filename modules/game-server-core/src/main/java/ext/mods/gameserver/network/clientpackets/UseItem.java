@@ -37,6 +37,7 @@ import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.model.item.kind.Item;
 import ext.mods.gameserver.model.zone.type.RandomZone;
 import ext.mods.gameserver.network.SystemMessageId;
+import ext.mods.gameserver.network.serverpackets.ActionFailed;
 import ext.mods.gameserver.network.serverpackets.SystemMessage;
 import ext.mods.gameserver.scripting.Quest;
 import ext.mods.gameserver.scripting.QuestState;
@@ -63,7 +64,10 @@ public final class UseItem extends L2GameClientPacket
 			return;
 		
 		if (!getClient().performAction(FloodProtector.USE_ITEM))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
+		}
 		
 		if (player.isOperating())
 		{

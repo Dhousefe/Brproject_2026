@@ -17,7 +17,9 @@
  */
 package ext.mods.gameserver.network.serverpackets;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 import ext.mods.gameserver.model.actor.Playable;
 import ext.mods.gameserver.model.actor.Player;
@@ -26,12 +28,19 @@ import ext.mods.gameserver.model.item.kind.Item;
 
 public class AbstractInventoryUpdate extends L2GameServerPacket
 {
-	private final Collection<ItemInfo> _items;
+	private final List<ItemInfo> _items;
 	private final boolean _isPlayer;
 	
 	public AbstractInventoryUpdate(Playable playable)
 	{
-		_items = playable.getInventory().getUpdateList();
+		final Queue<ItemInfo> updateList = playable.getInventory().getUpdateList();
+		final List<ItemInfo> snapshot = new ArrayList<>(updateList.size());
+		ItemInfo item;
+		while ((item = updateList.poll()) != null)
+		{
+			snapshot.add(item);
+		}
+		_items = snapshot;
 		_isPlayer = playable instanceof Player;
 	}
 	
@@ -62,9 +71,6 @@ public class AbstractInventoryUpdate extends L2GameServerPacket
 				writeD(temp.getAugmentation());
 				writeD(item.isQuestItem() ? -1 : temp.getDisplayedManaLeft());
 			}
-			
 		}
-		
-		_items.clear();
 	}
 }
