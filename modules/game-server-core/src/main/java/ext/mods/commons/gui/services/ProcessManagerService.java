@@ -777,14 +777,22 @@ public class ProcessManagerService {
         
         command.add("-XX:+UseG1GC");
         command.add("-XX:MaxGCPauseMillis=200");
-        command.add("-XX:G1HeapRegionSize=16m");
+        if (tipo.equalsIgnoreCase("gameserver")) {
+            command.add("-XX:G1HeapRegionSize=16m");
+        } else {
+            command.add("-XX:G1HeapRegionSize=8m");
+        }
         command.add("-XX:+UseStringDeduplication");
         command.add("-XX:+UseCompressedOops");
         command.add("-XX:+UseCompactObjectHeaders");
         command.add("-XX:+TieredCompilation");
         command.add("-XX:TieredStopAtLevel=4");
         
-        if (tipo.equals("gameserver"))
+        for (String rf : JvmOptimizer.getG1MemoryReclaimFlags()) {
+            command.add(rf);
+        }
+        
+        if (tipo.equalsIgnoreCase("gameserver") || tipo.equalsIgnoreCase("loginserver"))
         {
             command.add("-XX:+AutoCreateSharedArchive");
             command.add("-XX:SharedArchiveFile=cache/brproject_cds.jsa");

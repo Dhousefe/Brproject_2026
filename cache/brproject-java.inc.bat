@@ -26,9 +26,13 @@ if not "%BRPROJECT_JAVA_HOME%"=="" (
 )
 
 REM --- 1) JAVA_HOME vindo do ambiente ---
+REM OP-3 (Startup Opt): quando %JAVA_HOME% (ou %BRPROJECT_JAVA_HOME% acima)
+REM ja aponta para um JDK valido, vamos DIRETO para :java_found sem executar
+REM a varredura de 12 diretorios comuns abaixo (100-400ms tipicos em NVMe).
+REM Se JAVA_HOME existe mas eh invalido (path deletado ou string lixo do tipo
+REM ":JAVA_HOME"), pulamos a secao 2 (varredura lenta) e vamos direto para a
+REM secao 3 ('where java'), que eh muito mais rapida.
 if defined JAVA_HOME (
-    REM Normaliza: se o usuario definiu apontando para o executavel
-    REM (ex.: "...\jdk-25\bin\java.exe"), removemos o sufixo \bin\java.exe.
     call :normalize_java_home
     if exist "%JAVA_HOME%\bin\java.exe" (
         set "JAVA_CMD=%JAVA_HOME%\bin\java.exe"
@@ -37,6 +41,22 @@ if defined JAVA_HOME (
     if exist "%JAVA_HOME%\bin\javaw.exe" (
         set "JAVA_CMD=%JAVA_HOME%\bin\javaw.exe"
         goto :java_found
+    )
+    REM OP-3: JAVA_HOME definido mas invalido. Nao desce para a varredura
+    REM completa de diretorios (secao 2) — pula direto para 'where java'.
+    goto :try_where
+)
+
+REM --- 1.5) JDK 25 Autonomo Local (Projeto Start / Gradle Toolchain) ---
+if not defined JAVA_CMD (
+    for %%D in ("%~dp0..\gradle\jdk25" "%~dp0gradle\jdk25" "D:\Projeto_Start_Brproject\gradle\jdk25" "D:\graalvm25") do (
+        if not defined JAVA_CMD (
+            if exist "%%~fD\bin\java.exe" (
+                set "JAVA_HOME=%%~fD"
+                set "JAVA_CMD=%%~fD\bin\java.exe"
+                goto :java_found
+            )
+        )
     )
 )
 
@@ -57,6 +77,7 @@ for %%P in ("%_JDK_GLOBS:;=" "%") do (
 if defined JAVA_CMD goto :java_found
 
 REM --- 3) varre o PATH via `where` ---
+:try_where
 for /f "delims=" %%J in ('where java 2^>nul') do (
     if not defined JAVA_CMD (
         if exist "%%~fJ" (

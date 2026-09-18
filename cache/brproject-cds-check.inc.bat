@@ -28,6 +28,16 @@ if exist "%CDS%" if exist "%META%" (
 >"%META%" echo %MODE%
 
 if not exist "%CDS%" goto :eof
+
+REM --- Verifica se o arquivo .jsa esta truncado ou corrompido (tamanho < 32KB) ---
+for %%A in ("%CDS%") do (
+  if %%~zA lss 32768 (
+    del /f /q "%CDS%" 2>nul
+    echo [AppCDS] Snapshot removido - arquivo .jsa corrompido ou incompleto ^(tamanho %%~zA bytes^).
+    goto :eof
+  )
+)
+
 if not exist "%JAR%" goto :eof
 powershell -NoProfile -Command ^
   "if ((Get-Item -LiteralPath '%JAR%').LastWriteTime -gt (Get-Item -LiteralPath '%CDS%').LastWriteTime) { Remove-Item -LiteralPath '%CDS%' -Force; Write-Host '[AppCDS] Snapshot removido - server.jar foi atualizado.' }"
