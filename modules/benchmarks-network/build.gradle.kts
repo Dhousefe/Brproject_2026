@@ -100,3 +100,11 @@ tasks.register<JavaExec>("runQuestRecommenderBenchmark") {
     jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-Dfile.encoding=UTF-8")
 }
 
+tasks.register<JavaExec>("runStartupBenchmark") {
+    group = "benchmark"
+    description = "Executes the JMH Server Startup & Critical Phases Benchmark."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("ext.mods.benchmark.startup.StartupPhaseBenchmarkRunner")
+    jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-Dfile.encoding=UTF-8")
+}
+

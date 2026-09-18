@@ -50,7 +50,7 @@ public final class FermataCfpManager
 		
 		if (!ConfigProtection.FERMATA_CFP_ENABLED)
 		{
-			if (ConfigProtection.ENABLE_CONSOLE_LOG)
+			if (ext.mods.config.ConfigServer.DEBUG_NET)
 				LOGGER.info("CFP Hello received from {} but CFP is disabled on server. Silent ignore.", client);
 			return;
 		}

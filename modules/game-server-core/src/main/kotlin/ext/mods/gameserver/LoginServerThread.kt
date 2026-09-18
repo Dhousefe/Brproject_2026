@@ -203,16 +203,28 @@ class LoginServerThread private constructor() : Thread("LoginServerThread") {
     }
     private fun handlePlayerAuthResponse(data: ByteArray) {
         val par = PlayerAuthResponse(data)
-        val client = clients[par.account] ?: return
+        if (ConfigServer.DEBUG_NET) {
+            LOGGER.info("[LOGIN-THREAD] handlePlayerAuthResponse for account=${par.account}, isAuthed=${par.isAuthed}")
+        }
+        val client = clients[par.account]
+        if (client == null) {
+            LOGGER.warn("[LOGIN-THREAD] No client found in registry for account=${par.account}")
+            return
+        }
         client.realIpAddress = par.realIpAddress
         if (par.isAuthed) {
             sendPacket(PlayerInGame(par.account))
             client.state = GameClientState.AUTHED
             val playOk = client.sessionId?.playOkID1 ?: 0
+            if (ConfigServer.DEBUG_NET) {
+                LOGGER.info("[LOGIN-THREAD] Account=${par.account} successfully AUTHED! Sending CharSelectInfo (playOk=$playOk)")
+            }
             client.sendPacket(CharSelectInfo(par.account, playOk))
         } else {
+            LOGGER.warn("[LOGIN-THREAD] Account=${par.account} authentication REJECTED by LoginServer.")
             client.sendPacket(AuthLoginFail(FailReason.SYSTEM_ERROR_LOGIN_LATER))
             client.closeNow()
+            clients.remove(par.account)
         }
     }
     private fun handleKickPlayer(data: ByteArray) {
@@ -249,18 +261,37 @@ class LoginServerThread private constructor() : Thread("LoginServerThread") {
         }
     }
     fun addClient(loginName: String, loginKey1: Int, loginKey2: Int, playKey1: Int, playKey2: Int, client: GameClient) {
-        val existing = clients.putIfAbsent(loginName, client)
-        if (existing != null) {
+        if (ConfigServer.DEBUG_NET) {
+            LOGGER.info("[LOGIN-THREAD] addClient requested for account=$loginName. lsConnected=${blowfish != null && outputStream != null}")
+        }
+        val existing = clients.put(loginName, client)
+        if (existing != null && existing !== client) {
+            LOGGER.warn("[LOGIN-THREAD] Existing stale client found for account=$loginName, closing previous session.")
             existing.closeNow()
+        }
+        if (client.isDetached) {
+            clients.remove(loginName, client)
             return
         }
-        if (client.isDetached) return
         try {
             client.accountName = loginName
             client.sessionId = SessionKey(loginKey1, loginKey2, playKey1, playKey2)
+            if (blowfish == null || outputStream == null) {
+                LOGGER.error("[LOGIN-THREAD] CANNOT authenticate account=$loginName: LoginServer connection is OFFLINE!")
+                client.sendPacket(AuthLoginFail(FailReason.SYSTEM_ERROR_LOGIN_LATER))
+                client.closeNow()
+                clients.remove(loginName, client)
+                return
+            }
             sendPacket(PlayerAuthRequest(client.accountName, client.sessionId!!))
+            if (ConfigServer.DEBUG_NET) {
+                LOGGER.info("[LOGIN-THREAD] Sent PlayerAuthRequest for account=$loginName to LoginServer.")
+            }
         } catch (e: IOException) {
-            LOGGER.error("Error while sending player auth request.")
+            LOGGER.error("Error while sending player auth request for account=$loginName", e)
+            client.sendPacket(AuthLoginFail(FailReason.SYSTEM_ERROR_LOGIN_LATER))
+            client.closeNow()
+            clients.remove(loginName, client)
         }
     }
     fun sendAccessLevel(account: String, level: Int) {

@@ -93,6 +93,7 @@ public final class ConfigServer
    public static boolean NO_SPAWNS;
    public static boolean DEVELOPER;
    public static boolean PACKET_HANDLER_DEBUG;
+   public static boolean DEBUG_NET;
    public static List<String> CLIENT_PACKETS;
    public static List<String> SERVER_PACKETS;
    public static boolean LOG_CHAT;
@@ -122,6 +123,8 @@ public final class ConfigServer
    public static boolean L2WALKER_PROTECTION;
    public static int ZONE_TOWN;
    public static boolean SERVER_NEWS;
+   public static boolean ENABLE_JIT_WARMUP;
+   public static int JIT_WARMUP_ITERATIONS;
 
    public static void load() {
       ExProperties server = Config.initProperties(Config.SERVER_FILE);
@@ -142,7 +145,7 @@ public final class ConfigServer
 
       ConfigServer.PLAYER_DROPPED_ITEM_MULTIPLIER = server.getProperty("PlayerDroppedItemMultiplier", 1);      ExProperties items = Config.initProperties(Config.ITEMS_FILE);
       ConfigServer.ITEMS_GC_CLEANUP_ENABLED = items.getProperty("ItemsGcCleanupEnabled", true);      int itemsGcSeconds = items.getProperty("ItemsGcCleanupTime", 120);
-      ConfigServer.ITEMS_GC_CLEANUP_TIME_MS = ConfigServer.ITEMS_GC_CLEANUP_ENABLED ? itemsGcSeconds * 1000 : 0;      ConfigServer.ALLOW_FREIGHT = server.getProperty("AllowFreight", true);      ConfigServer.ALLOW_WAREHOUSE = server.getProperty("AllowWarehouse", true);      ConfigServer.ALLOW_WEAR = server.getProperty("AllowWear", true);      ConfigServer.WEAR_DELAY = server.getProperty("WearDelay", 5);      ConfigServer.WEAR_PRICE = server.getProperty("WearPrice", 10);      ConfigServer.ALLOW_LOTTERY = server.getProperty("AllowLottery", true);      ConfigServer.ALLOW_WATER = server.getProperty("AllowWater", true);      ConfigServer.ALLOW_MANOR = server.getProperty("AllowManor", true);      ConfigServer.ALLOW_BOAT = server.getProperty("AllowBoat", true);      ConfigServer.ALLOW_CURSED_WEAPONS = server.getProperty("AllowCursedWeapons", true);      ConfigServer.ALLOW_SHADOW_WEAPONS = server.getProperty("AllowShadowWeapon", true);      ConfigServer.ENABLE_FALLING_DAMAGE = server.getProperty("EnableFallingDamage", true);      ConfigServer.NO_SPAWNS = server.getProperty("NoSpawns", false);      ConfigServer.DEVELOPER = server.getProperty("Developer", false);      ConfigServer.PACKET_HANDLER_DEBUG = server.getProperty("PacketHandlerDebug", false);      ConfigServer.CLIENT_PACKETS = Arrays.asList(server.getProperty("ClientPacket", "ValidatePosition").split(","));      ConfigServer.SERVER_PACKETS = Arrays.asList(         server.getProperty(
+      ConfigServer.ITEMS_GC_CLEANUP_TIME_MS = ConfigServer.ITEMS_GC_CLEANUP_ENABLED ? itemsGcSeconds * 1000 : 0;      ConfigServer.ALLOW_FREIGHT = server.getProperty("AllowFreight", true);      ConfigServer.ALLOW_WAREHOUSE = server.getProperty("AllowWarehouse", true);      ConfigServer.ALLOW_WEAR = server.getProperty("AllowWear", true);      ConfigServer.WEAR_DELAY = server.getProperty("WearDelay", 5);      ConfigServer.WEAR_PRICE = server.getProperty("WearPrice", 10);      ConfigServer.ALLOW_LOTTERY = server.getProperty("AllowLottery", true);      ConfigServer.ALLOW_WATER = server.getProperty("AllowWater", true);      ConfigServer.ALLOW_MANOR = server.getProperty("AllowManor", true);      ConfigServer.ALLOW_BOAT = server.getProperty("AllowBoat", true);      ConfigServer.ALLOW_CURSED_WEAPONS = server.getProperty("AllowCursedWeapons", true);      ConfigServer.ALLOW_SHADOW_WEAPONS = server.getProperty("AllowShadowWeapon", true);      ConfigServer.ENABLE_FALLING_DAMAGE = server.getProperty("EnableFallingDamage", true);      ConfigServer.NO_SPAWNS = server.getProperty("NoSpawns", false);      ConfigServer.DEVELOPER = server.getProperty("Developer", false);      ConfigServer.PACKET_HANDLER_DEBUG = server.getProperty("PacketHandlerDebug", false);      ConfigServer.DEBUG_NET = server.getProperty("debugnet", server.getProperty("DebugNet", false));      ConfigServer.CLIENT_PACKETS = Arrays.asList(server.getProperty("ClientPacket", "ValidatePosition").split(","));      ConfigServer.SERVER_PACKETS = Arrays.asList(         server.getProperty(
                "ServerPacket",
                "AbnormalStatusUpdate,AcquireSkillList,Attack,AutoAttackStart,AutoAttackStop,DeleteObject,ExAutoSoulShot,ExStorageMaxCount,MoveToLocation,NpcInfo,NpcSay,SkillCoolTime,SocialAction,StatusUpdate,UserInfo"
             )
@@ -154,5 +157,7 @@ public final class ConfigServer
       ConfigServer.INSTANT_THREAD_POOL_COUNT = server.getProperty("InstantThreadPoolCount", -1);      if (ConfigServer.INSTANT_THREAD_POOL_COUNT == -1) {
          ConfigServer.INSTANT_THREAD_POOL_COUNT = Runtime.getRuntime().availableProcessors() * 2;      }
 
-      ConfigServer.L2WALKER_PROTECTION = server.getProperty("L2WalkerProtection", false);      ConfigServer.ZONE_TOWN = server.getProperty("ZoneTown", 0);      ConfigServer.SERVER_NEWS = server.getProperty("ShowServerNews", false);   }
+      ConfigServer.L2WALKER_PROTECTION = server.getProperty("L2WalkerProtection", false);      ConfigServer.ZONE_TOWN = server.getProperty("ZoneTown", 0);      ConfigServer.SERVER_NEWS = server.getProperty("ShowServerNews", false);
+      ConfigServer.ENABLE_JIT_WARMUP = server.getProperty("EnableJitWarmup", true);
+      ConfigServer.JIT_WARMUP_ITERATIONS = server.getProperty("JitWarmupIterations", 3000);   }
 }

@@ -54,6 +54,7 @@ public final class TcpProxyServer implements AutoCloseable {
             .option(ChannelOption.SO_BACKLOG, 256)
             .childOption(ChannelOption.SO_KEEPALIVE, true)
             .childOption(ChannelOption.TCP_NODELAY, true)
+            .childOption(ChannelOption.AUTO_READ, false)
             .childHandler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) {
@@ -109,6 +110,7 @@ public final class TcpProxyServer implements AutoCloseable {
         private final FixedWindowRateLimiter limiter;
         private final AtomicLong accepted;
         private final AtomicLong rejected;
+        private final java.util.Queue<Object> pendingMessages = new java.util.concurrent.ConcurrentLinkedQueue<>();
         private Channel outboundChannel;
         private String clientIp;
 
@@ -168,14 +170,24 @@ public final class TcpProxyServer implements AutoCloseable {
             outboundChannel = cf.channel();
 
             cf.addListener((ChannelFutureListener) future -> {
-                if (!future.isSuccess()) {
+                if (future.isSuccess()) {
+                    // Descarrega mensagens recebidas antes do handshake do backend completar
+                    Object pending;
+                    while ((pending = pendingMessages.poll()) != null) {
+                        outboundChannel.write(pending);
+                    }
+                    outboundChannel.flush();
+
+                    // Reativa leitura automática no canal do frontend
+                    ctx.channel().config().setAutoRead(true);
+                    ctx.read();
+                } else {
                     LOG.error("[proxy/tcp] backend connect failed route='{}' -> {}:{}",
                         route.name(), route.targetHost(), route.targetPort(), future.cause());
+                    clearPendingMessages();
                     ctx.close();
                 }
             });
-
-            ctx.read();
         }
 
         @Override
@@ -183,7 +195,7 @@ public final class TcpProxyServer implements AutoCloseable {
             if (outboundChannel != null && outboundChannel.isActive()) {
                 outboundChannel.writeAndFlush(msg);
             } else {
-                io.netty.util.ReferenceCountUtil.release(msg);
+                pendingMessages.add(msg);
             }
         }
 
@@ -192,10 +204,18 @@ public final class TcpProxyServer implements AutoCloseable {
             if (clientIp != null) {
                 LOG.info("[PROXY-TRAFFIC-EVENT] proto=TCP route='{}' ip={} action=DISCONNECT", route.name(), clientIp);
             }
+            clearPendingMessages();
             if (outboundChannel != null) {
                 io.netty.channel.Channel c = outboundChannel;
                 outboundChannel = null;
                 c.close();
+            }
+        }
+
+        private void clearPendingMessages() {
+            Object pending;
+            while ((pending = pendingMessages.poll()) != null) {
+                io.netty.util.ReferenceCountUtil.release(pending);
             }
         }
 

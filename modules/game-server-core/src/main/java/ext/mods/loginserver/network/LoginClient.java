@@ -121,7 +121,7 @@ public final class LoginClient extends MMOClient<MMOConnection<LoginClient>>
 		if (_account == null)
 			return;
 		
-		if (!hasJoinedGS() || (getConnectionStartTime() + LoginController.LOGIN_TIMEOUT) < System.currentTimeMillis())
+		if (!hasJoinedGS() || (getConnectionStartTime() + LoginController.getLoginTimeout()) < System.currentTimeMillis())
 			LoginController.getInstance().removeAuthedLoginClient(_account.getLogin());
 	}
 	

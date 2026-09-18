@@ -139,7 +139,12 @@ public class DisruptorPacketPipelineTest
 		assertTrue(latch.await(3, TimeUnit.SECONDS));
 		
 		// Após a execução pelo Disruptor, PacketConsumer.finally deve ter chamado event.clear()
-		// liberando o ByteBuf para refCnt == 0
+		// liberando o ByteBuf para refCnt == 0. Aguarda brevemente a finalização do bloco finally assíncrono.
+		final long deadline = System.currentTimeMillis() + 1000L;
+		while (buffer.refCnt() > 0 && System.currentTimeMillis() < deadline)
+		{
+			Thread.sleep(10);
+		}
 		assertEquals(0, buffer.refCnt(), "O ByteBuf deveria ter sido liberado no clear() do evento");
 	}
 	

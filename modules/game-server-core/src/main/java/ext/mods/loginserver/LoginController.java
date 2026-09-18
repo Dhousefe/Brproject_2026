@@ -53,7 +53,13 @@ public class LoginController
 {
 	private static final CLogger LOGGER = new CLogger(LoginController.class.getName());
 	
-	public static final int LOGIN_TIMEOUT = 60 * 1000;
+	public static int getLoginTimeout()
+	{
+		final int configuredSec = Math.max(ConfigLogin.LOGIN_TIMEOUT_SECONDS, ext.mods.config.ConfigProtection.CHARACTER_SELECTION_TIMEOUT_SECONDS);
+		return (configuredSec > 0 ? configuredSec : 300) * 1000;
+	}
+	
+	public static final int LOGIN_TIMEOUT = 300 * 1000;
 	
 	private final Map<String, LoginClient> _clients = new ConcurrentHashMap<>();
 	private final Map<InetAddress, Integer> _failedAttempts = new ConcurrentHashMap<>();
@@ -326,15 +332,16 @@ public class LoginController
 		{
 			while (!isInterrupted())
 			{
+				final int timeout = getLoginTimeout();
 				for (LoginClient client : _clients.values())
 				{
-					if ((client.getConnectionStartTime() + LOGIN_TIMEOUT) < System.currentTimeMillis())
+					if ((client.getConnectionStartTime() + timeout) < System.currentTimeMillis())
 						client.close(LoginFail.REASON_ACCESS_FAILED);
 				}
 				
 				try
 				{
-					Thread.sleep(LOGIN_TIMEOUT / 2);
+					Thread.sleep(Math.max(5000, timeout / 2));
 				}
 				catch (InterruptedException e)
 				{

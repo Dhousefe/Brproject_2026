@@ -169,5 +169,18 @@ class FermataCfpTest
 		assertFalse(client.hasPendingCfpChallenge());
 		assertTrue(client.isCfpExchangeCompleted());
 		assertNotNull(client.getCfpIdentity());
+		assertEquals(identity.toHexIdentifier(), client.getHWID());
+		
+		// Overwrites preliminary legacy HWID fallback deterministically
+		client.setHWID("NoHWID-MAC");
+		client.completeCfpExchange(identity);
+		assertEquals(identity.toHexIdentifier(), client.getHWID());
+		
+		// Legacy guard flag validation
+		assertFalse(client.hasLegacyGuard());
+		client.setHasLegacyGuard(true);
+		assertTrue(client.hasLegacyGuard());
+		client.setHasLegacyGuard(false);
+		assertFalse(client.hasLegacyGuard());
 	}
 }

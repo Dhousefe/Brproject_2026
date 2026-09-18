@@ -40,6 +40,10 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 		netCon.setClient(client);
 		ctx.channel().attr(CLIENT_KEY).set(client);
 		
+		if (ext.mods.config.ConfigServer.DEBUG_NET)
+		{
+			LOGGER.info("[NETTY] Inbound TCP connection ACTIVE from {}", ctx.channel().remoteAddress());
+		}
 		super.channelActive(ctx);
 	}
 	
@@ -74,6 +78,13 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 			// Decripta Blowfish/XOR
 			client.decrypt(byteBuffer, readable);
 			
+			final int opcode = byteBuffer.get(0) & 0xFF;
+			if (ext.mods.config.ConfigServer.DEBUG_NET)
+			{
+				LOGGER.info("[NETTY] Frame received: {} bytes, opcode=0x{} (state={}) from {}",
+					readable, Integer.toHexString(opcode), client.getState(), ctx.channel().remoteAddress());
+			}
+			
 			// Identifica e instancia o ReceivablePacket
 			final ReceivablePacket<GameClient> packet = _packetHandler.handlePacket(byteBuffer, client);
 			if (packet != null)
@@ -85,9 +96,23 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 					final boolean dispatched = ext.mods.gameserver.network.disruptor.DisruptorPacketRouter.getInstance().dispatch(client, packet, buf);
 					if (!dispatched)
 					{
+						LOGGER.warn("[NETTY] Disruptor dispatch failed for packet {} from {}", packet.getClass().getSimpleName(), ctx.channel().remoteAddress());
 						buf.release();
 					}
+					else if (ext.mods.config.ConfigServer.DEBUG_NET)
+					{
+						LOGGER.debug("[NETTY] Packet {} dispatched to Disruptor for {}", packet.getClass().getSimpleName(), ctx.channel().remoteAddress());
+					}
 				}
+				else if (ext.mods.config.ConfigServer.DEBUG_NET)
+				{
+					LOGGER.warn("[NETTY] Packet readPacket returned false for {} from {}", packet.getClass().getSimpleName(), ctx.channel().remoteAddress());
+				}
+			}
+			else if (ext.mods.config.ConfigServer.DEBUG_NET)
+			{
+				LOGGER.warn("[NETTY] Unhandled or NULL packet for opcode 0x{} in state {} from {}",
+					Integer.toHexString(opcode), client.getState(), ctx.channel().remoteAddress());
 			}
 		}
 		catch (Exception e)
@@ -103,6 +128,10 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception
 	{
+		if (ext.mods.config.ConfigServer.DEBUG_NET)
+		{
+			LOGGER.info("[NETTY] Inbound TCP connection INACTIVE (disconnected) from {}", ctx.channel().remoteAddress());
+		}
 		final GameClient client = ctx.channel().attr(CLIENT_KEY).get();
 		if (client != null)
 		{
@@ -118,7 +147,7 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 		if (!(cause instanceof IOException))
 		{
 			final String errorMsg = (cause != null) ? cause.toString() : "Unknown exception";
-			LOGGER.warn("Netty exception on channel {}: {}", cause, ctx.channel().remoteAddress(), errorMsg);
+			LOGGER.warn("Netty exception on channel {}: {}", ctx.channel().remoteAddress(), errorMsg, cause);
 		}
 		ctx.close();
 	}

@@ -54,6 +54,7 @@ public final class ConfigLogin
    public static String DISCORD_CHALLENGE_SECRET = "default_challenge_secret_brproject_2026";
    public static String DISCORD_PROOF_PUBLIC_KEY = "";
    public static int DISCORD_CHALLENGE_TIMEOUT_SECONDS = 60;
+   public static int LOGIN_TIMEOUT_SECONDS = 300;
 
    public static int getEffectiveLoginServerPort()
    {
@@ -72,5 +73,6 @@ public final class ConfigLogin
       ConfigLogin.DISCORD_CHALLENGE_SECRET = server.getProperty("DiscordChallengeSecret", "default_challenge_secret_brproject_2026");
       ConfigLogin.DISCORD_PROOF_PUBLIC_KEY = server.getProperty("DiscordProofPublicKey", "");
       ConfigLogin.DISCORD_CHALLENGE_TIMEOUT_SECONDS = server.getProperty("DiscordChallengeTimeoutSeconds", 60);
+      ConfigLogin.LOGIN_TIMEOUT_SECONDS = server.getProperty("LoginTimeoutSeconds", 300);
    }
 }

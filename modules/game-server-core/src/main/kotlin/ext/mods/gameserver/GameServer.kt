@@ -561,6 +561,9 @@ class GameServer : Runnable {
                 npcsAndSpawnsReady.set(true)
                 npcsSpawnsLatch.countDown()
                 LoadMetricsService.record("NPCs & Spawns (deferred)", ms)
+                if (ConfigServer.ENABLE_JIT_WARMUP) {
+                    ext.mods.gameserver.taskmanager.JitWarmupService.start()
+                }
             } catch (e: Exception) {
                 LOGGER.error("Erro ao carregar NPCs/Spawns em background", e)
                 npcsAndSpawnsReady.set(false)

@@ -48,6 +48,9 @@ public final class ConfigProtection
    public static boolean FERMATA_CFP_ALLOW_CONNECTION_IDENTITY_FALLBACK;
    public static int FERMATA_CFP_CHALLENGE_TIMEOUT_SECONDS;
 
+   // Character Selection & Idle Wait Protection
+   public static int CHARACTER_SELECTION_TIMEOUT_SECONDS;
+
    public static void load() {
       ExProperties Protect = Config.initProperties(Config.PROTECTION_FILE);
       ConfigProtection.ALLOW_GUARD_SYSTEM = Protect.getProperty("AllowGuardSystem", true);
@@ -61,6 +64,8 @@ public final class ConfigProtection
       ConfigProtection.FERMATA_CFP_REQUIRE_PROOF = Protect.getProperty("FermataCfpRequireProof", false);
       ConfigProtection.FERMATA_CFP_ALLOW_CONNECTION_IDENTITY_FALLBACK = Protect.getProperty("FermataCfpAllowConnectionFallback", true);
       ConfigProtection.FERMATA_CFP_CHALLENGE_TIMEOUT_SECONDS = Protect.getProperty("FermataCfpChallengeTimeoutSeconds", 60);
+
+      ConfigProtection.CHARACTER_SELECTION_TIMEOUT_SECONDS = Protect.getProperty("CharacterSelectionTimeoutSeconds", 300);
 
       String key_client = "GOGX2_RB(]Slnjt15~EgyqTv%[$YR]!1E~ayK?$9[R%%m4{zoMF$D?f:zvS2q&>~";
       String key_server = "b*qR43<9J1pD>Q4Uns6FsKao~VbU0H]y`A0ytTveiWn)SuSYsM?m*eblL!pwza!t";

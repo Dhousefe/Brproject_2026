@@ -38,10 +38,21 @@ public final class AuthLogin extends L2GameClientPacket
 		_loginKey1 = readD();
 		_loginKey2 = readD();
 		
-		if (hwid.isProtectionOn())
+		if (ext.mods.config.ConfigServer.DEBUG_NET)
 		{
+			LOGGER.info("[AUTH] AuthLogin readImpl: account={}, hasLegacyGuard={}, remainingBytes={}, client={}",
+				_loginName, getClient().hasLegacyGuard(), _buf.remaining(), getClient());
+		}
+		
+		if (hwid.isProtectionOn() && getClient().hasLegacyGuard() && _buf.remaining() >= 48)
+		{
+			readB(_data);
 			if (!hwid.doAuthLogin(getClient(), _data, _loginName))
 				return;
+		}
+		else
+		{
+			getClient().setLoginName(_loginName);
 		}
 
 	}
@@ -49,6 +60,10 @@ public final class AuthLogin extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		if (ext.mods.config.ConfigServer.DEBUG_NET)
+		{
+			LOGGER.info("[AUTH] AuthLogin runImpl: forwarding account={} to LoginServerThread for session key validation.", _loginName);
+		}
 		LoginServerThread.getInstance().addClient(_loginName, _loginKey1, _loginKey2, _playKey1, _playKey2, getClient());
 	}
 }

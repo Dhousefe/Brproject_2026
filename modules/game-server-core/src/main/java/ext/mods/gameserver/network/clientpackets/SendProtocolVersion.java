@@ -22,6 +22,7 @@ import ext.mods.gameserver.network.serverpackets.L2GameServerPacket;
 import ext.mods.gameserver.network.serverpackets.VersionCheck;
 import ext.mods.protection.hwid.hwid;
 import ext.mods.config.ConfigProtection;
+import ext.mods.config.ConfigServer;
 
 public final class SendProtocolVersion extends L2GameClientPacket
 {
@@ -36,30 +37,58 @@ public final class SendProtocolVersion extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_version = readD();
+		if (ConfigServer.DEBUG_NET)
+		{
+			LOGGER.info("[PROTOCOL] SendProtocolVersion readImpl: version={}, remainingBytes={}, client={}",
+				_version, _buf.remaining(), getClient());
+		}
 		
 		if (hwid.isProtectionOn())
 		{
-			if (_buf.remaining() > 260)
+			if (_buf.remaining() >= 266)
 			{
-				_data = new byte[260];
-				readB(_data);
-				_hwidHdd = readS();
-				_hwidMac = readS();
-				_hwidCPU = readS();
+				try
+				{
+					getClient().setHasLegacyGuard(true);
+					_data = new byte[260];
+					readB(_data);
+					_hwidHdd = readS();
+					_hwidMac = readS();
+					_hwidCPU = readS();
+					
+					if (_hwidHdd.equals("NoHWID-HD") && _hwidMac.equals("NoHWID-MAC") && _hwidCPU.equals("NoHWID-CPU"))
+					{
+						LOGGER.warn("[PROTOCOL] Legacy Guard rejected empty HWID from {}", getClient());
+						getClient().close((L2GameServerPacket) null);
+					}
+				}
+				catch (Exception e)
+				{
+					LOGGER.warn("[PROTOCOL] Error reading legacy guard HWID data from {}: {}", getClient(), e.getMessage());
+					getClient().setHasLegacyGuard(false);
+				}
 			}
-			
-			if (_hwidHdd.equals("NoHWID-HD") && _hwidMac.equals("NoHWID-MAC") && _hwidCPU.equals("NoHWID-CPU"))
+			else
 			{
-				getClient().close((L2GameServerPacket) null);
+				getClient().setHasLegacyGuard(false);
+				if (_buf.hasRemaining())
+				{
+					_data = new byte[_buf.remaining()];
+					readB(_data);
+				}
 			}
 		}
-
+		else if (_buf.hasRemaining())
+		{
+			_data = new byte[_buf.remaining()];
+			readB(_data);
+		}
 	}
 	
 	@Override
 	protected void runImpl()
 	{
-		if (hwid.isProtectionOn())
+		if (hwid.isProtectionOn() && getClient().hasLegacyGuard())
 		{
 			switch (ConfigProtection.GET_CLIENT_HWID)
 			{
@@ -75,6 +104,12 @@ public final class SendProtocolVersion extends L2GameClientPacket
 			}
 		}
 
+		if (_version == -2)
+		{
+			LOGGER.info("[PROTOCOL] Client ping check (_version == -2) from {}. Closing connection gracefully.", getClient());
+			getClient().close((L2GameServerPacket) null);
+			return;
+		}
 		
 		switch (_version)
 		{
@@ -82,10 +117,17 @@ public final class SendProtocolVersion extends L2GameClientPacket
 			case 740:
 			case 744:
 			case 746:
+				if (ConfigServer.DEBUG_NET)
+				{
+					LOGGER.info("[PROTOCOL] Accepted client protocol version={} from {}, sending VersionCheck with blowfish key.",
+						_version, getClient());
+				}
 				getClient().sendPacket(new VersionCheck(getClient().enableCrypt()));
 				break;
 			
 			default:
+				LOGGER.warn("[PROTOCOL] Unsupported or unknown client protocol version={} from {}. Rejecting connection.",
+					_version, getClient());
 				getClient().close((L2GameServerPacket) null);
 				break;
 		}

@@ -121,6 +121,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	
 	protected final ScheduledFuture<?> _autoSaveInDB;
 	protected ScheduledFuture<?> _cleanupTask;
+	protected ScheduledFuture<?> _charSelectTimeoutTask;
 	
 	private String _realIpAddress;
 	private ext.mods.gameserver.network.netty.NettyGameConnection _nettyConnection;
@@ -128,6 +129,19 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	// Suporte ao Protocolo Fermata
 	private volatile int _fermataCapabilities;
 	private boolean _fermataCapabilitiesNegotiated;
+	
+	// Suporte a Guard Legada (DLL russa / aCis legada)
+	private boolean _hasLegacyGuard;
+	
+	public boolean hasLegacyGuard()
+	{
+		return _hasLegacyGuard;
+	}
+	
+	public void setHasLegacyGuard(boolean hasLegacyGuard)
+	{
+		_hasLegacyGuard = hasLegacyGuard;
+	}
 	
 	// Fermata Client Fingerprint v1 (CFP)
 	private byte[] _cfpPendingChallengeId;
@@ -184,7 +198,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		_cfpExchangeCompleted = true;
 		_pendingCfpIdentity = null;
 		
-		if (identity != null && getHWID() == null)
+		if (identity != null)
 		{
 			setHWID(identity.toHexIdentifier());
 		}
@@ -354,6 +368,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	@Override
 	public void onDisconnection()
 	{
+		cancelCharSelectTimeout();
 		try
 		{
 			ThreadPool.executeIO(() ->
@@ -430,7 +445,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	{
 		byte[] key = BlowFishKeygen.getRandomKey();
 		_crypt.setKey(key);
-		if (hwid.isProtectionOn())
+		if (hwid.isProtectionOn() && _hasLegacyGuard)
 		{
 			key = hwid.getKey(key);
 		}
@@ -454,7 +469,39 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 				_fermataCapabilitiesNegotiated = false;
 			}
 			_packetQueue.clear();
+			
+			synchronized (this)
+			{
+				cancelCharSelectTimeout();
+				
+				if (pState == GameClientState.AUTHED && ext.mods.config.ConfigProtection.CHARACTER_SELECTION_TIMEOUT_SECONDS > 0)
+				{
+					final int timeoutSec = ext.mods.config.ConfigProtection.CHARACTER_SELECTION_TIMEOUT_SECONDS;
+					_charSelectTimeoutTask = ThreadPool.schedule(() ->
+					{
+						if (_state == GameClientState.AUTHED)
+						{
+							LOGGER.warn("{} reached character selection timeout ({}s). Disconnecting inactive client.", toString(), timeoutSec);
+							closeNow();
+						}
+					}, timeoutSec * 1000L);
+				}
+			}
 		}
+	}
+	
+	public synchronized void cancelCharSelectTimeout()
+	{
+		if (_charSelectTimeoutTask != null)
+		{
+			_charSelectTimeoutTask.cancel(true);
+			_charSelectTimeoutTask = null;
+		}
+	}
+	
+	public ScheduledFuture<?> getCharSelectTimeoutTask()
+	{
+		return _charSelectTimeoutTask;
 	}
 	
 	public ClientStats getStats()
@@ -897,6 +944,8 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	{
 		_isDetached = true;
 		
+		cancelCharSelectTimeout();
+		
 		close(ServerClose.STATIC_PACKET);
 		
 		if (_cleanupTask != null)
@@ -910,8 +959,9 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	
 	public synchronized void cleanMe(boolean fast)
 	{
+		cancelCharSelectTimeout();
 		if (_cleanupTask == null)
-			_cleanupTask = ThreadPool.scheduleIO(new CleanupTask(), fast ? 100 : 15000);
+			_cleanupTask = ThreadPool.scheduleIO(new CleanupTask(), (getPlayer() == null) ? 0 : (fast ? 100 : 15000));
 	}
 	
 	protected class CleanupTask implements Runnable
@@ -1121,6 +1171,14 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 
 	public final String getHWID()
 	{
+		if (_hwid == null)
+		{
+			if (_accountName != null)
+			{
+				return "FERMATA-" + Integer.toHexString(Math.abs((_accountName + "@" + (_realIpAddress != null ? _realIpAddress : "0.0.0.0")).hashCode())).toUpperCase();
+			}
+			return "NoHWID-NONE";
+		}
 		return _hwid;
 	}
 
