@@ -23,14 +23,13 @@ call "%~dp0cache\brproject-ansi.inc.bat"
 
 call "%~dp0cache\brproject-java.inc.bat"
 call "%~dp0cache\brproject-g1-reclaim.inc.bat"
-set JVM_FLAGS=-Xms256m -Xmx256m -Dext.mods.Config.dataPath=../game/data -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1HeapRegionSize=8m -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseCompactObjectHeaders -XX:+TieredCompilation -XX:TieredStopAtLevel=4 %G1_RECLAIM_FLAGS%
+set JVM_FLAGS=-Xms256m -Xmx256m -Dext.mods.Config.dataPath=../game/data -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1HeapRegionSize=8m -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseCompactObjectHeaders -XX:+TieredCompilation -XX:TieredStopAtLevel=4 %G1_RECLAIM_FLAGS% -XX:+AutoCreateSharedArchive -XX:SharedArchiveFile=cache/brproject_cds.jsa -Xlog:cds=error
 
 cd /d "%~dp0login"
 
 if not exist cache mkdir cache
-if exist cache\brproject_cds.jsa del /f /q cache\brproject_cds.jsa 2>nul
-if exist cache\brproject_cds.gc del /f /q cache\brproject_cds.gc 2>nul
 
+call "%~dp0cache\brproject-cds-check.inc.bat" "cache\brproject_cds.jsa" "%~dp0libs\server.jar" "G1"
 call "%~dp0cache\brproject-classpath.inc.bat" "%~dp0libs"
 
 REM --- Redireciona stdout+stderr para o log do servidor (janela oculta, logs preservados) ---

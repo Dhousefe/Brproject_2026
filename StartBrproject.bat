@@ -80,6 +80,6 @@ set "BRPROJECT_DEV_TOKEN=brproject-local-dev-2026"
 REM ============================================================================
 REM Lancamento da JVM com AppCDS estrito e classpath ordenado.
 REM ============================================================================
-"%JAVA_CMD%" -Xms156m -Xmx212m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 %JVM_EXTRA_FLAGS% -XX:+AutoCreateSharedArchive -XX:SharedArchiveFile=cache\brproject_cds.jsa -Xlog:cds=error -Dsun.java2d.opengl=true -Dsun.java2d.d3d=true -Dsun.java2d.pmoffscreen=true -Dbrproject.safe.graphics=false -Dbrproject.devAuth=true -cp "%BRPROJECT_CP%" ext.mods.security.LicenseInit %* >> "%~dp0logs\startbrproject.log" 2>&1
+"%JAVA_CMD%" -Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 %JVM_EXTRA_FLAGS% -XX:+AutoCreateSharedArchive -XX:SharedArchiveFile=cache\brproject_cds.jsa -Xlog:cds=error -Dsun.java2d.opengl=true -Dsun.java2d.d3d=true -Dsun.java2d.pmoffscreen=true -Dbrproject.safe.graphics=false -Dbrproject.devAuth=true -cp "%BRPROJECT_CP%" ext.mods.security.LicenseInit %* >> "%~dp0logs\startbrproject.log" 2>&1
 
 exit /b %ERRORLEVEL%

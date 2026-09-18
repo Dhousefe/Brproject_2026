@@ -34,6 +34,9 @@ public class LicenseInit
 		System.setProperty("sun.java2d.d3d", "false");
 		System.setProperty("sun.java2d.pmoffscreen", "false");
 
+		// Inicializa otimizações de JVM e monitoramento de AppCDS para o Dashboard
+		ext.mods.commons.util.JvmOptimizer.initialize();
+
 		if (!GraphicsEnvironment.isHeadless())
 		{
 			System.out.println("License: Running in Interface GUI.");

@@ -115,6 +115,23 @@ public class ProcessManagerService {
         resolved = resolveJavaFromHome(embeddedHome, ext);
         if (resolved != null) return resolved;
 
+        // 2.5) JDK 25 Autônomo Local / GraalVM (Paridade com brproject-java.inc.bat)
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            String[] localJdkPaths = new String[] {
+                "D:\\graalvm25",
+                "gradle\\jdk25",
+                "..\\gradle\\jdk25",
+                "D:\\Projeto_Start_Brproject\\gradle\\jdk25"
+            };
+            for (String localJdk : localJdkPaths) {
+                resolved = resolveJavaFromHome(localJdk, ext);
+                if (resolved != null) {
+                    System.err.println("[INFO] Java 25 local detectado: " + resolved);
+                    return resolved;
+                }
+            }
+        }
+
         // 3) Varredura de diretorios comuns no Windows.
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             resolved = scanCommonJavaHomes(ext);
@@ -720,9 +737,9 @@ public class ProcessManagerService {
         
         int memoryMB;
         if (tipo.equalsIgnoreCase("gameserver")) {
-            memoryMB = prefs.getInt("gsMemoryMB", 2048);
+            memoryMB = prefs.getInt("gsMemoryMB", 3072);
         } else {
-            memoryMB = prefs.getInt("lsMemoryMB", 512);
+            memoryMB = prefs.getInt("lsMemoryMB", 256);
         }
 
         System.out.println("\n============================================================");
@@ -743,6 +760,9 @@ public class ProcessManagerService {
             JOptionPane.showMessageDialog(frame, "A pasta '" + diretorioExecucao.getAbsolutePath() + "' não existe!", "Erro Crítico", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+        // Garante integridade e ciclo de vida do AppCDS (.gc e .jsa) antes do boot
+        validateAndPrepareAppCds(diretorioExecucao, tipo);
 
         
         String cpString = "";
@@ -767,6 +787,10 @@ public class ProcessManagerService {
         command.add("-Dfile.encoding=UTF-8");
         command.add("-Dsun.stdout.encoding=UTF-8");
         command.add("-Dsun.stderr.encoding=UTF-8");
+        
+        if ("loginserver".equalsIgnoreCase(tipo)) {
+            command.add("-Dext.mods.Config.dataPath=../game/data");
+        }
         
         if (ThemeManager.isSafeGraphics()) {
             command.add("-Dsun.java2d.opengl=false");
@@ -1174,7 +1198,7 @@ public class ProcessManagerService {
             try {
                 ext.mods.commons.util.ShutdownSignalWatcher.sendSignal("gameserver");
             } catch (Throwable ignored) {}
-            stopProcessSafely(gameServerProcess, "GAMESERVER", 4);
+            stopProcessSafely(gameServerProcess, "GAMESERVER", 10);
             gameServerProcess = null;
         }
     }
@@ -1184,7 +1208,7 @@ public class ProcessManagerService {
             try {
                 ext.mods.commons.util.ShutdownSignalWatcher.sendSignal("loginserver");
             } catch (Throwable ignored) {}
-            stopProcessSafely(loginServerProcess, "LOGINSERVER", 3);
+            stopProcessSafely(loginServerProcess, "LOGINSERVER", 10);
             loginServerProcess = null;
         }
     }
@@ -1260,6 +1284,58 @@ public class ProcessManagerService {
             }
         } catch (Throwable t) {
             System.err.println("[SHUTDOWN] Erro ao varrer processos residuais: " + t.getMessage());
+        }
+    }
+
+    /**
+     * Valida e gerencia o estado dos arquivos brproject_cds.gc e brproject_cds.jsa
+     * antes de invocar LoginServer ou GameServer para garantir a integridade do AppCDS.
+     */
+    private void validateAndPrepareAppCds(File executionDir, String tipo) {
+        try {
+            File cacheDir = new File(executionDir, "cache");
+            if (!cacheDir.exists()) {
+                cacheDir.mkdirs();
+            }
+
+            File metaFile = new File(cacheDir, "brproject_cds.gc");
+            File jsaFile = new File(cacheDir, "brproject_cds.jsa");
+            File serverJar = new File(executionDir, "../libs/server.jar");
+
+            String expectedGcMode = "G1";
+
+            // 1. Verifica consistência do modo GC
+            if (metaFile.exists()) {
+                try {
+                    String oldMode = java.nio.file.Files.readString(metaFile.toPath(), StandardCharsets.UTF_8).trim();
+                    if (!expectedGcMode.equalsIgnoreCase(oldMode)) {
+                        if (jsaFile.exists()) {
+                            jsaFile.delete();
+                            System.out.println("[AppCDS-" + tipo.toUpperCase() + "] Snapshot removido - modo GC alterado de " + oldMode + " para " + expectedGcMode + ".");
+                        }
+                    }
+                } catch (Exception ignored) {}
+            }
+            java.nio.file.Files.writeString(metaFile.toPath(), expectedGcMode, StandardCharsets.UTF_8);
+
+            // 2. Verifica se o snapshot .jsa está corrompido ou incompleto (< 32KB)
+            if (jsaFile.exists()) {
+                long size = jsaFile.length();
+                if (size < 32768) {
+                    jsaFile.delete();
+                    System.out.println("[AppCDS-" + tipo.toUpperCase() + "] Snapshot removido - arquivo .jsa corrompido ou incompleto (" + size + " bytes).");
+                } else if (serverJar.exists() && serverJar.lastModified() > jsaFile.lastModified()) {
+                    jsaFile.delete();
+                    System.out.println("[AppCDS-" + tipo.toUpperCase() + "] Snapshot removido - server.jar foi recompilado/atualizado.");
+                } else {
+                    double sizeKb = size / 1024.0;
+                    System.out.println("[AppCDS-" + tipo.toUpperCase() + "] Snapshot valido detectado (" + String.format(java.util.Locale.US, "%.1f", sizeKb) + " KB). Boot acelerado <15s ATIVO!");
+                }
+            } else {
+                System.out.println("[AppCDS-" + tipo.toUpperCase() + "] Snapshot .jsa nao encontrado. Modo de Treinamento ativo: sera gerado no shutdown gracioso.");
+            }
+        } catch (Exception e) {
+            System.err.println("[AppCDS-" + tipo.toUpperCase() + "] Erro ao validar AppCDS: " + e.getMessage());
         }
     }
 }
