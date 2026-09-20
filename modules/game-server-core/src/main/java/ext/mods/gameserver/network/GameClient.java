@@ -453,7 +453,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	{
 		byte[] key = BlowFishKeygen.getRandomKey();
 		_crypt.setKey(key);
-		if (hwid.isProtectionOn() && _hasLegacyGuard)
+		if (_hasLegacyGuard)
 		{
 			key = hwid.getKey(key);
 		}
@@ -1183,9 +1183,10 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		{
 			if (_accountName != null)
 			{
-				return "FERMATA-" + Integer.toHexString(Math.abs((_accountName + "@" + (_realIpAddress != null ? _realIpAddress : "0.0.0.0")).hashCode())).toUpperCase();
+				final String prefix = isFermataClient() ? "FERMATA-" : "LEGACY-";
+				return prefix + Integer.toHexString(Math.abs((_accountName + "@" + (_realIpAddress != null ? _realIpAddress : "0.0.0.0")).hashCode())).toUpperCase();
 			}
-			return "NoHWID-NONE";
+			return isFermataClient() ? "NoHWID-FERMATA" : "NoHWID-NONE";
 		}
 		return _hwid;
 	}

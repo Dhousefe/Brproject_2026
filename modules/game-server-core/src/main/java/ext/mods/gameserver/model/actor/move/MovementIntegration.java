@@ -149,7 +149,8 @@ public class MovementIntegration
 
     private static void visualizeFarmLimit(Player player, Location center, int radius)
     {
-        if (!MovementConfig.DEBUG_ENABLED) return;
+        if (!MovementConfig.DEBUG_ENABLED || !player.isGM()) return;
+        if (player.getClient() != null && player.getClient().isFermataClient()) return;
 
         ExServerPrimitive packet = new ExServerPrimitive("FarmLimit", center);
         int pointCount = 40;

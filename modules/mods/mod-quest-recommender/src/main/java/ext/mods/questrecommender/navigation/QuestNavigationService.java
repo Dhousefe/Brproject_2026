@@ -140,7 +140,7 @@ public final class QuestNavigationService
 		{
 			markNpcOnRadar(player, targetNpcLoc);
 			QuestPathVisualizerService.getInstance().renderPathToNpc(player, targetNpcLoc);
-			player.sendMessage("O NPC de início da quest está próximo! Siga a trilha luminosa no chão e a bússola.");
+			player.sendMessage("O NPC de início da quest está próximo! Siga a indicação da bússola no minimapa.");
 			return;
 		}
 
@@ -247,7 +247,7 @@ public final class QuestNavigationService
 				{
 					markNpcOnRadar(player, targetNpcLoc);
 					QuestPathVisualizerService.getInstance().renderPathToNpc(player, targetNpcLoc);
-					player.sendMessage("Você chegou à cidade! Siga a trilha luminosa no chão e a bússola até o NPC.");
+					player.sendMessage("Você chegou à cidade! Siga a indicação da bússola no minimapa até o NPC.");
 				}
 			}, 1000L);
 

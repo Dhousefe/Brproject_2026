@@ -92,6 +92,8 @@ open class CreatureMove<T : Creature>(
     private var _pausedDestination: Location? = null
     fun getTask(): ScheduledFuture<*>? = _task
     fun getDestination(): Location = _destination
+    fun getPawn(): WorldObject? = _pawn
+    fun getOffset(): Int = _offset
     
     fun describeMovementTo(player: Player) {
         player.sendPacket(MoveToLocation(_actor))
@@ -252,7 +254,7 @@ open class CreatureMove<T : Creature>(
             if (updatePosition() && !moveToNextRoutePoint()) {
                 finishMovement()
             }
-        }, 0, interval)
+        }, interval, interval)
     }
     open fun shouldStopMovementTask(): Boolean {
         if (_actor is Npc && !hasVisiblePlayers()) {
@@ -269,7 +271,9 @@ open class CreatureMove<T : Creature>(
         val wasMoving = _task != null
         cancelMoveTask()
         _actor.revalidateZone(true)
-        _actor.broadcastPacket(StopMove(_actor))
+        if (_blocked) {
+            _actor.broadcastPacket(StopMove(_actor))
+        }
         if (wasMoving) {
             notifyArrived(if (_blocked) AiEventType.ARRIVED_BLOCKED else AiEventType.ARRIVED)
             
@@ -393,11 +397,16 @@ open class CreatureMove<T : Creature>(
             val finalZ = if (type == MoveType.GROUND) _cachedDestinationZ else _destination.z
             
             if (handleNextPosition(_destination.x, _destination.y, finalZ, type)) {
-                return checkArrival(type)
+                _xAccurate = _destination.x.toDouble()
+                _yAccurate = _destination.y.toDouble()
+                return true
             }
         }
     
         val dist = sqrt(distSq)
+        if (dist < 0.001) {
+            return true
+        }
         val fraction = moveSpeed / dist
         val moveX = dx * fraction
         val moveY = dy * fraction
@@ -627,6 +636,8 @@ open class CreatureMove<T : Creature>(
         }
     }
     open fun stop() {
+        if (_task == null && _followTask == null) return
+
         val wasFollowing = _followTask != null
         val wasMoving = _task != null
         
@@ -731,7 +742,7 @@ open class CreatureMove<T : Creature>(
                 _pausedByNoPlayers = false
                 val resumeDest = _pausedDestination
                 _pausedDestination = null
-                if (resumeDest != null) {
+                if (resumeDest != null && resumeDest.distance2D(_actor.position) > 10) {
                     _destination.set(resumeDest)
                     registerMoveTask()
                     _actor.broadcastPacket(MoveToLocation(_actor, _destination))

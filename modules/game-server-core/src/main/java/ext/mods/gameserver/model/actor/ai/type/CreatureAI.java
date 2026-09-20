@@ -30,6 +30,7 @@ import ext.mods.gameserver.network.serverpackets.Die;
 import ext.mods.gameserver.network.serverpackets.MoveToLocation;
 import ext.mods.gameserver.network.serverpackets.MoveToPawn;
 import ext.mods.gameserver.network.serverpackets.SocialAction;
+import ext.mods.gameserver.network.serverpackets.ValidateLocation;
 import ext.mods.gameserver.skills.L2Skill;
 
 public class CreatureAI<T extends Creature> extends AbstractAI<T>
@@ -116,7 +117,7 @@ public class CreatureAI<T extends Creature> extends AbstractAI<T>
 	@Override
 	protected void onEvtArrivedBlocked()
 	{
-		_actor.broadcastPacket(new MoveToLocation(_actor, _actor.getPosition()));
+		_actor.broadcastPacket(new ValidateLocation(_actor));
 	}
 	
 	@Override

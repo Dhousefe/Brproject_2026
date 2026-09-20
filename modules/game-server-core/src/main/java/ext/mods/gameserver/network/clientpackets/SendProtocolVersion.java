@@ -43,52 +43,55 @@ public final class SendProtocolVersion extends L2GameClientPacket
 				_version, _buf.remaining(), getClient());
 		}
 		
-		if (hwid.isProtectionOn())
+		if (_buf.remaining() > 260)
 		{
-			if (_buf.remaining() >= 266)
+			try
 			{
-				try
-				{
-					getClient().setHasLegacyGuard(true);
-					_data = new byte[260];
-					readB(_data);
-					_hwidHdd = readS();
-					_hwidMac = readS();
-					_hwidCPU = readS();
-					
-					if (_hwidHdd.equals("NoHWID-HD") && _hwidMac.equals("NoHWID-MAC") && _hwidCPU.equals("NoHWID-CPU"))
-					{
-						LOGGER.warn("[PROTOCOL] Legacy Guard rejected empty HWID from {}", getClient());
-						getClient().close((L2GameServerPacket) null);
-					}
-				}
-				catch (Exception e)
-				{
-					LOGGER.warn("[PROTOCOL] Error reading legacy guard HWID data from {}: {}", getClient(), e.getMessage());
-					getClient().setHasLegacyGuard(false);
-				}
-			}
-			else
-			{
-				getClient().setHasLegacyGuard(false);
+				getClient().setHasLegacyGuard(true);
+				_data = new byte[260];
+				readB(_data);
+				
 				if (_buf.hasRemaining())
 				{
-					_data = new byte[_buf.remaining()];
-					readB(_data);
+					_hwidHdd = readS();
+				}
+				if (_buf.hasRemaining())
+				{
+					_hwidMac = readS();
+				}
+				if (_buf.hasRemaining())
+				{
+					_hwidCPU = readS();
+				}
+				
+				if (hwid.isProtectionOn() && ConfigProtection.PROTECT_KICK_WITH_EMPTY_HWID
+					&& _hwidHdd.equals("NoHWID-HD") && _hwidMac.equals("NoHWID-MAC") && _hwidCPU.equals("NoHWID-CPU"))
+				{
+					LOGGER.warn("[PROTOCOL] Legacy Guard rejected empty HWID from {}", getClient());
+					getClient().close((L2GameServerPacket) null);
 				}
 			}
+			catch (Exception e)
+			{
+				LOGGER.warn("[PROTOCOL] Error reading legacy guard HWID data from {}: {}", getClient(), e.getMessage());
+				getClient().setHasLegacyGuard(false);
+			}
 		}
-		else if (_buf.hasRemaining())
+		else
 		{
-			_data = new byte[_buf.remaining()];
-			readB(_data);
+			getClient().setHasLegacyGuard(false);
+			if (_buf.hasRemaining())
+			{
+				_data = new byte[_buf.remaining()];
+				readB(_data);
+			}
 		}
 	}
 	
 	@Override
 	protected void runImpl()
 	{
-		if (hwid.isProtectionOn() && getClient().hasLegacyGuard())
+		if (getClient().hasLegacyGuard() && hwid.isProtectionOn())
 		{
 			switch (ConfigProtection.GET_CLIENT_HWID)
 			{
@@ -119,8 +122,8 @@ public final class SendProtocolVersion extends L2GameClientPacket
 			case 746:
 				if (ConfigServer.DEBUG_NET)
 				{
-					LOGGER.info("[PROTOCOL] Accepted client protocol version={} from {}, sending VersionCheck with blowfish key.",
-						_version, getClient());
+					LOGGER.info("[PROTOCOL] Accepted client protocol version={} (legacyGuard={}) from {}, sending VersionCheck with blowfish key.",
+						_version, getClient().hasLegacyGuard(), getClient());
 				}
 				getClient().sendPacket(new VersionCheck(getClient().enableCrypt()));
 				break;

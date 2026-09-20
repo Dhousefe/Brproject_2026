@@ -4989,6 +4989,9 @@ public class Player extends Playable
 	{
 		super.removeKnownObject(object);
 		
+		if (isTeleporting())
+			return;
+		
 		if (object.isVisibleTo(this))
 			sendPacket(new DeleteObject(object, object instanceof Player player && player.isSeated()));
 	}

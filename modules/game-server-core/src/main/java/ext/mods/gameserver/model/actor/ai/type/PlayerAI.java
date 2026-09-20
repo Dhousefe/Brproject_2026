@@ -136,7 +136,7 @@ public class PlayerAI extends PlayableAI<Player>
             final WorldObject target = _currentIntention.getTarget();
             if (_actor.getAI().canDoInteract(target))
             {
-                _actor.broadcastPacket(new StopMove(_actor));
+                _actor.getMove().stop();
                 
                 target.onInteract(_actor);
             }
@@ -747,7 +747,7 @@ public class PlayerAI extends PlayableAI<Player>
         }
         
         if (target instanceof Npc targetNpc && targetNpc.isMoving())
-            _actor.broadcastPacket(new StopMove(_actor));
+            _actor.getMove().stop();
         else
         {
             _actor.getPosition().setHeadingTo(target);

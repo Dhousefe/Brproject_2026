@@ -44,15 +44,27 @@ public final class AuthLogin extends L2GameClientPacket
 				_loginName, getClient().hasLegacyGuard(), _buf.remaining(), getClient());
 		}
 		
-		if (hwid.isProtectionOn() && getClient().hasLegacyGuard() && _buf.remaining() >= 48)
+		if (getClient().hasLegacyGuard() && _buf.remaining() >= 48)
 		{
 			readB(_data);
-			if (!hwid.doAuthLogin(getClient(), _data, _loginName))
-				return;
+			if (hwid.isProtectionOn())
+			{
+				if (!hwid.doAuthLogin(getClient(), _data, _loginName))
+					return;
+			}
+			else
+			{
+				getClient().setLoginName(_loginName);
+			}
 		}
 		else
 		{
 			getClient().setLoginName(_loginName);
+			if (_buf.hasRemaining())
+			{
+				final byte[] discard = new byte[_buf.remaining()];
+				readB(discard);
+			}
 		}
 
 	}

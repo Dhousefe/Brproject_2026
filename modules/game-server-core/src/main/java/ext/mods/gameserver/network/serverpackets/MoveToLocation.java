@@ -30,14 +30,20 @@ public final class MoveToLocation extends L2GameServerPacket
 	{
 		_objectId = creature.getObjectId();
 		_currentPosition = creature.getPosition().clone();
-		_destination = creature.getMove().getDestination().clone();
+		Location dest = creature.getMove().getDestination().clone();
+		if (dest.getX() == _currentPosition.getX() && dest.getY() == _currentPosition.getY() && dest.getZ() == _currentPosition.getZ())
+			dest.setX(dest.getX() + 1);
+		_destination = dest;
 	}
 	
 	public MoveToLocation(Creature creature, Location destination)
 	{
 		_objectId = creature.getObjectId();
 		_currentPosition = creature.getPosition().clone();
-		_destination = destination;
+		Location dest = (destination != null) ? destination.clone() : creature.getPosition().clone();
+		if (dest.getX() == _currentPosition.getX() && dest.getY() == _currentPosition.getY() && dest.getZ() == _currentPosition.getZ())
+			dest.setX(dest.getX() + 1);
+		_destination = dest;
 	}
 	
 	@Override

@@ -474,6 +474,63 @@ class PacketStructureTest
 			"AbstractNpcInfo must NEVER hardcode '2 : 2' which causes mass summon particles on teleports");
 	}
 
+	@Test
+	void validatePosition_implements3ZoneSmoothReconciliationWithoutMovementJitter() throws Exception
+	{
+		// Regressão anti-jittering / anti-teleporte:
+		// 1. Durante movimento, o servidor é a autoridade e NÃO deve chamar player.getPosition().set(_x, _y, _z)
+		//    pois colide com os acumuladores físicos de sub-tick do PlayerMove.
+		// 2. Zona Amarela deve enviar pacotes suaves (MoveToPawn / MoveToLocation) sem teleportar a seco com ValidateLocation.
+		final java.nio.file.Path sourcePath = java.nio.file.Path.of("src/main/java/ext/mods/gameserver/network/clientpackets/ValidatePosition.java");
+		final String content = java.nio.file.Files.readString(sourcePath);
+
+		assertTrue(content.contains("softThreshold"), "ValidatePosition must implement dynamic soft threshold");
+		assertTrue(content.contains("MoveToPawn"), "ValidatePosition must use MoveToPawn for soft reconciliation when tracking pawns");
+		assertTrue(content.contains("MoveToLocation"), "ValidatePosition must use MoveToLocation for soft reconciliation when moving to coords");
+		assertFalse(content.contains("diffSq < 36"), "ValidatePosition must not have legacy rigid 36-unit threshold");
+	}
+
+	@Test
+	void playerMove_moveToPawn_doesNotFragmentPathWhenTargetHasDirectLineOfSight() throws Exception
+	{
+		// Regressão de teleporte ao atacar monstro:
+		// Quando há linha de visão/caminho livre (canMoveToTarget), moveToPawn NÃO deve decompor
+		// em waypoints artificiais de MoveToLocation, mas despachar MoveToPawn diretamente (padrão aCis 409).
+		final java.nio.file.Path sourcePath = java.nio.file.Path.of("src/main/kotlin/ext/mods/gameserver/model/actor/move/PlayerMove.kt");
+		final String content = java.nio.file.Files.readString(sourcePath);
+
+		assertTrue(content.contains("!GeoEngine.getInstance().canMoveToTarget"),
+			"PlayerMove.moveToPawn must only calculate path when direct line of sight is obstructed");
+	}
+
+	@Test
+	void movementIntegration_visualizeFarmLimit_protectedAgainstFermataCrash() throws Exception
+	{
+		// Regressão de crash no cliente Fermata:
+		// visualizeFarmLimit despacha ExServerPrimitive (1226 bytes) que estoura o buffer nativo do Fermata.
+		// Deve ser estritamente protegido para GMs e desabilitado para clientes Fermata.
+		final java.nio.file.Path sourcePath = java.nio.file.Path.of("src/main/java/ext/mods/gameserver/model/actor/move/MovementIntegration.java");
+		final String content = java.nio.file.Files.readString(sourcePath);
+
+		assertTrue(content.contains("!player.isGM()"), "visualizeFarmLimit must check if player is GM");
+		assertTrue(content.contains("isFermataClient()"), "visualizeFarmLimit must suppress ExServerPrimitive for Fermata client");
+	}
+
+	@Test
+	void creatureMove_stopAndFinishMovement_suppressesRedundantStopMove() throws Exception
+	{
+		// Regressão anti-flood de StopMove (Opcode 0x47):
+		// 1. stop() deve ter guarda estrita (se _task == null && _followTask == null, return) alinhado com aCis 409.
+		// 2. finishMovement() não deve enviar StopMove em chegadas naturais, apenas se _blocked.
+		final java.nio.file.Path sourcePath = java.nio.file.Path.of("src/main/kotlin/ext/mods/gameserver/model/actor/move/CreatureMove.kt");
+		final String content = java.nio.file.Files.readString(sourcePath);
+
+		assertTrue(content.contains("if (_task == null && _followTask == null) return"),
+			"CreatureMove.stop must have strict idempotency guard to avoid StopMove spam");
+		assertTrue(content.contains("if (_blocked)"),
+			"CreatureMove.finishMovement must only broadcast StopMove when movement is blocked prematurely");
+	}
+
 	private static String readLittleEndianUtf16String(ByteBuffer buf)
 	{
 		final StringBuilder sb = new StringBuilder();

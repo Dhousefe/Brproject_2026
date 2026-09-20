@@ -644,7 +644,8 @@ public class AutoFarmRoutine
 			}
 			else
 			{
-				player.getMove().stop();
+				if (player.isMoving())
+					player.getMove().stop();
 				player.updatePvPStatus(target);
 				setIntention(player, IntentionType.CAST, meleeSkill, target);
 				ensureCtrlAttackIntention(player, target, useCtrl);
@@ -663,7 +664,8 @@ public class AutoFarmRoutine
 		if (player.getAttack().canAttack(target))
 		{
 			setIntention(player, IntentionType.ATTACK, target);
-			player.getMove().stop();
+			if (player.isMoving())
+				player.getMove().stop();
 			player.updatePvPStatus(target);
 			player.getAI().tryToAttack(target, useCtrl, false);
 		}

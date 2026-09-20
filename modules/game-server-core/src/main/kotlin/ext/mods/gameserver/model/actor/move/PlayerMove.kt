@@ -109,7 +109,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         _yAccurate = oy.toDouble()
         _zAccurate = oz.toDouble()
         
-        if (ConfigGeoengine.SISTEMA_PATHFINDING) {
+        if (ConfigGeoengine.SISTEMA_PATHFINDING && !GeoEngine.getInstance().canMoveToTarget(ox, oy, oz, tx, ty, tz)) {
             val pathStart = calculatePath(ox, oy, oz, tx, ty, tz)
             if (pathStart != null) {
                 _destination.set(pathStart)
