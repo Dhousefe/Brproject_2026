@@ -46,7 +46,9 @@ import ext.mods.gameserver.model.itemcontainer.PcInventory;
 import ext.mods.gameserver.model.itemcontainer.PcWarehouse;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.EnchantResult;
+import ext.mods.gameserver.network.serverpackets.EtcStatusUpdate;
 import ext.mods.gameserver.network.serverpackets.ExStorageMaxCount;
+import ext.mods.gameserver.network.serverpackets.SkillList;
 import ext.mods.gameserver.network.serverpackets.SystemMessage;
 import ext.mods.gameserver.skills.Formulas;
 
@@ -134,42 +136,63 @@ public final class PlayerInventoryAccess
 		if (item.getItem() instanceof Weapon)
 			item.unChargeAllShots();
 
-		if (isEquipped)
+		_player.setEquipBatching(true);
+		try
 		{
-			if (item.getEnchantLevel() > 0)
-				_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(item.getEnchantLevel()).addItemName(item));
-			else
-				_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(item));
-
-			getInventory().unequipItemInBodySlotAndRecord(item);
-
-			InventoryListenerManager.getInstance().notifyUnequip(item.getItem().getBodyPart(), item, _player);
-		}
-		else
-		{
-			getInventory().equipItemAndRecord(item);
-
-			if (item.isEquipped())
+			if (isEquipped)
 			{
 				if (item.getEnchantLevel() > 0)
-					_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_S2_EQUIPPED).addNumber(item.getEnchantLevel()).addItemName(item));
+					_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(item.getEnchantLevel()).addItemName(item));
 				else
-					_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_EQUIPPED).addItemName(item));
+					_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(item));
 
-				InventoryListenerManager.getInstance().notifyEquip(item.getItem().getBodyPart(), item, _player);
+				getInventory().unequipItemInBodySlotAndRecord(item);
 
-				if ((item.getItem().getBodyPart() & Item.SLOT_ALLWEAPON) != 0)
-					_player.rechargeShots(true, true);
+				InventoryListenerManager.getInstance().notifyUnequip(item.getItem().getBodyPart(), item, _player);
 			}
 			else
 			{
-				_player.sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
-			}
-		}
+				getInventory().equipItemAndRecord(item);
 
-		refreshExpertisePenalty();
-		_player.sendIU();
-		_player.broadcastUserInfo();
+				if (item.isEquipped())
+				{
+					if (item.getEnchantLevel() > 0)
+						_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_S2_EQUIPPED).addNumber(item.getEnchantLevel()).addItemName(item));
+					else
+						_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_EQUIPPED).addItemName(item));
+
+					InventoryListenerManager.getInstance().notifyEquip(item.getItem().getBodyPart(), item, _player);
+
+					if ((item.getItem().getBodyPart() & Item.SLOT_ALLWEAPON) != 0)
+						_player.rechargeShots(true, true);
+				}
+				else
+				{
+					_player.sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
+				}
+			}
+
+			refreshExpertisePenalty();
+		}
+		finally
+		{
+			_player.setEquipBatching(false);
+
+			if (_player.isNeedSkillList())
+			{
+				_player.setNeedSkillList(false);
+				_player.sendPacket(new SkillList(_player));
+			}
+
+			if (_player.isNeedEtcStatusUpdate())
+			{
+				_player.setNeedEtcStatusUpdate(false);
+				_player.sendPacket(new EtcStatusUpdate(_player));
+			}
+
+			_player.sendIU();
+			_player.broadcastUserInfo();
+		}
 
 		if (abortAttack)
 			_player.getAttack().stop();
@@ -185,21 +208,10 @@ public final class PlayerInventoryAccess
 
 		_player.getAttack().stop();
 
-		ItemInstance[] unequipped = getInventory().unequipItemInBodySlotAndRecord(Item.SLOT_R_HAND);
-		if (!ArraysUtil.isEmpty(unequipped))
+		_player.setEquipBatching(true);
+		try
 		{
-			SystemMessage sm;
-			if (unequipped[0].getEnchantLevel() > 0)
-				sm = SystemMessage.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
-			else
-				sm = SystemMessage.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(unequipped[0]);
-
-			_player.sendPacket(sm);
-		}
-
-		if (leftHandIncluded)
-		{
-			unequipped = getInventory().unequipItemInBodySlotAndRecord(Item.SLOT_L_HAND);
+			ItemInstance[] unequipped = getInventory().unequipItemInBodySlotAndRecord(Item.SLOT_R_HAND);
 			if (!ArraysUtil.isEmpty(unequipped))
 			{
 				SystemMessage sm;
@@ -210,9 +222,43 @@ public final class PlayerInventoryAccess
 
 				_player.sendPacket(sm);
 			}
-		}
 
-		_player.broadcastUserInfo();
+			if (leftHandIncluded)
+			{
+				unequipped = getInventory().unequipItemInBodySlotAndRecord(Item.SLOT_L_HAND);
+				if (!ArraysUtil.isEmpty(unequipped))
+				{
+					SystemMessage sm;
+					if (unequipped[0].getEnchantLevel() > 0)
+						sm = SystemMessage.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
+					else
+						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(unequipped[0]);
+
+					_player.sendPacket(sm);
+				}
+			}
+
+			refreshExpertisePenalty();
+		}
+		finally
+		{
+			_player.setEquipBatching(false);
+
+			if (_player.isNeedSkillList())
+			{
+				_player.setNeedSkillList(false);
+				_player.sendPacket(new SkillList(_player));
+			}
+
+			if (_player.isNeedEtcStatusUpdate())
+			{
+				_player.setNeedEtcStatusUpdate(false);
+				_player.sendPacket(new EtcStatusUpdate(_player));
+			}
+
+			_player.sendIU();
+			_player.broadcastUserInfo();
+		}
 
 		return true;
 	}

@@ -208,12 +208,20 @@ public final class TcpProxyServer implements AutoCloseable {
             });
         }
 
+        private static final int MAX_PENDING_MESSAGES = 256;
+
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
             if (outboundChannel != null && outboundChannel.isActive()) {
                 outboundChannel.writeAndFlush(msg);
             } else {
-                pendingMessages.add(msg);
+                if (pendingMessages.size() < MAX_PENDING_MESSAGES) {
+                    pendingMessages.add(msg);
+                } else {
+                    io.netty.util.ReferenceCountUtil.safeRelease(msg);
+                    LOG.warn("[proxy/tcp] Pending messages buffer full ({}), frame dropped for route='{}'",
+                        MAX_PENDING_MESSAGES, route.name());
+                }
             }
         }
 

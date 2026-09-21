@@ -22,7 +22,10 @@ import java.nio.ByteBuffer;
 import ext.mods.commons.geometry.IntXYZ;
 
 /**
- * Outbound packet writer. Location/effect helpers use commons interfaces so this class stays free of gameserver types.
+ * Outbound packet writer with Mechanical Sympathy.
+ * Binds the active serialization buffer to the executing thread, ensuring that multiple
+ * threads encoding the exact same packet instance concurrently (e.g. mass broadcast or static singletons)
+ * write to their own dedicated buffers without any lock contention, data race or null pointer risks.
  */
 public abstract class SendablePacket<T extends MMOClient<?>> extends AbstractPacket<T>
 {
@@ -30,52 +33,68 @@ public abstract class SendablePacket<T extends MMOClient<?>> extends AbstractPac
 	
 	public void writePacket(final T client, final ByteBuffer buf)
 	{
+		bindThreadContext(client, buf);
 		_client = client;
 		_buf = buf;
-		write();
-		_buf = null;
+		try
+		{
+			write();
+		}
+		finally
+		{
+			unbindThreadContext();
+			_buf = null;
+			_client = null;
+		}
+	}
+
+	private ByteBuffer getActiveBuffer()
+	{
+		final ByteBuffer tb = currentThreadBuffer();
+		return tb != null ? tb : _buf;
 	}
 	
 	protected final void writeC(final int data)
 	{
-		_buf.put((byte) data);
+		getActiveBuffer().put((byte) data);
 	}
 	
 	protected final void writeF(final double value)
 	{
-		_buf.putDouble(value);
+		getActiveBuffer().putDouble(value);
 	}
 	
 	protected final void writeH(final int value)
 	{
-		_buf.putShort((short) value);
+		getActiveBuffer().putShort((short) value);
 	}
 	
 	protected final void writeD(final int value)
 	{
-		_buf.putInt(value);
+		getActiveBuffer().putInt(value);
 	}
 	
 	protected final void writeQ(final long value)
 	{
-		_buf.putLong(value);
+		getActiveBuffer().putLong(value);
 	}
 	
 	protected final void writeB(final byte[] data)
 	{
 		if (data != null && data.length > 0)
-			_buf.put(data);
+			getActiveBuffer().put(data);
 	}
 	
 	protected final void writeS(final String text)
 	{
+		final ByteBuffer buf = getActiveBuffer();
 		if (text != null && !text.isEmpty())
 		{
 			for (int i = 0; i < text.length(); i++)
-				_buf.putChar(text.charAt(i));
+				buf.putChar(text.charAt(i));
 		}
 		
-		_buf.putChar('\000');
+		buf.putChar('\000');
 	}
 	
 	protected final void writeLoc(final int x, final int y, final int z)

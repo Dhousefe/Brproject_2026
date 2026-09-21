@@ -125,6 +125,11 @@ public final class ConfigServer
    public static boolean SERVER_NEWS;
    public static boolean ENABLE_JIT_WARMUP;
    public static int JIT_WARMUP_ITERATIONS;
+   public static boolean ENABLE_NETWORK_JIT_WARMUP;
+   public static int DISRUPTOR_WARMUP_CONNECTIONS;
+   public static boolean WARMUP_STATUS_UPDATE;
+   public static boolean WARMUP_USER_INFO;
+   public static boolean WARMUP_DISRUPTOR_BROADCAST;
 
    public static void load() {
       ExProperties server = Config.initProperties(Config.SERVER_FILE);
@@ -159,5 +164,11 @@ public final class ConfigServer
 
       ConfigServer.L2WALKER_PROTECTION = server.getProperty("L2WalkerProtection", false);      ConfigServer.ZONE_TOWN = server.getProperty("ZoneTown", 0);      ConfigServer.SERVER_NEWS = server.getProperty("ShowServerNews", false);
       ConfigServer.ENABLE_JIT_WARMUP = server.getProperty("EnableJitWarmup", true);
-      ConfigServer.JIT_WARMUP_ITERATIONS = server.getProperty("JitWarmupIterations", 3000);   }
+      ConfigServer.JIT_WARMUP_ITERATIONS = server.getProperty("JitWarmupIterations", 3000);
+      ConfigServer.ENABLE_NETWORK_JIT_WARMUP = server.getProperty("EnableNetworkJitWarmup", true);
+      ConfigServer.DISRUPTOR_WARMUP_CONNECTIONS = server.getProperty("DisruptorWarmupConnections", 10000);
+      ConfigServer.WARMUP_STATUS_UPDATE = server.getProperty("WarmupStatusUpdate", true);
+      ConfigServer.WARMUP_USER_INFO = server.getProperty("WarmupUserInfo", true);
+      ConfigServer.WARMUP_DISRUPTOR_BROADCAST = server.getProperty("WarmupDisruptorBroadcast", true);
+   }
 }

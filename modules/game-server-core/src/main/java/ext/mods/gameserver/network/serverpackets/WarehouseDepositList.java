@@ -44,7 +44,7 @@ public final class WarehouseDepositList extends L2GameServerPacket
 		final boolean isPrivate = _whType == PRIVATE;
 		for (ItemInstance temp : player.getInventory().getAvailableItems(true, isPrivate, false))
 		{
-			if (temp != null && temp.isDepositable(isPrivate))
+			if (temp != null && temp.getItem() != null && temp.isDepositable(isPrivate))
 				_items.add(temp);
 		}
 	}
@@ -83,6 +83,5 @@ public final class WarehouseDepositList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 		}
-		_items.clear();
 	}
 }

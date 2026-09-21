@@ -19,14 +19,28 @@ package ext.mods.commons.mmocore;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Base packet abstraction.
+ * Employs thread-local context binding during serialization to ensure absolute
+ * thread safety, zero data race and reentrancy when the same packet instance is
+ * broadcast concurrently across multiple Netty EventLoop worker threads.
+ */
 public abstract class AbstractPacket<T extends MMOClient<?>>
 {
+	private static final ThreadLocal<ByteBuffer> CURRENT_BUFFER = new ThreadLocal<>();
+	private static final ThreadLocal<MMOClient<?>> CURRENT_CLIENT = new ThreadLocal<>();
+
 	protected ByteBuffer _buf;
-	
 	T _client;
 	
+	@SuppressWarnings("unchecked")
 	public final T getClient()
 	{
+		final MMOClient<?> threadClient = CURRENT_CLIENT.get();
+		if (threadClient != null)
+		{
+			return (T) threadClient;
+		}
 		return _client;
 	}
 	
@@ -38,5 +52,32 @@ public abstract class AbstractPacket<T extends MMOClient<?>>
 	public void setClient(final T client)
 	{
 		_client = client;
+	}
+	
+	public ByteBuffer getByteBuffer()
+	{
+		final ByteBuffer threadBuf = CURRENT_BUFFER.get();
+		if (threadBuf != null)
+		{
+			return threadBuf;
+		}
+		return _buf;
+	}
+
+	static void bindThreadContext(final MMOClient<?> client, final ByteBuffer buf)
+	{
+		CURRENT_CLIENT.set(client);
+		CURRENT_BUFFER.set(buf);
+	}
+
+	static void unbindThreadContext()
+	{
+		CURRENT_CLIENT.remove();
+		CURRENT_BUFFER.remove();
+	}
+
+	static ByteBuffer currentThreadBuffer()
+	{
+		return CURRENT_BUFFER.get();
 	}
 }

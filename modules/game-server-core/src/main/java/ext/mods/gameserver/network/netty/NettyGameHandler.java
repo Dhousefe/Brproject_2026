@@ -137,7 +137,10 @@ public final class NettyGameHandler extends ChannelInboundHandlerAdapter
 		final GameClient client = ctx.channel().attr(CLIENT_KEY).get();
 		if (client != null)
 		{
-			client.getAuditTrail().dumpForensicReport(client.toString(), ctx.channel().remoteAddress(), client.getState());
+			if (ext.mods.config.ConfigServer.DEBUG_NET)
+			{
+				client.getAuditTrail().dumpForensicReport(client.toString(), ctx.channel().remoteAddress(), client.getState());
+			}
 			client.onDisconnection();
 		}
 		

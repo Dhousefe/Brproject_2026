@@ -1,6 +1,7 @@
 package ext.mods.gameserver.network.netty;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.config.ConfigServer;
 import ext.mods.gameserver.network.GameClient.GameClientState;
 
 import java.time.LocalTime;
@@ -70,6 +71,9 @@ public final class PacketAuditTrail
 
 	public void dumpForensicReport(String clientInfo, Object remoteAddress, GameClientState finalState)
 	{
+		if (!ConfigServer.DEBUG_NET)
+			return;
+
 		final int total = _head.get();
 		if (total <= 0)
 			return;

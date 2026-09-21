@@ -1083,6 +1083,40 @@ public class Player extends Playable
 		_inventoryAccess.useEquippableItem(item, abortAttack);
 	}
 	
+	private boolean _isEquipBatching = false;
+	private boolean _needSkillList = false;
+	private boolean _needEtcStatusUpdate = false;
+
+	public boolean isEquipBatching()
+	{
+		return _isEquipBatching;
+	}
+
+	public void setEquipBatching(boolean isEquipBatching)
+	{
+		_isEquipBatching = isEquipBatching;
+	}
+
+	public boolean isNeedSkillList()
+	{
+		return _needSkillList;
+	}
+
+	public void setNeedSkillList(boolean needSkillList)
+	{
+		_needSkillList = needSkillList;
+	}
+
+	public boolean isNeedEtcStatusUpdate()
+	{
+		return _needEtcStatusUpdate;
+	}
+
+	public void setNeedEtcStatusUpdate(boolean needEtcStatusUpdate)
+	{
+		_needEtcStatusUpdate = needEtcStatusUpdate;
+	}
+	
 	/**
 	 * @return The total PvP kills amount of this {@link Player} (number of killed players during PvP).
 	 */

@@ -13,21 +13,37 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * Codificador de saída assíncrono para o pipeline Netty com Zero-Allocation.
- * Utiliza FastThreadLocal para reutilizar o ByteBuffer temporário sem gerar GC overhead.
+ * Codificador de saída assíncrono para o pipeline Netty com Zero-Allocation e Mechanical Sympathy.
+ * Utiliza FastThreadLocal com pool reentrante de buffers por profundidade de chamada,
+ * impedindo corrupção de índices e sobreposição de memória caso ocorram serializações aninhadas.
  */
 public final class NettyGameEncoder extends MessageToByteEncoder<SendablePacket<GameClient>>
 {
 	private static final CLogger LOGGER = new CLogger(NettyGameEncoder.class.getName());
 	private static final int HEADER_SIZE = 2;
 	private static final int MAX_BUFFER_SIZE = 65536;
+	private static final int MAX_REENTRANT_DEPTH = 4;
 	
-	private static final FastThreadLocal<ByteBuffer> BUFFER_CACHE = new FastThreadLocal<>()
+	private static final FastThreadLocal<ByteBuffer[]> REENTRANT_BUFFER_POOL = new FastThreadLocal<>()
 	{
 		@Override
-		protected ByteBuffer initialValue()
+		protected ByteBuffer[] initialValue()
 		{
-			return ByteBuffer.allocate(MAX_BUFFER_SIZE).order(ByteOrder.LITTLE_ENDIAN);
+			final ByteBuffer[] pool = new ByteBuffer[MAX_REENTRANT_DEPTH];
+			for (int i = 0; i < MAX_REENTRANT_DEPTH; i++)
+			{
+				pool[i] = ByteBuffer.allocate(MAX_BUFFER_SIZE).order(ByteOrder.LITTLE_ENDIAN);
+			}
+			return pool;
+		}
+	};
+	
+	private static final FastThreadLocal<int[]> CALL_DEPTH = new FastThreadLocal<>()
+	{
+		@Override
+		protected int[] initialValue()
+		{
+			return new int[] { 0 };
 		}
 	};
 	
@@ -42,46 +58,66 @@ public final class NettyGameEncoder extends MessageToByteEncoder<SendablePacket<
 			return;
 		}
 		
-		// Reutiliza o ByteBuffer thread-local (Zero-GC)
-		final ByteBuffer tempBuffer = BUFFER_CACHE.get();
-		tempBuffer.clear();
-		tempBuffer.position(HEADER_SIZE);
-		
-		// Escreve os dados do pacote
-		sp.writePacket(client, tempBuffer);
-		
-		if (sp instanceof ext.mods.gameserver.network.serverpackets.L2GameServerPacket && ((ext.mods.gameserver.network.serverpackets.L2GameServerPacket) sp).hasFailed())
+		final int[] depthRef = CALL_DEPTH.get();
+		final int currentDepth = depthRef[0]++;
+		final ByteBuffer tempBuffer;
+
+		if (currentDepth < MAX_REENTRANT_DEPTH)
 		{
-			return;
+			tempBuffer = REENTRANT_BUFFER_POOL.get()[currentDepth];
 		}
-		
-		final int dataSize = tempBuffer.position() - HEADER_SIZE;
-		if (dataSize <= 0)
+		else
 		{
-			return;
+			LOGGER.warn("[NETTY S->C] Reentrancy depth limit exceeded ({}) for client {}. Using dynamic fallback buffer.",
+				currentDepth, ctx.channel().remoteAddress());
+			tempBuffer = ByteBuffer.allocate(MAX_BUFFER_SIZE).order(ByteOrder.LITTLE_ENDIAN);
 		}
 
-		final int opcode = tempBuffer.get(HEADER_SIZE) & 0xFF;
-		final int totalSize = dataSize + HEADER_SIZE;
-
-		// Registra no RingBuffer de auditoria forense do cliente
-		client.getAuditTrail().recordOutbound(sp.getClass().getSimpleName(), opcode, dataSize, totalSize, client.getState());
-
-		if (ConfigServer.DEBUG_NET)
+		try
 		{
-			LOGGER.info("[NETTY S->C] Sent packet: {} (opcode=0x{}, payload={}B, frame={}B, state={}) to {}",
-				sp.getClass().getSimpleName(), Integer.toHexString(opcode), dataSize, totalSize, client.getState(), ctx.channel().remoteAddress());
+			tempBuffer.clear();
+			tempBuffer.position(HEADER_SIZE);
+			
+			// Escreve os dados do pacote
+			sp.writePacket(client, tempBuffer);
+			
+			if (sp instanceof ext.mods.gameserver.network.serverpackets.L2GameServerPacket && ((ext.mods.gameserver.network.serverpackets.L2GameServerPacket) sp).hasFailed())
+			{
+				return;
+			}
+			
+			final int dataSize = tempBuffer.position() - HEADER_SIZE;
+			if (dataSize <= 0)
+			{
+				return;
+			}
+
+			final int opcode = tempBuffer.get(HEADER_SIZE) & 0xFF;
+			final int totalSize = dataSize + HEADER_SIZE;
+
+			// Registra no RingBuffer de auditoria forense do cliente
+			client.getAuditTrail().recordOutbound(sp.getClass().getSimpleName(), opcode, dataSize, totalSize, client.getState());
+
+			if (ConfigServer.DEBUG_NET)
+			{
+				LOGGER.info("[NETTY S->C] Sent packet: {} (opcode=0x{}, payload={}B, frame={}B, depth={}, state={}) to {}",
+					sp.getClass().getSimpleName(), Integer.toHexString(opcode), dataSize, totalSize, currentDepth, client.getState(), ctx.channel().remoteAddress());
+			}
+			
+			// Aplica cifragem Blowfish/XOR no payload (apenas sobre os dados, sem o header)
+			tempBuffer.position(HEADER_SIZE);
+			client.encrypt(tempBuffer, dataSize);
+			
+			// Grava o tamanho total no cabeçalho de 2 bytes (Little-Endian)
+			tempBuffer.position(0);
+			tempBuffer.putShort((short) totalSize);
+			
+			// Escreve o pacote final no ByteBuf de saída do Netty
+			out.writeBytes(tempBuffer.array(), 0, totalSize);
 		}
-		
-		// Aplica cifragem Blowfish/XOR no payload (apenas sobre os dados, sem o header)
-		tempBuffer.position(HEADER_SIZE);
-		client.encrypt(tempBuffer, dataSize);
-		
-		// Grava o tamanho total no cabeçalho de 2 bytes (Little-Endian)
-		tempBuffer.position(0);
-		tempBuffer.putShort((short) totalSize);
-		
-		// Escreve o pacote final no ByteBuf de saída do Netty
-		out.writeBytes(tempBuffer.array(), 0, totalSize);
+		finally
+		{
+			depthRef[0]--;
+		}
 	}
 }

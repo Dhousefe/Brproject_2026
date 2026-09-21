@@ -32,7 +32,7 @@ dependencies {
 
 application {
     mainClass.set("ext.mods.benchmark.network.FullNetworkDiagnosticRunner")
-    applicationDefaultJvmArgs = listOf("-XX:+UseSerialGC", "-Xms64m", "-Xmx256m", "-Dfile.encoding=UTF-8")
+    applicationDefaultJvmArgs = listOf("-XX:+UseG1GC", "-Xms512m", "-Xmx2048m", "-Dfile.encoding=UTF-8")
 }
 
 tasks.named<JavaCompile>("compileJava") {
@@ -42,6 +42,14 @@ tasks.named<JavaCompile>("compileJava") {
 tasks.test {
     useJUnitPlatform()
     jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-XX:+UseG1GC")
+}
+
+tasks.register<JavaExec>("runNetworkBroadcastBenchmark") {
+    group = "benchmark"
+    description = "Executes the JMH Network Broadcast & Disruptor Performance Benchmark."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("ext.mods.benchmark.network.BenchmarkRunner")
+    jvmArgs = listOf("-Xms512m", "-Xmx2048m", "-XX:+UseG1GC", "-Dfile.encoding=UTF-8")
 }
 
 tasks.register<JavaExec>("runGameApiBenchmark") {

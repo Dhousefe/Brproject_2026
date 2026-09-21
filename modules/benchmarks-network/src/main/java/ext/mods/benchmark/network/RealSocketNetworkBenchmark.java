@@ -63,6 +63,7 @@ public class RealSocketNetworkBenchmark
 	
 	// Conexões do servidor para cada cliente
 	private final List<NettyGameConnection> _serverConnections = new ArrayList<>();
+	private static final java.util.concurrent.Semaphore _inFlightLimiter = new java.util.concurrent.Semaphore(65536);
 	
 	// Disruptor para Broadcast
 	public static final class BroadcastEvent
@@ -197,6 +198,12 @@ public class RealSocketNetworkBenchmark
 								_serverConnections.add(con);
 							}
 						}
+
+						@Override
+						public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+						{
+							ctx.close();
+						}
 					});
 				}
 			});
@@ -223,7 +230,14 @@ public class RealSocketNetworkBenchmark
 								_clientReceivedBytes.add(buf.readableBytes());
 								_clientReceivedPackets.increment();
 								buf.release(); // Drena o socket
+								_inFlightLimiter.release();
 							}
+						}
+
+						@Override
+						public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+						{
+							ctx.close();
 						}
 					});
 				}
@@ -295,7 +309,7 @@ public class RealSocketNetworkBenchmark
 	{
 		final int index = (int) (Thread.currentThread().threadId() % NUM_CLIENTS);
 		final NettyGameConnection con = _serverConnections.get(index);
-		if (con.getChannel().isWritable())
+		if (con.getChannel().isWritable() && _inFlightLimiter.tryAcquire())
 		{
 			con.sendPacket(new MockMoveToLocationPacket(1001, 10000, 20000, -3500, 10500, 20500, -3500));
 		}
@@ -306,7 +320,7 @@ public class RealSocketNetworkBenchmark
 	{
 		final int index = (int) (Thread.currentThread().threadId() % NUM_CLIENTS);
 		final NettyGameConnection con = _serverConnections.get(index);
-		if (con.getChannel().isWritable())
+		if (con.getChannel().isWritable() && _inFlightLimiter.tryAcquire())
 		{
 			con.sendPacket(new MockStatusUpdatePacket(1001));
 		}
@@ -317,7 +331,7 @@ public class RealSocketNetworkBenchmark
 	{
 		final int index = (int) (Thread.currentThread().threadId() % NUM_CLIENTS);
 		final NettyGameConnection con = _serverConnections.get(index);
-		if (con.getChannel().isWritable())
+		if (con.getChannel().isWritable() && _inFlightLimiter.tryAcquire())
 		{
 			con.sendPacket(new MockUserInfoPacket(1001));
 		}

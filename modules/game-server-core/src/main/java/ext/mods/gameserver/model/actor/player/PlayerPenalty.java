@@ -70,9 +70,16 @@ public final class PlayerPenalty
 		{
 			_weightPenalty = newWeightPenalty;
 			
-			_owner.sendPacket(new UserInfo(_owner));
-			_owner.sendPacket(new EtcStatusUpdate(_owner));
-			_owner.broadcastCharInfo();
+			if (!_owner.isEquipBatching())
+			{
+				_owner.sendPacket(new UserInfo(_owner));
+				_owner.sendPacket(new EtcStatusUpdate(_owner));
+				_owner.broadcastCharInfo();
+			}
+			else
+			{
+				_owner.setNeedEtcStatusUpdate(true);
+			}
 		}
 	}
 	
@@ -109,8 +116,16 @@ public final class PlayerPenalty
 			else
 				_owner.removeSkill(4267, false);
 			
-			_owner.sendPacket(new SkillList(_owner));
-			_owner.sendPacket(new EtcStatusUpdate(_owner));
+			if (!_owner.isEquipBatching())
+			{
+				_owner.sendPacket(new SkillList(_owner));
+				_owner.sendPacket(new EtcStatusUpdate(_owner));
+			}
+			else
+			{
+				_owner.setNeedSkillList(true);
+				_owner.setNeedEtcStatusUpdate(true);
+			}
 			
 			final ItemInstance item = _owner.getActiveWeaponInstance();
 			if (item != null)
