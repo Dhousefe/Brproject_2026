@@ -96,15 +96,15 @@ public class AgathionAI extends NpcAI<Agathion>
 				final int targetY = _actor.getY() + (int) (dy * ratio);
 				final int targetZ = ownerLoc.getZ();
 				
-			if (GeoEngine.getInstance().canMoveToTarget(_actor.getX(), _actor.getY(), _actor.getZ(), targetX, targetY, targetZ))
+				if (GeoEngine.getInstance().canMoveToTarget(_actor.getX(), _actor.getY(), _actor.getZ(), targetX, targetY, targetZ))
 				{
 					final Location targetLoc = new Location(targetX, targetY, targetZ);
 					_actor.getMove().maybeMoveToLocation(targetLoc, 0, true, false);
-                    
 				}
 				else
 				{
-					_actor.teleportTo(ownerLoc, followDistance);
+					
+					_actor.getMove().maybeMoveToLocation(ownerLoc, followDistance, true, false);
 				}
 			}
 		}

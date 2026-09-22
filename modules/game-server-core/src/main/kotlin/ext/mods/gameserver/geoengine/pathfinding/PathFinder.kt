@@ -23,7 +23,6 @@
  */
 package ext.mods.gameserver.geoengine.pathfinding
 import ext.mods.Config
-import ext.mods.commons.util.PriorityQueueSet
 import ext.mods.gameserver.geoengine.GeoEngine
 import ext.mods.gameserver.geoengine.PeaceZoneCollisionManager
 import ext.mods.gameserver.geoengine.geodata.ABlock
@@ -40,16 +39,6 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 import ext.mods.config.ConfigGeoengine
 class PathFinder {
-    private val _opened = PriorityQueueSet<Node>()
-    private val _closed = HashSet<Node>()
-    
-    private var _gtx: Int = 0
-    private var _gty: Int = 0
-    private var _gtz: Int = 0
-    
-    private var _current: Node? = null
-    
-    private val _currentTime: Long = System.currentTimeMillis()
     private val _geoEngine = GeoEngine.getInstance()
     
     fun findPath(
@@ -276,41 +265,63 @@ class PathFinder {
         gtx: Int, gty: Int, gtz: Int,
         debug: ExServerPrimitive?
     ): List<Location> {
-        _gtx = gtx
-        _gty = gty
-        _gtz = gtz
-        
-        _opened.clear()
-        _closed.clear()
-        val startNswe = _geoEngine.getNsweNearest(gox, goy, goz)
-        
-        _current = Node(gox, goy, goz, startNswe)
-        _current!!.setCost(null, 0, getCostH(gox, goy, goz))
-        
-        _opened.add(_current!!)
-        var count = 0
-        while (!_opened.isEmpty() && count < ConfigGeoengine.MAX_ITERATIONS) {
-            _current = _opened.poll()
-            
-            if (_current == null) break 
-            
-            if (_current!!.geoX == _gtx && _current!!.geoY == _gty && 
-                abs(_current!!.z - _gtz) < GeoStructure.CELL_HEIGHT * 2) {
-                return constructPath(debug)
-            }
-            _closed.add(_current!!)
-            expand(_current!!)
-            count++
+        val dx = abs(gtx - gox)
+        val dy = abs(gty - goy)
+        val neededSize = maxOf(dx, dy) + 16
+        if (neededSize > PathFindBuffers.MAX_MAP_SIZE) {
+            return emptyList()
         }
-        return emptyList()
+
+        val buffer = PathFindBuffers.alloc(neededSize) ?: return emptyList()
+        val startTime = System.currentTimeMillis()
+
+        try {
+            buffer.offsetX = minOf(gox, gtx) - 8
+            buffer.offsetY = minOf(goy, gty) - 8
+
+            val sx = gox - buffer.offsetX
+            val sy = goy - buffer.offsetY
+            if (sx < 0 || sx >= buffer.mapSize || sy < 0 || sy >= buffer.mapSize) {
+                return emptyList()
+            }
+
+            val startNswe = _geoEngine.getNsweNearest(gox, goy, goz)
+            val startNode = buffer.nodes[sx][sy].set(gox, goy, goz, startNswe)
+            startNode.setCost(null, 0, getCostH(gox, goy, goz, gtx, gty, gtz))
+            startNode.state = PathFindBuffers.GeoNode.STATE_OPENED
+            buffer.markTouched(startNode)
+            buffer.open.add(startNode)
+
+            var count = 0
+            while (!buffer.open.isEmpty() && count < ConfigGeoengine.MAX_ITERATIONS) {
+                val current = buffer.open.poll() ?: break
+
+                if (current.geoX == gtx && current.geoY == gty &&
+                    abs(current.z - gtz) < GeoStructure.CELL_HEIGHT * 2) {
+                    buffer.successUses++
+                    return constructPath(current, debug, startTime)
+                }
+
+                current.state = PathFindBuffers.GeoNode.STATE_CLOSED
+                expand(buffer, current, gtx, gty, gtz)
+                count++
+            }
+
+            if (count >= ConfigGeoengine.MAX_ITERATIONS) {
+                buffer.overtimeUses++
+            }
+            return emptyList()
+        } finally {
+            PathFindBuffers.recycle(buffer)
+        }
     }
-    
-    private fun constructPath(debug: ExServerPrimitive?): List<Location> {
+
+    private fun constructPath(targetNode: PathFindBuffers.GeoNode, debug: ExServerPrimitive?, startTime: Long): List<Location> {
         val path = LinkedList<Location>()
         var dx = 0
         var dy = 0
-        
-        var node = _current
+
+        var node: PathFindBuffers.GeoNode? = targetNode
         var parent = node?.parent
         while (parent != null) {
             val nx = parent.geoX - node!!.geoX
@@ -319,109 +330,157 @@ class PathFinder {
                 val worldX = GeoEngine.getWorldX(node.geoX)
                 val worldY = GeoEngine.getWorldY(node.geoY)
                 path.addFirst(Location(worldX, worldY, node.z))
-                
+
                 dx = nx
                 dy = ny
             }
             node = parent
             parent = node.parent
         }
-        
-        if (debug != null && _current != null) {
-            val worldX = GeoEngine.getWorldX(_current!!.geoX)
-            val worldY = GeoEngine.getWorldY(_current!!.geoY)
+
+        if (debug != null) {
+            val worldX = GeoEngine.getWorldX(targetNode.geoX)
+            val worldY = GeoEngine.getWorldY(targetNode.geoY)
             debug.addPoint(
-                "${System.currentTimeMillis() - _currentTime}ms",
+                "${System.currentTimeMillis() - startTime}ms",
                 Color.RED,
                 true,
                 worldX,
                 worldY,
-                _current!!.z + 16
+                targetNode.z + 16
             )
         }
         return path
     }
-    
-    private fun expand(current: Node) {
+
+    private fun expand(
+        buffer: PathFindBuffers.PathFindBuffer,
+        current: PathFindBuffers.GeoNode,
+        gtx: Int, gty: Int, gtz: Int
+    ) {
         val nswe = current.nswe
         if (nswe == GeoStructure.CELL_FLAG_NONE) return
         val x = current.geoX
         val y = current.geoY
         val z = current.z + GeoStructure.CELL_IGNORE_HEIGHT
-        val nsweN = addDirectionalNode(current, x, y, z, nswe, 0, -1, GeoStructure.CELL_FLAG_N)
-        val nsweS = addDirectionalNode(current, x, y, z, nswe, 0, 1, GeoStructure.CELL_FLAG_S)
-        val nsweW = addDirectionalNode(current, x, y, z, nswe, -1, 0, GeoStructure.CELL_FLAG_W)
-        val nsweE = addDirectionalNode(current, x, y, z, nswe, 1, 0, GeoStructure.CELL_FLAG_E)
-        addCornerNode(current, x, y, z, nswe, -1, -1, GeoStructure.CELL_FLAG_W, GeoStructure.CELL_FLAG_N, nsweW, nsweN)
-        addCornerNode(current, x, y, z, nswe, 1, -1, GeoStructure.CELL_FLAG_E, GeoStructure.CELL_FLAG_N, nsweE, nsweN)
-        addCornerNode(current, x, y, z, nswe, -1, 1, GeoStructure.CELL_FLAG_W, GeoStructure.CELL_FLAG_S, nsweW, nsweS)
-        addCornerNode(current, x, y, z, nswe, 1, 1, GeoStructure.CELL_FLAG_E, GeoStructure.CELL_FLAG_S, nsweE, nsweS)
+
+        // 4 passos ortogonais
+        val nsweN = addDirectionalNode(buffer, current, x, y, z, 0, -1, GeoStructure.CELL_FLAG_N, gtx, gty, gtz)
+        val nsweS = addDirectionalNode(buffer, current, x, y, z, 0, 1, GeoStructure.CELL_FLAG_S, gtx, gty, gtz)
+        val nsweW = addDirectionalNode(buffer, current, x, y, z, -1, 0, GeoStructure.CELL_FLAG_W, gtx, gty, gtz)
+        val nsweE = addDirectionalNode(buffer, current, x, y, z, 1, 0, GeoStructure.CELL_FLAG_E, gtx, gty, gtz)
+
+        // Validação diagonal ortogonal estrita de 4 bits (Anti-Corner Cutting - Lucera2)
+        // Noroeste (NW: x - 1, y - 1)
+        if ((nswe.toInt() and GeoStructure.CELL_FLAG_W.toInt()) != 0 && (nswe.toInt() and GeoStructure.CELL_FLAG_N.toInt()) != 0) {
+            if ((nsweW.toInt() and GeoStructure.CELL_FLAG_N.toInt()) != 0 && (nsweN.toInt() and GeoStructure.CELL_FLAG_W.toInt()) != 0) {
+                addCornerNode(buffer, current, x - 1, y - 1, z, gtx, gty, gtz)
+            }
+        }
+        // Nordeste (NE: x + 1, y - 1)
+        if ((nswe.toInt() and GeoStructure.CELL_FLAG_E.toInt()) != 0 && (nswe.toInt() and GeoStructure.CELL_FLAG_N.toInt()) != 0) {
+            if ((nsweE.toInt() and GeoStructure.CELL_FLAG_N.toInt()) != 0 && (nsweN.toInt() and GeoStructure.CELL_FLAG_E.toInt()) != 0) {
+                addCornerNode(buffer, current, x + 1, y - 1, z, gtx, gty, gtz)
+            }
+        }
+        // Sudoeste (SW: x - 1, y + 1)
+        if ((nswe.toInt() and GeoStructure.CELL_FLAG_W.toInt()) != 0 && (nswe.toInt() and GeoStructure.CELL_FLAG_S.toInt()) != 0) {
+            if ((nsweW.toInt() and GeoStructure.CELL_FLAG_S.toInt()) != 0 && (nsweS.toInt() and GeoStructure.CELL_FLAG_W.toInt()) != 0) {
+                addCornerNode(buffer, current, x - 1, y + 1, z, gtx, gty, gtz)
+            }
+        }
+        // Sudeste (SE: x + 1, y + 1)
+        if ((nswe.toInt() and GeoStructure.CELL_FLAG_E.toInt()) != 0 && (nswe.toInt() and GeoStructure.CELL_FLAG_S.toInt()) != 0) {
+            if ((nsweE.toInt() and GeoStructure.CELL_FLAG_S.toInt()) != 0 && (nsweS.toInt() and GeoStructure.CELL_FLAG_E.toInt()) != 0) {
+                addCornerNode(buffer, current, x + 1, y + 1, z, gtx, gty, gtz)
+            }
+        }
     }
-    
+
     private fun addDirectionalNode(
-        parent: Node, x: Int, y: Int, z: Int, 
-        nswe: Byte, dx: Int, dy: Int, directionFlag: Byte
+        buffer: PathFindBuffers.PathFindBuffer,
+        parent: PathFindBuffers.GeoNode,
+        x: Int, y: Int, z: Int,
+        dx: Int, dy: Int, directionFlag: Byte,
+        gtx: Int, gty: Int, gtz: Int
     ): Byte {
-        if ((nswe.toInt() and directionFlag.toInt()) != 0) {
-            return addNode(parent, x + dx, y + dy, z, false)
+        if ((parent.nswe.toInt() and directionFlag.toInt()) != 0) {
+            return addNode(buffer, parent, x + dx, y + dy, z, false, gtx, gty, gtz)
         }
         return GeoStructure.CELL_FLAG_NONE
     }
-    
+
     private fun addCornerNode(
-        parent: Node, x: Int, y: Int, z: Int, nswe: Byte, 
-        dx: Int, dy: Int, 
-        dirFlagX: Byte, dirFlagY: Byte, 
-        nsweX: Byte, nsweY: Byte
+        buffer: PathFindBuffers.PathFindBuffer,
+        parent: PathFindBuffers.GeoNode,
+        gx: Int, gy: Int, z: Int,
+        gtx: Int, gty: Int, gtz: Int
     ) {
-        if ((nsweX.toInt() and dirFlagY.toInt()) != 0 && (nsweY.toInt() and dirFlagX.toInt()) != 0) {
-             addNode(parent, x + dx, y + dy, z, true)
-        }
+        addNode(buffer, parent, gx, gy, z, true, gtx, gty, gtz)
     }
-    
-    private fun addNode(parent: Node, gx: Int, gy: Int, checkZ: Int, diagonal: Boolean): Byte {
+
+    private fun addNode(
+        buffer: PathFindBuffers.PathFindBuffer,
+        parent: PathFindBuffers.GeoNode,
+        gx: Int, gy: Int, checkZ: Int, diagonal: Boolean,
+        gtx: Int, gty: Int, gtz: Int
+    ): Byte {
         if (gx < 0 || gx >= GeoStructure.GEO_CELLS_X || gy < 0 || gy >= GeoStructure.GEO_CELLS_Y) {
             return GeoStructure.CELL_FLAG_NONE
         }
-        val block = _geoEngine.getBlock(gx, gy)
-        val index = block.getIndexBelow(gx, gy, checkZ, null)
-        
-        if (index < 0) return GeoStructure.CELL_FLAG_NONE
-        val newZ = block.getHeight(index, null).toInt()
-        val nswe = block.getNswe(index, null)
-        val node = Node(gx, gy, newZ, nswe)
-        if (_closed.contains(node)) return nswe
-        
+
+        val bx = gx - buffer.offsetX
+        val by = gy - buffer.offsetY
+        if (bx < 0 || bx >= buffer.mapSize || by < 0 || by >= buffer.mapSize) {
+            return GeoStructure.CELL_FLAG_NONE
+        }
+
+        val node = buffer.nodes[bx][by]
+        if (node.state == PathFindBuffers.GeoNode.STATE_CLOSED) {
+            return node.nswe
+        }
+
+        if (!node.isSet()) {
+            val block = _geoEngine.getBlock(gx, gy)
+            val index = block.getIndexBelow(gx, gy, checkZ, null)
+            if (index < 0) return GeoStructure.CELL_FLAG_NONE
+            val newZ = block.getHeight(index, null).toInt()
+            val nswe = block.getNswe(index, null)
+            node.set(gx, gy, newZ, nswe)
+            buffer.markTouched(node)
+        }
+
+        val nswe = node.nswe
         var weight = if (nswe == GeoStructure.CELL_FLAG_ALL) {
             if (diagonal) ConfigGeoengine.MOVE_WEIGHT_DIAG else ConfigGeoengine.MOVE_WEIGHT
         } else {
             if (diagonal) ConfigGeoengine.OBSTACLE_WEIGHT_DIAG else ConfigGeoengine.OBSTACLE_WEIGHT
         }
         if (ConfigGeoengine.ENABLE_BOUNDARY_CELL_PENALTY && nswe != GeoStructure.CELL_FLAG_NONE &&
-            _geoEngine.hasBlockedNeighborAtSameLevel(gx, gy, newZ)) {
+            _geoEngine.hasBlockedNeighborAtSameLevel(gx, gy, node.z)) {
             weight += ConfigGeoengine.BOUNDARY_CELL_PENALTY
         }
-        val hCost = getCostH(gx, gy, newZ)
-        
-        val existingNode = _opened.find { it == node }
-        if (existingNode != null) {
-            if (parent.costG + weight < existingNode.costG) {
-                existingNode.setCost(parent, weight, hCost)
-                _opened.remove(existingNode)
-                _opened.add(existingNode)
+        val hCost = getCostH(gx, gy, node.z, gtx, gty, gtz)
+
+        if (node.state == PathFindBuffers.GeoNode.STATE_OPENED) {
+            if (parent.costG + weight < node.costG) {
+                buffer.open.remove(node)
+                node.setCost(parent, weight, hCost)
+                buffer.open.add(node)
             }
         } else {
             node.setCost(parent, weight, hCost)
-            _opened.add(node)
+            node.state = PathFindBuffers.GeoNode.STATE_OPENED
+            buffer.open.add(node)
         }
         return nswe
     }
-    
-    private fun getCostH(gx: Int, gy: Int, gz: Int): Int {
-        val dx = abs(gx - _gtx)
-        val dy = abs(gy - _gty)
-        val dz = abs(gz - _gtz) / GeoStructure.CELL_HEIGHT
-        
+
+    private fun getCostH(gx: Int, gy: Int, gz: Int, gtx: Int, gty: Int, gtz: Int): Int {
+        val dx = abs(gx - gtx)
+        val dy = abs(gy - gty)
+        val dz = abs(gz - gtz) / GeoStructure.CELL_HEIGHT
+
         return (sqrt((dx * dx + dy * dy + dz * dz).toDouble()) * ConfigGeoengine.HEURISTIC_WEIGHT).toInt()
     }
 }

@@ -549,9 +549,13 @@ public class PlayerAI extends PlayableAI<Player>
         
         if (distance <= ConfigGeoengine.NPC_MOVEMENT_PLAYER_RANGE)
         {
-            boolean canSee = MovementIntegration.canSeeTarget(_actor, target);
+            final boolean canSee = MovementIntegration.canSeeTarget(_actor, target);
+            final boolean canMove = GeoEngine.getInstance().canMoveToTarget(
+                _actor.getX(), _actor.getY(), _actor.getZ(),
+                target.getX(), target.getY(), target.getZ()
+            );
             
-            if (!canSee)
+            if (!canSee || !canMove)
             {
                 Location bypassPath = calculateBypassPathForTarget(target);
                 

@@ -78,6 +78,19 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         _moveTimeStamp = 0
     }
     
+    override fun onStartMovement() {
+        super.onStartMovement()
+        _instant = Instant.now()
+    }
+    
+    override fun moveToNextRoutePoint(): Boolean {
+        val moved = super.moveToNextRoutePoint()
+        if (moved) {
+            _instant = Instant.now()
+        }
+        return moved
+    }
+    
     private fun isMeleeDebug(): Boolean {
         return ConfigNpcs.DEBUG_MELEE_ATTACK && _actor.getStatus().getPhysicalAttackRange() <= 80
     }
@@ -263,8 +276,10 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         val instant = Instant.now()
         
         var timePassed = Duration.between(_instant, instant).toMillis()
-        if (timePassed == 0L) {
+        if (timePassed <= 0L) {
             timePassed = 1L
+        } else if (timePassed > 1000L) {
+            timePassed = getNextTickInterval().coerceIn(20L, 200L)
         }
         
         _instant = instant
@@ -352,7 +367,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             nextZ = min(_destination.getZ(), maxZ)
         }
         
-        if (!validateMovement(nextX, nextY, nextZ)) {
+        if (!validateMovement(nextX, nextY, nextZ, timePassed)) {
             _blocked = true
             return true
         }
@@ -399,11 +414,6 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             if (inRange) {
                 return true
             }
-        }
-        
-        if (_geoPath.isNotEmpty() && (passedDistance - leftDistance) >= -(GeoStructure.CELL_SIZE / 2)) {
-            _actor.setXYZ(_destination.getX(), _destination.getY(), _destination.getZ())
-            return true
         }
         
         return passedDistance >= leftDistance
@@ -461,26 +471,30 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             return valid
         }
         
+        val simplified = SmoothObstacleAvoidance.getInstance().simplifyPath(path)
+        if (simplified.isEmpty()) return null
+        
         _geoPathFailCount = 0
         _geoPath.clear()
-        _geoPath.addAll(path)
+        _geoPath.addAll(simplified)
         return _geoPath.poll()
     }
     
-    private fun validateMovement(nextX: Int, nextY: Int, nextZ: Int): Boolean {
+    private fun validateMovement(nextX: Int, nextY: Int, nextZ: Int, timePassed: Long): Boolean {
         if (_actor.isStunned() || _actor.isRooted()) {
             return false
         }
         
         val currentPos = _actor.getPosition()
-        
-        val maxMovePerTick = _actor.getStatus().getRealMoveSpeed(false) * 0.2
+        val speed = _actor.getStatus().getRealMoveSpeed(false)
+        val elapsedSec = timePassed.coerceAtLeast(20L) / 1000.0
+        val maxAllowedDistance = (speed * elapsedSec * 2.5) + 64.0
         val actualMove = currentPos.distance2D(nextX, nextY)
         
-        if (actualMove > maxMovePerTick * 2) {
+        if (actualMove > maxAllowedDistance) {
             if (ConfigServer.DEVELOPER) {
                 LOGGER.warn("Player {} tentou mover {} unidades em um tick (max: {})",
-                    _actor.getName(), actualMove, maxMovePerTick)
+                    _actor.getName(), actualMove, maxAllowedDistance)
             }
             return false
         }
@@ -522,16 +536,15 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             return
         }
         
-        val moveOk = GeoEngine.getInstance().getValidLocation(_actor, target)
-        val isPathClear = target.isInStrictRadius(moveOk, offset)
-        if (isPathClear) {
+        val hasDirectLine = GeoEngine.getInstance().canMoveToTarget(_actor.getX(), _actor.getY(), _actor.getZ(), target.getX(), target.getY(), target.getZ())
+        if (hasDirectLine) {
             _pawn = target
             _offset = offset
             moveToPawn(target, offset)
         } else {
             _pawn = null
             _offset = 0
-            moveToLocation(moveOk, ConfigGeoengine.SISTEMA_PATHFINDING)
+            moveToLocation(target.getPosition(), ConfigGeoengine.SISTEMA_PATHFINDING)
         }
     }
     
@@ -628,7 +641,10 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             }
         }
         
-        _geoPath.addAll(path)
+        val simplified = SmoothObstacleAvoidance.getInstance().simplifyPath(path)
+        if (simplified.isEmpty()) return null
+        
+        _geoPath.addAll(simplified)
         return _geoPath.poll()
     }
     
@@ -694,7 +710,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
                 _actor.getObjectId(), target.getObjectId(), offset)
         }
         cancelFollowTask()
-        _followTask = CoroutinePool.scheduleAtFixedRate({ offensiveFollowTask(target, offset) }, 5, 500L)
+        _followTask = CoroutinePool.scheduleAtFixedRate({ offensiveFollowTask(target, offset) }, 0, 100L)
     }
     
     fun maybeStartPlayerOffensiveFollow(target: Creature, weaponAttackRange: Int): Boolean {
@@ -740,7 +756,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             return false
         }
         val now = System.currentTimeMillis()
-        if (now - _lastStuckCheckTime >= 800) {
+        if (now - _lastStuckCheckTime >= 350) {
             val curX = _actor.getX()
             val curY = _actor.getY()
             val curDist = _actor.distance2D(target)
@@ -748,7 +764,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
                 abs(curX - _lastStuckX) < 10 &&
                 abs(curY - _lastStuckY) < 10 &&
                 abs(curDist - _lastStuckDist) < 5.0
-            val stuck = movedTooLittle && !_actor.isMoving
+            val stuck = movedTooLittle
             _lastStuckCheckTime = now
             _lastStuckX = curX
             _lastStuckY = curY
@@ -807,14 +823,10 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         }
         
         if (ConfigGeoengine.SISTEMA_PATHFINDING) {
-            val hasObstacle = if (ConfigGeoengine.ENABLE_SMOOTH_OBSTACLE_AVOIDANCE) {
-                SmoothObstacleAvoidance.getInstance().shouldAvoidObstacle(
-                    _actor.getPosition(),
-                    target.getPosition()
-                )
-            } else {
-                !MovementIntegration.canSeeTarget(_actor, target)
-            }
+            val hasObstacle = !geoEngine.canMoveToTarget(
+                _actor.getX(), _actor.getY(), _actor.getZ(),
+                target.getX(), target.getY(), target.getZ()
+            )
             
             if (hasObstacle) {
                 val path = geoEngine.findPath(

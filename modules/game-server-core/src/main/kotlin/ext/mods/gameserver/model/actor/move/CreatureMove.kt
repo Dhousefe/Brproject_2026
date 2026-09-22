@@ -83,6 +83,7 @@ open class CreatureMove<T : Creature>(
     private var _cachedDestinationZ: Int = Int.MIN_VALUE
     private var _cachedDestinationX: Int = Int.MIN_VALUE
     private var _cachedDestinationY: Int = Int.MIN_VALUE
+    @JvmField protected var _lastTickTime: Long = 0L
     private var _currentSpeedRandomFactor: Double = 1.0
     private var _lastMoveRequestTime: Long = 0
     private var _lastArrivedEventTime: Long = 0
@@ -93,6 +94,8 @@ open class CreatureMove<T : Creature>(
     fun getTask(): ScheduledFuture<*>? = _task
     fun getDestination(): Location = _destination
     fun getPawn(): WorldObject? = _pawn
+    
+    protected open fun onStartMovement() {}
     fun getOffset(): Int = _offset
     
     fun describeMovementTo(player: Player) {
@@ -220,7 +223,9 @@ open class CreatureMove<T : Creature>(
         _blocked = false
     
         val dist3D = _actor.distance3D(_destination)
-        if ((pathfinding || dist3D > 300) && ConfigGeoengine.SISTEMA_PATHFINDING) {
+        val hasDirectLine = geoEngine.canMoveToTarget(_actor.x, _actor.y, _actor.z, _destination.x, _destination.y, _destination.z)
+        val needsPathfinding = (pathfinding || dist3D > 300 || !hasDirectLine) && ConfigGeoengine.SISTEMA_PATHFINDING
+        if (needsPathfinding && !hasDirectLine) {
             _finalPathDestination.set(_destination)
             val nextLoc = calculatePath(_actor.x, _actor.y, _actor.z, _destination.x, _destination.y, _destination.z)
             if (nextLoc != null) {
@@ -242,19 +247,44 @@ open class CreatureMove<T : Creature>(
             neighbor != _actor && neighbor != _pawn && !neighbor.isAlikeDead && neighbor.distance2D(destination) < checkDist
         }
     }
+    fun getNextTickInterval(): Long {
+        val distRemaining = _actor.distance2D(_destination)
+        val speed = _actor.status.moveSpeed
+        val remainingTimeMs = if (speed > 0) ((distRemaining / speed) * 1000.0).toLong() else 100L
+        val maxQuantum = if (_actor is Npc) MOVEMENT_UPDATE_INTERVAL.coerceAtLeast(150L) else MOVE_UPDATE_INTERVAL
+        return remainingTimeMs.coerceIn(20L, maxQuantum)
+    }
+
     fun registerMoveTask() {
         if (_task != null) return
         _blocked = false
-        val interval = if (_actor is Npc) MOVEMENT_UPDATE_INTERVAL else MOVE_UPDATE_INTERVAL
-        _task = CoroutinePool.scheduleAtFixedRate({
+        _lastTickTime = System.currentTimeMillis()
+        onStartMovement()
+        scheduleNextMoveTick()
+    }
+
+    private fun scheduleNextMoveTick() {
+        if (shouldStopMovementTask()) {
+            finishMovement()
+            return
+        }
+        val interval = getNextTickInterval()
+        _task = CoroutinePool.schedule({
             if (shouldStopMovementTask()) {
                 finishMovement()
-                return@scheduleAtFixedRate
+                return@schedule
             }
-            if (updatePosition() && !moveToNextRoutePoint()) {
-                finishMovement()
+            val arrived = updatePosition()
+            if (arrived) {
+                if (!moveToNextRoutePoint()) {
+                    finishMovement()
+                } else {
+                    scheduleNextMoveTick()
+                }
+            } else {
+                scheduleNextMoveTick()
             }
-        }, interval, interval)
+        }, interval)
     }
     open fun shouldStopMovementTask(): Boolean {
         if (_actor is Npc && !hasVisiblePlayers()) {
@@ -354,7 +384,7 @@ open class CreatureMove<T : Creature>(
             }
         }
     }
-    private fun moveToNextRoutePoint(): Boolean {
+    protected open fun moveToNextRoutePoint(): Boolean {
         if (_geoPath.isEmpty()) return false
         var next: Location? = _geoPath.poll() ?: return false
         while (ConfigGeoengine.SISTEMA_PATHFINDING && _actor is Playable && next != null &&
@@ -365,6 +395,7 @@ open class CreatureMove<T : Creature>(
         _destination.set(next)
         _xAccurate = _actor.x.toDouble()
         _yAccurate = _actor.y.toDouble()
+        _lastTickTime = System.currentTimeMillis()
         _actor.position.setHeadingTo(next)
         _actor.broadcastPacket(MoveToLocation(_actor, next))
         return true
@@ -384,7 +415,11 @@ open class CreatureMove<T : Creature>(
             _destination.setZ(_cachedDestinationZ)
         }
     
-        val moveSpeed = (_actor.status.moveSpeed / 10.0) * _currentSpeedRandomFactor
+        val now = System.currentTimeMillis()
+        val elapsedMs = if (_lastTickTime > 0L) (now - _lastTickTime).coerceIn(1L, 1000L) else 100L
+        _lastTickTime = now
+        val elapsedSec = elapsedMs / 1000.0
+        val moveSpeed = _actor.status.moveSpeed * elapsedSec * _currentSpeedRandomFactor
         val dx = _destination.x - _xAccurate
         val dy = _destination.y - _yAccurate
         val distSq = dx * dx + dy * dy
@@ -520,7 +555,8 @@ open class CreatureMove<T : Creature>(
                 _actor.objectId, ox, oy, oz, tx, ty, tz
             )
         }
-        val path = geoEngine.findPath(ox, oy, oz, tx, ty, tz, _actor is Playable, null)
+        val rawPath = geoEngine.findPath(ox, oy, oz, tx, ty, tz, _actor is Playable, null)
+        val path = SmoothObstacleAvoidance.getInstance().simplifyPath(rawPath)
         if (path.size < 2) {
             addGeoPathFailCount()
             return null
@@ -604,13 +640,10 @@ open class CreatureMove<T : Creature>(
             return
         }
         val targetPos = target.position
-        if (!_actor.isMoving || _destination.distance2D(targetPos) > 100) {
-            val movePos = if (_actor is Player && ConfigGeoengine.SISTEMA_PATHFINDING && !geoEngine.canMoveToTarget(_actor.position, targetPos)) {
-                geoEngine.getValidLocation(_actor.position, targetPos)
-            } else {
-                targetPos
-            }
-            moveToLocation(movePos, dist > 300)
+        if (!_actor.isMoving || _destination.distance2D(targetPos) > 60) {
+            val hasDirectLine = geoEngine.canMoveToTarget(_actor.position, targetPos)
+            val needsPath = !hasDirectLine && ConfigGeoengine.SISTEMA_PATHFINDING
+            moveToLocation(targetPos, needsPath)
         }
     }
     fun startFriendlyFollow(pawn: Creature, offset: Int) {
@@ -722,6 +755,7 @@ open class CreatureMove<T : Creature>(
         val radius = _actor.collisionRadius.toInt()
         return _actor.getKnownTypeInRadius(Creature::class.java, radius + 15).any { neighbor ->
             if (neighbor == _actor || neighbor.isAlikeDead || neighbor == _pawn) return@any false
+            if (neighbor is Player) return@any false
             val dx = targetX - neighbor.x
             val dy = targetY - neighbor.y
             val minDist = radius + neighbor.collisionRadius + 2

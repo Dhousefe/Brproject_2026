@@ -3766,6 +3766,23 @@ public class Player extends Playable
 		teleportTo(RestartPointData.getInstance().getLocationToTeleport(this, type), 20);
 	}
 	
+	private int _incorrectValidateCount = 0;
+	
+	public int getIncorrectValidateCount()
+	{
+		return _incorrectValidateCount;
+	}
+	
+	public void incIncorrectValidateCount()
+	{
+		_incorrectValidateCount++;
+	}
+	
+	public void resetIncorrectValidateCount()
+	{
+		_incorrectValidateCount = 0;
+	}
+	
 	/**
 	 * Unsummon all types of summons : pets, cubics, normal summons and trained beasts.
 	 */

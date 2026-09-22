@@ -93,11 +93,12 @@ object SmoothObstacleAvoidance {
                     }
                 }
                 smoothPath.add(originalPath.last())
+                val simplified = simplifyPath(smoothPath)
                 if (ConfigServer.DEVELOPER) {
-                    LOGGER.debug("SmoothObstacleAvoidance: Path smoothed from {} to {} points", 
-                        originalPath.size, smoothPath.size)
+                    LOGGER.debug("SmoothObstacleAvoidance: Path smoothed from {} to {} points (simplified: {})", 
+                        originalPath.size, smoothPath.size, simplified.size)
                 }
-                smoothPath
+                simplified
             }
         }
     }
@@ -215,28 +216,13 @@ object SmoothObstacleAvoidance {
     }
     
     fun shouldAvoidObstacle(current: Location, target: Location): Boolean {
-        return when {
-            !ConfigGeoengine.ENABLE_REAL_TIME_OBSTACLE_AVOIDANCE -> false
-            else -> {
-                val distance = current.distance3D(target)
-                val heightDiff = abs(target.z - current.z)
-                
-                when {
-                    distance > ConfigGeoengine.OBSTACLE_DETECTION_DISTANCE -> false
-                    heightDiff > MAX_HEIGHT_DIFF -> false
-                    else -> {
-                        val steps = max(MIN_STEPS, (distance / DISTANCE_CHECK_STEP).toInt())
-                        val stepInverse = 1.0 / steps
-                        val blockedCount = (0..steps).count { i ->
-                            val ratio = i * stepInverse
-                            val testPoint = interpolateLocation(current, target, ratio)
-                            !isPointClear(testPoint)
-                        }
-                        blockedCount > (steps / 2)
-                    }
-                }
-            }
-        }
+        if (!ConfigGeoengine.ENABLE_REAL_TIME_OBSTACLE_AVOIDANCE) return false
+        val distance = current.distance3D(target)
+        if (distance > ConfigGeoengine.OBSTACLE_DETECTION_DISTANCE) return false
+        val heightDiff = abs(target.z - current.z)
+        if (heightDiff > MAX_HEIGHT_DIFF) return false
+        
+        return !geoEngine.canMoveToTarget(current.x, current.y, current.z, target.x, target.y, target.z)
     }
     
     fun calculateAvoidanceDirection(current: Location, target: Location): Location {
@@ -250,6 +236,63 @@ object SmoothObstacleAvoidance {
             isPointClear(option1) -> option1
             isPointClear(option2) -> option2
             else -> target
+        }
+    }
+
+    /**
+     * String-Pulling e Supressão de Nós Colineares Padrão Brproject3.
+     * Elimina waypoints redundantes em linha reta e atalha trechos onde há linha de visão desobstruída.
+     */
+    fun simplifyPath(rawPath: List<Location>): List<Location> {
+        if (rawPath.size <= 2) return rawPath
+        val path = ArrayList(rawPath)
+        
+        // 1. Supressão de nós colineares
+        var size = path.size
+        var i = 2
+        while (i < size) {
+            val p0 = path[i - 2]
+            val p1 = path[i - 1]
+            val p2 = path[i]
+            if (p0 == p1 || p1 == p2 || isCollinear(p0, p1, p2)) {
+                path.removeAt(i - 1)
+                size--
+                i = max(2, i - 1)
+            } else {
+                i++
+            }
+        }
+        
+        // 2. String-pulling com canMoveToTarget
+        var startIdx = 0
+        while (startIdx < path.size - 2) {
+            val start = path[startIdx]
+            var endIdx = path.size - 1
+            while (endIdx > startIdx + 1) {
+                val end = path[endIdx]
+                if (geoEngine.canMoveToTarget(start.x, start.y, start.z, end.x, end.y, end.z)) {
+                    while (startIdx + 1 < endIdx) {
+                        path.removeAt(startIdx + 1)
+                        endIdx--
+                    }
+                    break
+                }
+                endIdx--
+            }
+            startIdx++
+        }
+        return path
+    }
+    
+    private fun isCollinear(p0: Location, p1: Location, p2: Location): Boolean {
+        return if ((p0.x != p2.x || p2.x != p1.x) && (p0.y != p2.y || p2.y != p1.y)) {
+            val dx1 = (p0.x - p1.x).toLong()
+            val dy1 = (p0.y - p1.y).toLong()
+            val dx2 = (p1.x - p2.x).toLong()
+            val dy2 = (p1.y - p2.y).toLong()
+            dx1 * dy2 == dx2 * dy1
+        } else {
+            true
         }
     }
 }

@@ -17,6 +17,7 @@
  */
 package ext.mods.gameserver.network.clientpackets;
 
+import ext.mods.gameserver.enums.RestartType;
 import ext.mods.gameserver.enums.actors.MoveType;
 import ext.mods.gameserver.model.WorldObject;
 import ext.mods.gameserver.model.actor.Player;
@@ -87,6 +88,20 @@ public class ValidatePosition extends L2GameClientPacket
 		final int dz = Math.abs(_z - realZ);
 		final boolean isGround = player.getMove().getMoveType() == MoveType.GROUND;
 		
+		
+		if (_z < -30000 || _z > 30000)
+		{
+			player.incIncorrectValidateCount();
+			if (player.getIncorrectValidateCount() >= 2)
+			{
+				player.teleportTo(RestartType.TOWN);
+				player.resetIncorrectValidateCount();
+				return;
+			}
+			player.sendPacket(new ValidateLocation(player));
+			return;
+		}
+
 		// If player is not moving (idle), reconcile position if small drift without physical loop conflict
 		if (!player.isMoving())
 		{
@@ -94,9 +109,17 @@ public class ValidatePosition extends L2GameClientPacket
 			{
 				if (diffSq >= 16) // Only set if difference is meaningful
 					player.getPosition().set(_x, _y, _z, _heading);
+				player.resetIncorrectValidateCount();
 			}
 			else
 			{
+				player.incIncorrectValidateCount();
+				if (player.getIncorrectValidateCount() >= 3)
+				{
+					player.teleportTo(RestartType.TOWN);
+					player.resetIncorrectValidateCount();
+					return;
+				}
 				player.sendPacket(new ValidateLocation(player));
 			}
 			return;
@@ -105,9 +128,16 @@ public class ValidatePosition extends L2GameClientPacket
 		// Player is actively moving: the server physical simulation is authoritative.
 		// Never call player.getPosition().set() while moving, as it conflicts with PlayerMove's sub-tick accumulators.
 		
-		// 1. Red Zone: Severe desync (> HardThreshold or massive Z drop > 350 on ground) -> Hard snap
+		// 1. Red Zone: Severe desync (> HardThreshold or massive Z drop > 350 on ground) -> Hard snap or Town rescue
 		if (diffSq > hardThresholdSq || (isGround && dz > 350 && !player.isFlying() && !player.isInWater()))
 		{
+			player.incIncorrectValidateCount();
+			if (player.getIncorrectValidateCount() >= 3)
+			{
+				player.teleportTo(RestartType.TOWN);
+				player.resetIncorrectValidateCount();
+				return;
+			}
 			player.sendPacket(new ValidateLocation(player));
 			return;
 		}
@@ -128,8 +158,10 @@ public class ValidatePosition extends L2GameClientPacket
 					player.sendPacket(new MoveToLocation(player, destination));
 				}
 			}
+			return;
 		}
 		
-		// 3. Green Zone (diffSq <= softThresholdSq): Natural latency convergence, do nothing!
+		// 3. Green Zone (diffSq <= softThresholdSq): Natural latency convergence, reset counter!
+		player.resetIncorrectValidateCount();
 	}
 }

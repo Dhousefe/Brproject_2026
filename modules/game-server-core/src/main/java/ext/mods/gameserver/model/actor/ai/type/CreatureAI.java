@@ -25,6 +25,7 @@ import ext.mods.gameserver.enums.items.WeaponType;
 import ext.mods.gameserver.model.WorldObject;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
+import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.network.serverpackets.Die;
 import ext.mods.gameserver.network.serverpackets.MoveToLocation;
@@ -117,6 +118,10 @@ public class CreatureAI<T extends Creature> extends AbstractAI<T>
 	@Override
 	protected void onEvtArrivedBlocked()
 	{
+		if (_actor instanceof Player player && player.isMoving())
+		{
+			return;
+		}
 		_actor.broadcastPacket(new ValidateLocation(_actor));
 	}
 	

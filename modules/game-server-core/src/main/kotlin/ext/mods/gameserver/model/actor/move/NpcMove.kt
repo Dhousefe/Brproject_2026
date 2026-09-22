@@ -29,6 +29,7 @@ import ext.mods.gameserver.enums.AiEventType
 import ext.mods.gameserver.enums.actors.MoveType
 import ext.mods.gameserver.enums.actors.NpcSkillType
 import ext.mods.gameserver.model.actor.Creature
+import ext.mods.gameserver.model.actor.Attackable
 import ext.mods.gameserver.model.actor.Npc
 import ext.mods.gameserver.model.actor.ai.type.NpcAI
 import ext.mods.gameserver.enums.skills.Stats
@@ -48,6 +49,8 @@ public class NpcMove(actor: Npc) : CreatureMove<Npc>(actor) {
     
     private val frontSlowOwner = Any()
     private var frontSlowApplied = false
+    private var _pathfindFails: Int = 0
+    private var _lastPursueTeleportTime: Long = 0L
     override fun offensiveFollowTask(target: Creature, offset: Int) {
         val currentTask = _followTask
         
@@ -142,11 +145,34 @@ public class NpcMove(actor: Npc) : CreatureMove<Npc>(actor) {
         }
         
         val distToDest = _actor.distance3D(dest)
-        if (distToDest > realAttackRange && (!_actor.isMoving || _destination.distance3D(dest) > 40)) {
-            val usePathfinding = isBlocked || distToDest > 300
-            moveToLocation(dest, usePathfinding)
+        if (distToDest > realAttackRange) {
+            if (!_actor.isMoving || _destination.distance3D(dest) > 40) {
+                val usePathfinding = isBlocked || distToDest > 300
+                moveToLocation(dest, usePathfinding)
+            }
+            
+            
+            if (!_actor.isMoving && distToDest > realAttackRange) {
+                _pathfindFails++
+                if (_pathfindFails >= 20) {
+                    _pathfindFails = 0
+                    val altSlot = findBestAttackSlot(target, offset)
+                    if (altSlot != null) {
+                        moveToLocation(altSlot, true)
+                    } else if (_actor.distance3D(target) > 600) {
+                        if (_actor is Attackable) {
+                            _actor.returnHome()
+                        } else {
+                            _actor.getAI().stopAITask()
+                        }
+                    }
+                }
+            } else if (_pathfindFails > 0) {
+                _pathfindFails--
+            }
+        } else {
+            _pathfindFails = 0
         }
-        
     }
     
     private fun applySoftRepulsion(target: Creature): Boolean {

@@ -171,8 +171,8 @@ public class CharInfo extends L2GameServerPacket
 		writeD(walkSpd);
 		writeD(swimSpd);
 		writeD(swimSpd);
-		writeD(runSpd);
-		writeD(walkSpd);
+		writeD(0);
+		writeD(0);
 		writeD((_player.isFlying()) ? runSpd : 0);
 		writeD((_player.isFlying()) ? walkSpd : 0);
 		

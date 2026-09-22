@@ -326,14 +326,15 @@ public class Agathion extends Folk
 							final int targetY = getY() + (int) (dy * ratio);
 							final int targetZ = playerLoc.getZ();
 							
-						if (GeoEngine.getInstance().canMoveToTarget(getX(), getY(), getZ(), targetX, targetY, targetZ))
+							if (GeoEngine.getInstance().canMoveToTarget(getX(), getY(), getZ(), targetX, targetY, targetZ))
 							{
 								final Location targetLoc = new Location(targetX, targetY, targetZ);
 								getMove().maybeMoveToLocation(targetLoc, 0, true, false);
 							}
 							else
 							{
-								teleportTo(playerLoc, followDistance);
+								
+								getMove().maybeMoveToLocation(playerLoc, followDistance, true, false);
 							}
 						}
 					}
