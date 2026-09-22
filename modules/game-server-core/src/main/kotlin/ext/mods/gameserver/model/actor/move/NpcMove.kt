@@ -151,7 +151,6 @@ public class NpcMove(actor: Npc) : CreatureMove<Npc>(actor) {
                 moveToLocation(dest, usePathfinding)
             }
             
-            
             if (!_actor.isMoving && distToDest > realAttackRange) {
                 _pathfindFails++
                 if (_pathfindFails >= 20) {

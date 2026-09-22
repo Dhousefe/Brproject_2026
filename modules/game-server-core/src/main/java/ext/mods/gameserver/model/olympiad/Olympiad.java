@@ -150,8 +150,36 @@ public class Olympiad
 		return _currentCycle;
 	}
 	
+	private static OlympiadState parseOlympiadState(String value)
+	{
+		if (value == null || value.isBlank())
+			return OlympiadState.COMPETITION;
+		
+		final String trimmed = value.trim();
+		if ("0".equals(trimmed))
+			return OlympiadState.COMPETITION;
+		if ("1".equals(trimmed))
+			return OlympiadState.VALIDATION;
+		
+		try
+		{
+			return Enum.valueOf(OlympiadState.class, trimmed.toUpperCase());
+		}
+		catch (IllegalArgumentException e)
+		{
+			LOGGER.warn("Unknown OlympiadState value '{}', defaulting to COMPETITION.", value);
+			return OlympiadState.COMPETITION;
+		}
+	}
+	
 	private void load()
 	{
+		_currentCycle = 1;
+		_period = OlympiadState.COMPETITION;
+		_olympiadEnd = 0;
+		_validationEnd = 0;
+		_nextWeeklyChange = 0;
+		
 		try (Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT_OLYMPIAD_DATA);
 			ResultSet rs = ps.executeQuery())
@@ -159,25 +187,24 @@ public class Olympiad
 			if (rs.next())
 			{
 				_currentCycle = rs.getInt("current_cycle");
-				_period = Enum.valueOf(OlympiadState.class, rs.getString("period"));
+				_period = parseOlympiadState(rs.getString("period"));
 				_olympiadEnd = rs.getLong("olympiad_end");
 				_validationEnd = rs.getLong("validation_end");
 				_nextWeeklyChange = rs.getLong("next_weekly_change");
 			}
 			else
 			{
-				_currentCycle = 1;
-				_period = OlympiadState.COMPETITION;
-				_olympiadEnd = 0;
-				_validationEnd = 0;
-				_nextWeeklyChange = 0;
-				
-				LOGGER.info("Couldn't load Olympiad data, default values are used.");
+				LOGGER.info("Couldn't find Olympiad data in database, default values are used.");
 			}
 		}
 		catch (Exception e)
 		{
 			LOGGER.error("Couldn't load Olympiad data.", e);
+		}
+		
+		if (_period == null)
+		{
+			_period = OlympiadState.COMPETITION;
 		}
 		
 		switch (_period)

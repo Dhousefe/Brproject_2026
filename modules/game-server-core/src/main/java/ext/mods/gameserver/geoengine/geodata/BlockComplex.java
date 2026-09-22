@@ -22,6 +22,8 @@ import java.nio.ByteBuffer;
 public class BlockComplex extends ABlock
 {
 	protected byte[] _buffer;
+	protected short _minZ;
+	protected short _maxZ;
 	
 	/**
 	 * Implicit constructor for children class.
@@ -29,6 +31,8 @@ public class BlockComplex extends ABlock
 	protected BlockComplex()
 	{
 		_buffer = null;
+		_minZ = Short.MIN_VALUE;
+		_maxZ = Short.MAX_VALUE;
 	}
 	
 	/**
@@ -38,6 +42,8 @@ public class BlockComplex extends ABlock
 	public BlockComplex(ByteBuffer bb)
 	{
 		_buffer = new byte[GeoStructure.BLOCK_CELLS * 3];
+		short min = Short.MAX_VALUE;
+		short max = Short.MIN_VALUE;
 		
 		for (int i = 0; i < GeoStructure.BLOCK_CELLS; i++)
 		{
@@ -48,7 +54,19 @@ public class BlockComplex extends ABlock
 			data = (short) ((short) (data & 0xFFF0) >> 1);
 			_buffer[i * 3 + 1] = (byte) (data & 0x00FF);
 			_buffer[i * 3 + 2] = (byte) (data >> 8);
+			
+			if (data < min)
+			{
+				min = data;
+			}
+			if (data > max)
+			{
+				max = data;
+			}
 		}
+		
+		_minZ = min;
+		_maxZ = max;
 	}
 	
 	@Override
@@ -109,5 +127,17 @@ public class BlockComplex extends ABlock
 	public byte getNswe(int index, IGeoObject ignore)
 	{
 		return _buffer[index];
+	}
+	
+	@Override
+	public short getMaxZ()
+	{
+		return _maxZ;
+	}
+	
+	@Override
+	public short getMinZ()
+	{
+		return _minZ;
 	}
 }

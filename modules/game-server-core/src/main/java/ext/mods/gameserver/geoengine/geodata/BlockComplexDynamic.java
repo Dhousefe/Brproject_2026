@@ -17,15 +17,14 @@
  */
 package ext.mods.gameserver.geoengine.geodata;
 
-import java.util.LinkedList;
-import java.util.List;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public final class BlockComplexDynamic extends BlockComplex implements IBlockDynamic
 {
 	private final int _bx;
 	private final int _by;
 	private final byte[] _original;
-	private final List<IGeoObject> _objects;
+	private final ObjectArrayList<IGeoObject> _objects;
 	
 	/**
 	 * Creates {@link BlockComplexDynamic}.
@@ -51,11 +50,13 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 		
 		_bx = bx;
 		_by = by;
+		_minZ = block.getMinZ();
+		_maxZ = block.getMaxZ();
 		
 		_original = new byte[GeoStructure.BLOCK_CELLS * 3];
 		System.arraycopy(_buffer, 0, _original, 0, GeoStructure.BLOCK_CELLS * 3);
 		
-		_objects = new LinkedList<>();
+		_objects = new ObjectArrayList<>(4);
 	}
 	
 	/**
@@ -71,11 +72,13 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 		
 		_bx = bx;
 		_by = by;
+		_minZ = block.getMinZ();
+		_maxZ = block.getMaxZ();
 		
 		_original = new byte[GeoStructure.BLOCK_CELLS * 3];
 		System.arraycopy(_buffer, 0, _original, 0, GeoStructure.BLOCK_CELLS * 3);
 		
-		_objects = new LinkedList<>();
+		_objects = new ObjectArrayList<>(4);
 	}
 	
 	@Override
@@ -166,16 +169,32 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 		
 		for (IGeoObject object : _objects)
 		{
+			final byte[][] geoData = object.getObjectGeoData();
+			if (geoData == null || geoData.length == 0 || geoData[0].length == 0)
+				continue;
+			
 			final int minOX = object.getGeoX();
 			final int minOY = object.getGeoY();
 			final int minOZ = object.getGeoZ();
 			final int maxOZ = minOZ + object.getHeight();
-			final byte[][] geoData = object.getObjectGeoData();
+			final int maxOX = minOX + geoData.length;
+			final int maxOY = minOY + geoData[0].length;
+			
+			// SIMD Bounding Box Culling: early out if object AABB does not overlap block AABB
+			if (ext.mods.config.ConfigGeoengine.ENABLE_SIMD_OBJECT_CULLING)
+			{
+				if (!ext.mods.gameserver.geoengine.simd.SimdGeoMath.intersectsAabb(
+					minBX, maxBX, minBY, maxBY, _minZ, _maxZ,
+					minOX, maxOX, minOY, maxOY, minOZ, maxOZ))
+				{
+					continue;
+				}
+			}
 			
 			final int minGX = Math.max(minBX, minOX);
 			final int minGY = Math.max(minBY, minOY);
-			final int maxGX = Math.min(maxBX, minOX + geoData.length);
-			final int maxGY = Math.min(maxBY, minOY + geoData[0].length);
+			final int maxGX = Math.min(maxBX, maxOX);
+			final int maxGY = Math.min(maxBY, maxOY);
 			
 			for (int gx = minGX; gx < maxGX; gx++)
 			{
@@ -193,7 +212,6 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 					
 					if (objNswe == GeoStructure.CELL_FLAG_NONE)
 					{
-						
 						_buffer[ib] = GeoStructure.CELL_FLAG_NONE;
 						
 						_buffer[ib + 1] = (byte) (maxOZ & 0x00FF);
@@ -201,7 +219,6 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 					}
 					else
 					{
-						
 						short z = getHeight(ib, null);
 						if (Math.abs(z - minOZ) > GeoStructure.CELL_IGNORE_HEIGHT)
 							continue;
@@ -211,5 +228,17 @@ public final class BlockComplexDynamic extends BlockComplex implements IBlockDyn
 				}
 			}
 		}
+		
+		// Update cached min/max elevation bounds for the dynamic block
+		short min = Short.MAX_VALUE;
+		short max = Short.MIN_VALUE;
+		for (int i = 0; i < GeoStructure.BLOCK_CELLS; i++)
+		{
+			final short height = (short) ((_buffer[i * 3 + 1] & 0x00FF) | (_buffer[i * 3 + 2] << 8));
+			if (height < min) min = height;
+			if (height > max) max = height;
+		}
+		_minZ = min;
+		_maxZ = max;
 	}
 }

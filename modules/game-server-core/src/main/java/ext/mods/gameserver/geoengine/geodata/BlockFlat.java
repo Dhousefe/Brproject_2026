@@ -87,4 +87,16 @@ public class BlockFlat extends ABlock
 	{
 		return _nswe;
 	}
+	
+	@Override
+	public final short getMaxZ()
+	{
+		return _height;
+	}
+	
+	@Override
+	public final short getMinZ()
+	{
+		return _height;
+	}
 }
