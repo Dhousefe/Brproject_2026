@@ -29,6 +29,7 @@ import ext.mods.commons.logging.CLogger
 import ext.mods.gameserver.enums.GeoType
 import ext.mods.gameserver.enums.MoveDirectionType
 import ext.mods.gameserver.geoengine.geodata.*
+import ext.mods.gameserver.geoengine.simd.SimdGeoMath
 import ext.mods.gameserver.model.World
 import ext.mods.gameserver.model.WorldObject
 import ext.mods.gameserver.model.actor.Creature
@@ -502,6 +503,65 @@ class GeoEngine private constructor() {
         }
         return (canSee(ox, oy, oz, oheight, tx, ty, tz, 0.0, null, null)
                 && canSee(tx, ty, tz, 0.0, ox, oy, oz, oheight, null, null))
+    }
+    private class BatchTargetBuffer(var capacity: Int = 128) {
+        var tx = IntArray(capacity)
+        var ty = IntArray(capacity)
+        var tz = IntArray(capacity)
+        var inRangeMask = BooleanArray(capacity)
+
+        fun ensureCapacity(required: Int) {
+            if (required > capacity) {
+                var newCap = capacity
+                while (newCap < required) {
+                    newCap = newCap shl 1
+                }
+                capacity = newCap
+                tx = IntArray(newCap)
+                ty = IntArray(newCap)
+                tz = IntArray(newCap)
+                inRangeMask = BooleanArray(newCap)
+            }
+        }
+    }
+
+    private val targetBufferHolder = ThreadLocal.withInitial { BatchTargetBuffer(128) }
+
+    /**
+     * Batch Line of Sight check: filters a list of target objects using SIMD-accelerated distance
+     * pre-culling followed by individual raymarching only for in-range candidates.
+     * <p>
+     * Reuses thread-local coordinate buffers to achieve zero-heap allocation in hot combat/radar loops.
+     */
+    fun canSeeTargetsBatch(obj: WorldObject, targets: List<WorldObject>, maxRange: Int): BooleanArray {
+        val size = targets.size
+        if (size == 0) return BooleanArray(0)
+        
+        val buf = targetBufferHolder.get()
+        buf.ensureCapacity(size)
+        val tx = buf.tx
+        val ty = buf.ty
+        val tz = buf.tz
+        val inRangeMask = buf.inRangeMask
+
+        for (i in 0 until size) {
+            val t = targets[i]
+            tx[i] = t.x
+            ty[i] = t.y
+            tz[i] = t.z
+        }
+        
+        SimdGeoMath.batchRangeCheck3D(obj.x, obj.y, obj.z, tx, ty, tz, maxRange, inRangeMask, size)
+        
+        val results = BooleanArray(size)
+        for (i in 0 until size) {
+            if (inRangeMask[i]) {
+                results[i] = canSeeTarget(obj, targets[i])
+            } else {
+                results[i] = false
+            }
+        }
+        return results
     }
     fun canSee(
         ox: Int, oy: Int, oz: Int, oheight: Double,
@@ -990,14 +1050,44 @@ class GeoEngine private constructor() {
                                     abs(gtz - tz) > nearestZLimit -> emptyList()
                                     else -> {
                                         val computePath: () -> List<Location> = {
-                                            val rawPath = if (ConfigGeoengine.USE_L2BR_PATHFINDING) {
-                                                val bridge = ext.mods.gameserver.geoengine.pathfinding.integration.GeoEngineBridge.getInstance()
-                                                if (bridge.isInitialized()) {
-                                                    val l2brPath = bridge.findPath(ox, oy, oz, tx, ty, tz, playable, debug)
-                                                    if (l2brPath.isNotEmpty()) l2brPath.map { Location(it.x, it.y, it.z) }.toMutableList()
-                                                    else computeLegacyPathRaw(gox, goy, goz, gtx, gty, gtz, debug)
+                                            var rawPath: MutableList<Location>? = null
+                                            if (ConfigGeoengine.ENABLE_PATHFIND_BOOST) {
+                                                val dx = (tx - ox).toDouble()
+                                                val dy = (ty - oy).toDouble()
+                                                val distSq = dx * dx + dy * dy
+                                                val minDist = ConfigGeoengine.PATHFIND_BOOST_MIN_DISTANCE
+                                                if (distSq >= (minDist * minDist)) {
+                                                    val boostedLoc = getValidLocation(ox, oy, oz, tx, ty, tz, null)
+                                                    if (boostedLoc.x == tx && boostedLoc.y == ty && abs(boostedLoc.z - gtz) < GeoStructure.CELL_HEIGHT * 2) {
+                                                        rawPath = mutableListOf(Location(tx, ty, gtz))
+                                                    } else {
+                                                        val bdx = (boostedLoc.x - ox).toDouble()
+                                                        val bdy = (boostedLoc.y - oy).toDouble()
+                                                        val bDistSq = bdx * bdx + bdy * bdy
+                                                        if (bDistSq >= (minDist * minDist)) {
+                                                            val bgox = getGeoX(boostedLoc.x)
+                                                            val bgoy = getGeoY(boostedLoc.y)
+                                                            val bgoz = boostedLoc.z
+                                                            val remainingPath = computeLegacyPathRaw(bgox, bgoy, bgoz, gtx, gty, gtz, debug)
+                                                            if (remainingPath.isNotEmpty()) {
+                                                                remainingPath.add(0, Location(boostedLoc.x, boostedLoc.y, boostedLoc.z))
+                                                                rawPath = remainingPath
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            if (rawPath == null) {
+                                                rawPath = if (ConfigGeoengine.USE_L2BR_PATHFINDING) {
+                                                    val bridge = ext.mods.gameserver.geoengine.pathfinding.integration.GeoEngineBridge.getInstance()
+                                                    if (bridge.isInitialized()) {
+                                                        val l2brPath = bridge.findPath(ox, oy, oz, tx, ty, tz, playable, debug)
+                                                        if (l2brPath.isNotEmpty()) l2brPath.map { Location(it.x, it.y, it.z) }.toMutableList()
+                                                        else computeLegacyPathRaw(gox, goy, goz, gtx, gty, gtz, debug)
+                                                    } else computeLegacyPathRaw(gox, goy, goz, gtx, gty, gtz, debug)
                                                 } else computeLegacyPathRaw(gox, goy, goz, gtx, gty, gtz, debug)
-                                            } else computeLegacyPathRaw(gox, goy, goz, gtx, gty, gtz, debug)
+                                            }
                                             
                                             when {
                                                 rawPath.isEmpty() -> emptyList()

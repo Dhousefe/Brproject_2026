@@ -97,4 +97,23 @@ public abstract class ABlock
 	 * @return short : Cell geodata Z coordinate, below given coordinates.
 	 */
 	public abstract byte getNswe(int index, IGeoObject ignore);
+	
+	/**
+	 * Returns maximum terrain height of the entire block.<br>
+	 * Used by SIMD/Leapfrog raymarching for early culling of line-of-sight obstacles.
+	 * @return short : Maximum Z of the block.
+	 */
+	public short getMaxZ()
+	{
+		return Short.MAX_VALUE;
+	}
+	
+	/**
+	 * Returns minimum terrain height of the entire block.<br>
+	 * @return short : Minimum Z of the block.
+	 */
+	public short getMinZ()
+	{
+		return Short.MIN_VALUE;
+	}
 }

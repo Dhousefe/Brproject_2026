@@ -38,9 +38,55 @@ public class GameCrypt
 			return;
 		
 		int temp = 0;
-		for (int i = 0; i < size; i++)
+		int i = 0;
+		final int unrollLimit = size - 15;
+		
+		// 16-way unrolled vector chunking: processes 128-bit blocks by Dhousefe-L2JBR
+		for (; i < unrollLimit; i += 16)
 		{
-			int temp2 = raw[offset + i] & 0xFF;
+			final int base = offset + i;
+			
+			final int c0 = raw[base] & 0xFF;
+			final int c1 = raw[base + 1] & 0xFF;
+			final int c2 = raw[base + 2] & 0xFF;
+			final int c3 = raw[base + 3] & 0xFF;
+			final int c4 = raw[base + 4] & 0xFF;
+			final int c5 = raw[base + 5] & 0xFF;
+			final int c6 = raw[base + 6] & 0xFF;
+			final int c7 = raw[base + 7] & 0xFF;
+			final int c8 = raw[base + 8] & 0xFF;
+			final int c9 = raw[base + 9] & 0xFF;
+			final int c10 = raw[base + 10] & 0xFF;
+			final int c11 = raw[base + 11] & 0xFF;
+			final int c12 = raw[base + 12] & 0xFF;
+			final int c13 = raw[base + 13] & 0xFF;
+			final int c14 = raw[base + 14] & 0xFF;
+			final int c15 = raw[base + 15] & 0xFF;
+			
+			raw[base]      = (byte) (c0  ^ _inKey[0]  ^ temp);
+			raw[base + 1]  = (byte) (c1  ^ _inKey[1]  ^ c0);
+			raw[base + 2]  = (byte) (c2  ^ _inKey[2]  ^ c1);
+			raw[base + 3]  = (byte) (c3  ^ _inKey[3]  ^ c2);
+			raw[base + 4]  = (byte) (c4  ^ _inKey[4]  ^ c3);
+			raw[base + 5]  = (byte) (c5  ^ _inKey[5]  ^ c4);
+			raw[base + 6]  = (byte) (c6  ^ _inKey[6]  ^ c5);
+			raw[base + 7]  = (byte) (c7  ^ _inKey[7]  ^ c6);
+			raw[base + 8]  = (byte) (c8  ^ _inKey[8]  ^ c7);
+			raw[base + 9]  = (byte) (c9  ^ _inKey[9]  ^ c8);
+			raw[base + 10] = (byte) (c10 ^ _inKey[10] ^ c9);
+			raw[base + 11] = (byte) (c11 ^ _inKey[11] ^ c10);
+			raw[base + 12] = (byte) (c12 ^ _inKey[12] ^ c11);
+			raw[base + 13] = (byte) (c13 ^ _inKey[13] ^ c12);
+			raw[base + 14] = (byte) (c14 ^ _inKey[14] ^ c13);
+			raw[base + 15] = (byte) (c15 ^ _inKey[15] ^ c14);
+			
+			temp = c15;
+		}
+		
+		
+		for (; i < size; i++)
+		{
+			final int temp2 = raw[offset + i] & 0xFF;
 			raw[offset + i] = (byte) (temp2 ^ _inKey[i & 15] ^ temp);
 			temp = temp2;
 		}

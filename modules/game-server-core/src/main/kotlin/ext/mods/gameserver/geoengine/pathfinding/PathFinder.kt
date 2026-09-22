@@ -481,6 +481,14 @@ class PathFinder {
         val dy = abs(gy - gty)
         val dz = abs(gz - gtz) / GeoStructure.CELL_HEIGHT
 
+        if (ConfigGeoengine.ENABLE_SIMD_HEURISTICS) {
+            // Octile Heuristic 3D: perfectly matches 8-connected grid geometry without expensive sqrt or floating-point conversions
+            val minXY = if (dx < dy) dx else dy
+            val maxXY = if (dx > dy) dx else dy
+            val octile2D = maxXY * ConfigGeoengine.MOVE_WEIGHT + minXY * (ConfigGeoengine.MOVE_WEIGHT_DIAG - ConfigGeoengine.MOVE_WEIGHT)
+            return octile2D + dz * ConfigGeoengine.MOVE_WEIGHT
+        }
+
         return (sqrt((dx * dx + dy * dy + dz * dz).toDouble()) * ConfigGeoengine.HEURISTIC_WEIGHT).toInt()
     }
 }
