@@ -18,6 +18,7 @@
 package ext.mods.gameserver.network.serverpackets;
 
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
 
 import ext.mods.Config;
 import ext.mods.gameserver.custom.data.PolymorphData.Polymorph;
@@ -79,6 +80,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 		_walkSpd = creature.getStatus().getBaseWalkSpeed();
 	}
 
+	private static final Pattern MULTI_SPACE_PATTERN = Pattern.compile("\\s{2,}");
+	private static final Pattern HEX_COLOR_PATTERN = Pattern.compile("[0-9A-Fa-f]{6}");
+
 	private static String buildNpcTitle(Monster monster, String baseTitle, String npcName)
 	{
 		String format = ConfigNpcs.SHOW_NPC_TITLE_FORMAT;
@@ -103,14 +107,15 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 
 	private static String normalizeNpcTitle(String title)
 	{
-		String trimmed = (title == null) ? "" : title.trim();
-		return trimmed.replaceAll("\\s{2,}", " ");
+		if (title == null || title.isEmpty())
+			return "";
+		return MULTI_SPACE_PATTERN.matcher(title.trim()).replaceAll(" ");
 	}
 
 	private static String applyNpcTitleColor(String title)
 	{
 		String color = ConfigNpcs.SHOW_NPC_TITLE_COLOR;
-		if (color == null || color.isEmpty() || !color.matches("[0-9A-Fa-f]{6}"))
+		if (color == null || color.isEmpty() || !HEX_COLOR_PATTERN.matcher(color).matches())
 			return title;
 
 		if (title == null || title.isEmpty())

@@ -419,26 +419,30 @@ public abstract class WorldObject
 			}
 		}
 		
-		for (WorldRegion region : newAreas)
+		final Player player = (this instanceof Player p) ? p : null;
+		
+		try (var ignored = (player != null) ? player.openPacketBatch() : null)
 		{
-			if (!oldAreas.contains(region))
+			for (WorldRegion region : newAreas)
 			{
-				for (ZoneType zone : region.getZones())
+				if (!oldAreas.contains(region))
 				{
+					for (ZoneType zone : region.getZones())
+					{
+						zone.addKnownObject(this);
+					}
+					region.getObjects().forEach(o ->
+					{
+						if (o == this)
+							return;
+						
+						o.addKnownObject(this);
+						addKnownObject(o);
+					});
 					
-					zone.addKnownObject(this);
+					if (player != null)
+						region.setActive(true);
 				}
-				region.getObjects().forEach(o ->
-				{
-					if (o == this)
-						return;
-					
-					o.addKnownObject(this);
-					addKnownObject(o);
-				});
-				
-				if (this instanceof Player)
-					region.setActive(true);
 			}
 		}
 		
@@ -687,14 +691,18 @@ public abstract class WorldObject
 		if (region == null)
 			return;
 		
-		region.forEachSurroundingRegion(r -> r.getObjects().forEach(o ->
+		final Player player = (this instanceof Player p) ? p : null;
+		try (var ignored = (player != null) ? player.openPacketBatch() : null)
 		{
-			if (o == this)
-				return;
-			
-			o.addKnownObject(this);
-			addKnownObject(o);
-		}));
+			region.forEachSurroundingRegion(r -> r.getObjects().forEach(o ->
+			{
+				if (o == this)
+					return;
+				
+				o.addKnownObject(this);
+				addKnownObject(o);
+			}));
+		}
 	}
 	
 	/**

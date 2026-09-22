@@ -60,9 +60,29 @@ public final class NettyGameConnection
 		return _port;
 	}
 	
+	private final java.util.concurrent.atomic.AtomicInteger _batchDepth = new java.util.concurrent.atomic.AtomicInteger(0);
+	private final java.util.concurrent.atomic.AtomicInteger _batchPacketCount = new java.util.concurrent.atomic.AtomicInteger(0);
+	private static final int MAX_BATCH_PACKETS_BEFORE_FLUSH = 64;
+	
 	public boolean isConnected()
 	{
 		return _channel != null && _channel.isActive() && !_closed;
+	}
+	
+	public void startBatch()
+	{
+		_batchDepth.incrementAndGet();
+	}
+	
+	public void endBatch()
+	{
+		if (_batchDepth.decrementAndGet() <= 0)
+		{
+			_batchDepth.set(0);
+			_batchPacketCount.set(0);
+			if (isConnected())
+				_channel.flush();
+		}
 	}
 	
 	public void sendPacket(SendablePacket<GameClient> sp)
@@ -75,7 +95,19 @@ public final class NettyGameConnection
 		if (!isConnected())
 			return;
 		
-		_channel.writeAndFlush(sp);
+		if (_batchDepth.get() > 0)
+		{
+			_channel.write(sp);
+			if (_batchPacketCount.incrementAndGet() >= MAX_BATCH_PACKETS_BEFORE_FLUSH)
+			{
+				_batchPacketCount.set(0);
+				_channel.flush();
+			}
+		}
+		else
+		{
+			_channel.writeAndFlush(sp);
+		}
 	}
 	
 	public void sendPackets(java.util.List<? extends SendablePacket<GameClient>> packets)

@@ -639,6 +639,37 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		}
 	}
 	
+	@FunctionalInterface
+	public interface PacketBatchScope extends AutoCloseable
+	{
+		@Override
+		void close();
+	}
+	
+	private static final PacketBatchScope NOOP_SCOPE = () -> {};
+	
+	public void startPacketBatch()
+	{
+		if (_nettyConnection != null)
+			_nettyConnection.startBatch();
+	}
+	
+	public void endPacketBatch()
+	{
+		if (_nettyConnection != null)
+			_nettyConnection.endBatch();
+	}
+	
+	public PacketBatchScope openPacketBatch()
+	{
+		if (_nettyConnection != null)
+		{
+			_nettyConnection.startBatch();
+			return _nettyConnection::endBatch;
+		}
+		return NOOP_SCOPE;
+	}
+	
 	public void sendPackets(L2GameServerPacket... packets)
 	{
 		if (packets == null || packets.length == 0)

@@ -2050,6 +2050,28 @@ public class Player extends Playable
 			getClient().sendPackets(packets);
 	}
 	
+	private static final ext.mods.gameserver.network.GameClient.PacketBatchScope NOOP_BATCH_SCOPE = () -> {};
+	
+	public void startPacketBatch()
+	{
+		final GameClient client = getClient();
+		if (client != null)
+			client.startPacketBatch();
+	}
+	
+	public void endPacketBatch()
+	{
+		final GameClient client = getClient();
+		if (client != null)
+			client.endPacketBatch();
+	}
+	
+	public ext.mods.gameserver.network.GameClient.PacketBatchScope openPacketBatch()
+	{
+		final GameClient client = getClient();
+		return client != null ? client.openPacketBatch() : NOOP_BATCH_SCOPE;
+	}
+	
 	@Override
 	public void sendPacket(SystemMessageId id)
 	{
