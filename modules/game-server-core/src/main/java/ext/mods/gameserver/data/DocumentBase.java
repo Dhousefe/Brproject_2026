@@ -114,6 +114,8 @@ abstract class DocumentBase
 		}
 		catch (Exception e)
 		{
+			System.err.println("[SKILL-DIAG] XML parse failure: " + _file.getAbsolutePath());
+			e.printStackTrace(System.err);
 			LOGGER.error("Error loading file {}.", e, _file);
 		}
 		return doc;

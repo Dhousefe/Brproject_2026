@@ -48,6 +48,7 @@ public class RequestAcquireSkill extends L2GameClientPacket
 		_skillId = readD();
 		_skillLevel = readD();
 		_skillType = readD();
+		System.err.println("[SKILL-DIAG] RequestAcquireSkill packet: id=" + _skillId + ", level=" + _skillLevel + ", type=" + _skillType);
 	}
 	
 	@Override
@@ -65,6 +66,7 @@ public class RequestAcquireSkill extends L2GameClientPacket
 			LOGGER.warn("Rejected skill learn request because the client has no active player: id={}, level={}, type={}", _skillId, _skillLevel, _skillType);
 			return;
 		}
+		System.err.println("[SKILL-DIAG] Processing skill learn: player=" + player.getName() + ", class=" + player.getClassId() + ", level=" + player.getStatus().getLevel() + ", sp=" + player.getStatus().getSp());
 		
 		final Folk folk = player.getCurrentFolk();
 		if (folk == null || !player.getAI().canDoInteract(folk))
