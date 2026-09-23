@@ -106,7 +106,7 @@
 			<skill id="4416" level="16" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50002" idTemplate="50008" name="Tryskell" title="Crappy Buffer" alias="scheme_buffer">
+	<npc id="50002" idTemplate="30080" name="Tryskell" title="Crappy Buffer" alias="scheme_buffer">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="SchemeBuffer"/>
@@ -159,7 +159,7 @@
 			<skill id="4416" level="18" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50003" idTemplate="13047" name="Donate Manager" title="ForceUnleashed" alias="donate_manager">
+	<npc id="50003" idTemplate="30081" name="Donate Manager" title="ForceUnleashed" alias="donate_manager">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="Service"/>
@@ -424,7 +424,7 @@
 			<skill id="4416" level="4" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50009" idTemplate="50001" name="GM Shop" title="win37rus" alias="gm_shop">
+	<npc id="50009" idTemplate="30082" name="GM Shop" title="win37rus" alias="gm_shop">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="Merchant"/>
@@ -472,7 +472,7 @@
 			<skill id="4416" level="18" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50010" idTemplate="50004" name="Gatekeeper Global" title="Brproject" alias="gatekeeper_global">
+	<npc id="50010" idTemplate="30083" name="Gatekeeper Global" title="Brproject" alias="gatekeeper_global">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="Gatekeeper"/>
