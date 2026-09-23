@@ -30,6 +30,16 @@
 		<ai type="default_maker"/>
 		<npc id="50000" pos="16460;142859;-2706;0" total="1" respawn="60sec" /> <!-- Roy the Cat -->
 	</npcmaker>
+	<territory name="roythecat_147433--55330" minZ="-2749" maxZ="-2717">
+		<node x="147433" y="-55330" />
+		<node x="147443" y="-55330" />
+		<node x="147443" y="-55320" />
+		<node x="147433" y="-55320" />
+	</territory>
+	<npcmaker name="roythecat_147433--55330" territory="roythecat_147433--55330" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50000" pos="147433;-55330;-2733;0" total="1" respawn="60sec" /> <!-- Roy the Cat -->
+	</npcmaker>
 	<territory name="roythecat_147574-27407" minZ="-2220" maxZ="-2188">
 		<node x="147574" y="27407" />
 		<node x="147584" y="27407" />
