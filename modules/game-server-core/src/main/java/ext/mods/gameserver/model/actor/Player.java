@@ -123,6 +123,7 @@ import ext.mods.gameserver.data.sql.ClanTable;
 import ext.mods.gameserver.model.zone.type.RandomZone;
 import ext.mods.gameserver.data.sql.PlayerInfoTable;
 import ext.mods.gameserver.data.xml.AdminData;
+import ext.mods.loginserver.data.sql.AccountTable;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.data.xml.NpcData;
 import ext.mods.gameserver.data.xml.PlayerData;
@@ -564,7 +565,8 @@ public class Player extends Playable
 		
 		player.setName(name);
 		
-		player.setAccessLevel(ConfigPlayers.DEFAULT_ACCESS_LEVEL);
+		final var account = AccountTable.getInstance().getAccount(accountName);
+		player.setAccessLevel(account != null ? account.getAccessLevel() : ConfigPlayers.DEFAULT_ACCESS_LEVEL);
 		
 		PlayerInfoTable.getInstance().addPlayer(objectId, accountName, name, player.getAccessLevel().getLevel());
 		

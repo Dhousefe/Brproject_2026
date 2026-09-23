@@ -215,7 +215,10 @@ public final class PlayerPersistence
 					
 					player.setDeleteTimer(rs.getLong("deletetime"));
 					player.setTitle(rs.getString("title"));
-					player.setAccessLevel(rs.getInt("accesslevel"));
+					int characterAccessLevel = rs.getInt("accesslevel");
+					final var account = ext.mods.loginserver.data.sql.AccountTable.getInstance().getAccount(player.getAccountName());
+					final int accountAccessLevel = account != null ? account.getAccessLevel() : 0;
+					player.setAccessLevel(Math.max(characterAccessLevel, accountAccessLevel));
 					player.setUptime(System.currentTimeMillis());
 					player.setRecomHave(rs.getInt("rec_have"));
 					player.setRecomLeft(rs.getInt("rec_left"));

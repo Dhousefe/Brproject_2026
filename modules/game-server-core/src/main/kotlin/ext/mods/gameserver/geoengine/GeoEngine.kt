@@ -55,6 +55,7 @@ import ext.mods.config.ConfigGeoengine
 class GeoEngine private constructor() {
     private val _blocks: Array<Array<ABlock>>
     private val _geoBugReports: PrintWriter?
+    private var _hasLoadedGeoData = false
     
     private val multilayerMutex = Mutex()
     private val REGION_LOCKS = 256
@@ -121,6 +122,10 @@ class GeoEngine private constructor() {
         GeoEngine.LOGGER.info("----------------------------------------------------------------")
         GeoEngine.LOGGER.info(" Geodata Carregada: $loaded Sucessos / $failed Falhas")
         GeoEngine.LOGGER.info("----------------------------------------------------------------")
+        _hasLoadedGeoData = loaded > 0
+        if (!_hasLoadedGeoData) {
+            GeoEngine.LOGGER.warn("Nenhum arquivo de geodata foi carregado; movimento e visibilidade usarão fallback sem colisão.")
+        }
         BlockMultilayer.release()
         
         var writer: PrintWriter? = null
@@ -568,6 +573,7 @@ class GeoEngine private constructor() {
         tx: Int, ty: Int, tz: Int, theight: Double,
         ignore: IGeoObject?, debug: ExServerPrimitive?
     ): Boolean {
+        if (!_hasLoadedGeoData) return true
         return when {
             World.isOutOfWorld(ox, oy) -> false
             World.isOutOfWorld(tx, ty) -> false
@@ -760,6 +766,7 @@ class GeoEngine private constructor() {
     fun canMoveToTarget(ox: Int, oy: Int, oz: Int, tx: Int, ty: Int, tz: Int): Boolean =
         canMove(ox, oy, oz, tx, ty, tz, null)
     fun canMove(ox: Int, oy: Int, oz: Int, tx: Int, ty: Int, tz: Int, debug: ExServerPrimitive?): Boolean {
+        if (!_hasLoadedGeoData) return true
         if (World.isOutOfWorld(tx, ty)) return false
         var gox = getGeoX(ox)
         var goy = getGeoY(oy)
