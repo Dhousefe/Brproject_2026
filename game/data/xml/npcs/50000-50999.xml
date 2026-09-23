@@ -106,7 +106,7 @@
 			<skill id="4416" level="16" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50002" idTemplate="30080" name="Tryskell" title="Crappy Buffer" alias="scheme_buffer">
+	<npc id="50002" idTemplate="30081" name="Tryskell" title="Crappy Buffer" alias="scheme_buffer">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="SchemeBuffer"/>
@@ -159,13 +159,13 @@
 			<skill id="4416" level="18" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50003" idTemplate="30081" name="Donate Manager" title="ForceUnleashed" alias="donate_manager">
+	<npc id="50003" idTemplate="30082" name="Donate Manager" title="ForceUnleashed" alias="donate_manager">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="Service"/>
 		<set name="level" val="70"/>
 		<set name="radius" val="26.0"/>
-		<set name="height" val="68.0"/>
+		<set name="height" val="23.0"/>
 		<set name="hitTimeFactor" val="0.61"/>
 		<set name="rHand" val="0"/>
 		<set name="lHand" val="0"/>
