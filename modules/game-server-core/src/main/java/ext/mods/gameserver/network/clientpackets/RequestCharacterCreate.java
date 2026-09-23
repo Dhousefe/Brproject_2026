@@ -154,7 +154,7 @@ public final class RequestCharacterCreate extends L2GameClientPacket
 			return;
 		}
 		
-		for (String buff : player.getTemplate().getBuffIds())
+		if (false) for (String buff : player.getTemplate().getBuffIds())
 		{
 			String[] parts = buff.split("-");
 			int skillId = Integer.parseInt(parts[0]);
@@ -172,7 +172,7 @@ public final class RequestCharacterCreate extends L2GameClientPacket
 		World.getInstance().addObject(player);
 		
 		player.getPosition().set(template.getRandomSpawn());
-		player.setTitle(template.getTitle());
+		player.setTitle("");
 		
 		player.addExpAndSp(PlayerLevelData.getInstance().getPlayerLevel(template.getStartLevel()).requiredExpToLevelUp(), 0);
 		
