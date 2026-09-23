@@ -191,7 +191,7 @@
 		<set name="target" val="SELF"/>
 		<set name="hitTime" val="900"/>
 		<set name="reuseDelay" val="1000"/>
-		<set name="skillType" val="SONIC"/>
+		<set name="skillType" val="BUFF"/>
 		<set name="operateType" val="ACTIVE"/>
 		<set name="aggroPoints" val="200"/>
 		<set name="numCharges" val="1" />
@@ -897,7 +897,7 @@
 		<set name="target" val="SELF" />
 		<set name="reuseDelay" val="1000"/>
 		<set name="hitTime" val="900" />
-		<set name="skillType" val="FORCE" />
+		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="ACTIVE" />
 		<set name="aggroPoints" val="150" />
 		<set name="weaponsAllowed" val="DUALFIST" />

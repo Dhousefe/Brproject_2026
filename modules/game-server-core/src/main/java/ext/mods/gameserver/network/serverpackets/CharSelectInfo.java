@@ -34,7 +34,7 @@ import ext.mods.gameserver.network.GameClient;
 public class CharSelectInfo extends L2GameServerPacket
 {
 	private static final String SELECT_INFOS = "SELECT obj_Id, char_name, level, maxHp, curHp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, title, accesslevel, lastAccess, base_class FROM characters WHERE account_name=?";
-	private static final String SELECT_CURRENT_SUBCLASS = "SELECT exp, sp, level FROM character_subclasses WHERE char_obj_id=? && class_id=? ORDER BY char_obj_id";
+	private static final String SELECT_CURRENT_SUBCLASS = "SELECT exp, sp, level FROM character_subclasses WHERE char_obj_id=? AND class_id=? ORDER BY char_obj_id";
 	private static final String SELECT_AUGMENTS = "SELECT attributes FROM augmentations WHERE item_oid = ?";
 	
 	private final CharSelectSlot[] _slots;
@@ -288,7 +288,9 @@ public class CharSelectInfo extends L2GameServerPacket
 		}
 		catch (Exception e)
 		{
-			LOGGER.error("Couldn't restore player slots for account {}.", e, loginName);
+			LOGGER.error("Couldn't restore player slots for account {}.", loginName, e);
+			System.err.println("[CharSelectInfo] Failed to restore player slots for account " + loginName);
+			e.printStackTrace(System.err);
 		}
 		
 		return new CharSelectSlot[0];
