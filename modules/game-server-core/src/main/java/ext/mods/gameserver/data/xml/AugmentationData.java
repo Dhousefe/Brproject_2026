@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import ext.mods.commons.data.StatSet;
@@ -64,6 +65,12 @@ public class AugmentationData implements IXmlReader
 	private static final int BASESTAT_CON = 16342;
 	private static final int BASESTAT_INT = 16343;
 	private static final int BASESTAT_MEN = 16344;
+
+	// Targeted top-level augmentations use a 20:1 selection weight against all
+	// other skills. This is a relative weight, not four independent 20% rolls.
+	private static final int TARGET_SKILL_WEIGHT = 20;
+	private static final int OTHER_SKILL_WEIGHT = 1;
+	private static final Set<Integer> TARGET_AUGMENTATION_IDS = Set.of(16283, 16285, 16206, 16294);
 	
 	private final List<List<AugmentationStat>> _augStats = new ArrayList<>(4);
 	
@@ -238,9 +245,9 @@ public class AugmentationData implements IXmlReader
 		{
 			stat34 = switch (resultColor)
 			{
-				case 1 -> _blueSkills.get(lifeStoneLevel).get(Rnd.get(0, _blueSkills.get(lifeStoneLevel).size() - 1));
-				case 2 -> _purpleSkills.get(lifeStoneLevel).get(Rnd.get(0, _purpleSkills.get(lifeStoneLevel).size() - 1));
-				case 3 -> _redSkills.get(lifeStoneLevel).get(Rnd.get(0, _redSkills.get(lifeStoneLevel).size() - 1));
+				case 1 -> selectWeightedSkill(_blueSkills.get(lifeStoneLevel));
+				case 2 -> selectWeightedSkill(_purpleSkills.get(lifeStoneLevel));
+				case 3 -> selectWeightedSkill(_redSkills.get(lifeStoneLevel));
 				default -> stat34;
 			};
 			
@@ -271,6 +278,27 @@ public class AugmentationData implements IXmlReader
 		stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 		
 		return new Augmentation(((stat34 << 16) + stat12), skill);
+	}
+
+	/**
+	 * Selects an augmentation skill using the configured target weighting.
+	 * The target IDs are the exact level-10 entries requested for testing.
+	 */
+	private static int selectWeightedSkill(List<Integer> skills)
+	{
+		int totalWeight = 0;
+		for (int skillId : skills)
+			totalWeight += TARGET_AUGMENTATION_IDS.contains(skillId) ? TARGET_SKILL_WEIGHT : OTHER_SKILL_WEIGHT;
+
+		int roll = Rnd.get(1, totalWeight);
+		for (int skillId : skills)
+		{
+			roll -= TARGET_AUGMENTATION_IDS.contains(skillId) ? TARGET_SKILL_WEIGHT : OTHER_SKILL_WEIGHT;
+			if (roll <= 0)
+				return skillId;
+		}
+
+		return skills.get(skills.size() - 1);
 	}
 	
 	/**
