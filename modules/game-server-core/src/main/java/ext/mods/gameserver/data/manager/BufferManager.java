@@ -40,6 +40,7 @@ import ext.mods.gameserver.model.World;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
 import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.actor.Summon;
 import ext.mods.gameserver.model.records.BuffSkill;
 import ext.mods.gameserver.skills.L2Skill;
 
@@ -270,18 +271,23 @@ public class BufferManager implements IXmlReader
 	 */
 	public void applySchemeEffects(Npc npc, Creature target, int playerId, String schemeName)
 	{
-		for (L2Skill skill : getScheme(playerId, schemeName))
+		Player player = (target instanceof Player p) ? p : ((target instanceof Summon s) ? s.getOwner() : null);
+		try (var batch = (player != null) ? player.openPacketBatch() : null;
+		     var bulk = (target != null) ? target.openBulkBuffScope() : null)
 		{
-			final BuffSkill holder = getAvailableBuff(skill);
-			if (holder != null)
+			for (L2Skill skill : getScheme(playerId, schemeName))
 			{
-				final L2Skill s = holder.getSkill();
-				if (s != null)
+				final BuffSkill holder = getAvailableBuff(skill);
+				if (holder != null)
 				{
-					if (s.isDebuff())
-						target.stopAllEffectsDebuff();
-					
-					s.getEffectsNpc(npc, target);
+					final L2Skill s = holder.getSkill();
+					if (s != null)
+					{
+						if (s.isDebuff())
+							target.stopAllEffectsDebuff();
+						
+						s.getEffectsNpc(npc, target);
+					}
 				}
 			}
 		}

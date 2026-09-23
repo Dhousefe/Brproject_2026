@@ -103,6 +103,23 @@ public final class QuestMetadata
 	}
 
 	/**
+	 * Indica se a quest concede experiência (Exp/SP) como recompensa.
+	 */
+	public boolean hasExpReward()
+	{
+		if (_rewardDescription != null)
+		{
+			final String desc = _rewardDescription.toLowerCase();
+			if (desc.contains("exp") || desc.contains("xp") || desc.contains("sp"))
+				return true;
+		}
+		if (_repeatable)
+			return false;
+
+		return _questId <= 100 || (_questId >= 401 && _questId <= 423);
+	}
+
+	/**
 	 * Verifica com zero alocação se o jogador é elegível para esta quest com base em sua raça e classe.
 	 */
 	public boolean isEligible(Player player)

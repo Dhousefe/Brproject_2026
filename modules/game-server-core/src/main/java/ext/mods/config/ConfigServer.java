@@ -46,6 +46,12 @@ public final class ConfigServer
    public static boolean ENABLE_FAIL2BAN = true;
    public static boolean FAIL2BAN_FIREWALL = true;
 
+   public static boolean ENABLE_NPC_INFO_PACING = true;
+   public static int NPC_INFO_IMMEDIATE_BURST_LIMIT = 8;
+   public static int NPC_INFO_PACED_BATCH_SIZE = 8;
+   public static int NPC_INFO_PACING_INTERVAL_MS = 40;
+   public static boolean ENABLE_DELETE_OBJECT_COALESCING = true;
+
    public static int getEffectiveGameServerPort()
    {
       return ENABLE_NATIVE_PROXY ? GAMESERVER_INTERNAL_PORT : GAMESERVER_PORT;
@@ -140,6 +146,11 @@ public final class ConfigServer
       ConfigServer.GAMESERVER_INTERNAL_PORT = server.getProperty("GameServerInternalPort", 7778);
       ConfigServer.ENABLE_FAIL2BAN = server.getProperty("EnableFail2Ban", true);
       ConfigServer.FAIL2BAN_FIREWALL = server.getProperty("Fail2BanFirewall", true);
+      ConfigServer.ENABLE_NPC_INFO_PACING = server.getProperty("EnableNpcInfoPacing", true);
+      ConfigServer.NPC_INFO_IMMEDIATE_BURST_LIMIT = server.getProperty("NpcInfoImmediateBurstLimit", 8);
+      ConfigServer.NPC_INFO_PACED_BATCH_SIZE = server.getProperty("NpcInfoPacedBatchSize", 8);
+      ConfigServer.NPC_INFO_PACING_INTERVAL_MS = server.getProperty("NpcInfoPacingIntervalMs", 40);
+      ConfigServer.ENABLE_DELETE_OBJECT_COALESCING = server.getProperty("EnableDeleteObjectCoalescing", true);
       ConfigServer.REQUEST_ID = server.getProperty("RequestServerID", 0);      ConfigServer.ACCEPT_ALTERNATE_ID = server.getProperty("AcceptAlternateID", true);      ConfigServer.USE_BLOWFISH_CIPHER = server.getProperty("UseBlowfishCipher", true);      Config.loadDatabaseProperties(server);
       ConfigServer.CNAME_TEMPLATE = server.getProperty("CnameTemplate", ".*");      ConfigServer.DONATE_CNAME_TEMPLATE = server.getProperty("DonateCnameTemplate", ".*");      ConfigServer.TITLE_TEMPLATE = server.getProperty("TitleTemplate", ".*");      ConfigServer.PET_NAME_TEMPLATE = server.getProperty("PetNameTemplate", ".*");      ConfigServer.CLAN_ALLY_NAME_TEMPLATE = server.getProperty("ClanAllyNameTemplate", ".*");      ConfigServer.SERVER_LIST_BRACKET = server.getProperty("ServerListBrackets", false);      ConfigServer.SERVER_LIST_CLOCK = server.getProperty("ServerListClock", false);      ConfigServer.SERVER_GMONLY = server.getProperty("ServerGMOnly", false);      ConfigServer.SERVER_LIST_AGE = server.getProperty("ServerListAgeLimit", 0);      ConfigServer.SERVER_LIST_TESTSERVER = server.getProperty("TestServer", false);      ConfigServer.SERVER_LIST_PVPSERVER = server.getProperty("PvpServer", true);      ConfigServer.DELETE_DAYS = server.getProperty("DeleteCharAfterDays", 7);      ConfigServer.MAXIMUM_ONLINE_USERS = server.getProperty("MaximumOnlineUsers", 100);      ConfigServer.AUTO_LOOT = server.getProperty("AutoLoot", false);      ConfigServer.AUTO_LOOT_HERBS = server.getProperty("AutoLootHerbs", false);      ConfigServer.AUTO_LOOT_RAID = server.getProperty("AutoLootRaid", false);      ConfigServer.ALLOW_DISCARDITEM = server.getProperty("AllowDiscardItem", true);      ConfigServer.MULTIPLE_ITEM_DROP = server.getProperty("MultipleItemDrop", true);      ConfigServer.HERB_AUTO_DESTROY_TIME = server.getProperty("AutoDestroyHerbTime", 15) * 1000;      ConfigServer.ITEM_AUTO_DESTROY_TIME = server.getProperty("AutoDestroyItemTime", 600) * 1000;      ConfigServer.EQUIPABLE_ITEM_AUTO_DESTROY_TIME = server.getProperty("AutoDestroyEquipableItemTime", 0) * 1000;      ConfigServer.SPECIAL_ITEM_DESTROY_TIME = new HashMap<>();      String[] data = server.getProperty("AutoDestroySpecialItemTime", (String[])null, ",");
       if (data != null) {

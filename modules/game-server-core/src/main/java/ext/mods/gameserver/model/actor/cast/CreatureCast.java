@@ -95,10 +95,30 @@ public class CreatureCast<T extends Creature>
     {
         return _isCastingNow;
     }
+
+    public final long getCastEndTime()
+    {
+        return _isCastingNow ? (_castInterruptTime + 200L) : 0L;
+    }
+
+    public final long getRemainingCastTime()
+    {
+        if (!_isCastingNow)
+        {
+            return 0L;
+        }
+        final long remaining = (_castInterruptTime + 200L) - System.currentTimeMillis();
+        return remaining > 0L ? remaining : 0L;
+    }
     
     public final L2Skill getCurrentSkill()
     {
         return _skill;
+    }
+    
+    public final Creature getTarget()
+    {
+        return _target;
     }
     
     /**

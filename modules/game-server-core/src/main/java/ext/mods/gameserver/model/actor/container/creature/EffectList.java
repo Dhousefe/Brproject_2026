@@ -502,7 +502,8 @@ public class EffectList
 			while (!_addQueue.isEmpty() || !_removeQueue.isEmpty());
 			
 			computeEffectFlags();
-			updateEffectIcons();
+			if (!_owner.isBulkBuffing())
+				updateEffectIcons();
 		}
 		finally
 		{
@@ -762,7 +763,7 @@ public class EffectList
 		}
 	}
 	
-	protected void updateEffectIcons()
+	public void updateEffectIcons()
 	{
 		if (!(_owner instanceof Playable))
 			return;

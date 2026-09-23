@@ -32,6 +32,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import ext.mods.Config;
+import ext.mods.config.ConfigServer;
+import ext.mods.gameserver.network.pacing.NpcSpawnPacer;
 
 import ext.mods.commons.cached.CachedData;
 import ext.mods.commons.cached.CachedDataValueBoolean;
@@ -411,6 +413,51 @@ public class Player extends Playable
 	private final PlayerUiPrefs _uiPrefs = new PlayerUiPrefs(this);
 	private final PlayerTeam _teamState = new PlayerTeam(this);
 
+	private int _lastMagicSkillId;
+	private int _lastMagicSkillTargetId;
+	private long _lastMagicSkillRequestTime;
+	private long _lastActionFailedSendTime;
+
+	public boolean checkAndSetMagicSkillDebounce(int skillId, int targetId, long windowMs)
+	{
+		final long now = System.currentTimeMillis();
+		if (_lastMagicSkillId == skillId && _lastMagicSkillTargetId == targetId && (now - _lastMagicSkillRequestTime) < windowMs)
+		{
+			return false;
+		}
+		_lastMagicSkillId = skillId;
+		_lastMagicSkillTargetId = targetId;
+		_lastMagicSkillRequestTime = now;
+		return true;
+	}
+
+	public boolean canSendActionFailed(long now, long minIntervalMs)
+	{
+		if (now - _lastActionFailedSendTime < minIntervalMs)
+		{
+			return false;
+		}
+		_lastActionFailedSendTime = now;
+		return true;
+	}
+
+	public void sendActionFailed(boolean force)
+	{
+		if (getClient() == null)
+		{
+			return;
+		}
+		if (force)
+		{
+			_lastActionFailedSendTime = System.currentTimeMillis();
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+		}
+		else
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+		}
+	}
+
 	public PlayerUiPrefs getUiPrefs()
 	{
 		return _uiPrefs;
@@ -426,6 +473,12 @@ public class Player extends Playable
 	private final PlayerDeathLifecycle _deathLifecycle = new PlayerDeathLifecycle(this);
 	private final PlayerSocialManager _socialManager = new PlayerSocialManager(this);
 	private final PlayerSessionPersistence _sessionPersistence = new PlayerSessionPersistence(this);
+	private final NpcSpawnPacer _npcSpawnPacer = new NpcSpawnPacer(this);
+
+	public NpcSpawnPacer getNpcSpawnPacer()
+	{
+		return _npcSpawnPacer;
+	}
 
 	// operate type moved to PlayerOperate
 	
@@ -2012,8 +2065,18 @@ public class Player extends Playable
 	@Override
 	public void sendPacket(L2GameServerPacket packet)
 	{
-		if (getClient() == null)
+		if (getClient() == null || packet == null)
 			return;
+
+		if (packet instanceof ActionFailed)
+		{
+			final long now = System.currentTimeMillis();
+			final int minInterval = ConfigPlayers.ACTION_FAILED_MIN_INTERVAL_MS;
+			if (minInterval > 0 && !canSendActionFailed(now, minInterval))
+			{
+				return;
+			}
+		}
 		
 		if (packet instanceof NpcHtmlMessage html) {
 			
@@ -5054,6 +5117,12 @@ public class Player extends Playable
 	@Override
 	public void addKnownObject(WorldObject object)
 	{
+		if (object instanceof Npc npc && ConfigServer.ENABLE_NPC_INFO_PACING)
+		{
+			_npcSpawnPacer.queueNpc(npc);
+			return;
+		}
+		
 		sendInfoFrom(object);
 	}
 	
@@ -5065,8 +5134,18 @@ public class Player extends Playable
 		if (isTeleporting())
 			return;
 		
+		if (ConfigServer.ENABLE_DELETE_OBJECT_COALESCING && _npcSpawnPacer.cancelPending(object.getObjectId()))
+			return;
+		
 		if (object.isVisibleTo(this))
 			sendPacket(new DeleteObject(object, object instanceof Player player && player.isSeated()));
+	}
+
+	@Override
+	public void decayMe()
+	{
+		_npcSpawnPacer.clear();
+		super.decayMe();
 	}
 	
 	public final void refreshInfos()

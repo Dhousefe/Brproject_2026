@@ -52,6 +52,9 @@ public class NpcMove(actor: Npc) : CreatureMove<Npc>(actor) {
     private var _pathfindFails: Int = 0
     private var _lastPursueTeleportTime: Long = 0L
     override fun offensiveFollowTask(target: Creature, offset: Int) {
+        if (isRepositioning) {
+            return
+        }
         val currentTask = _followTask
         
         if (currentTask == null || currentTask.isCancelled || target.isAlikeDead) {
@@ -378,9 +381,6 @@ public class NpcMove(actor: Npc) : CreatureMove<Npc>(actor) {
         }
     }
     override fun handleNextPosition(nextX: Int, nextY: Int, nextZ: Int, type: MoveType): Boolean {
-        if (super.handleNextPosition(nextX, nextY, nextZ, type)) return true
-        
-        _blocked = true
-        return false
+        return super.handleNextPosition(nextX, nextY, nextZ, type)
     }
 }

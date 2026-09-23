@@ -123,13 +123,17 @@ public class SchemeBuffer extends Folk
 		else if (command.startsWith("getscheme"))
 		{
 			final List<L2Skill> schemes = BufferManager.getInstance().getSchemeSkills(BufferSchemeType.valueOf(st.nextToken().toUpperCase()));
-			for (L2Skill scheme : schemes)
+			try (var batch = player.openPacketBatch();
+			     var bulk = target.openBulkBuffScope())
 			{
-				List<L2Skill> list = new ArrayList<>();
-				list.add(SkillTable.getInstance().getInfo(scheme.getId(), scheme.getLevel()));
-				int cost = getFee(list);
-				if (cost == 0 || player.reduceAdena(cost, true))
-					list.forEach(buffId -> getEffect(player, buffId));
+				for (L2Skill scheme : schemes)
+				{
+					List<L2Skill> list = new ArrayList<>();
+					list.add(SkillTable.getInstance().getInfo(scheme.getId(), scheme.getLevel()));
+					int cost = getFee(list);
+					if (cost == 0 || player.reduceAdena(cost, true))
+						list.forEach(buffId -> getEffect(player, buffId));
+				}
 			}
 			showPage(player);
 		}

@@ -91,6 +91,14 @@ open class CreatureMove<T : Creature>(
     private var _pauseCheckTask: ScheduledFuture<*>? = null
     private var _pausedByNoPlayers: Boolean = false
     private var _pausedDestination: Location? = null
+    private var _repositionStartTime: Long = 0L
+    @Volatile var isRepositioning: Boolean = false
+        get() {
+            if (field && System.currentTimeMillis() - _repositionStartTime > 1200L) {
+                field = false
+            }
+            return field
+        }
     fun getTask(): ScheduledFuture<*>? = _task
     fun getDestination(): Location = _destination
     fun getPawn(): WorldObject? = _pawn
@@ -300,6 +308,7 @@ open class CreatureMove<T : Creature>(
     private fun finishMovement() {
         val wasMoving = _task != null
         cancelMoveTask()
+        isRepositioning = false
         _actor.revalidateZone(true)
         if (_blocked) {
             _actor.broadcastPacket(StopMove(_actor))
@@ -308,7 +317,15 @@ open class CreatureMove<T : Creature>(
             notifyArrived(if (_blocked) AiEventType.ARRIVED_BLOCKED else AiEventType.ARRIVED)
             
             if (_actor is Npc && _actor.ai.currentIntention.type == IntentionType.ATTACK) {
-                _actor.ai.notifyEvent(AiEventType.THINK, null, null)
+                if (_blocked) {
+                    CoroutinePool.schedule({
+                        if (_actor.ai.currentIntention.type == IntentionType.ATTACK) {
+                            _actor.ai.notifyEvent(AiEventType.THINK, null, null)
+                        }
+                    }, 400L)
+                } else {
+                    _actor.ai.notifyEvent(AiEventType.THINK, null, null)
+                }
             }
         }
     }
@@ -338,8 +355,8 @@ open class CreatureMove<T : Creature>(
         _actor.ai.notifyEvent(event, null, null)
     }
     
-    fun repositionAfterAttack(target: Creature) {
-        if (_actor.isMovementDisabled || _actor.isParalyzed) return
+    fun repositionAfterAttack(target: Creature): Boolean {
+        if (_actor.isMovementDisabled || _actor.isParalyzed || _actor.isAlikeDead) return false
         val dist = _actor.distance2D(target)
         
         val currentSkill = _actor.cast.currentSkill
@@ -352,37 +369,96 @@ open class CreatureMove<T : Creature>(
         val collisionBuffer = _actor.collisionRadius + target.collisionRadius
         val currentLoc = _actor.position
         val tooCloseThreshold = 200.0
+        
+        val dx = (_actor.x - target.x).toDouble()
+        val dy = (_actor.y - target.y).toDouble()
+        val rawDist = Math.hypot(dx, dy)
+        
+        // Vetor unitário apontando do alvo para o monstro (direção de recuo)
+        val (ux, uy) = if (rawDist > 0.001) {
+            Pair(dx / rawDist, dy / rawDist)
+        } else {
+            val headingRad = Math.toRadians(_actor.position.heading.toDouble() * (360.0 / 65535.0))
+            Pair(Math.cos(headingRad), Math.sin(headingRad))
+        }
+        
+        // Vetores estritamente perpendiculares (esquerda e direita) sem nenhuma chamada trigonométrica
+        val leftX = -uy
+        val leftY = ux
+        val rightX = uy
+        val rightY = -ux
+        
         if (dist < tooCloseThreshold) {
-            val dx = _actor.x - target.x
-            val dy = _actor.y - target.y
-            val angle = Math.atan2(dy.toDouble(), dx.toDouble())
-            val nextX = (target.x + 400 * Math.cos(angle)).toInt()
-            val nextY = (target.y + 400 * Math.sin(angle)).toInt()
+            // 1. Recuo Frontal Reto (afastamento do jogador)
+            val retreatDist = 380.0
+            val nextX = (target.x + retreatDist * ux).toInt()
+            val nextY = (target.y + retreatDist * uy).toInt()
             val nextZ = geoEngine.getHeight(nextX, nextY, currentLoc.z).toInt()
             
-            val escapeDest = Location(nextX, nextY, nextZ)
-            if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, nextX, nextY, nextZ)) {
-                if (!wouldCollideWithCreature(nextX, nextY)) {
-                    moveToLocation(escapeDest, false)
-                    return 
-                }
+            if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, nextX, nextY, nextZ) &&
+                !wouldCollideWithCreature(nextX, nextY)) {
+                return dispatchReposition(Location(nextX, nextY, nextZ))
             }
+            
+            // 2. Fallback Lateral 1 (Esquerda perpendicular)
+            val latDist = 180.0
+            val lx = (currentLoc.x + latDist * leftX).toInt()
+            val ly = (currentLoc.y + latDist * leftY).toInt()
+            val lz = geoEngine.getHeight(lx, ly, currentLoc.z).toInt()
+            if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, lx, ly, lz) &&
+                !wouldCollideWithCreature(lx, ly)) {
+                return dispatchReposition(Location(lx, ly, lz))
+            }
+            
+            // 3. Fallback Lateral 2 (Direita perpendicular)
+            val rx = (currentLoc.x + latDist * rightX).toInt()
+            val ry = (currentLoc.y + latDist * rightY).toInt()
+            val rz = geoEngine.getHeight(rx, ry, currentLoc.z).toInt()
+            if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, rx, ry, rz) &&
+                !wouldCollideWithCreature(rx, ry)) {
+                return dispatchReposition(Location(rx, ry, rz))
+            }
+            return false
         }
+        
         if (dist > (baseAttackRange + collisionBuffer + 20)) {
-            return
+            return false
         }
-        val angleOffset = if (ThreadLocalRandom.current().nextBoolean()) 45.0 else -45.0
-        val currentAngle = Math.toRadians(_actor.position.heading.toDouble() * (360.0 / 65535.0))
-        val newAngle = currentAngle + Math.toRadians(angleOffset)
-        val latX = (currentLoc.x + 150 * Math.sin(newAngle)).toInt()
-        val latY = (currentLoc.y + 150 * Math.cos(newAngle)).toInt()
+        
+        // Strafe Lateral Alternado em alcance de combate (flanqueamento evasivo)
+        val useLeft = ThreadLocalRandom.current().nextBoolean()
+        val sideX = if (useLeft) leftX else rightX
+        val sideY = if (useLeft) leftY else rightY
+        val strafeDist = 140.0
+        val latX = (currentLoc.x + strafeDist * sideX).toInt()
+        val latY = (currentLoc.y + strafeDist * sideY).toInt()
         val latZ = geoEngine.getHeight(latX, latY, currentLoc.z).toInt()
-        val lateralDest = Location(latX, latY, latZ)
-        if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, latX, latY, latZ)) {
-            if (!wouldCollideWithCreature(latX, latY)) {
-                moveToLocation(lateralDest, false)
-            }
+        
+        if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, latX, latY, latZ) &&
+            !wouldCollideWithCreature(latX, latY)) {
+            return dispatchReposition(Location(latX, latY, latZ))
         }
+        
+        // Fallback para o lado oposto se o primeiro estiver bloqueado
+        val altSideX = if (useLeft) rightX else leftX
+        val altSideY = if (useLeft) rightY else leftY
+        val altX = (currentLoc.x + strafeDist * altSideX).toInt()
+        val altY = (currentLoc.y + strafeDist * altSideY).toInt()
+        val altZ = geoEngine.getHeight(altX, altY, currentLoc.z).toInt()
+        
+        if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, altX, altY, altZ) &&
+            !wouldCollideWithCreature(altX, altY)) {
+            return dispatchReposition(Location(altX, altY, altZ))
+        }
+        
+        return false
+    }
+
+    private fun dispatchReposition(destination: Location): Boolean {
+        _repositionStartTime = System.currentTimeMillis()
+        isRepositioning = true
+        moveToLocation(destination, false)
+        return true
     }
     protected open fun moveToNextRoutePoint(): Boolean {
         if (_geoPath.isEmpty()) return false
@@ -459,13 +535,6 @@ open class CreatureMove<T : Creature>(
             }
         } else _actor.z
     
-        if (ENABLE_NPC_AVOIDANCE && _actor is Npc && type == MoveType.GROUND) {
-            val hasRepulsion = abs(_separationForceX) > 0.1 || abs(_separationForceY) > 0.1
-            if (!hasRepulsion && wouldCollideWithCreature(nextX, nextY) && dist > 100) {
-                _blocked = true
-                return true 
-            }
-        }
         
         if (handleNextPosition(nextX, nextY, nextZ, type)) {
             _xAccurate = nextXAccurate
@@ -510,21 +579,27 @@ open class CreatureMove<T : Creature>(
             val dy = _actor.y - neighbor.y.toDouble()
             val distSq = dx * dx + dy * dy
             
-            if (distSq < checkRadius * checkRadius && distSq > 0.1) {
-                val dist = sqrt(distSq)
-                val combinedRadius = _actor.collisionRadius + neighbor.collisionRadius
-                
-                if (dist < combinedRadius + 10) {
-                    val overlap = (combinedRadius + 10) - dist
-                    val force = (overlap / (combinedRadius + 10)) * maxForce
-                    _separationForceX += (dx / dist) * force
-                    _separationForceY += (dy / dist) * force
-                } 
-                else if (dist < minSeparationDistance) {
-                    val normalizedDist = (minSeparationDistance - dist) / minSeparationDistance
-                    val force = normalizedDist * normalizedDist * maxForce * 0.4
-                    _separationForceX += (dx / dist) * force
-                    _separationForceY += (dy / dist) * force
+            if (distSq < checkRadius * checkRadius) {
+                if (distSq <= 0.1) {
+                    val angle = (_actor.objectId % 8) * (Math.PI / 4.0)
+                    _separationForceX += Math.cos(angle) * maxForce
+                    _separationForceY += Math.sin(angle) * maxForce
+                } else {
+                    val dist = sqrt(distSq)
+                    val combinedRadius = _actor.collisionRadius + neighbor.collisionRadius
+                    
+                    if (dist < combinedRadius + 10) {
+                        val overlap = (combinedRadius + 10) - dist
+                        val force = (overlap / (combinedRadius + 10)) * maxForce
+                        _separationForceX += (dx / dist) * force
+                        _separationForceY += (dy / dist) * force
+                    } 
+                    else if (dist < minSeparationDistance) {
+                        val normalizedDist = (minSeparationDistance - dist) / minSeparationDistance
+                        val force = normalizedDist * normalizedDist * maxForce * 0.4
+                        _separationForceX += (dx / dist) * force
+                        _separationForceY += (dy / dist) * force
+                    }
                 }
             }
         }
@@ -669,6 +744,9 @@ open class CreatureMove<T : Creature>(
         }
     }
     open fun stop() {
+        if (isRepositioning && !_actor.isMovementDisabled && !_actor.isAlikeDead) {
+            return
+        }
         if (_task == null && _followTask == null) return
 
         val wasFollowing = _followTask != null

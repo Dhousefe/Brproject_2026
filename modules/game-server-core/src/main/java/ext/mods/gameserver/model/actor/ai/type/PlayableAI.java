@@ -135,7 +135,18 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 				doIdleIntention();
 		}
 		else
+		{
+			if (_currentIntention.getType() == IntentionType.CAST)
+			{
+				final L2Skill skill = _currentIntention.getSkill();
+				if (skill != null && skill.isMagic() && !skill.nextActionIsAttack() && next.getType() == IntentionType.ATTACK)
+				{
+					doIdleIntention();
+					return;
+				}
+			}
 			doIntention(next);
+		}
 	}
 	
 	@Override
@@ -397,6 +408,30 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 			final Player targetPlayer = finalTarget.getActingPlayer();
 			if (actorPlayer != null && targetPlayer != null && actorPlayer != targetPlayer)
 				actorPlayer.updatePvPStatus(finalTarget);
+		}
+		
+		if (_actor.getCast().isCastingNow())
+		{
+			final L2Skill currentSkill = _actor.getCast().getCurrentSkill();
+			if (currentSkill != null && currentSkill.getId() == skill.getId() && (_actor.getCast().getTarget() == finalTarget || _actor.getCast().getTarget() == null || finalTarget == null))
+			{
+				clientActionFailed();
+				return;
+			}
+		}
+		
+		if (_currentIntention.getType() == IntentionType.CAST && _currentIntention.getSkill() != null && _currentIntention.getSkill().getId() == skill.getId())
+		{
+			if (_currentIntention.getFinalTarget() == finalTarget || _currentIntention.getFinalTarget() == null || finalTarget == null)
+			{
+				clientActionFailed();
+				return;
+			}
+		}
+		
+		if (_actor.getAttack().isAttackingNow())
+		{
+			_actor.getAttack().stop();
 		}
 		
 		if (_actor.getAttack().isAttackingNow() || _actor.getCast().isCastingNow() || _actor.isSittingNow() || _actor.isStandingNow() || canScheduleAfter(_currentIntention.getType(), IntentionType.CAST))

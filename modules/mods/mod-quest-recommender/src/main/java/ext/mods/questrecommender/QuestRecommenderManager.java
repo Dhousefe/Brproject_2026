@@ -25,6 +25,7 @@ import ext.mods.extensions.listener.actor.player.OnLevelUpListener;
 import ext.mods.extensions.listener.command.OnBypassCommandListener;
 import ext.mods.extensions.listener.manager.BypassCommandManager;
 import ext.mods.extensions.listener.manager.PlayerListenerManager;
+import ext.mods.extensions.hooks.LevelUpMakerHooks;
 import ext.mods.gameserver.data.HTMLData;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.data.xml.NpcData;
@@ -730,17 +731,32 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 		if (player == null || !_enabled)
 			return null;
 
+		final boolean lumEnabled = LevelUpMakerHooks.get().isEnabled();
 		final String html = HTMLData.getInstance().getHtm(player.getLocale(), "html/mods/questrecommender/tutorial_alert.htm");
 		if (html == null || html.isEmpty())
 		{
 			// Fallback limpo e inline caso htm ainda não exista no locale
-			return "<html><body><center><br><font color=LEVEL>Quest Recommender</font><br><br>"
-				+ "Descubra as melhores quests para o seu nível e classe!<br><br>"
-				+ "<button value=\"Ver Quests Recomendadas\" action=\"bypass -h questrec_show\" width=200 height=25 back=\"L2UI_ch3.BigButton3_down\" fore=\"L2UI_ch3.BigButton3\"><br>"
-				+ "</center></body></html>";
+			final StringBuilder fallback = new StringBuilder();
+			fallback.append("<html><body><center><br><font color=LEVEL>Quest Recommender</font><br><br>");
+			fallback.append("Descubra as melhores quests para o seu nível e classe!<br><br>");
+			fallback.append("<table cellpadding=2 cellspacing=2><tr>");
+			fallback.append("<td><button value=\"Ver Quests\" action=\"bypass -h questrec_show\" width=110 height=25 back=\"L2UI_ch3.BigButton3_down\" fore=\"L2UI_ch3.BigButton3\"></td>");
+			if (lumEnabled)
+			{
+				fallback.append("<td><button value=\"Level Up Maker\" action=\"bypass -h levelupmaker_teleport\" width=110 height=25 back=\"L2UI_ch3.BigButton3_down\" fore=\"L2UI_ch3.BigButton3\"></td>");
+			}
+			fallback.append("</tr></table><br>");
+			fallback.append("</center></body></html>");
+			return fallback.toString();
 		}
 
-		return html.replace("%button_bypass%", BYPASS_SHOW);
+		final String lumButton = lumEnabled
+			? "<td><button value=\"Level Up Maker\" action=\"bypass -h levelupmaker_teleport\" width=110 height=25 back=\"L2UI_ch3.BigButton3_down\" fore=\"L2UI_ch3.BigButton3\"></td>"
+			: "";
+
+		return html
+			.replace("%button_bypass%", BYPASS_SHOW)
+			.replace("%levelupmaker_button%", lumButton);
 	}
 
 	public void sendQuestionMark(Player player)
@@ -890,7 +906,19 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 		sb.append(recHtml);
 
 		sb.append("<br><font color=808080><small>Se estiver longe, será levado à cidade mais próxima.</small></font><br>");
-		sb.append("<button value=\"Fechar\" action=\"bypass -h questrec_close\" width=60 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\">");
+
+		final boolean lumEnabled = LevelUpMakerHooks.get().isEnabled();
+		if (lumEnabled)
+		{
+			sb.append("<table cellspacing=4><tr>");
+			sb.append("<td><button value=\"Level Up Maker\" action=\"bypass -h levelupmaker_teleport\" width=120 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\"></td>");
+			sb.append("<td><button value=\"Fechar\" action=\"bypass -h questrec_close\" width=70 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\"></td>");
+			sb.append("</tr></table>");
+		}
+		else
+		{
+			sb.append("<button value=\"Fechar\" action=\"bypass -h questrec_close\" width=70 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\">");
+		}
 		sb.append("</center></body></html>");
 
 		final NpcHtmlMessage msg = new NpcHtmlMessage(0);
@@ -969,26 +997,33 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 				final QuestState qs = player.getQuestList().getQuestState(qid);
 				final String statusText = (qs != null && qs.isStarted()) ? "<font color=00FF00>[EM PROGRESSO]</font>" : "<font color=LEVEL>[DISPONÍVEL]</font>";
 
-				sb.append("<table width=270 bgcolor=000000 cellpadding=2><tr>");
-				sb.append("<td width=195 align=left>");
+				sb.append("<table width=270 height=76 bgcolor=000000 cellpadding=4><tr>");
+				sb.append("<td width=195 height=76 align=left valign=top>");
 				sb.append("<font color=FFFFFF><b>").append(m.getName()).append("</b></font> ").append(statusText).append("<br1>");
 				sb.append("<font color=B09878>Nível: ").append(m.getMinLevel()).append("-").append(m.getMaxLevel()).append("</font><br1>");
 
-				// Renderização rica com ícones de recompensas a partir do XML
+				
+				final boolean hasExp = m.hasExpReward();
 				final QuestRewardItem[] rewards = m.getRewards();
-				if (rewards != null && rewards.length > 0)
-				{
-					sb.append("<table cellpadding=0 cellspacing=2><tr>");
-					for (int rIdx = 0; rIdx < Math.min(3, rewards.length); rIdx++)
-					{
-						final QuestRewardItem r = rewards[rIdx];
-						final Item item = ItemData.getInstance().getTemplate(r.getItemId());
-						final String icon = (item != null && item.getIcon() != null) ? item.getIcon() : "icon.etc_adena_i00";
-						final String itemName = (item != null) ? item.getName() : "Item " + r.getItemId();
-						final String countStr = java.text.NumberFormat.getIntegerInstance().format(r.getCount());
+				final boolean hasRewards = (rewards != null && rewards.length > 0);
 
-						sb.append("<td width=34 align=center><img src=\"").append(icon).append("\" width=32 height=32></td>");
-						sb.append("<td align=left><font color=LEVEL>").append(itemName).append("</font><br1><font color=B09878>x").append(countStr).append("</font></td>");
+				if (hasExp || hasRewards)
+				{
+					sb.append("<table cellpadding=0 cellspacing=2 height=36><tr>");
+					if (hasExp)
+					{
+						sb.append("<td width=34 height=34 align=center valign=middle><img src=\"icon.etc_blessed_kalie_i00\" width=32 height=32></td>");
+					}
+					if (hasRewards)
+					{
+						final int maxIcons = hasExp ? 4 : 5;
+						for (int rIdx = 0; rIdx < Math.min(maxIcons, rewards.length); rIdx++)
+						{
+							final QuestRewardItem r = rewards[rIdx];
+							final Item item = ItemData.getInstance().getTemplate(r.getItemId());
+							final String icon = (item != null && item.getIcon() != null) ? item.getIcon() : "icon.etc_adena_i00";
+							sb.append("<td width=34 height=34 align=center valign=middle><img src=\"").append(icon).append("\" width=32 height=32></td>");
+						}
 					}
 					sb.append("</tr></table>");
 				}
@@ -998,11 +1033,11 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 				}
 
 				sb.append("</td>");
-				sb.append("<td width=75 align=center>");
+				sb.append("<td width=75 height=76 align=center valign=center>");
 				sb.append("<button value=\"Ir até NPC\" action=\"bypass -h questrec_nav ").append(m.getQuestId()).append("\" width=70 height=21 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\">");
 				sb.append("</td>");
 				sb.append("</tr></table>");
-				sb.append("<img src=\"L2UI.SquareGray\" width=270 height=1><br1>");
+				sb.append("<br1><img src=\"L2UI.SquareGray\" width=270 height=1><br1>");
 			}
 		}
 

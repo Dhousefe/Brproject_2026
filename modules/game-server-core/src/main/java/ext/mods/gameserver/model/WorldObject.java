@@ -398,31 +398,31 @@ public abstract class WorldObject
 			newAreas = newRegion.getSurroundingRegions();
 		}
 		
-		for (WorldRegion region : oldAreas)
-		{
-			if (!newAreas.contains(region))
-			{
-				for (ZoneType zone : region.getZones())
-					zone.removeKnownObject(this);
-				
-				region.getObjects().forEach(o ->
-				{
-					if (o == this)
-						return;
-					
-					o.removeKnownObject(this);
-					removeKnownObject(o);
-				});
-				
-				if (this instanceof Player && region.isEmptyNeighborhood())
-					region.setActive(false);
-			}
-		}
-		
 		final Player player = (this instanceof Player p) ? p : null;
 		
 		try (var ignored = (player != null) ? player.openPacketBatch() : null)
 		{
+			for (WorldRegion region : oldAreas)
+			{
+				if (!newAreas.contains(region))
+				{
+					for (ZoneType zone : region.getZones())
+						zone.removeKnownObject(this);
+					
+					region.getObjects().forEach(o ->
+					{
+						if (o == this)
+							return;
+						
+						o.removeKnownObject(this);
+						removeKnownObject(o);
+					});
+					
+					if (this instanceof Player && region.isEmptyNeighborhood())
+						region.setActive(false);
+				}
+			}
+			
 			for (WorldRegion region : newAreas)
 			{
 				if (!oldAreas.contains(region))

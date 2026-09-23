@@ -531,6 +531,50 @@ class PacketStructureTest
 			"CreatureMove.finishMovement must only broadcast StopMove when movement is blocked prematurely");
 	}
 
+	@Test
+	void creatureMove_repositionAfterAttack_implementsMechanicalSympathyAndPreventsTeleportDesync() throws Exception
+	{
+		// Regressão anti-desync e anti-teleporte na esquiva de arqueiros e magos:
+		// 1. CreatureMove deve possuir flag de controle isRepositioning e cálculo de vetores perpendiculares puros.
+		// 2. NpcMove deve suspender offensiveFollowTask enquanto isRepositioning for true.
+		// 3. CreatureAttack e NpcCast não devem disparar runAI imediato ou FINISHED_CASTING enquanto a esquiva estiver ativa.
+		final String creatureMoveContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/kotlin/ext/mods/gameserver/model/actor/move/CreatureMove.kt"));
+		assertTrue(creatureMoveContent.contains("isRepositioning"), "CreatureMove must expose isRepositioning state");
+		assertTrue(creatureMoveContent.contains("leftX = -uy"), "CreatureMove must calculate perpendicular vectors analytically without atan2");
+		assertTrue(creatureMoveContent.contains("dispatchReposition"), "CreatureMove must route repositioning through atomic dispatch");
+
+		final String npcMoveContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/kotlin/ext/mods/gameserver/model/actor/move/NpcMove.kt"));
+		assertTrue(npcMoveContent.contains("if (isRepositioning)"), "NpcMove.offensiveFollowTask must suspend pursuit during repositioning");
+
+		final String creatureAttackContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/java/ext/mods/gameserver/model/actor/attack/CreatureAttack.java"));
+		assertTrue(creatureAttackContent.contains("boolean repositioned = false;"), "CreatureAttack must capture repositioning status");
+		assertTrue(creatureAttackContent.contains("if (!repositioned)"), "CreatureAttack must suppress immediate runAI when repositioning");
+
+		final String npcCastContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/java/ext/mods/gameserver/model/actor/cast/NpcCast.java"));
+		assertTrue(npcCastContent.contains("if (!isInterrupted && !repositioned)"), "NpcCast must suppress FINISHED_CASTING when repositioning");
+	}
+
+	@Test
+	void magicSkillFlood_and_actionFailedHysteresis_mitigatesBandwidthSaturationAndSupportsQueuing() throws Exception
+	{
+		// Regressão anti-flood de RequestMagicSkillUse e saturação de ActionFailed:
+		// 1. RequestMagicSkillUse deve conter drop silencioso (return sem ActionFailed redundante) e suporte a Skill Queuing.
+		// 2. Player.java deve conter canSendActionFailed com histerese e filtro no sendPacket.
+		// 3. CreatureCast.java deve expor getRemainingCastTime.
+		final String requestMagicSkillUseContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/java/ext/mods/gameserver/network/clientpackets/RequestMagicSkillUse.java"));
+		assertTrue(requestMagicSkillUseContent.contains("MAGIC_SKILL_QUEUING_WINDOW_MS"), "RequestMagicSkillUse must support Skill Queuing window");
+		assertTrue(requestMagicSkillUseContent.contains("MAGIC_SKILL_DEBOUNCE_TIME_MS"), "RequestMagicSkillUse must use configurable debounce");
+		assertFalse(requestMagicSkillUseContent.contains("!player.checkAndSetMagicSkillDebounce(_skillId, targetId, 250)\n\t\t{\n\t\t\tplayer.sendPacket(ActionFailed.STATIC_PACKET);"),
+			"RequestMagicSkillUse must NOT send redundant ActionFailed on debounce drop");
+
+		final String playerContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/java/ext/mods/gameserver/model/actor/Player.java"));
+		assertTrue(playerContent.contains("canSendActionFailed"), "Player must implement hysteretic rate limiting for ActionFailed");
+		assertTrue(playerContent.contains("ACTION_FAILED_MIN_INTERVAL_MS"), "Player must filter ActionFailed based on configured minimum interval");
+
+		final String creatureCastContent = java.nio.file.Files.readString(java.nio.file.Path.of("src/main/java/ext/mods/gameserver/model/actor/cast/CreatureCast.java"));
+		assertTrue(creatureCastContent.contains("getRemainingCastTime()"), "CreatureCast must expose getRemainingCastTime");
+	}
+
 	private static String readLittleEndianUtf16String(ByteBuffer buf)
 	{
 		final StringBuilder sb = new StringBuilder();

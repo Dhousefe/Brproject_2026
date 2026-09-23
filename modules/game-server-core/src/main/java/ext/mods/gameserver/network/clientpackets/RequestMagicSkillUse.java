@@ -77,6 +77,28 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 			return;
 		}
 		
-		player.getAI().tryToCast((player.getTarget() instanceof Creature targetCreature) ? targetCreature : null, skill, _ctrlPressed, _shiftPressed, 0);
+		final Creature targetCreature = (player.getTarget() instanceof Creature creature) ? creature : null;
+		final int targetId = targetCreature != null ? targetCreature.getObjectId() : 0;
+		
+		
+		final boolean isCasting = player.getCast().isCastingNow();
+		if (isCasting && ConfigPlayers.MAGIC_SKILL_QUEUING_WINDOW_MS > 0)
+		{
+			final long remainingCast = player.getCast().getRemainingCastTime();
+			if (remainingCast <= ConfigPlayers.MAGIC_SKILL_QUEUING_WINDOW_MS)
+			{
+				player.getAI().tryToCast(targetCreature, skill, _ctrlPressed, _shiftPressed, 0);
+				return;
+			}
+		}
+
+		final int debounceMs = ConfigPlayers.MAGIC_SKILL_DEBOUNCE_TIME_MS;
+		if (debounceMs > 0 && !player.checkAndSetMagicSkillDebounce(_skillId, targetId, debounceMs))
+		{
+			
+			return;
+		}
+		
+		player.getAI().tryToCast(targetCreature, skill, _ctrlPressed, _shiftPressed, 0);
 	}
 }

@@ -164,6 +164,8 @@ public abstract class AbstractAI<T extends Creature>
 	{
 		prepareIntention();
 		
+		_actor.getAttack().stop();
+		
 		_currentIntention.updateAsCast(_actor, target, skill, isCtrlPressed, isShiftPressed, itemObjectId, canMoveToTarget);
 		
 		thinkCast();

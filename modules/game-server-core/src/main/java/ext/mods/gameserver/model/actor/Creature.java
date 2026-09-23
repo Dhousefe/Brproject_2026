@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import ext.mods.Config;
@@ -150,6 +151,16 @@ public abstract class Creature extends WorldObject
 	private boolean _isFlying;
 	
     private boolean _townZone;
+    
+	@FunctionalInterface
+	public interface BulkBuffScope extends AutoCloseable
+	{
+		@Override
+		void close();
+	}
+	
+	private final AtomicInteger _bulkBuffDepth = new AtomicInteger(0);
+	private volatile boolean _statsModifiedInBulk = false;
 
 	public Creature(int objectId, CreatureTemplate template)
 	{
@@ -621,6 +632,36 @@ public abstract class Creature extends WorldObject
 	public final void updateEffectIcons() { updateEffectIcons(false); }
 	public void updateEffectIcons(boolean partyOnly) {}
 	
+	public final boolean isBulkBuffing()
+	{
+		return _bulkBuffDepth.get() > 0;
+	}
+	
+	public BulkBuffScope openBulkBuffScope()
+	{
+		_bulkBuffDepth.incrementAndGet();
+		return () ->
+		{
+			if (_bulkBuffDepth.decrementAndGet() == 0)
+			{
+				_effects.updateEffectIcons();
+				if (_statsModifiedInBulk)
+				{
+					_statsModifiedInBulk = false;
+					if (this instanceof Player player)
+					{
+						player.updateAndBroadcastStatus(2);
+						player.getStatus().broadcastStatusUpdate();
+					}
+					else if (this instanceof Summon summon && summon.getOwner() != null)
+					{
+						summon.updateAndBroadcastStatusAndInfos(1);
+					}
+				}
+			}
+		};
+	}
+	
 	public final void addStatFunc(Func function)
 	{
 		if (function == null) return;
@@ -680,6 +721,12 @@ public abstract class Creature extends WorldObject
 	private void broadcastModifiedStats(List<Stats> stats)
 	{
 		if (stats == null || stats.isEmpty()) return;
+		
+		if (isBulkBuffing())
+		{
+			_statsModifiedInBulk = true;
+			return;
+		}
 		
 		boolean broadcastFull = false;
 		StatusUpdate su = null;

@@ -210,12 +210,15 @@ public class CreatureAttack<T extends Creature> {
     }
 
     protected void onFinishedAttackBow(Creature mainTarget) {
+        boolean repositioned = false;
         if (_actor instanceof Npc) {
             if (_actor.getStatus().getPhysicalAttackRange() > 200) {
-                _actor.getMove().repositionAfterAttack(mainTarget);
+                repositioned = _actor.getMove().repositionAfterAttack(mainTarget);
             }
             
-            ((NpcAI) _actor.getAI()).runAI(false);
+            if (!repositioned) {
+                ((NpcAI) _actor.getAI()).runAI(false);
+            }
         }
         _actor.getAI().notifyEvent(AiEventType.FINISHED_ATTACK_BOW, null, null);
     }
@@ -223,12 +226,15 @@ public class CreatureAttack<T extends Creature> {
     protected void onFinishedAttack(Creature mainTarget) {
         this.clearAttackTask(false);
         
+        boolean repositioned = false;
         if (_actor instanceof Npc) {
             if (_actor.getStatus().getPhysicalAttackRange() > 200) {
-                _actor.getMove().repositionAfterAttack(mainTarget);
+                repositioned = _actor.getMove().repositionAfterAttack(mainTarget);
             }
     
-            ((NpcAI) _actor.getAI()).runAI(false);
+            if (!repositioned) {
+                ((NpcAI) _actor.getAI()).runAI(false);
+            }
         }
         _actor.getAI().notifyEvent(AiEventType.FINISHED_ATTACK, null, null);
     }

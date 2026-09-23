@@ -247,6 +247,9 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
         }
         
         if (_actor.isMoving()) {
+            if (_actor.getMove().isRepositioning()) {
+                return;
+            }
             _actor.getMove().stop();
         }
         if (!_actor.isFacing(target, 35)) {

@@ -80,12 +80,13 @@ public class NpcCast extends CreatureCast<Npc>
         for (Quest quest : _actor.getTemplate().getEventQuests(EventHandler.USE_SKILL_FINISHED))
             quest.onUseSkillFinished(_actor, target, _skill, !isInterrupted);
         
+        boolean repositioned = false;
         if (!isInterrupted && target != null)
         {
-            _actor.getMove().repositionAfterAttack(target);
+            repositioned = _actor.getMove().repositionAfterAttack(target);
         }
         
-        if (!isInterrupted)
+        if (!isInterrupted && !repositioned)
             _actor.getAI().notifyEvent(AiEventType.FINISHED_CASTING, null, null);
     }
 }
