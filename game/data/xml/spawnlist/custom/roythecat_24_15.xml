@@ -12,6 +12,9 @@
 	</npcmaker>
 	<territory name="roythecat_83086-147906" minZ="-3480" maxZ="-3448">
 		<node x="83086" y="147906" />
+		<node x="83096" y="147906" />
+		<node x="83096" y="147916" />
+		<node x="83086" y="147916" />
 	</territory>
 	<npcmaker name="roythecat_83086-147906" territory="roythecat_83086-147906" maximumNpcs="1">
 		<ai type="default_maker"/>
@@ -19,6 +22,9 @@
 	</npcmaker>
 	<territory name="roythecat_16460-142859" minZ="-2722" maxZ="-2690">
 		<node x="16460" y="142859" />
+		<node x="16470" y="142859" />
+		<node x="16470" y="142869" />
+		<node x="16460" y="142869" />
 	</territory>
 	<npcmaker name="roythecat_16460-142859" territory="roythecat_16460-142859" maximumNpcs="1">
 		<ai type="default_maker"/>
@@ -26,6 +32,9 @@
 	</npcmaker>
 	<territory name="roythecat_147363--554338" minZ="-2749" maxZ="-2717">
 		<node x="147363" y="-554338" />
+		<node x="147373" y="-554338" />
+		<node x="147373" y="-554328" />
+		<node x="147363" y="-554328" />
 	</territory>
 	<npcmaker name="roythecat_147363--554338" territory="roythecat_147363--554338" maximumNpcs="1">
 		<ai type="default_maker"/>
@@ -33,6 +42,9 @@
 	</npcmaker>
 	<territory name="roythecat_147574-27407" minZ="-2220" maxZ="-2188">
 		<node x="147574" y="27407" />
+		<node x="147584" y="27407" />
+		<node x="147584" y="27417" />
+		<node x="147574" y="27417" />
 	</territory>
 	<npcmaker name="roythecat_147574-27407" territory="roythecat_147574-27407" maximumNpcs="1">
 		<ai type="default_maker"/>
@@ -40,6 +52,9 @@
 	</npcmaker>
 	<territory name="roythecat_44192--48503" minZ="-813" maxZ="-781">
 		<node x="44192" y="-48503" />
+		<node x="44202" y="-48503" />
+		<node x="44202" y="-48493" />
+		<node x="44192" y="-48493" />
 	</territory>
 	<npcmaker name="roythecat_44192--48503" territory="roythecat_44192--48503" maximumNpcs="1">
 		<ai type="default_maker"/>
