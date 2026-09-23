@@ -78,7 +78,15 @@ public class PlayerData implements IXmlReader
 			forEach(classNode, "macros", itemsNode ->
 			{
 				final List<Macros> items = new ArrayList<>();
-				forEach(itemsNode, "macro", itemNode -> items.add(new Macros(parseAttributes(itemNode))));
+				forEach(itemsNode, "macro", itemNode ->
+				{
+					final Macros macro = new Macros(parseAttributes(itemNode));
+					// Only expose the two macros intended for every new character.
+					// Other utility macros are legacy/project-specific and must not be
+					// injected automatically from the class templates.
+					if (".menu".equalsIgnoreCase(macro.command()) || ".premium".equalsIgnoreCase(macro.command()))
+						items.add(macro);
+				});
 				set.set("macros", items);
 			});
 			forEach(classNode, "items", itemsNode ->
