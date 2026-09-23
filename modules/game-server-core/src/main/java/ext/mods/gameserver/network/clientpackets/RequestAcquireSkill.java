@@ -54,36 +54,66 @@ public class RequestAcquireSkill extends L2GameClientPacket
 	protected void runImpl()
 	{
 		if (_skillId <= 0 || _skillLevel <= 0)
+		{
+			LOGGER.warn("Rejected skill learn request with invalid skill data: id={}, level={}, type={}", _skillId, _skillLevel, _skillType);
 			return;
+		}
 		
 		final Player player = getClient().getPlayer();
 		if (player == null)
+		{
+			LOGGER.warn("Rejected skill learn request because the client has no active player: id={}, level={}, type={}", _skillId, _skillLevel, _skillType);
 			return;
+		}
 		
 		final Folk folk = player.getCurrentFolk();
 		if (folk == null || !player.getAI().canDoInteract(folk))
+		{
+			LOGGER.warn("Rejected skill learn request for player={} because the trainer interaction is invalid: folk={}, canInteract={}", player.getName(), folk == null ? "null" : folk.getNpcId(), folk != null && player.getAI().canDoInteract(folk));
 			return;
+		}
 		
 		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
 		if (skill == null)
+		{
+			LOGGER.warn("Rejected skill learn request for player={} because the skill is not loaded: id={}, level={}", player.getName(), _skillId, _skillLevel);
 			return;
+		}
+
+		LOGGER.info("Skill learn request: player={}, class={}, level={}, sp={}, skill={}({}), type={}, trainer={}", player.getName(), player.getClassId(), player.getStatus().getLevel(), player.getStatus().getSp(), skill.getName(), _skillId, _skillType, folk.getNpcId());
 		
 		switch (_skillType)
 		{
 			case 0:
 				int skillLvl = player.getSkillLevel(_skillId);
 				if (skillLvl >= _skillLevel)
+				{
+					LOGGER.warn("Rejected skill learn for player={} because it is already known: skill={} currentLevel={} requestedLevel={}", player.getName(), _skillId, skillLvl, _skillLevel);
 					return;
+				}
 				
 				if (skillLvl != _skillLevel - 1)
+				{
+					LOGGER.warn("Rejected skill learn for player={} because the level sequence is invalid: skill={} currentLevel={} requestedLevel={}", player.getName(), _skillId, skillLvl, _skillLevel);
 					return;
+				}
+
+				if (!folk.getTemplate().canTeach(player.getClassId()))
+				{
+					LOGGER.warn("Rejected skill learn for player={} because trainer={} cannot teach class={}", player.getName(), folk.getNpcId(), player.getClassId());
+					return;
+				}
 				
 				final GeneralSkillNode gsn = player.getTemplate().findSkill(_skillId, _skillLevel);
 				if (gsn == null)
+				{
+					LOGGER.warn("Rejected skill learn for player={} because no skill-tree node exists: class={}, skill={}({})", player.getName(), player.getClassId(), _skillId, _skillLevel);
 					return;
+				}
 				
 				if (player.getStatus().getSp() < gsn.getCorrectedCost())
 				{
+					LOGGER.warn("Player={} lacks SP for skill={}({}): currentSp={}, requiredSp={}", player.getName(), _skillId, _skillLevel, player.getStatus().getSp(), gsn.getCorrectedCost());
 					player.sendPacket(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
 					folk.showSkillList(player);
 					return;
