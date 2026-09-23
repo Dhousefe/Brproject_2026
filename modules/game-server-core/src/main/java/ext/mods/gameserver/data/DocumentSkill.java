@@ -47,10 +47,12 @@ public final class DocumentSkill extends DocumentBase
 	
 	private Skill _currentSkill;
 	private final List<L2Skill> _skillsInFile = new ArrayList<>();
+	private final String _sourceFileName;
 	
 	public DocumentSkill(File file)
 	{
 		super(file);
+		_sourceFileName = file.getName();
 	}
 	
 	private void setCurrentSkill(Skill skill)
@@ -108,20 +110,42 @@ public final class DocumentSkill extends DocumentBase
 				{
 					if ("skill".equalsIgnoreCase(d.getNodeName()))
 					{
-						setCurrentSkill(new Skill());
-						parseSkill(d);
-						_skillsInFile.addAll(_currentSkill.skills);
-						resetTable();
+						parseSkillSafely(d);
 					}
 				}
 			}
 			else if ("skill".equalsIgnoreCase(n.getNodeName()))
 			{
-				setCurrentSkill(new Skill());
-				parseSkill(n);
-				_skillsInFile.addAll(_currentSkill.skills);
+				parseSkillSafely(n);
 			}
 		}
+	}
+
+	private void parseSkillSafely(Node node)
+	{
+		setCurrentSkill(new Skill());
+		try
+		{
+			parseSkill(node);
+			_skillsInFile.addAll(_currentSkill.skills);
+		}
+		catch (Exception e)
+		{
+			final Node id = node.getAttributes() == null ? null : node.getAttributes().getNamedItem("id");
+			final String skillId = id == null ? "unknown" : id.getNodeValue();
+			System.err.println("[SKILL-DIAG] Failed skill XML entry: file=" + getFileName() + ", id=" + skillId);
+			e.printStackTrace(System.err);
+			LOGGER.error("Failed parsing skill id {} in {}.", e, skillId, getFileName());
+		}
+		finally
+		{
+			resetTable();
+		}
+	}
+
+	private String getFileName()
+	{
+		return _sourceFileName;
 	}
 	
 	protected void parseSkill(Node n)

@@ -42,6 +42,7 @@ public class RequestAcquireSkillInfo extends L2GameClientPacket
 		_skillId = readD();
 		_skillLevel = readD();
 		_skillType = readD();
+		System.err.println("[SKILL-DIAG] RequestAcquireSkillInfo packet: id=" + _skillId + ", level=" + _skillLevel + ", type=" + _skillType);
 	}
 	
 	@Override
@@ -53,6 +54,7 @@ public class RequestAcquireSkillInfo extends L2GameClientPacket
 		final Player player = getClient().getPlayer();
 		if (player == null)
 			return;
+		System.err.println("[SKILL-DIAG] Processing skill info: player=" + player.getName() + ", class=" + player.getClassId());
 		
 		final Folk folk = player.getCurrentFolk();
 		if (folk == null || !player.getAI().canDoInteract(folk))
@@ -60,7 +62,10 @@ public class RequestAcquireSkillInfo extends L2GameClientPacket
 		
 		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
 		if (skill == null)
+		{
+			System.err.println("[SKILL-DIAG] SkillTable miss: id=" + _skillId + ", level=" + _skillLevel);
 			return;
+		}
 		
 		final AcquireSkillInfo asi;
 		
@@ -84,8 +89,10 @@ public class RequestAcquireSkillInfo extends L2GameClientPacket
 					final int bookId = SpellbookData.getInstance().getBookForSkill(_skillId, _skillLevel);
 					if (bookId != 0)
 						asi.addRequirement(99, bookId, 1, 50);
-					sendPacket(asi);
+						sendPacket(asi);
 				}
+				else
+					System.err.println("[SKILL-DIAG] Skill tree miss: class=" + player.getClassId() + ", id=" + _skillId + ", level=" + _skillLevel);
 				break;
 			
 			case 1:

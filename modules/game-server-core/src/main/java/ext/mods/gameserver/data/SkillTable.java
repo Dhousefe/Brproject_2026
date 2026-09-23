@@ -101,8 +101,10 @@ public class SkillTable
 			   
 		{
 																							
+			System.err.println("[SKILL-DIAG] Loading skill XML: " + file.getName());
 			DocumentSkill doc = new DocumentSkill(file);
 			doc.parse();
+			System.err.println("[SKILL-DIAG] Parsed skill XML: " + file.getName() + " skills=" + doc.getSkills().size());
 			
 			for (L2Skill skill : doc.getSkills())
 				 
