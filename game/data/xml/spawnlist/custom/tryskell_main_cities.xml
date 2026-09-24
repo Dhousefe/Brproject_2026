@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<!-- Custom Tryskell spawns. Each territory is a closed four-node polygon. -->
+	<territory name="tryskell_gludio" minZ="-3115" maxZ="-3083">
+		<node x="-12224" y="122949" />
+		<node x="-12124" y="122949" />
+		<node x="-12124" y="123049" />
+		<node x="-12224" y="123049" />
+	</territory>
+	<npcmaker name="tryskell_gludio" territory="tryskell_gludio" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="-12174;122999;-3099;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_gludin" minZ="-3145" maxZ="-3113">
+		<node x="-83208" y="150593" />
+		<node x="-83108" y="150593" />
+		<node x="-83108" y="150693" />
+		<node x="-83208" y="150693" />
+	</territory>
+	<npcmaker name="tryskell_gludin" territory="tryskell_gludin" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="-83158;150643;-3129;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_dion" minZ="-2712" maxZ="-2680">
+		<node x="15476" y="142836" />
+		<node x="15576" y="142836" />
+		<node x="15576" y="142936" />
+		<node x="15476" y="142936" />
+	</territory>
+	<npcmaker name="tryskell_dion" territory="tryskell_dion" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="15526;142886;-2696;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_aden" minZ="-2024" maxZ="-1992">
+		<node x="147766" y="25519" />
+		<node x="147866" y="25519" />
+		<node x="147866" y="25619" />
+		<node x="147766" y="25619" />
+	</territory>
+	<npcmaker name="tryskell_aden" territory="tryskell_aden" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="147816;25569;-2008;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_oren" minZ="-1512" maxZ="-1480">
+		<node x="83068" y="53845" />
+		<node x="83168" y="53845" />
+		<node x="83168" y="53945" />
+		<node x="83068" y="53945" />
+	</territory>
+	<npcmaker name="tryskell_oren" territory="tryskell_oren" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="83118;53895;-1496;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_goddard" minZ="-2750" maxZ="-2718">
+		<node x="147991" y="-55450" />
+		<node x="148091" y="-55450" />
+		<node x="148091" y="-55350" />
+		<node x="147991" y="-55350" />
+	</territory>
+	<npcmaker name="tryskell_goddard" territory="tryskell_goddard" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="148041;-55400;-2734;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_rune" minZ="-808" maxZ="-776">
+		<node x="43934" y="-47765" />
+		<node x="44034" y="-47765" />
+		<node x="44034" y="-47665" />
+		<node x="43934" y="-47665" />
+	</territory>
+	<npcmaker name="tryskell_rune" territory="tryskell_rune" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="43984;-47715;-792;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_talking_island" minZ="-3746" maxZ="-3714">
+		<node x="-84521" y="243119" />
+		<node x="-84421" y="243119" />
+		<node x="-84421" y="243219" />
+		<node x="-84521" y="243219" />
+	</territory>
+	<npcmaker name="tryskell_talking_island" territory="tryskell_talking_island" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="-84471;243169;-3730;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_elven_village" minZ="-3076" maxZ="-3044">
+		<node x="45350" y="48916" />
+		<node x="45450" y="48916" />
+		<node x="45450" y="49016" />
+		<node x="45350" y="49016" />
+	</territory>
+	<npcmaker name="tryskell_elven_village" territory="tryskell_elven_village" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="45400;48966;-3060;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_dark_elven_village" minZ="-4600" maxZ="-4568">
+		<node x="10598" y="16975" />
+		<node x="10698" y="16975" />
+		<node x="10698" y="17075" />
+		<node x="10598" y="17075" />
+	</territory>
+	<npcmaker name="tryskell_dark_elven_village" territory="tryskell_dark_elven_village" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="10648;17025;-4584;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_dwarven_village" minZ="-904" maxZ="-872">
+		<node x="115035" y="-178399" />
+		<node x="115135" y="-178399" />
+		<node x="115135" y="-178299" />
+		<node x="115035" y="-178299" />
+	</territory>
+	<npcmaker name="tryskell_dwarven_village" territory="tryskell_dwarven_village" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="115085;-178349;-888;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_orc_village" minZ="-256" maxZ="-224">
+		<node x="-45300" y="-112331" />
+		<node x="-45200" y="-112331" />
+		<node x="-45200" y="-112231" />
+		<node x="-45300" y="-112231" />
+	</territory>
+	<npcmaker name="tryskell_orc_village" territory="tryskell_orc_village" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="-45250;-112281;-240;0" total="1" respawn="60sec" />
+	</npcmaker>
+
+	<territory name="tryskell_hunter_village" minZ="-2711" maxZ="-2679">
+		<node x="116810" y="77221" />
+		<node x="116910" y="77221" />
+		<node x="116910" y="77321" />
+		<node x="116810" y="77321" />
+	</territory>
+	<npcmaker name="tryskell_hunter_village" territory="tryskell_hunter_village" maximumNpcs="1">
+		<ai type="default_maker"/>
+		<npc id="50002" pos="116860;77271;-2695;0" total="1" respawn="60sec" />
+	</npcmaker>
+</list>

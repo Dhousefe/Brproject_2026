@@ -26,11 +26,17 @@ import ext.mods.commons.util.LinTime;
 
 import ext.mods.gameserver.data.manager.CastleManorManager;
 import ext.mods.gameserver.data.manager.SevenSignsManager;
+import ext.mods.gameserver.data.xml.AugmentationData;
 import ext.mods.gameserver.data.xml.ScriptData;
+import ext.mods.gameserver.enums.Paperdoll;
 import ext.mods.gameserver.enums.QuestStatus;
 import ext.mods.gameserver.handler.IAdminCommandHandler;
+import ext.mods.gameserver.model.Augmentation;
 import ext.mods.gameserver.model.WorldObject;
 import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.holder.IntIntHolder;
+import ext.mods.gameserver.model.item.instance.ItemInstance;
+import ext.mods.gameserver.network.serverpackets.ItemList;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.scripting.Quest;
 import ext.mods.gameserver.scripting.QuestState;
@@ -50,12 +56,16 @@ public class AdminTest implements IAdminCommandHandler
 		
 		if (!st.hasMoreTokens())
 		{
-			player.sendMessage("Usage : //test setquest || ssq_change || manor_change || dt_set(add, reset, print)");
+			player.sendMessage("Usage: //test allaugment <augmentationId> [itemObjectId] | setquest | ssq_change | manor_change | dt_set(add, reset, print)");
 			return;
 		}
 		
 		switch (st.nextToken())
 		{
+			case "allaugment":
+				applyAugmentation(st, player);
+				break;
+
 			case "setquest":
 				try
 				{
@@ -166,8 +176,69 @@ public class AdminTest implements IAdminCommandHandler
 				break;
 				
 			default:
-				player.sendMessage("Usage : //test setquest || ssq_change || manor_change || dt_set(add, reset, print)");
+				player.sendMessage("Usage: //test allaugment <augmentationId> [itemObjectId] | setquest | ssq_change | manor_change | dt_set(add, reset, print)");
 				break;
+		}
+	}
+
+	private void applyAugmentation(StringTokenizer st, Player admin)
+	{
+		if (!st.hasMoreTokens())
+		{
+			sendFile(admin, "augment.htm");
+			return;
+		}
+
+		try
+		{
+			final int augmentationId = Integer.parseInt(st.nextToken());
+			final Player targetPlayer = admin.getTarget() instanceof Player target ? target : admin;
+			final IntIntHolder skillInfo = AugmentationData.getInstance().getAllSkills().get(augmentationId);
+			if (skillInfo == null)
+			{
+				admin.sendMessage("Augmentation ID " + augmentationId + " was not found in the loaded augmentation skills.");
+				return;
+			}
+
+			final ItemInstance item;
+			if (st.hasMoreTokens())
+				item = targetPlayer.getInventory().getItemByObjectId(Integer.parseInt(st.nextToken()));
+			else
+				item = targetPlayer.getInventory().getItemFrom(Paperdoll.RHAND);
+
+			if (item == null)
+			{
+				admin.sendMessage("No item was found. Equip the weapon or provide its inventory objectId.");
+				return;
+			}
+			if (!item.isWeapon())
+			{
+				admin.sendMessage("The selected item is not a weapon.");
+				return;
+			}
+			if (item.isAugmented())
+			{
+				admin.sendMessage("The selected weapon is already augmented. Remove its augmentation first.");
+				return;
+			}
+
+			final Augmentation augmentation = new Augmentation(augmentationId, skillInfo.getId(), skillInfo.getValue());
+			if (!item.setAugmentation(augmentation, targetPlayer))
+			{
+				admin.sendMessage("The augmentation could not be applied.");
+				return;
+			}
+
+			if (item.isEquipped())
+				augmentation.applyBonus(targetPlayer);
+
+			targetPlayer.sendPacket(new ItemList(targetPlayer, false));
+			targetPlayer.broadcastUserInfo();
+			admin.sendMessage("Applied augmentation " + augmentationId + " to " + targetPlayer.getName() + "'s " + item.getItem().getName() + " (objectId " + item.getObjectId() + ").");
+		}
+		catch (NumberFormatException e)
+		{
+			admin.sendMessage("Invalid number. Usage: //test allaugment <augmentationId> [itemObjectId]");
 		}
 	}
 	
