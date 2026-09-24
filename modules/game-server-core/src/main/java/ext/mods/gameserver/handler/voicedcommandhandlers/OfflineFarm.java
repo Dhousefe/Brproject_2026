@@ -24,6 +24,7 @@ import ext.mods.gameserver.handler.IVoicedCommandHandler;
 import ext.mods.gameserver.model.World;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.entity.autofarm.AutoFarmManager;
+import ext.mods.gameserver.model.entity.autofarm.AutoFarmProfile;
 import ext.mods.gameserver.model.entity.autofarm.OfflineFarmManager;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.ActionFailed;
@@ -66,6 +67,14 @@ public class OfflineFarm implements IVoicedCommandHandler
 		if (!AutoFarmManager.getInstance().isPlayerActive(player.getObjectId()))
 		{
 			player.sendMessage("You must activate autofarm first to use away mode.");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+
+		final AutoFarmProfile profile = AutoFarmManager.getInstance().getProfile(player);
+		if (profile == null || !profile.canUseAutoFarm())
+		{
+			player.sendMessage("Tempo limite de AutoFarm esgotado. Use itens de tempo ou aguarde o reset de 24 horas para usar o modo away.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
@@ -145,6 +154,14 @@ public class OfflineFarm implements IVoicedCommandHandler
 	{
 		if (confirmed && "away".equals(player.getLastCommand()))
 		{
+			final AutoFarmProfile profile = AutoFarmManager.getInstance().getProfile(player);
+			if (profile == null || !profile.canUseAutoFarm())
+			{
+				player.sendMessage("Tempo limite de AutoFarm esgotado. Use itens de tempo ou aguarde o reset de 24 horas para usar o modo away.");
+				player.setLastCommand(null);
+				return false;
+			}
+
 			if (OfflineFarmManager.getInstance().startOfflineFarm(player))
 			{
 				player.sendMessage("Away mode activated successfully!");

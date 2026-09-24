@@ -66,7 +66,7 @@ public class AutoFarmProfile
 	private Set<String> _targets;
 	private Map<Integer, Integer> _skills;
 	private Map<Integer, AutoFarmArea> _areas = new HashMap<>();
-	private final ReentrantLock _lock = new ReentrantLock();
+	private final java.util.concurrent.atomic.AtomicBoolean _isRoutineRunning = new java.util.concurrent.atomic.AtomicBoolean(false);
 	private Location _lastLocation;
 	private Player _player;
 	private AutoFarmMacro _macro;
@@ -74,6 +74,8 @@ public class AutoFarmProfile
 	private Location _anchorLocation;
 	
 	private long _dailyTimeUsed = 0;
+	private long _cycleStartTime = 0;
+	private long _extraTime = 0;
 	private long _sessionStartTime = 0;
 	
 	private boolean _useSpoilSweep = false;
@@ -217,7 +219,7 @@ public class AutoFarmProfile
 		if (_routine == null)
 			_routine = new AutoFarmRoutine(this);
 		
-		if (_lock.tryLock())
+		if (_isRoutineRunning.compareAndSet(false, true))
 		{
 			try
 			{
@@ -229,7 +231,7 @@ public class AutoFarmProfile
 			}
 			finally
 			{
-				_lock.unlock();
+				_isRoutineRunning.set(false);
 			}
 		}
 	}
@@ -279,7 +281,7 @@ public class AutoFarmProfile
 	public Map<Integer, Integer> getSkills()
 	{
 		if (_skills == null)
-			_skills = new HashMap<>(6);
+			_skills = new it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap(6);
 		
 		return _skills;
 	}
@@ -529,6 +531,26 @@ public class AutoFarmProfile
 	{
 		_dailyTimeUsed = timeUsed;
 	}
+
+	public long getCycleStartTime()
+	{
+		return _cycleStartTime;
+	}
+
+	public void setCycleStartTime(long cycleStartTime)
+	{
+		_cycleStartTime = cycleStartTime;
+	}
+
+	public long getExtraTime()
+	{
+		return _extraTime;
+	}
+
+	public void setExtraTime(long extraTime)
+	{
+		_extraTime = extraTime;
+	}
 	
 	public long getSessionStartTime()
 	{
@@ -539,76 +561,137 @@ public class AutoFarmProfile
 	{
 		_sessionStartTime = startTime;
 	}
+
+	public long getDailyLimitMillis()
+	{
+		int hours = ConfigProject.AUTOFARM_DAILY_LIMIT_HOURS;
+		return hours > 0 ? (hours * 3600L * 1000L) : 0L;
+	}
+
+	public long getResetCycleMillis()
+	{
+		int hours = ConfigProject.AUTOFARM_RESET_CYCLE_HOURS;
+		return (hours > 0 ? hours : 24) * 3600L * 1000L;
+	}
+
+	public boolean isPremiumUnlimited()
+	{
+		return ConfigProject.AUTOFARM_PREMIUM_UNLIMITED && _player != null && _player.getPremiumService() > 0;
+	}
+
+	public void checkCycleReset()
+	{
+		final long now = System.currentTimeMillis();
+		final long cycleDuration = getResetCycleMillis();
+		if (_cycleStartTime > 0 && (now - _cycleStartTime) >= cycleDuration)
+		{
+			_dailyTimeUsed = 0;
+			_cycleStartTime = 0;
+			saveTimeUsage();
+		}
+	}
 	
 	public long getRemainingTime()
 	{
-		if (_player == null)
-			return 0;
-			
-		if (_player.getPremiumService() > 0)
+		if (isPremiumUnlimited())
 			return Long.MAX_VALUE;
-		
-		long totalAvailableTime = 90000000 + getExtraTimeAvailable();
-		return Long.MAX_VALUE;
+
+		checkCycleReset();
+
+		final long dailyLimit = getDailyLimitMillis();
+		if (dailyLimit <= 0 && _extraTime <= 0)
+			return Long.MAX_VALUE;
+
+		final long currentSession = getCurrentSessionTime();
+		final long totalUsed = _dailyTimeUsed + currentSession;
+
+		final long remainingDaily = Math.max(0, dailyLimit - totalUsed);
+		final long overDaily = Math.max(0, totalUsed - dailyLimit);
+		final long remainingExtra = Math.max(0, _extraTime - overDaily);
+
+		return remainingDaily + remainingExtra;
 	}
 	
 	public boolean canUseAutoFarm()
 	{
-		if (_player == null)
-			return false;
-			
-		if (_player.getPremiumService() > 0)
+		if (isPremiumUnlimited())
+			return true;
+
+		final long dailyLimit = getDailyLimitMillis();
+		if (dailyLimit <= 0)
 			return true;
 		
-		long remainingTime = getRemainingTime();
-		return remainingTime > 1000;
+		return getRemainingTime() > 1000L;
 	}
 	
 	public void addExtraTime(long extraTime)
 	{
-		if (_player == null)
+		if (extraTime <= 0)
 			return;
 			
-		_dailyTimeUsed = Math.max(0, _dailyTimeUsed - extraTime);
-		AutoFarmData.getInstance().addExtraTime(_player.getObjectId(), extraTime);
+		_extraTime += extraTime;
+		if (_player != null)
+		{
+			AutoFarmData.getInstance().addExtraTime(_player.getObjectId(), extraTime);
+		}
 	}
 	
 	public long getExtraTimeAvailable()
 	{
-		if (_player == null)
-			return 0;
-			
-		return AutoFarmData.getInstance().getExtraTime(_player.getObjectId());
+		return _extraTime;
 	}
 	
 	public long getTotalAvailableTime()
 	{
-		if (_player == null)
-			return 0;
-			
-		if (_player.getPremiumService() > 0)
+		if (isPremiumUnlimited())
+			return Long.MAX_VALUE;
+
+		final long dailyLimit = getDailyLimitMillis();
+		if (dailyLimit <= 0)
 			return Long.MAX_VALUE;
 		
-		return 90000000 + getExtraTimeAvailable();
+		return dailyLimit + _extraTime;
 	}
 	
 	public void startTimeTracking()
 	{
+		checkCycleReset();
+		if (_cycleStartTime == 0)
+		{
+			_cycleStartTime = System.currentTimeMillis();
+		}
 		_sessionStartTime = System.currentTimeMillis();
+		saveTimeUsage();
 	}
 	
 	public void stopTimeTracking()
 	{
 		if (_sessionStartTime > 0)
 		{
-			long sessionTime = System.currentTimeMillis() - _sessionStartTime;
-			_dailyTimeUsed += sessionTime;
-			_sessionStartTime = 0;
-			
-			if (_player != null && _player.isOnline())
+			final long session = System.currentTimeMillis() - _sessionStartTime;
+			final long dailyLimit = getDailyLimitMillis();
+
+			if (dailyLimit > 0)
 			{
-				AutoFarmData.getInstance().updatePlayerTimeUsage(_player.getObjectId(), sessionTime);
+				long availableDaily = Math.max(0, dailyLimit - _dailyTimeUsed);
+				if (session <= availableDaily)
+				{
+					_dailyTimeUsed += session;
+				}
+				else
+				{
+					_dailyTimeUsed += availableDaily;
+					long over = session - availableDaily;
+					_extraTime = Math.max(0, _extraTime - over);
+				}
 			}
+			else
+			{
+				_dailyTimeUsed += session;
+			}
+
+			_sessionStartTime = 0;
+			saveTimeUsage();
 		}
 	}
 	
@@ -621,24 +704,37 @@ public class AutoFarmProfile
 	
 	public void checkTimeLimit()
 	{
-		if (_player == null)
-			return;
-			
-		if (_player.getPremiumService() > 0)
+		if (_player == null || isPremiumUnlimited())
 			return;
 		
-		if (getRemainingTime() <= 0)
+		if (!canUseAutoFarm())
 		{
+			if (_routine != null && isRunning())
+			{
+				_routine.stop("Tempo limite diário de AutoFarm atingido. Use itens de tempo ou aguarde o reset de 24 horas.");
+			}
 		}
 	}
 	
 	public void saveTimeUsage()
 	{
-		if (_player != null && _player.isOnline() && _dailyTimeUsed > 0)
+		if (_player != null)
 		{
-			AutoFarmData.getInstance().updatePlayerTimeUsage(_player.getObjectId(), _dailyTimeUsed);
-			_dailyTimeUsed = 0;
+			AutoFarmData.getInstance().updatePlayerTimeUsageData(
+				_player.getObjectId(),
+				_dailyTimeUsed,
+				_cycleStartTime,
+				_extraTime
+			);
 		}
+	}
+
+	public void restoreTimeData(AutoFarmData.TimeUsageData data)
+	{
+		_dailyTimeUsed = data.getTimeUsed();
+		_cycleStartTime = data.getCycleStartTime();
+		_extraTime = data.getExtraTime();
+		checkCycleReset();
 	}
 	
 	public Location getAnchorLocation()

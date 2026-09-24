@@ -15,7 +15,7 @@ import ext.mods.gameserver.model.actor.Player;
 /**
  * Gerenciador de cadenciamento suave (pacing) e coalescing de pacotes NpcInfo e DeleteObject.
  *
- * Mechanical Sympathy:
+ * Mechanical Sympathy Dhousefe:
  * - Evita congelamentos (freezes/FPS drops) no cliente L2 Unreal Engine 2.5 ao instanciar
  *   dezenas de atores 3D num único tick.
  * - Despacha os primeiros K monstros instantaneamente e cadencia os excedentes em micro-lotes
@@ -117,6 +117,63 @@ public final class NpcSpawnPacer
 					_dispatchTask = null;
 				}
 				return true;
+			}
+			return false;
+		}
+		finally
+		{
+			_lock.unlock();
+		}
+	}
+
+	/**
+	 * Verifica se um NPC específico ainda está aguardando envio na fila de cadenciamento.
+	 * Consulta O(1) thread-safe através do _pendingSet.
+	 *
+	 * @param objectId O objectId do NPC
+	 * @return true se o NPC está pendente de despacho
+	 */
+	public boolean isPending(int objectId)
+	{
+		_lock.lock();
+		try
+		{
+			return _pendingSet.contains(objectId);
+		}
+		finally
+		{
+			_lock.unlock();
+		}
+	}
+
+	/**
+	 * Força o envio imediato e prioritário de um NPC que estava pendente,
+	 * retirando-o da fila cadenciada e transmitindo seu NpcInfo no socket.
+	 * Fundamental para sincronização atômica pré-combate do AutoFarm.
+	 *
+	 * @param objectId O objectId do NPC a ser liberado imediatamente
+	 * @return true se o NPC foi retirado da fila e despachado agora
+	 */
+	public boolean flushImmediate(int objectId)
+	{
+		_lock.lock();
+		try
+		{
+			if (_pendingSet.remove(objectId))
+			{
+				_pendingQueue.rem(objectId);
+				if (_pendingQueue.isEmpty() && _dispatchTask != null)
+				{
+					_dispatchTask.cancel(false);
+					_dispatchTask = null;
+				}
+
+				final Npc npc = World.getInstance().getNpc(objectId);
+				if (npc != null && npc.isVisible() && npc.isVisibleTo(_player) && _player.knows(npc))
+				{
+					sendImmediate(npc);
+					return true;
+				}
 			}
 			return false;
 		}

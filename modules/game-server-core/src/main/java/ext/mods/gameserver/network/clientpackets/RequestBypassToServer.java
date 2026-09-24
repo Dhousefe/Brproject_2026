@@ -105,11 +105,18 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		if (_command == null || _command.isEmpty())
 			return;
 		
-		if (!getClient().performAction(FloodProtector.SERVER_BYPASS))
-			return;
-		
 		final Player player = getClient().getPlayer();
 		if (player == null)
+			return;
+		
+		if (!player.checkAndSetBypassDebounce(_command, 
+				ext.mods.config.ConfigPlayers.REQUEST_BYPASS_DEBOUNCE_TIME_MS, 
+				ext.mods.config.ConfigPlayers.REQUEST_BYPASS_MAX_PACKETS_PER_SECOND))
+		{
+			return;
+		}
+		
+		if (!getClient().performAction(FloodProtector.SERVER_BYPASS))
 			return;
 		
 		if (BypassCommandManager.getInstance().notify(player, _command))

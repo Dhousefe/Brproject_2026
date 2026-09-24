@@ -480,6 +480,11 @@ public class Player extends Playable
 		return _npcSpawnPacer;
 	}
 
+	public boolean isAutoFarming()
+	{
+		return AutoFarmManager.getInstance().isPlayerActive(getObjectId());
+	}
+
 	// operate type moved to PlayerOperate
 	
 	
@@ -2212,6 +2217,7 @@ public class Player extends Playable
 			sendPacket(su);
 			
 			broadcastPacket(new TargetSelected(getObjectId(), newTarget.getObjectId(), getX(), getY(), getZ()), false);
+			sendPacket(new TargetSelected(getObjectId(), newTarget.getObjectId(), getX(), getY(), getZ()));
 		}
 		
 		if (newTarget instanceof Folk newTargetFolk)
@@ -2223,6 +2229,7 @@ public class Player extends Playable
 			if (getTarget() != null)
 			{
 				broadcastPacket(new TargetUnselected(this));
+				sendPacket(new TargetUnselected(this));
 				setCurrentFolk(null);
 			}
 		}
@@ -4460,6 +4467,11 @@ public class Player extends Playable
 	public synchronized boolean validateBypass(String cmd)
 	{
 		return _bypass.validateBypass(cmd);
+	}
+
+	public boolean checkAndSetBypassDebounce(String cmd, long windowMs, int maxPerSec)
+	{
+		return _bypass.checkAndSetBypassDebounce(cmd, windowMs, maxPerSec);
 	}
 	
 	/**

@@ -107,6 +107,14 @@ public class OfflineFarmRoutine
 				stop();
 				return;
 			}
+
+			final AutoFarmProfile profile = AutoFarmManager.getInstance().getProfile(_player);
+			if (profile != null && !profile.canUseAutoFarm())
+			{
+				stop();
+				_player.logout(true);
+				return;
+			}
 			
 			if (_player.isDead())
 			{

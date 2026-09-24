@@ -19,11 +19,13 @@ package ext.mods.gameserver.model.entity.autofarm;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
@@ -37,11 +39,13 @@ import ext.mods.gameserver.enums.ZoneId;
 import ext.mods.gameserver.enums.items.WeaponType;
 import ext.mods.gameserver.enums.skills.SkillType;
 import ext.mods.gameserver.geoengine.GeoEngine;
+import ext.mods.gameserver.geoengine.simd.SimdGeoMath;
 import ext.mods.gameserver.model.actor.move.MovementIntegration;
 import ext.mods.gameserver.model.actor.ai.type.PlayerAI;
 import ext.mods.gameserver.handler.IItemHandler;
 import ext.mods.gameserver.handler.ItemHandler;
 import ext.mods.gameserver.model.actor.Creature;
+import ext.mods.gameserver.model.actor.Npc;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.actor.Summon;
 import ext.mods.gameserver.model.actor.instance.Chest;
@@ -196,11 +200,11 @@ public class AutoFarmRoutine
 			return;
 		}
 		
-		/*if (!_autoFarmProfile.canUseAutoFarm())
+		if (!_autoFarmProfile.canUseAutoFarm())
 		{
-			stop("Daily autofarm time limit reached. Use items to extend time or become premium!");
+			stop("Tempo limite diário de AutoFarm atingido. Use itens de tempo ou aguarde o reset de 24 horas.");
 			return;
-		}*/
+		}
 		
 		if (_skillAttackFailCount >= 20)
 		{
@@ -231,8 +235,37 @@ public class AutoFarmRoutine
 		_skillRotationIndex = 0;
 		final Player player = _autoFarmProfile.getPlayer();
 		if (player != null)
+		{
+			clearTargetSynchronized(player);
 			AutoFarmManager.getInstance().stopPlayer(player, msg);
+		}
 		onEnd();
+	}
+
+	private void ensureTargetSynchronized(Player player, Creature target)
+	{
+		if (player == null || target == null || target.isDead())
+			return;
+
+		if (target instanceof Npc npc && player.getNpcSpawnPacer() != null && player.getNpcSpawnPacer().isPending(npc.getObjectId()))
+		{
+			player.getNpcSpawnPacer().flushImmediate(npc.getObjectId());
+		}
+
+		if (player.getTarget() != target)
+			player.setTarget(target);
+	}
+
+	private void clearTargetSynchronized(Player player)
+	{
+		if (player == null)
+			return;
+
+		if (player.getTarget() != null)
+			player.setTarget(null);
+
+		player.getMove().stop();
+		resetStuckLogic();
 	}
 	
 	private synchronized void run(Player player)
@@ -259,7 +292,7 @@ public class AutoFarmRoutine
 			if (ConfigProject.AUTOFARM_DEBUG_RETURN)
 				LOGGER.info("[AutoFarmRoutine][DeathReturn] run() skip: AutoFarmArea.isHandlingDeath() true, clearing Monster target and setting AI intention IDLE");
 			if (player.getTarget() instanceof Monster)
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 			player.getAI().getCurrentIntention().updateAsIdle();
 			return;
 		}
@@ -280,9 +313,7 @@ public class AutoFarmRoutine
 			final Player pvpTarget = findPvpTarget(player);
 			if (pvpTarget != null)
 			{
-				if (player.getTarget() != pvpTarget)
-					player.setTarget(pvpTarget);
-				
+				ensureTargetSynchronized(player, pvpTarget);
 				handlePlayerCombat(player, pvpTarget);
 				return;
 			}
@@ -294,7 +325,7 @@ public class AutoFarmRoutine
 		{
 			if (player.getTarget() != attacker)
 			{
-				player.setTarget(attacker);
+				ensureTargetSynchronized(player, attacker);
 				sendAdminMessage(player, "Priority switch to attacker: " + attacker.getName());
 			}
 			handleCombat(player, attacker);
@@ -342,7 +373,7 @@ public class AutoFarmRoutine
 		{
 			if (!isValidPvpTarget(player, currentPlayerTarget))
 			{
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 				currentPlayerTarget = null;
 			}
 			else
@@ -357,17 +388,15 @@ public class AutoFarmRoutine
 			if (isInvalidTarget(currentTarget))
 			{
 				sendAdminMessage(player, "Canceling invalid target: " + currentTarget.getName());
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 				currentTarget = null;
-				resetStuckLogic();
 			}
 			else if (_autoFarmProfile.getSelectedArea().getType() == AutoFarmType.ROTA)
 			{
 				if (isRouteTargetBanned(currentTarget.getObjectId()))
 				{
-					player.setTarget(null);
+					clearTargetSynchronized(player);
 					currentTarget = null;
-					resetStuckLogic();
 				}
 				else
 				{
@@ -376,9 +405,8 @@ public class AutoFarmRoutine
 					if (!isTargetNearRouteNodes(currentTarget, nodes))
 					{
 						banRouteTarget(currentTarget.getObjectId());
-						player.setTarget(null);
+						clearTargetSynchronized(player);
 						currentTarget = null;
-						resetStuckLogic();
 					}
 				}
 			}
@@ -391,7 +419,7 @@ public class AutoFarmRoutine
 				final AutoFarmArea area = _autoFarmProfile.getSelectedArea();
 				if (area != null)
 					area.updateLastKilledMonsterLocation(currentTarget.getPosition());
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 			}
 			
 			if (_autoFarmProfile.useSpoilSweep())
@@ -420,7 +448,7 @@ public class AutoFarmRoutine
 			final Monster newTarget = findNewTarget(player);
 			if (newTarget != null)
 			{
-				player.setTarget(newTarget);
+				ensureTargetSynchronized(player, newTarget);
 				sendAdminMessage(player, "Action: Found new target: " + newTarget.getName());
 				handleCombat(player, newTarget);
 			}
@@ -567,6 +595,8 @@ public class AutoFarmRoutine
 
 	private void handlePlayerCombat(Player player, Player target)
 	{
+		ensureTargetSynchronized(player, target);
+		
 		final boolean useCtrl = _autoFarmProfile.isOffensiveMode() || _autoFarmProfile.isDefensiveMode();
 		if (_autoFarmProfile.attackSummon())
 			trySummonPvpAttack(player, target, useCtrl);
@@ -698,71 +728,135 @@ public class AutoFarmRoutine
 	private Monster findNewTarget(Player player)
 	{
 		final AutoFarmArea area = _autoFarmProfile.getSelectedArea();
+		if (area == null)
+			return null;
 		
-		final int baseRange = getBaseSearchRange(area);
 		final int maxRange = getMaxSearchRange(area);
-		final int stepSize = 200;
-		
-		for (int currentRange = baseRange; currentRange <= maxRange; currentRange += stepSize)
+		final Monster target = findTargetSimd(player, area, maxRange);
+		if (target != null)
 		{
-			final Monster target = findTargetInRange(player, area, currentRange);
-			if (target != null)
-			{
-				sendAdminMessage(player, "Target found at range: " + currentRange + " - " + target.getName());
-				return target;
-			}
+			sendAdminMessage(player, "Target found via SIMD: " + target.getName());
+			return target;
 		}
 		
 		return null;
 	}
 	
 	/**
-	 * Busca target em um range específico com verificações de pathfinding.
-	 * 
+	 * Busca target com aceleração SIMD vetorial (AVX2 / AVX-512) e Zero-Heap allocation.
+	 * Utiliza SimdGeoMath.batchDistanceSquared2D para calcular distâncias 2D quadradas sem Math.sqrt.
+	 *
 	 * @param player O jogador
 	 * @param area A área do autofarm
-	 * @param range O range de busca
+	 * @param maxRange O range máximo de busca
 	 * @return O melhor target encontrado ou null
 	 */
-	private Monster findTargetInRange(Player player, AutoFarmArea area, int range)
+	private Monster findTargetSimd(Player player, AutoFarmArea area, int maxRange)
 	{
+		final int effectiveMaxRange = Math.min(maxRange, 1500);
 		final boolean isRouteMode = area.getType() == AutoFarmType.ROTA;
 		final AutoFarmRoute route = isRouteMode ? area.getRouteZone() : null;
-		final List<Location> routeNodes = isRouteMode && route != null ? route.getNodes() : new ArrayList<>();
+		final List<Location> routeNodes = isRouteMode && route != null ? route.getNodes() : Collections.emptyList();
 		
 		List<Monster> candidates;
 		switch (area.getType())
 		{
 			case ROTA:
-				candidates = findCandidatesForRoute(player, range);
+				candidates = findCandidatesForRoute(player, effectiveMaxRange);
 				break;
 			case ZONA:
 				candidates = findCandidatesForZone(player);
 				break;
 			case OPEN:
-				candidates = findCandidatesForOpen(player, range);
+				candidates = findCandidatesForOpen(player, effectiveMaxRange);
 				break;
 			default:
-				candidates = area.getMonsters() != null ? area.getMonsters() : new ArrayList<>();
+				candidates = area.getMonsters() != null ? area.getMonsters() : Collections.emptyList();
 				break;
 		}
 		
-		// att-ver-3.0: cheap LoS / canMove only in target filter — full findPath is reserved for
-		// the chosen target (canReachTargetWithPathfinding) to avoid A* × candidates every 400ms tick.
-		return candidates.stream()
-			.filter(m -> m != null && !m.isDead())
-			.filter(m -> !isInvalidTarget(m))
-			.filter(m -> !_unreachableTargets.containsKey(m.getObjectId()))
-			.filter(m -> !isRouteMode || (!isRouteTargetBanned(m.getObjectId()) && isTargetNearRouteNodes(m, routeNodes)))
-			.filter(m -> _autoFarmProfile.getTargets().isEmpty() || _autoFarmProfile.getTargets().contains(m.getName()))
-			.filter(m -> player.distance3D(m) <= range)
-			.sorted(Comparator.comparingDouble(m -> player.distance3D(m)))
-			.filter(monster -> MovementIntegration.canSeeTargetForAutoFarm(player, monster)
-				|| MovementIntegration.canMoveToTargetForAutoFarm(
-					player.getX(), player.getY(), player.getZ(),
-					monster.getX(), monster.getY(), monster.getZ()))
-			.findFirst()
-			.orElse(null);
+		if (candidates == null || candidates.isEmpty())
+			return null;
+
+		// 1. Filtragem preliminar barata em lista estática (máx 64 candidatos para vetorização)
+		final List<Monster> validCandidates = new ArrayList<>(Math.min(candidates.size(), 64));
+		final Set<String> targetNames = _autoFarmProfile.getTargets();
+		final boolean hasNameFilter = targetNames != null && !targetNames.isEmpty();
+
+		for (Monster m : candidates)
+		{
+			if (m == null || m.isDead() || isInvalidTarget(m))
+				continue;
+			if (!player.knows(m))
+				continue;
+			if (_unreachableTargets.containsKey(m.getObjectId()))
+				continue;
+			if (isRouteMode && (isRouteTargetBanned(m.getObjectId()) || !isTargetNearRouteNodes(m, routeNodes)))
+				continue;
+			if (hasNameFilter && !targetNames.contains(m.getName()))
+				continue;
+
+			validCandidates.add(m);
+			if (validCandidates.size() >= 64)
+				break;
+		}
+
+		final int count = validCandidates.size();
+		if (count == 0)
+			return null;
+
+		// 2. Estrutura SoA para vetorização SIMD (AVX2 / AVX-512)
+		final int[] targetX = new int[count];
+		final int[] targetY = new int[count];
+		final long[] distSq = new long[count];
+		final int playerX = player.getX();
+		final int playerY = player.getY();
+		final int playerZ = player.getZ();
+
+		for (int i = 0; i < count; i++)
+		{
+			final Monster m = validCandidates.get(i);
+			targetX[i] = m.getX();
+			targetY[i] = m.getY();
+		}
+
+		// 3. Cálculo SIMD de distâncias 2D quadradas em 8 lanes vetoriais sem Math.sqrt
+		SimdGeoMath.batchDistanceSquared2D(playerX, playerY, targetX, targetY, distSq, count);
+
+		final long maxRangeSq = (long) effectiveMaxRange * effectiveMaxRange;
+
+		// 4. Seleção ordenada dos melhores candidatos por menor distSq
+		final Integer[] indices = new Integer[count];
+		for (int i = 0; i < count; i++)
+			indices[i] = i;
+
+		Arrays.sort(indices, (a, b) -> Long.compare(distSq[a], distSq[b]));
+
+		// 5. Avalia Line of Sight apenas a partir do mais próximo
+		for (int idx : indices)
+		{
+			final long d2 = distSq[idx];
+			if (d2 > maxRangeSq)
+				continue;
+
+			final Monster candidate = validCandidates.get(idx);
+			final int dz = candidate.getZ() - playerZ;
+			if ((long) dz * dz > 1000L * 1000L) // Desnível vertical máximo tolerável de 1000u
+				continue;
+
+			if (MovementIntegration.canSeeTargetForAutoFarm(player, candidate)
+				|| MovementIntegration.canMoveToTargetForAutoFarm(playerX, playerY, playerZ, candidate.getX(), candidate.getY(), candidate.getZ()))
+			{
+				return candidate;
+			}
+		}
+
+		return null;
+	}
+	
+	private Monster findTargetInRange(Player player, AutoFarmArea area, int range)
+	{
+		return findTargetSimd(player, area, range);
 	}
 	
 	/**
@@ -1391,6 +1485,8 @@ public class AutoFarmRoutine
 	 */
 	private void handleCombat(Player player, Monster target)
 	{
+		ensureTargetSynchronized(player, target);
+
 		if (_lastPathTarget != null && !_lastPathTarget.equals(target.getPosition()))
 		{
 			_currentPath.clear();
@@ -1400,8 +1496,7 @@ public class AutoFarmRoutine
 		if (checkTargetStuck(player, target))
 		{
 			sendAdminMessage(player, "Target stuck, returning to route...");
-			player.setTarget(null);
-			resetStuckLogic();
+			clearTargetSynchronized(player);
 			markAsUnreachable(target.getObjectId());
 			_currentPath.clear();
 			_lastPathTarget = null;
@@ -1427,7 +1522,7 @@ public class AutoFarmRoutine
 			{
 				sendAdminMessage(player, "Target left zone - returning to zone interior");
 				markAsUnreachable(target.getObjectId());
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 				moveBackInsideZone(player, area);
 				return;
 			}
@@ -1548,7 +1643,7 @@ public class AutoFarmRoutine
 			{
 				sendAdminMessage(player, "Target unreachable - returning to route");
 				markAsUnreachable(target.getObjectId());
-				player.setTarget(null);
+				clearTargetSynchronized(player);
 				if (_autoFarmProfile.getSelectedArea().getType() == AutoFarmType.ROTA)
 				{
 				}
@@ -1620,7 +1715,7 @@ public class AutoFarmRoutine
 				{
 					sendAdminMessage(player, "Cannot attack through obstacle - returning to route");
 					markAsUnreachable(target.getObjectId());
-					player.setTarget(null);
+					clearTargetSynchronized(player);
 					return;
 				}
 				sendAdminMessage(player, "Cannot attack through obstacle - waiting for better position");
@@ -2268,7 +2363,7 @@ public class AutoFarmRoutine
 		final double maxDist = Math.max(120, bowRange - 30);
 		final double desiredDist = Math.min(maxDist, currentDist + step);
 		
-		if (desiredDist <= currentDist + 10)
+		if (desiredDist <= currentDist + 80)
 			return;
 		
 		final int x = (int) (target.getX() + Math.cos(moveAngle) * desiredDist);
@@ -2303,7 +2398,7 @@ public class AutoFarmRoutine
 		final double maxDist = Math.max(120, bowRange - 30);
 		final double desiredDist = Math.min(maxDist, currentDist + step);
 		
-		if (desiredDist <= currentDist + 10)
+		if (desiredDist <= currentDist + 80)
 			return false;
 		
 		final int x = (int) (target.getX() + Math.cos(moveAngle) * desiredDist);
@@ -3749,13 +3844,12 @@ public class AutoFarmRoutine
 			return;
 		
 		final int count = _cachedMessages.merge(msg, 1, Integer::sum);
-		if (count >= 30)
+		if (count > 200)
 		{
-			_cachedMessages.remove(msg);
-			return;
+			_cachedMessages.put(msg, 2);
 		}
 		
-		if (count == 1 || count >= 30)
+		if (count == 1 || count % 20 == 0)
 			player.sendMessage(String.format("AutoFarm (%s): %s", new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()), msg));
 	}
 	

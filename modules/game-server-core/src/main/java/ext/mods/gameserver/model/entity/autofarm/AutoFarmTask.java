@@ -45,7 +45,18 @@ public class AutoFarmTask implements Runnable
 		{
 			if (profile.isEnabled())
 			{
-				profile.startRoutine();
+				final var player = profile.getPlayer();
+				if (player != null && player.getClient() != null)
+				{
+					try (var ignored = player.openPacketBatch())
+					{
+						profile.startRoutine();
+					}
+				}
+				else
+				{
+					profile.startRoutine();
+				}
 			}
 		}
 		

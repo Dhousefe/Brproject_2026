@@ -53,6 +53,7 @@ import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.model.location.Location;
 import ext.mods.gameserver.model.zone.type.TownZone;
 import ext.mods.gameserver.network.serverpackets.ExServerPrimitive.Point;
+import ext.mods.gameserver.network.serverpackets.ExShowScreenMessage;
 import ext.mods.gameserver.network.serverpackets.NpcHtmlMessage;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.config.ConfigProject;
@@ -130,8 +131,8 @@ public class AutoFarmManager
 		AutoFarmData.getInstance().restorePlayer(player);
 		final AutoFarmProfile autoFarmProfile = getProfile(player);
 		autoFarmProfile.updatePlayer(player);
-		long timeUsed = AutoFarmData.getInstance().loadPlayerTimeUsage(player.getObjectId());
-		autoFarmProfile.setDailyTimeUsed(timeUsed);
+		AutoFarmData.TimeUsageData timeData = AutoFarmData.getInstance().loadPlayerTimeUsageData(player.getObjectId());
+		autoFarmProfile.restoreTimeData(timeData);
 	}
 	
 	public void onPlayerLogout(Player player)
@@ -142,12 +143,9 @@ public class AutoFarmManager
 			if (autoFarmProfile == null)
 				return;
 			
-			long totalTimeUsed = autoFarmProfile.getDailyTimeUsed();
-			
 			if (autoFarmProfile.isEnabled())
 			{
 				autoFarmProfile.stopTimeTracking();
-				totalTimeUsed = autoFarmProfile.getCurrentSessionTime() + autoFarmProfile.getDailyTimeUsed();
 				stopTimeDisplay(player);
 				
 				if (player.isOnline())
@@ -169,10 +167,9 @@ public class AutoFarmManager
 				ZoneBuilder.getInstance().clearAllPreview(player);
 				autoFarmProfile.setEnabled(false);
 			}
-			
-			if (totalTimeUsed > 0)
+			else
 			{
-				AutoFarmData.getInstance().updatePlayerTimeUsage(player.getObjectId(), totalTimeUsed);
+				autoFarmProfile.saveTimeUsage();
 			}
 			
 			autoFarmProfile.updatePlayer(null);
@@ -930,7 +927,7 @@ public class AutoFarmManager
 		long totalAvailableTime = autoFarmProfile.getTotalAvailableTime();
 		long usedTime = autoFarmProfile.getDailyTimeUsed();
 		long extraTimeAvailable = autoFarmProfile.getExtraTimeAvailable();
-		boolean isPremium = player.getPremiumService() > 0;
+		boolean isPremium = autoFarmProfile.isPremiumUnlimited();
 		
 		if (autoFarmProfile.isEnabled())
 		{
@@ -951,13 +948,14 @@ public class AutoFarmManager
 		else
 		{
 			long extraTime = extraTimeAvailable;
+			int dailyHours = ConfigProject.AUTOFARM_DAILY_LIMIT_HOURS;
 			if (extraTime > 0)
 			{
-				html.replace("%autofarm_status%", "Normal (2h + " + formatAutoFarmTime(extraTime) + " extra)");
+				html.replace("%autofarm_status%", "Normal (" + dailyHours + "h + " + formatAutoFarmTime(extraTime) + " extra)");
 			}
 			else
 			{
-				html.replace("%autofarm_status%", "Normal (2h/dia)");
+				html.replace("%autofarm_status%", "Normal (" + dailyHours + "h/dia)");
 			}
 		}
 		
@@ -1172,7 +1170,7 @@ public class AutoFarmManager
 		
 		if (!autoFarmProfile.canUseAutoFarm())
 		{
-			showIndexWindow(player, "Esgotado, use itens de tempo para continuar.");
+			showIndexWindow(player, "Tempo limite diário de AutoFarm atingido. Use itens de tempo ou aguarde o reset de 24 horas.");
 			return;
 		}
 		
@@ -1292,12 +1290,9 @@ public class AutoFarmManager
 			if (!player.isOnline())
 				autoFarmProfile.updatePlayer(null);
 			
-			long totalTimeUsed = autoFarmProfile.getDailyTimeUsed();
-			
 			if (autoFarmProfile.isEnabled())
 			{
 				autoFarmProfile.stopTimeTracking();
-				totalTimeUsed = autoFarmProfile.getCurrentSessionTime() + autoFarmProfile.getDailyTimeUsed();
 				stopTimeDisplay(player);
 				
 				if (player.isOnline())
@@ -1323,10 +1318,9 @@ public class AutoFarmManager
 					autoFarmProfile.getSelectedArea().stopDeathMonitor();
 				autoFarmProfile.setEnabled(false);
 			}
-			
-			if (totalTimeUsed > 0)
+			else
 			{
-				AutoFarmData.getInstance().updatePlayerTimeUsage(player.getObjectId(), totalTimeUsed);
+				autoFarmProfile.saveTimeUsage();
 			}
 			
 			if (sendWindow && player.isOnline())
@@ -1372,25 +1366,43 @@ public class AutoFarmManager
 	private void startTimeDisplay(Player player)
 	{
 		stopTimeDisplay(player);
+
+		final int maxTicks = 30; 
+		final java.util.concurrent.atomic.AtomicInteger tickCounter = new java.util.concurrent.atomic.AtomicInteger(0);
+
 		ScheduledFuture<?> task = ThreadPool.scheduleAtFixedRate(() -> {
-			if (player.isOnline())
+			try
 			{
-				final AutoFarmProfile profile = getProfile(player);
-				if (profile.isEnabled())
-				{
-					showTimeRemaining(player);
-				}
-				else
+				if (!player.isOnline())
 				{
 					stopTimeDisplay(player);
+					return;
 				}
+
+				final AutoFarmProfile profile = getProfile(player);
+				if (!profile.isEnabled())
+				{
+					stopTimeDisplay(player);
+					return;
+				}
+
+				int currentTick = tickCounter.incrementAndGet();
+				if (currentTick > maxTicks)
+				{
+					stopTimeDisplay(player);
+					player.sendPacket(new ExShowScreenMessage("", 1, ExShowScreenMessage.SMPOS.MIDDLE_CENTER, false));
+					return;
+				}
+
+				final String msg = formatScreenCountdown(profile);
+				player.sendPacket(new ExShowScreenMessage(msg, 250, ExShowScreenMessage.SMPOS.MIDDLE_CENTER, false));
 			}
-			else
+			catch (Exception e)
 			{
 				stopTimeDisplay(player);
 			}
-		}, 1000, 1000);
-		
+		}, 0, 100);
+
 		_screenMessageTasks.put(player.getObjectId(), task);
 	}
 	
@@ -1400,24 +1412,32 @@ public class AutoFarmManager
 		if (task != null)
 		{
 			task.cancel(false);
+			if (player.isOnline())
+			{
+				player.sendPacket(new ExShowScreenMessage("", 1, ExShowScreenMessage.SMPOS.MIDDLE_CENTER, false));
+			}
 		}
 	}
-	
-	private void showTimeRemaining(Player player)
+
+	public static String formatScreenCountdown(AutoFarmProfile profile)
 	{
-		final AutoFarmProfile profile = getProfile(player);
-		long totalAvailableTime = profile.getTotalAvailableTime();
-		long usedTime = profile.getDailyTimeUsed();
-		
-		if (profile.isEnabled())
+		if (profile.isPremiumUnlimited())
 		{
-			usedTime = profile.getCurrentSessionTime() + profile.getDailyTimeUsed();
+			return "Tempo Restante: Ilimitado (VIP)";
 		}
-		
-		long remainingTime = totalAvailableTime - usedTime;
-		String timeDisplay = formatAutoFarmTime(remainingTime);
-		String message = (player.getPremiumService() > 0) ? "Vip" : timeDisplay;
-		
+
+		long remainingMs = profile.getRemainingTime();
+		if (remainingMs <= 0)
+		{
+			return "D: 00, H: 00, M: 00, S: 00";
+		}
+
+		long days = remainingMs / (24 * 3600 * 1000L);
+		long hours = (remainingMs % (24 * 3600 * 1000L)) / (3600 * 1000L);
+		long minutes = (remainingMs % (3600 * 1000L)) / (60 * 1000L);
+		long seconds = (remainingMs % (60 * 1000L)) / 1000L;
+
+		return String.format("D: %02d, H: %02d, M: %02d, S: %02d", days, hours, minutes, seconds);
 	}
 	
 	public void createArea(Player player, AutoFarmProfile autoFarmProfile, StringTokenizer st) throws IllegalArgumentException, NumberFormatException
@@ -1728,13 +1748,14 @@ public class AutoFarmManager
 		html.setFile(player.getLocale(), "html/mods/autofarm/time_status.htm");
 		
 		long remainingTime = profile.getRemainingTime();
-		long usedTime = profile.getDailyTimeUsed();
-		boolean isPremium = player.getPremiumService() > 0;
+		long usedTime = profile.getDailyTimeUsed() + profile.getCurrentSessionTime();
+		boolean isPremium = profile.isPremiumUnlimited();
+		int dailyHours = ConfigProject.AUTOFARM_DAILY_LIMIT_HOURS;
 		
 		html.replace("%remaining_time%", formatTime(remainingTime));
 		html.replace("%used_time%", formatTime(usedTime));
-		html.replace("%daily_limit%", formatTime(isPremium ? Long.MAX_VALUE : 2 * 60 * 60 * 1000));
-		html.replace("%premium_status%", isPremium ? "Premium (Sem Limite)" : "Normal (2h/dia)");
+		html.replace("%daily_limit%", formatTime(isPremium ? Long.MAX_VALUE : (dailyHours * 3600L * 1000L)));
+		html.replace("%premium_status%", isPremium ? "Premium (Sem Limite)" : "Normal (" + dailyHours + "h/dia)");
 		
 		player.sendPacket(html);
 	}

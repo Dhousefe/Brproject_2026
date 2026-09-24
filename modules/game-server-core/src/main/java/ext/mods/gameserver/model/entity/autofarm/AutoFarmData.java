@@ -20,6 +20,7 @@ package ext.mods.gameserver.model.entity.autofarm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -249,39 +250,183 @@ public class AutoFarmData
 		}
 	}
 	
-	public void addExtraTime(int objectId, long extraTime) {
-    }
+	public static class TimeUsageData
+	{
+		private final long _timeUsed;
+		private final long _cycleStartTime;
+		private final long _extraTime;
 
-    public long getExtraTime(int objectId) {
-        return 0; 
-    }
+		public TimeUsageData(long timeUsed, long cycleStartTime, long extraTime)
+		{
+			_timeUsed = timeUsed;
+			_cycleStartTime = cycleStartTime;
+			_extraTime = extraTime;
+		}
 
-    public void updatePlayerTimeUsage(int objectId, long timeUsed) {
-        try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement ps = con.prepareStatement(UPDATE_TIME_USAGE)) {
-            ps.setInt(1, objectId);
-            ps.setLong(2, timeUsed);
-            ps.setLong(3, timeUsed);
-            ps.execute();
-        } catch (Exception e) {
-            LOGGER.error("Erro ao salvar tempo de autofarm: " + e.getMessage(), e);
-        }
-    }
+		public long getTimeUsed()
+		{
+			return _timeUsed;
+		}
 
-    public long loadPlayerTimeUsage(int objectId) {
-        try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement ps = con.prepareStatement(LOAD_TIME_USAGE)) {
-            ps.setInt(1, objectId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getLong("time_used");
-                }
-            }
-        } catch (Exception e) {
-            LOGGER.error("Erro ao carregar tempo de autofarm: " + e.getMessage(), e);
-        }
-        return 0;
-    }
+		public long getCycleStartTime()
+		{
+			return _cycleStartTime;
+		}
+
+		public long getExtraTime()
+		{
+			return _extraTime;
+		}
+	}
+
+	protected AutoFarmData()
+	{
+		checkSchema();
+	}
+
+	private void checkSchema()
+	{
+		try (Connection con = ConnectionPool.getConnection();
+			Statement st = con.createStatement())
+		{
+			try
+			{
+				st.executeUpdate("ALTER TABLE autofarm_player_data ADD COLUMN cycle_start_time BIGINT DEFAULT 0");
+			}
+			catch (Exception ignored)
+			{
+			}
+			try
+			{
+				st.executeUpdate("ALTER TABLE autofarm_player_data ADD COLUMN extra_time BIGINT DEFAULT 0");
+			}
+			catch (Exception ignored)
+			{
+			}
+		}
+		catch (Exception e)
+		{
+			LOGGER.warn("AutoFarmData: checkSchema aviso: {}", e.getMessage());
+		}
+	}
+
+	public void addExtraTime(int objectId, long extraTime)
+	{
+		final String sql = "INSERT INTO autofarm_player_data (player_id, time_used, cycle_start_time, extra_time) VALUES (?, 0, 0, ?) ON DUPLICATE KEY UPDATE extra_time = extra_time + VALUES(extra_time)";
+		try (Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql))
+		{
+			ps.setInt(1, objectId);
+			ps.setLong(2, extraTime);
+			ps.execute();
+		}
+		catch (Exception e)
+		{
+			LOGGER.error("Erro ao adicionar extra_time de autofarm para {}: {}", objectId, e.getMessage());
+		}
+	}
+
+	public long getExtraTime(int objectId)
+	{
+		final String sql = "SELECT extra_time FROM autofarm_player_data WHERE player_id = ?";
+		try (Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql))
+		{
+			ps.setInt(1, objectId);
+			try (ResultSet rs = ps.executeQuery())
+			{
+				if (rs.next())
+				{
+					return rs.getLong("extra_time");
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			LOGGER.error("Erro ao consultar extra_time de autofarm para {}: {}", objectId, e.getMessage());
+		}
+		return 0L;
+	}
+
+	public void updatePlayerTimeUsageData(int objectId, long timeUsed, long cycleStartTime, long extraTime)
+	{
+		final String sql = "INSERT INTO autofarm_player_data (player_id, time_used, cycle_start_time, extra_time) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE time_used = VALUES(time_used), cycle_start_time = VALUES(cycle_start_time), extra_time = VALUES(extra_time)";
+		try (Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql))
+		{
+			ps.setInt(1, objectId);
+			ps.setLong(2, timeUsed);
+			ps.setLong(3, cycleStartTime);
+			ps.setLong(4, extraTime);
+			ps.execute();
+		}
+		catch (Exception e)
+		{
+			try (Connection con = ConnectionPool.getConnection();
+				PreparedStatement ps = con.prepareStatement("INSERT INTO autofarm_player_data (player_id, time_used) VALUES (?, ?) ON DUPLICATE KEY UPDATE time_used = ?"))
+			{
+				ps.setInt(1, objectId);
+				ps.setLong(2, timeUsed);
+				ps.setLong(3, timeUsed);
+				ps.execute();
+			}
+			catch (Exception ignored)
+			{
+			}
+			LOGGER.error("Erro ao salvar tempo de autofarm para {}: {}", objectId, e.getMessage());
+		}
+	}
+
+	public void updatePlayerTimeUsage(int objectId, long timeUsed)
+	{
+		TimeUsageData current = loadPlayerTimeUsageData(objectId);
+		updatePlayerTimeUsageData(objectId, timeUsed, current.getCycleStartTime(), current.getExtraTime());
+	}
+
+	public TimeUsageData loadPlayerTimeUsageData(int objectId)
+	{
+		try (Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT time_used, cycle_start_time, extra_time FROM autofarm_player_data WHERE player_id = ?"))
+		{
+			ps.setInt(1, objectId);
+			try (ResultSet rs = ps.executeQuery())
+			{
+				if (rs.next())
+				{
+					return new TimeUsageData(
+						rs.getLong("time_used"),
+						rs.getLong("cycle_start_time"),
+						rs.getLong("extra_time")
+					);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			try (Connection con = ConnectionPool.getConnection();
+				PreparedStatement ps = con.prepareStatement("SELECT time_used FROM autofarm_player_data WHERE player_id = ?"))
+			{
+				ps.setInt(1, objectId);
+				try (ResultSet rs = ps.executeQuery())
+				{
+					if (rs.next())
+					{
+						return new TimeUsageData(rs.getLong("time_used"), 0L, 0L);
+					}
+				}
+			}
+			catch (Exception ignored)
+			{
+			}
+			LOGGER.error("Erro ao carregar dados de tempo de autofarm do player id {}: {}", objectId, e.getMessage());
+		}
+		return new TimeUsageData(0L, 0L, 0L);
+	}
+
+	public long loadPlayerTimeUsage(int objectId)
+	{
+		return loadPlayerTimeUsageData(objectId).getTimeUsed();
+	}
 	
 	public static final AutoFarmData getInstance()
 	{

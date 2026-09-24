@@ -80,7 +80,6 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 		final Creature targetCreature = (player.getTarget() instanceof Creature creature) ? creature : null;
 		final int targetId = targetCreature != null ? targetCreature.getObjectId() : 0;
 		
-		
 		final boolean isCasting = player.getCast().isCastingNow();
 		if (isCasting && ConfigPlayers.MAGIC_SKILL_QUEUING_WINDOW_MS > 0)
 		{
@@ -95,7 +94,6 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 		final int debounceMs = ConfigPlayers.MAGIC_SKILL_DEBOUNCE_TIME_MS;
 		if (debounceMs > 0 && !player.checkAndSetMagicSkillDebounce(_skillId, targetId, debounceMs))
 		{
-			
 			return;
 		}
 		

@@ -526,13 +526,20 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             return
         }
         
-        if (!_actor.knows(target)) {
+        if (!_actor.knows(target) || target.isAlikeDead) {
+            cancelFollowTask()
             _actor.getAI().tryToIdle()
             return
         }
         
         val realOffset = (offset + _actor.getCollisionRadius() + target.getCollisionRadius()).toInt()
         if ((if (getMoveType() == MoveType.GROUND) _actor.isIn2DRadius(target, realOffset) else _actor.isIn3DRadius(target, realOffset))) {
+            return
+        }
+        
+        val targetPos = target.getPosition()
+        val deadbandThreshold = if (_actor.isAutoFarming()) 80.0 else 60.0
+        if (_actor.isMoving && _destination.distance2D(targetPos) <= deadbandThreshold) {
             return
         }
         
@@ -544,7 +551,7 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         } else {
             _pawn = null
             _offset = 0
-            moveToLocation(target.getPosition(), ConfigGeoengine.SISTEMA_PATHFINDING)
+            moveToLocation(targetPos, ConfigGeoengine.SISTEMA_PATHFINDING)
         }
     }
     
@@ -863,5 +870,4 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         
         return true
     }
-    
 }

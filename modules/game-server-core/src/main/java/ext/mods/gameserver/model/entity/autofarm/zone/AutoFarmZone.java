@@ -97,7 +97,13 @@ public class AutoFarmZone extends AutoFarmArea
 	@Override
 	public List<Monster> getMonsters()
 	{
-		return getKnownTypeInside(Monster.class);
+		final Player owner = getOwner();
+		if (owner == null)
+			return java.util.Collections.emptyList();
+
+		return getKnownTypeInside(Monster.class).stream()
+			.filter(m -> m != null && owner.distance3D(m) <= 1500)
+			.toList();
 	}
 	
 	public Location findValidLocation()

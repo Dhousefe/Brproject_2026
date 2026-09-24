@@ -113,12 +113,15 @@ public class ValidatePosition extends L2GameClientPacket
 			}
 			else
 			{
-				player.incIncorrectValidateCount();
-				if (player.getIncorrectValidateCount() >= 3)
+				if (!player.isAutoFarming())
 				{
-					player.teleportTo(RestartType.TOWN);
-					player.resetIncorrectValidateCount();
-					return;
+					player.incIncorrectValidateCount();
+					if (player.getIncorrectValidateCount() >= 3)
+					{
+						player.teleportTo(RestartType.TOWN);
+						player.resetIncorrectValidateCount();
+						return;
+					}
 				}
 				player.sendPacket(new ValidateLocation(player));
 			}
@@ -131,6 +134,26 @@ public class ValidatePosition extends L2GameClientPacket
 		// 1. Red Zone: Severe desync (> HardThreshold or massive Z drop > 350 on ground) -> Hard snap or Town rescue
 		if (diffSq > hardThresholdSq || (isGround && dz > 350 && !player.isFlying() && !player.isInWater()))
 		{
+			if (player.isAutoFarming())
+			{
+				final WorldObject pawn = player.getMove().getPawn();
+				if (pawn != null)
+				{
+					player.sendPacket(new MoveToPawn(player, pawn, player.getMove().getOffset()));
+					return;
+				}
+
+				final Location destination = player.getMove().getDestination();
+				if (destination != null && destination.getX() != 0)
+				{
+					player.sendPacket(new MoveToLocation(player, destination));
+					return;
+				}
+
+				player.sendPacket(new ValidateLocation(player));
+				return;
+			}
+
 			player.incIncorrectValidateCount();
 			if (player.getIncorrectValidateCount() >= 3)
 			{

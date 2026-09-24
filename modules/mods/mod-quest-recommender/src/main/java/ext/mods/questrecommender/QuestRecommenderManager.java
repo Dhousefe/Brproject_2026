@@ -1002,7 +1002,6 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 				sb.append("<font color=FFFFFF><b>").append(m.getName()).append("</b></font> ").append(statusText).append("<br1>");
 				sb.append("<font color=B09878>Nível: ").append(m.getMinLevel()).append("-").append(m.getMaxLevel()).append("</font><br1>");
 
-				
 				final boolean hasExp = m.hasExpReward();
 				final QuestRewardItem[] rewards = m.getRewards();
 				final boolean hasRewards = (rewards != null && rewards.length > 0);

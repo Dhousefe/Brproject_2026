@@ -19,6 +19,7 @@ package ext.mods.gameserver.handler;
 
 import ext.mods.gameserver.model.item.kind.EtcItem;
 import ext.mods.gameserver.handler.itemhandlers.ItemNobles;
+import ext.mods.gameserver.handler.itemhandlers.ItemAutoFarmTime;
 
 public class ItemHandler extends AbstractHandler<Integer, IItemHandler>
 {
@@ -26,6 +27,7 @@ public class ItemHandler extends AbstractHandler<Integer, IItemHandler>
 	{
 		super(IItemHandler.class, "itemhandlers");
 		registerHandler(new ItemNobles());
+		registerHandler(new ItemAutoFarmTime());
 	}
 	
 	@Override

@@ -63,4 +63,56 @@ public final class PlayerBypass
 		_validBypass.clear();
 		_validBypass2.clear();
 	}
+
+	private String _lastBypassCommand = "";
+	private long _lastBypassTime = 0L;
+	private int _bypassCountInSecond = 0;
+	private long _bypassSecondStartTick = 0L;
+
+	/**
+	 * By Dhousefe
+	 * Verifica e atualiza o debounce para requisições de bypass com Mechanical Sympathy.
+	 * 1. Teto global anti-DOS: Se ultrapassar maxPerSec dentro do mesmo segundo, retorna false.
+	 * 2. Deduplicação: Se o comando for idêntico ao anterior dentro da janela windowMs, retorna false (drop silencioso).
+	 * 3. Se for um comando novo ou fora da janela, atualiza o estado e retorna true.
+	 * @param cmd O comando do bypass solicitado.
+	 * @param windowMs Janela de debounce em milissegundos para comandos idênticos.
+	 * @param maxPerSec Teto máximo de bypasses aceitos por segundo por jogador.
+	 * @return true se o bypass deve ser processado, false se deve sofrer drop silencioso.
+	 */
+	public synchronized boolean checkAndSetBypassDebounce(String cmd, long windowMs, int maxPerSec)
+	{
+		final long now = System.currentTimeMillis();
+
+
+		if (maxPerSec > 0)
+		{
+			if (now - _bypassSecondStartTick >= 1000L)
+			{
+				_bypassSecondStartTick = now;
+				_bypassCountInSecond = 1;
+			}
+			else
+			{
+				_bypassCountInSecond++;
+				if (_bypassCountInSecond > maxPerSec)
+				{
+					return false;
+				}
+			}
+		}
+
+		
+		if (windowMs > 0 && cmd != null && cmd.equals(_lastBypassCommand))
+		{
+			if (now - _lastBypassTime < windowMs)
+			{
+				return false;
+			}
+		}
+
+		_lastBypassCommand = (cmd != null) ? cmd : "";
+		_lastBypassTime = now;
+		return true;
+	}
 }
