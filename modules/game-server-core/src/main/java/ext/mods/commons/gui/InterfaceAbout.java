@@ -56,7 +56,7 @@ public class InterfaceAbout {
 	private static final Color SECONDARY_TEXT_COLOR = new Color(0x888888);
     private static final Color SEPARATOR_COLOR = new Color(0x2c2c2c);
 
-	private static final String L2JBRASIL = "https://l2jbrasil.com";
+	private static final String PROJECT_URL = "https://github.com/VictorAlmeida92/L2-NewEra";
 	private static final String L2JCENTER = "https://l2jcenter.com";
 
 	public InterfaceAbout() {
@@ -95,7 +95,7 @@ public class InterfaceAbout {
 			System.err.println("Error loading logo image: " + e.getMessage());
 		}
 
-		JLabel lblTitle = new JLabel("BR PROJECT - Créditos");
+		JLabel lblTitle = new JLabel("Lineage2 NewEra - Créditos");
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblTitle.setForeground(HEADER_COLOR);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -138,7 +138,7 @@ public class InterfaceAbout {
 
 		JPanel linksPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
 		linksPanel.setOpaque(false);
-		linksPanel.add(createLinkLabel("L2JBrasil.com", L2JBRASIL));
+		linksPanel.add(createLinkLabel("Lineage2 NewEra", PROJECT_URL));
 		JLabel pipeLabel = new JLabel("|");
 		pipeLabel.setForeground(SECONDARY_TEXT_COLOR);
 		linksPanel.add(pipeLabel);

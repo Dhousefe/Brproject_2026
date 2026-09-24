@@ -1,5 +1,5 @@
 @echo off
-title Brproject - Game
+title Lineage2 NewEra - GameServer
 color 0B
 setlocal
 
@@ -50,8 +50,8 @@ if exist "%~dp0game\configs\server.properties.example" set "HAS_EXAMPLE=1"
 if "%HAS_EXAMPLE%"=="0" exit /b 0
 
 echo.
-echo [BrProject] Primeira execucao detectada.
-echo [BrProject] Abrindo painel Preparar Ambiente para configurar IP, banco, migrations e hexid...
+echo [Lineage2 NewEra] Primeira execucao detectada.
+echo [Lineage2 NewEra] Abrindo painel Preparar Ambiente para configurar IP, banco, migrations e hexid...
 echo.
 if not exist "%~dp0gradlew.bat" (
     echo [ERRO] gradlew.bat nao encontrado em %~dp0

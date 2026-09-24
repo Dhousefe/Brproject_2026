@@ -1,4 +1,4 @@
-# ⚔️ BrProject 3.1 — Next-Gen Lineage 2 Interlude (C6) Server Emulator
+# ⚔️ Lineage2 NewEra — Next-Gen Lineage 2 Interlude (C6) Server Emulator
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-25-orange.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 25" />
@@ -17,7 +17,7 @@
 
 ## 📖 Visão Geral
 
-O **BrProject 3.1** é um emulador de servidor de alta performance para **Lineage 2 Interlude (Chronicle 6)**, totalmente modernizado em **Java 25 + Kotlin 2.3.0-Beta2**. 
+O **Lineage2 NewEra** é um emulador de servidor de alta performance para **Lineage 2 Interlude (Chronicle 6)**, totalmente modernizado em **Java 25 + Kotlin 2.3.0-Beta2**.
 
 Projetado com arquitetura modular multi-module Gradle, desacoplamento total via **SPI (Service Provider Interface)**, decomposição de entidades para eliminação de *god objects*, persistência multi-database com suporte **zero-config SQLite** e **MariaDB/PostgreSQL em produção**, proxy reverso Netty integrado com rate limiting por IP, observabilidade nativa com **Micrometer/Prometheus**, motor de persistência de latência ultrabaixa com **LMAX Disruptor (Cluster HPC)** e segurança endurecida.
 
@@ -66,7 +66,7 @@ Projetado com arquitetura modular multi-module Gradle, desacoplamento total via 
 
 ### 1. Visão Geral do Ecossistema
 
-O BrProject adota uma arquitetura em camadas orientada a eventos e contratos SPI, permitindo desacoplamento total entre o núcleo do jogo, camada de rede, persistência e mods jogáveis:
+O Lineage2 NewEra adota uma arquitetura em camadas orientada a eventos e contratos SPI, permitindo desacoplamento total entre o núcleo do jogo, camada de rede, persistência e mods jogáveis:
 
 ```mermaid
 flowchart TB
@@ -650,6 +650,12 @@ O `build.gradle.kts` disponibiliza flags de compilação customizáveis:
 ## 🐳 Execução (Host & Docker Compose)
 
 ### Executando em Host (Scripts Nativos)
+
+Para o desenvolvimento local no Windows, use o launcher unificado. Ele inicia GameServer, LoginServer e Proxy em segundo plano, aguardando cada porta ficar pronta, e grava os logs em `logs/`:
+
+```powershell
+./StartL2NewEra.bat
+```
 
 | Serviço | macOS / Linux | Windows CMD / PowerShell |
 |---|---|---|

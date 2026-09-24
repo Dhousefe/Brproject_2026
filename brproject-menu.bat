@@ -1,13 +1,13 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Brproject - Build
+title Lineage2 NewEra - Build
 
 :menu
 cls
 echo.
 echo   ========================================================================================================
-echo                                          Brproject - Build
+echo                                          Lineage2 NewEra - Build
 echo.
 echo   [1] Compila incrementalmente os arquivos de codigo Java e Kotlin de forma rapida.
 echo   [2] Exclui todos os artefatos de compilacao anteriores, em seguida, realiza uma compilacao completa.

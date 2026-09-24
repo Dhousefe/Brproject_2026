@@ -36,7 +36,7 @@ rm -f "$ROOT/login/cache/brproject_cds.jsa" "$ROOT/login/cache/brproject_cds.gc"
 
 cd "$ROOT/login"
 
-echo "=== Brproject LoginServer ==="
+echo "=== Lineage2 NewEra LoginServer ==="
 echo "Java: $JAVA_CMD (major=${JAVA_MAJOR:-?})"
 echo "CWD:  $(pwd)"
 echo

@@ -36,7 +36,7 @@ public class InteraceAbout
 {
 	private JFrame frmCredits;
 	
-	private static final String L2JBRASIL = "https://l2jbrasil.com";
+	private static final String PROJECT_URL = "https://github.com/VictorAlmeida92/L2-NewEra";
 	private static final String L2JCENTER = "https://l2jcenter.com";
 	
 	public InteraceAbout()
@@ -55,7 +55,7 @@ public class InteraceAbout
 		frmCredits.setType(Type.UTILITY);
 		frmCredits.getContentPane().setLayout(null);
 		
-		JLabel lblTitle = new JLabel("[BR] PROJECT - Créditos");
+		JLabel lblTitle = new JLabel("Lineage2 NewEra - Créditos");
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 10, 364, 40);
@@ -79,7 +79,7 @@ public class InteraceAbout
 		lblPartners.setBounds(10, 140, 364, 20);
 		frmCredits.getContentPane().add(lblPartners);
 		
-		JLabel lblL2JBrasil = createLinkLabel("🌐 L2JBrasil.com", L2JBRASIL);
+		JLabel lblL2JBrasil = createLinkLabel("🌐 Lineage2 NewEra", PROJECT_URL);
 		lblL2JBrasil.setBounds(10, 170, 364, 20);
 		frmCredits.getContentPane().add(lblL2JBrasil);
 		

@@ -108,7 +108,7 @@ if /i "%~1"=="2" (
 )
 if /i "%~1"=="br-start" (
     echo.
-    echo [BrProject] Modo 3: gerar libs/server.jar e iniciar Login + Game.
+    echo [Lineage2 NewEra] Modo 3: gerar libs/server.jar e iniciar Login + Game.
     "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain :app-dist:jar
     if errorlevel 1 goto fail
 
@@ -141,7 +141,7 @@ if /i "%~1"=="br-start" (
 
     :prep_first_run
     echo.
-    echo [BrProject] Primeira execucao detectada. Abrindo Preparar Ambiente...
+    echo [Lineage2 NewEra] Primeira execucao detectada. Abrindo Preparar Ambiente...
     "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain PrepararTeste
     if errorlevel 1 goto fail
     echo.

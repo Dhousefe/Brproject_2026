@@ -972,8 +972,8 @@ public class ProcessManagerService {
             return;
         }
 
-        String rawProjectName = serverProps.getProperty("SiteProjectName", "BrProject").trim();
-        final String projectName = rawProjectName.isEmpty() ? "BrProject" : rawProjectName;
+        String rawProjectName = serverProps.getProperty("SiteProjectName", "Lineage2 NewEra").trim();
+        final String projectName = rawProjectName.isEmpty() ? "Lineage2 NewEra" : rawProjectName;
         final String customDomain = serverProps.getProperty("CloudflareTunnelCustomDomain", "").trim();
         final String token = serverProps.getProperty("CloudflareTunnelToken", "").trim();
         final String customUrl = normalizeCustomTunnelUrl(customDomain);

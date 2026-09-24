@@ -251,7 +251,7 @@ class GameServer : Runnable {
         fun customMods() {
             // Phase 3: composition root stays thin — features load via SPI
             // (FirstPartyFeaturesExtension + mod-boss-zerg ServiceLoader)
-            StringUtil.printSection("[Brproject Ext Mods / SPI]")
+            StringUtil.printSection("[Lineage2 NewEra Ext Mods / SPI]")
             LOGGER.info(ext.mods.config.ConfigDomains.describe())
             ExtensionLoader.loadExtensions() // legacy *.ext.jar
             ClasspathExtensionBootstrap.load() // first-party features + extracted mods

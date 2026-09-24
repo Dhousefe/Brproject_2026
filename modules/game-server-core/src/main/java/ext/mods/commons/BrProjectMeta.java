@@ -24,10 +24,10 @@ public final class BrProjectMeta
 {
 	private BrProjectMeta() {}
 
-	public static final String TEAM = "BRPROJECT";
-	public static final String BRAND = "Brproject";
-	public static final String DISTRIB_MODE = "DISTRIBUICAO FREE L2JBRASIL";
+	public static final String TEAM = "LINEAGE2 NEWERA";
+	public static final String BRAND = "Lineage2 NewEra";
+	public static final String DISTRIB_MODE = "LINEAGE2 NEWERA OPEN SOURCE";
 	public static final String BUILD_LINE = "PROIBIDO COMERCIALIZAR OU VENDER ESTE SERVIDOR, SEJA DE FORMA DIRETA OU INDIRETA.";
-	public static final String CORE_LINE = "DEVS: Dhousefe-L2JBR | Agazes33 | Ban-NEXORA | Warman | SrEli | < A.L.N/>";
+	public static final String CORE_LINE = "DEVS: Lineage2 NewEra contributors | < A.L.N/>";
 	public static final String SIGNATURE = "< A.L.N/>";
 }

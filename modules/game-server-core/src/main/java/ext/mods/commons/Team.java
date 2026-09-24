@@ -31,7 +31,7 @@ public final class Team
 
 
 	private static final String BRAND_LINE =
-		"::::::::::::::::::::::::::::::::::::::::::::::::::::::[ L2JBr ]::::::::::::::::::::::::::::::::::::::::::::::::::::::";
+		"::::::::::::::::::::::::::::::::::::::::::::::::::::::[ Lineage2 NewEra ]::::::::::::::::::::::::::::::::::::::::::::::::::::::";
 
 	/**
 	 * Logo em pixel art no estilo "ANSI Shadow" (pyfiglet ansi_shadow).
