@@ -57,3 +57,9 @@ As seguintes regras valem para mudanças de arquitetura:
 - Logout e desligamento normal chamam a rotina de armazenamento do jogador. Encerramento abrupto pode deixar no banco somente o último estado persistido.
 - `modules/cluster-hpc` contém um protótipo independente de write-behind, mas o fluxo atual do GameServer não o utiliza. Qualquer documentação que o apresente como persistência ativa deve ser tratada como pendência de correção.
 - O rollback observado de nível 80 para 79 é compatível, em primeiro lugar, com uma alteração de nível ainda não persistida antes do encerramento; a investigação deve adicionar telemetria de sucesso/falha do `store()` antes de alterar o modelo.
+
+### Banco e Docker
+
+- O suporte a múltiplos JDBC não equivale a repositories desacoplados. Antes de trocar o banco, consultar [`docs/architecture/database-decoupling-assessment.md`](docs/architecture/database-decoupling-assessment.md).
+- `deploy/docker` é um protótipo de deployment e deve ser validado contra o Compose real antes de ser usado como ambiente de homologação ou produção.
+- PostgreSQL exige migrations próprias e testes de compatibilidade; não assumir que o diretório MariaDB é portável apenas porque o runner aceita a URL PostgreSQL.
