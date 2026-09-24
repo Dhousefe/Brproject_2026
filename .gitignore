@@ -45,6 +45,24 @@ replay_pid*
 game/log/
 login/log/
 
+# Runtime database state (local machine only; use migrations/seed data in Git)
+data/*.sqlite
+data/*.sqlite-*
+data/*.db
+data/*.db-*
+data/*.bak
+db/fail2ban.sqlite*
+db/*.sqlite-*
+data/certs/
+
+# Machine-generated server identity and local setup state
+game/config/hexid.txt
+login/config/hexid.txt
+flag/PrepararTeste.done
+.gradle-home/
+logs/
+thread-dump.txt
+
 # Geodata / heavy runtime
 game/data/geodata/*
 game/data/prevention/

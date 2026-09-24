@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-	<territory name="roythecat_144873-69317" minZ="-3696" maxZ="-3680">
-		<node x="144923" y="-69267" />
-		<node x="144823" y="-69267" />
-		<node x="144823" y="-69367" />
-		<node x="144923" y="-69367" />
-	</territory>
-	<npcmaker name="roythecat_144873-693171" territory="roythecat_144873-69317" maximumNpcs="1">
-		<ai type="default_maker"/>
-		<npc id="50000" pos="144873;-69317;-3696;28199" total="1" respawn="60sec" /> <!-- Roy the Cat -->
-	</npcmaker>
 	<territory name="roythecat_83086-147906" minZ="-3480" maxZ="-3448">
 		<node x="83086" y="147906" />
 		<node x="83096" y="147906" />

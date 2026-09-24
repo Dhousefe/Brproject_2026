@@ -530,10 +530,12 @@ O BrProject adota uma camada de abstração de dados compatível com múltiplos 
 
 | Banco de Dados | Perfil de Uso | Configuração de Conexão (`server.properties`) |
 |---|---|---|
-| **SQLite (Padrão)** | **Zero-Config** (Dev, Testes, Offline) | `URL = jdbc:sqlite:data/brproject.db`<br/>*Banco criado e migrado automaticamente.* |
+| **SQLite (Padrão)** | **Zero-Config** (Dev, Testes, Offline) | `URL = jdbc:sqlite:data/brproject.sqlite`<br/>*Estado runtime local; schema e migrations ficam em `db/migrations/sqlite/`.* |
 | **MariaDB 11+ / MySQL** | **Produção Recomendada** (Alta Concorrência) | `URL = jdbc:mariadb://localhost:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8` |
 | **PostgreSQL** | Produção Alternativa | `URL = jdbc:postgresql://localhost:5432/l2jdb` |
 | **SQL Server** | Ambientes Corporativos | `URL = jdbc:sqlserver://localhost:1433;databaseName=l2jdb` |
+
+> Os arquivos SQLite de runtime (`data/*.sqlite*`, `data/*.db*`), WAL/SHM, `hexid.txt`, logs e caches locais não são versionados. O arquivo `db/brproject.sqlite` é apenas o seed local versionado; em produção, use um banco externo e aplique as migrations.
 
 ### Executando Migrações Flyway
 
