@@ -64,6 +64,8 @@ Projetado com arquitetura modular multi-module Gradle, desacoplamento total via 
 
 ## 🏛️ Arquitetura do Sistema & Diagramas
 
+> O mapa investigativo mantido durante a modernização está em [`docs/architecture/system-map.md`](docs/architecture/system-map.md). Ele diferencia o que está integrado no runtime do que ainda é experimental ou planejado.
+
 ### 1. Visão Geral do Ecossistema
 
 O Lineage2 NewEra adota uma arquitetura em camadas orientada a eventos e contratos SPI, permitindo desacoplamento total entre o núcleo do jogo, camada de rede, persistência e mods jogáveis:
