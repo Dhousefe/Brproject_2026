@@ -401,6 +401,43 @@ public class AugmentationData implements IXmlReader
 	{
 		return _allSkills;
 	}
+
+	/**
+	 * Creates an augmentation for a specific XML skill entry using the same
+	 * attribute encoding used by the normal life-stone flow.
+	 *
+	 * The XML id identifies the skill entry; it is not, by itself, the complete
+	 * 32-bit augmentation id sent to the client. The lower 16 bits contain the
+	 * visual/stat portion, including the glow tier.
+	 *
+	 * @param skillAugmentationId XML augmentation skill id (for example 16283)
+	 * @param glow whether the generated attribute should use the visible glow tier
+	 * @return a valid skill augmentation, or null when the XML id is unknown
+	 */
+	public Augmentation generateSkillAugmentation(int skillAugmentationId, boolean glow)
+	{
+		final IntIntHolder skillInfo = _allSkills.get(skillAugmentationId);
+		if (skillInfo == null)
+			return null;
+
+		final int color;
+		if (_blueSkills.stream().anyMatch(list -> list.contains(skillAugmentationId)))
+			color = 1;
+		else if (_purpleSkills.stream().anyMatch(list -> list.contains(skillAugmentationId)))
+			color = 2;
+		else if (_redSkills.stream().anyMatch(list -> list.contains(skillAugmentationId)))
+			color = 3;
+		else
+			return null;
+
+		final int level = Math.max(0, Math.min(9, (skillAugmentationId - BLUE_START) / SKILLS_BLOCKSIZE));
+		final int colorOffset = glow ? ((4 + color) / 2) * (10 * STAT_SUBBLOCKSIZE) : Rnd.get(0, 1) * (10 * STAT_SUBBLOCKSIZE);
+		final int offset = (level * STAT_SUBBLOCKSIZE) + Rnd.get(0, 1) * STAT_BLOCKSIZE + colorOffset + 1;
+		final int stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
+		final int encodedId = (skillAugmentationId << 16) + stat12;
+
+		return new Augmentation(encodedId, skillInfo.getId(), skillInfo.getValue());
+	}
 	
 	public static final AugmentationData getInstance()
 	{

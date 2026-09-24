@@ -34,7 +34,6 @@ import ext.mods.gameserver.handler.IAdminCommandHandler;
 import ext.mods.gameserver.model.Augmentation;
 import ext.mods.gameserver.model.WorldObject;
 import ext.mods.gameserver.model.actor.Player;
-import ext.mods.gameserver.model.holder.IntIntHolder;
 import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.network.serverpackets.ItemList;
 import ext.mods.gameserver.network.SystemMessageId;
@@ -193,8 +192,7 @@ public class AdminTest implements IAdminCommandHandler
 		{
 			final int augmentationId = Integer.parseInt(st.nextToken());
 			final Player targetPlayer = admin.getTarget() instanceof Player target ? target : admin;
-			final IntIntHolder skillInfo = AugmentationData.getInstance().getAllSkills().get(augmentationId);
-			if (skillInfo == null)
+			if (!AugmentationData.getInstance().getAllSkills().containsKey(augmentationId))
 			{
 				admin.sendMessage("Augmentation ID " + augmentationId + " was not found in the loaded augmentation skills.");
 				return;
@@ -222,7 +220,12 @@ public class AdminTest implements IAdminCommandHandler
 				return;
 			}
 
-			final Augmentation augmentation = new Augmentation(augmentationId, skillInfo.getId(), skillInfo.getValue());
+			final Augmentation augmentation = AugmentationData.getInstance().generateSkillAugmentation(augmentationId, true);
+			if (augmentation == null)
+			{
+				admin.sendMessage("Augmentation ID " + augmentationId + " has no valid visual/stat encoding.");
+				return;
+			}
 			if (!item.setAugmentation(augmentation, targetPlayer))
 			{
 				admin.sendMessage("The augmentation could not be applied.");
