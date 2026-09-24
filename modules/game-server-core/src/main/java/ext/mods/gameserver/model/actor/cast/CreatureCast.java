@@ -23,6 +23,7 @@ import ext.mods.commons.pool.ThreadPool;
 import ext.mods.commons.util.ArraysUtil;
 
 import ext.mods.Config;
+import ext.mods.config.ConfigPlayers;
 import ext.mods.gameserver.enums.AiEventType;
 import ext.mods.gameserver.enums.EventHandler;
 import ext.mods.gameserver.enums.GaugeColor;
@@ -179,6 +180,15 @@ public class CreatureCast<T extends Creature>
         {
             reuseDelay *= _actor.getStatus().calcStat(skill.isMagic() ? Stats.MAGIC_REUSE_RATE : Stats.P_REUSE, 1, null, null);
             reuseDelay *= 333.0 / (skill.isMagic() ? _actor.getStatus().getMAtkSpd() : _actor.getStatus().getPAtkSpd());
+        }
+        
+        
+        if (_actor.getActingPlayer() != null && !skill.isStaticReuse())
+        {
+            if (ConfigPlayers.SKILL_REUSE_MULTIPLIER != 1.0)
+                reuseDelay = (int) (reuseDelay * ConfigPlayers.SKILL_REUSE_MULTIPLIER);
+            if (ConfigPlayers.MIN_SKILL_REUSE_DELAY_MS > 0 && reuseDelay < ConfigPlayers.MIN_SKILL_REUSE_DELAY_MS)
+                reuseDelay = ConfigPlayers.MIN_SKILL_REUSE_DELAY_MS;
         }
 
         if (_actor instanceof Npc)

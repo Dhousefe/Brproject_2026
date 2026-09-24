@@ -724,6 +724,12 @@ public class PlayerStatus extends PlayableStatus<Player>
 	public final int getMaxCp()
 	{
 		int val = (int) calcStat(Stats.MAX_CP, _actor.getTemplate().getBaseCpMax(getLevel()), null, null);
+		
+		if (ConfigPlayers.CP_BURST_MULTIPLIER > 1.0)
+			val = (int) (val * ConfigPlayers.CP_BURST_MULTIPLIER);
+		if (ConfigPlayers.MAX_CP_LIMIT > 0)
+			val = Math.min(val, ConfigPlayers.MAX_CP_LIMIT);
+		
 		if (val != _oldMaxCp)
 		{
 			_oldMaxCp = val;
@@ -738,6 +744,12 @@ public class PlayerStatus extends PlayableStatus<Player>
 	public final int getMaxHp()
 	{
 		int val = super.getMaxHp();
+		
+		if (ConfigPlayers.HP_BURST_MULTIPLIER > 1.0)
+			val = (int) (val * ConfigPlayers.HP_BURST_MULTIPLIER);
+		if (ConfigPlayers.MAX_HP_LIMIT > 0)
+			val = Math.min(val, ConfigPlayers.MAX_HP_LIMIT);
+		
 		if (val != _oldMaxHp)
 		{
 			_oldMaxHp = val;
@@ -753,6 +765,11 @@ public class PlayerStatus extends PlayableStatus<Player>
 	public final int getMaxMp()
 	{
 		int val = super.getMaxMp();
+		
+		if (ConfigPlayers.MP_BURST_MULTIPLIER > 1.0)
+			val = (int) (val * ConfigPlayers.MP_BURST_MULTIPLIER);
+		if (ConfigPlayers.MAX_MP_LIMIT > 0)
+			val = Math.min(val, ConfigPlayers.MAX_MP_LIMIT);
 		
 		if (val != _oldMaxMp)
 		{
@@ -1013,7 +1030,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return (float) calcStat(Stats.RUN_SPEED, baseValue, null, null);
 		
-		return Math.min((float) calcStat(Stats.RUN_SPEED, baseValue, null, null), ConfigProject.MAX_RUN_SPEED);
+		final int runSpdCap = (ConfigPlayers.MAX_RUN_SPEED_LIMIT > 0) ? ConfigPlayers.MAX_RUN_SPEED_LIMIT : ConfigProject.MAX_RUN_SPEED;
+		return Math.min((float) calcStat(Stats.RUN_SPEED, baseValue, null, null), runSpdCap);
 	}
 	
 	@Override
@@ -1045,7 +1063,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return (float) calcStat(Stats.RUN_SPEED, baseValue, null, null);
 		
-		return Math.min((float) calcStat(Stats.RUN_SPEED, baseValue, null, null), ConfigProject.MAX_RUN_SPEED);
+		final int runSpdCap = (ConfigPlayers.MAX_RUN_SPEED_LIMIT > 0) ? ConfigPlayers.MAX_RUN_SPEED_LIMIT : ConfigProject.MAX_RUN_SPEED;
+		return Math.min((float) calcStat(Stats.RUN_SPEED, baseValue, null, null), runSpdCap);
 	}
 	
 	@Override
@@ -1067,7 +1086,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return val;
 		
-		return Math.min(val, ConfigProject.MAX_MATK);
+		final int mAtkCap = (ConfigPlayers.MAX_MATK_LIMIT > 0) ? ConfigPlayers.MAX_MATK_LIMIT : ConfigProject.MAX_MATK;
+		return Math.min(val, mAtkCap);
 	}
 	
 	@Override
@@ -1091,7 +1111,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return (int) calcStat(Stats.MAGIC_ATTACK_SPEED, base, null, null);
 		
-		return Math.min((int) calcStat(Stats.MAGIC_ATTACK_SPEED, base, null, null), ConfigProject.MAX_MATK_SPEED);
+		final int mAtkSpdCap = (ConfigPlayers.MAX_MATK_SPEED_LIMIT > 0) ? ConfigPlayers.MAX_MATK_SPEED_LIMIT : ConfigProject.MAX_MATK_SPEED;
+		return Math.min((int) calcStat(Stats.MAGIC_ATTACK_SPEED, base, null, null), mAtkSpdCap);
 	}
 	
 	@Override
@@ -1113,7 +1134,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return val;
 		
-		return Math.min(val, ConfigProject.MAX_PATK);
+		final int pAtkCap = (ConfigPlayers.MAX_PATK_LIMIT > 0) ? ConfigPlayers.MAX_PATK_LIMIT : ConfigProject.MAX_PATK;
+		return Math.min(val, pAtkCap);
 	}
 	
 	@Override
@@ -1147,7 +1169,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return val;
 		
-		return Math.min(val, ConfigProject.MAX_PATK_SPEED);
+		final int pAtkSpdCap = (ConfigPlayers.MAX_PATK_SPEED_LIMIT > 0) ? ConfigPlayers.MAX_PATK_SPEED_LIMIT : ConfigProject.MAX_PATK_SPEED;
+		return Math.min(val, pAtkSpdCap);
 	}
 	
 	@Override
@@ -1162,7 +1185,8 @@ public class PlayerStatus extends PlayableStatus<Player>
 		if (_actor.isGM())
 			return val;
 		
-		return Math.min(val, ConfigProject.MAX_EVASION);
+		final int evasionCap = (ConfigPlayers.MAX_EVASION_LIMIT > 0) ? ConfigPlayers.MAX_EVASION_LIMIT : ConfigProject.MAX_EVASION;
+		return Math.min(val, evasionCap);
 	}
 	
 	@Override

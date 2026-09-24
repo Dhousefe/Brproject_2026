@@ -84,7 +84,7 @@ public final class PlayerBypass
 	{
 		final long now = System.currentTimeMillis();
 
-
+		
 		if (maxPerSec > 0)
 		{
 			if (now - _bypassSecondStartTick >= 1000L)

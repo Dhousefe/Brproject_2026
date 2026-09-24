@@ -37,6 +37,7 @@ import ext.mods.gameserver.skills.AbstractEffect;
 import ext.mods.gameserver.skills.Formulas;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.config.ConfigServer;
+import ext.mods.config.ConfigPlayers;
 
 public class Cancel implements ISkillHandler
 {
@@ -70,7 +71,11 @@ public class Cancel implements ISkillHandler
 			final double skillVuln = Formulas.calcSkillVulnerability(creature, targetCreature, skill, skill.getSkillType());
 			
 			final List<AbstractEffect> list = Arrays.asList(targetCreature.getAllEffects());
-			Collections.shuffle(list);
+			
+			if (ConfigPlayers.CANCEL_DISPEL_ORDER_LIFO)
+				Collections.reverse(list);
+			else
+				Collections.shuffle(list);
 			
 			for (AbstractEffect effect : list)
 			{

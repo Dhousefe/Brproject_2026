@@ -170,17 +170,27 @@ public final class Formulas
 		
 		if (isAttackerInFrontofTarget && isBackstab)
 		{
+			if (ConfigPlayers.BACKSTAB_FRONTAL_RATE <= 0)
+			{
+				if (ConfigServer.DEVELOPER)
+				{
+					StringUtil.printSection("Blow Rate");
+					LOGGER.info("Final blow rate overriden by backstab under front target: 0 / 1000 (Blocked)");
+				}
+				return false;
+			}
+			
 			if (ConfigServer.DEVELOPER)
 			{
 				StringUtil.printSection("Blow Rate");
-				LOGGER.info("Final blow rate overriden by backstab under front target: 30 / 1000");
+				LOGGER.info("Final blow rate overriden by backstab under front target: {} / 1000", ConfigPlayers.BACKSTAB_FRONTAL_RATE);
 			}
-			return 30 > Rnd.get(1000);
+			return ConfigPlayers.BACKSTAB_FRONTAL_RATE > Rnd.get(1000);
 		}
 		
 		final double dexMul = DEX_BONUS[attacker.getStatus().getDEX()];
 		final double blowMul = attacker.getStatus().calcStat(Stats.BLOW_RATE, 1, target, null);
-		final double posMul = (attacker.isBehind(target)) ? 1.15 : ((isAttackerInFrontofTarget) ? 1. : 1.1);
+		final double posMul = (attacker.isBehind(target)) ? ConfigPlayers.BLOW_POSITIONAL_BEHIND_BONUS : ((isAttackerInFrontofTarget) ? 1. : ConfigPlayers.BLOW_POSITIONAL_SIDE_BONUS);
 		
 		final double blowRate = baseRate * 2 * dexMul * blowMul * posMul;
 		
@@ -192,7 +202,8 @@ public final class Formulas
 			LOGGER.info("Final blow rate: {} / 1000", blowRate);
 		}
 		
-		return Math.min(blowRate, (isBackstab) ? 1000 : 800) > Rnd.get(1000);
+		final int maxRate = (isBackstab) ? ConfigPlayers.BLOW_RATE_CAP_BACKSTAB : ConfigPlayers.BLOW_RATE_CAP_GENERAL;
+		return Math.min(blowRate, maxRate) > Rnd.get(1000);
 	}
 	
 	/**
@@ -302,7 +313,7 @@ public final class Formulas
 		
 		double attackPower = attacker.getStatus().getPAtk(target);
 		double skillPower = skill.getPower();
-		final double addCritPower = attacker.getStatus().calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6;
+		final double addCritPower = attacker.getStatus().calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * ConfigPlayers.BLOW_CRIT_ADD_POWER_MULTIPLIER;
 		
 		if (ss)
 		{
@@ -582,7 +593,7 @@ public final class Formulas
 		
 		if (ss)
 		{
-			ssMul = 2.04;
+			ssMul = ConfigPlayers.PHYSICAL_SOULSHOT_SKILL_MULTIPLIER;
 			
 			if (skill.getSSBoost() > 0)
 				skillPower *= skill.getSSBoost();
@@ -608,7 +619,7 @@ public final class Formulas
 		
 		double damage = ((attackPower * ssMul + skillPower) * rndMul * raceMul * pvpMul * elemMul * weaponMul) * 77. / defence;
 		if (crit)
-			damage *= 2.;
+			damage *= ConfigPlayers.PHYSICAL_SKILL_CRITICAL_MULTIPLIER;
 		
 		Player classAtk = attacker.getActingPlayer();
 		if (classAtk != null && target instanceof Player && classAtk != target)
@@ -616,16 +627,16 @@ public final class Formulas
 			Player classTgt = target.getActingPlayer();
 			BalanceHolder mod = BalanceData.getInstance().getModifier(classAtk.getClassId().getId(), classTgt.getClassId().getId());
 			
-			double finalMAtk = classAtk.getStatus().getMAtk(classTgt, skill) * mod._mAtkMod;
-			double finalMDef = classTgt.getStatus().getMDef(classAtk, skill) * mod._mDefMod;
+			double finalPAtk = classAtk.getStatus().getPAtk(classTgt) * mod._pAtkMod;
+			double finalPDef = classTgt.getStatus().getPDef(classAtk) * mod._pDefMod;
 			
-			double defaultMAtk = classAtk.getStatus().getMAtk(classTgt, skill);
-			double defaultMDef = classTgt.getStatus().getMDef(classAtk, skill);
+			double defaultPAtk = classAtk.getStatus().getPAtk(classTgt);
+			double defaultPDef = classTgt.getStatus().getPDef(classAtk);
 			
-			if (defaultMAtk > 0 && defaultMDef > 0)
+			if (defaultPAtk > 0 && defaultPDef > 0)
 			{
-				double atkRatio = finalMAtk / defaultMAtk;
-				double defRatio = finalMDef / defaultMDef;
+				double atkRatio = finalPAtk / defaultPAtk;
+				double defRatio = finalPDef / defaultPDef;
 				
 				damage = (int) (damage * (atkRatio / defRatio));
 			}
@@ -703,7 +714,7 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= 4;
+			damage *= ConfigPlayers.MAGIC_CRITICAL_DAMAGE_MULTIPLIER;
 		
 		if (attacker instanceof Playable && target instanceof Playable)
 		{
@@ -780,7 +791,7 @@ public final class Formulas
 	
 	public static final boolean calcCrit(double rate)
 	{
-		return rate > Rnd.get(1000);
+		return Math.min(rate, ConfigPlayers.PHYSICAL_CRITICAL_RATE_CAP) > Rnd.get(1000);
 	}
 	
 	public static final boolean calcMCrit(Creature actor, Creature target, L2Skill skill)
@@ -794,7 +805,7 @@ public final class Formulas
 		mRate = 0.5 * dWitBonus * mRate;
 		
 		if (!actor.isGM())
-			mRate = Math.min(mRate, ConfigProject.MAX_MCRIT_RATE);
+			mRate = Math.min(mRate, ConfigPlayers.MAGIC_CRITICAL_RATE_CAP);
 		
 		if (ConfigServer.DEVELOPER)
 			LOGGER.info("Current mCritRate: {} / 100.", mRate);
@@ -821,7 +832,25 @@ public final class Formulas
 		if (target.getCast().getCurrentSkill() != null && !target.getCast().getCurrentSkill().isMagic())
 			return;
 		
-		double rate = target.getStatus().calcStat(Stats.ATTACK_CANCEL, 15 + Math.sqrt(13 * dmg) - (MEN_BONUS[target.getStatus().getMEN()] * 100 - 100), null, null);
+		double rate;
+		if (ConfigPlayers.ENABLE_REALISTIC_CAST_BREAK)
+		{
+			final double maxHp = target.getStatus().getMaxHp();
+			if (maxHp <= 0 || dmg <= 0)
+				return;
+			
+			final double damageRatio = (dmg / maxHp) * 100.0;
+			if (damageRatio < 0.5)
+				return;
+			
+			final double menModifier = 100.0 / (100.0 + target.getStatus().getMEN());
+			rate = damageRatio * 3.5 * menModifier;
+			rate = Math.min(rate, ConfigPlayers.CAST_BREAK_MAX_RATE);
+		}
+		else
+		{
+			rate = target.getStatus().calcStat(Stats.ATTACK_CANCEL, 15 + Math.sqrt(13 * dmg) - (MEN_BONUS[target.getStatus().getMEN()] * 100 - 100), null, null);
+		}
 		
 		if (ConfigServer.DEVELOPER)
 		{
@@ -829,7 +858,7 @@ public final class Formulas
 			LOGGER.info("Final cast break rate: {}%.", rate);
 		}
 		
-		if (Math.clamp((int) rate, 1, 99) > Rnd.get(100))
+		if (Math.clamp((int) rate, 1, ConfigPlayers.CAST_BREAK_MAX_RATE) > Rnd.get(100))
 			target.getCast().interrupt();
 	}
 	
@@ -1132,7 +1161,7 @@ public final class Formulas
 		final double skillModifier = calcSkillVulnerability(attacker, target, skill, type);
 		final double mAtkModifier = getMatkModifier(attacker, target, skill, bss);
 		final double lvlModifier = getLevelModifier(attacker, target, skill);
-		final double rate = Math.max(1, Math.min((baseChance * statModifier * skillModifier * mAtkModifier * lvlModifier), 99));
+		final double rate = Math.max(ConfigPlayers.DEBUFF_MIN_LAND_RATE, Math.min((baseChance * statModifier * skillModifier * mAtkModifier * lvlModifier), ConfigPlayers.DEBUFF_MAX_LAND_RATE));
 		
 		if (ConfigServer.DEVELOPER)
 			LOGGER.info("calcEffectSuccess(): name:{} eff.type:{} power:{} statMod:{} skillMod:{} mAtkMod:{} lvlMod:{} total:{}%.", skill.getName(), type.toString(), baseChance, String.format("%1.2f", statModifier), String.format("%1.2f", skillModifier), String.format("%1.2f", mAtkModifier), String.format("%1.2f", lvlModifier), String.format("%1.2f", rate));
@@ -1154,7 +1183,7 @@ public final class Formulas
 		final double skillModifier = calcSkillVulnerability(attacker, target, skill, type);
 		final double mAtkModifier = getMatkModifier(attacker, target, skill, bss);
 		final double lvlModifier = getLevelModifier(attacker, target, skill);
-		final double rate = Math.max(1, Math.min((baseChance * statModifier * skillModifier * mAtkModifier * lvlModifier), 99));
+		final double rate = Math.max(ConfigPlayers.DEBUFF_MIN_LAND_RATE, Math.min((baseChance * statModifier * skillModifier * mAtkModifier * lvlModifier), ConfigPlayers.DEBUFF_MAX_LAND_RATE));
 		
 		if (ConfigServer.DEVELOPER)
 			LOGGER.info("calcSkillSuccess(): name:{} type:{} power:{} statMod:{} skillMod:{} mAtkMod:{} lvlMod:{} total:{}%.", skill.getName(), skill.getSkillType().toString(), baseChance, String.format("%1.2f", statModifier), String.format("%1.2f", skillModifier), String.format("%1.2f", mAtkModifier), String.format("%1.2f", lvlModifier), String.format("%1.2f", rate));

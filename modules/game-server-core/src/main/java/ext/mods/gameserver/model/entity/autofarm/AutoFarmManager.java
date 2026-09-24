@@ -1367,7 +1367,7 @@ public class AutoFarmManager
 	{
 		stopTimeDisplay(player);
 
-		final int maxTicks = 30; 
+		final int maxTicks = 30;
 		final java.util.concurrent.atomic.AtomicInteger tickCounter = new java.util.concurrent.atomic.AtomicInteger(0);
 
 		ScheduledFuture<?> task = ThreadPool.scheduleAtFixedRate(() -> {
