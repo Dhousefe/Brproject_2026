@@ -26,7 +26,13 @@ out/
 # zip archives of dist (keep intentional assets out)
 Brproject_Distribution/
 Brproject_7z/
+# Generated API documentation remains ignored, but curated architecture docs
+# are versioned with the source tree.
 docs/
+!docs/
+docs/*
+!docs/architecture/
+!docs/architecture/*.md
 
 # IDE
 .idea/
