@@ -136,7 +136,7 @@ public class PrepararAmbientePanel {
         JPanel header = new JPanel(new BorderLayout());
         header.setOpaque(false);
         header.setBorder(BorderFactory.createEmptyBorder(20, 30, 12, 30));
-        JLabel titulo = new JLabel("BrProject  -  Preparar Ambiente");
+        JLabel titulo = new JLabel("Lineage2 NewEra  -  Preparar Ambiente");
         titulo.setForeground(ThemeManager.BASE_PURPLE.brighter());
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titulo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -226,7 +226,7 @@ public class PrepararAmbientePanel {
     //  Sub-paineis
     // ====================================================================
     private JPanel buildLicencaPanel() {
-        JPanel box = makeBox("Licenca  (BrProject L2J)");
+        JPanel box = makeBox("Licenca  (Lineage2 NewEra)");
         GridBagConstraints g = baseGbc();
 
         // Email

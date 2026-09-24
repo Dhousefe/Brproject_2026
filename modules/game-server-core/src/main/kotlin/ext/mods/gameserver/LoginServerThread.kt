@@ -100,7 +100,7 @@ class LoginServerThread private constructor() : Thread("LoginServerThread") {
         }
         priority = MAX_PRIORITY
     }
-    fun getServerName(): String = _serverName ?: "BrProject"
+    fun getServerName(): String = _serverName ?: "Lineage2 NewEra"
     @JvmName("setMaxPlayer")
     fun setMaxPlayer(num: Int) {
         maxPlayers = num

@@ -8,5 +8,5 @@
 @param Integer limit - limit of announces (used only if auto=true, 0 = unlimited) 
 --> 
 <list> 
-<announcement message="Brproject - L2JBrasil" critical="false" auto="false" initial_delay="0" delay="0" limit="0" /> 
+	<announcement message="Lineage2 NewEra" critical="false" auto="false" initial_delay="0" delay="0" limit="0" />
 </list>

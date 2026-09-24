@@ -1,5 +1,5 @@
 @echo off
-title GameServer Registration Console - Brproject
+title GameServer Registration Console - Lineage2 NewEra
 color 0E
 cd /d "%~dp0"
 

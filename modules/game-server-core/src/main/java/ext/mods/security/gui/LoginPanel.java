@@ -236,7 +236,7 @@ public class LoginPanel {
 		JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
 		footerPanel.setBackground(COMPONENT_BACKGROUND);
 		footerPanel.add(new JLabel("Parceiros:") {{ setForeground(TEXT_COLOR); setFont(new Font("Segoe UI", Font.PLAIN, 10)); }});
-		footerPanel.add(createLinkLabel("L2JBrasil", "https://www.l2jbrasil.com"));
+		footerPanel.add(createLinkLabel("Lineage2 NewEra", "https://github.com/VictorAlmeida92/L2-NewEra"));
 		footerPanel.add(new JLabel("|") {{ setForeground(TEXT_COLOR); setFont(new Font("Segoe UI", Font.BOLD, 10)); }});
 		footerPanel.add(createLinkLabel("L2JCenter", "https://www.l2jcenter.com"));
 

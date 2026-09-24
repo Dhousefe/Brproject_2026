@@ -43,7 +43,7 @@ if [[ "${JAVA_MAJOR:-0}" -ge 25 ]]; then
   source "$ROOT/cache/brproject-cds-check.inc.sh" "cache/brproject_cds.jsa" "$ROOT/libs/server.jar" "G1"
 fi
 
-echo "=== Brproject GameServer ==="
+echo "=== Lineage2 NewEra GameServer ==="
 echo "Java: $JAVA_CMD (major=${JAVA_MAJOR:-?})"
 echo "Heap: -Xms$XMS -Xmx$XMX"
 echo "CWD:  $(pwd)"

@@ -472,7 +472,7 @@
 			<skill id="4416" level="18" type="PASSIVE"/>
 		</skills>
 	</npc>
-	<npc id="50010" idTemplate="30083" name="Gatekeeper Global" title="Brproject" alias="gatekeeper_global">
+	<npc id="50010" idTemplate="30083" name="Gatekeeper Global" title="Lineage2 NewEra" alias="gatekeeper_global">
 		<set name="usingServerSideName" val="true"/>
 		<set name="usingServerSideTitle" val="true"/>
 		<set name="type" val="Gatekeeper"/>

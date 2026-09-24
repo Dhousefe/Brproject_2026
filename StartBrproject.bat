@@ -23,11 +23,11 @@ if not exist "%~dp0tools\run-hidden.ps1" (
 )
 
 REM Relanca este StartBrproject em uma janela totalmente oculta e fecha a janela atual.
-start "" /B powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "%~dp0tools\run-hidden.ps1" "Brproject - License Init" "%~f0" "--hidden-child"
+start "" /B powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "%~dp0tools\run-hidden.ps1" "Lineage2 NewEra - License Init" "%~f0" "--hidden-child"
 exit /b %ERRORLEVEL%
 
 :run_hidden_child
-title Brproject - License Init
+title Lineage2 NewEra - License Init
 color 0B
 
 REM --- Habilita cores ANSI no console (cmd.exe) antes de tudo ---
