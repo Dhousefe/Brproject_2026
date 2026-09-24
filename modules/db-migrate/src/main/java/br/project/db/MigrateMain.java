@@ -43,8 +43,10 @@ public final class MigrateMain
 			.locations("filesystem:" + migrations)
 			.baselineOnMigrate(true)
 			.baselineVersion("0")
+			.validateMigrationNaming(true)
 			.cleanDisabled(true)
 			.load();
+		System.out.println("  discovered  = " + flyway.info().all().length + " migration(s)");
 		
 		final MigrateResult result = flyway.migrate();
 		System.out.println("Migrations executed: " + result.migrationsExecuted);

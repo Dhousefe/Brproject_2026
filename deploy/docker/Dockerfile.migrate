@@ -1,0 +1,18 @@
+FROM eclipse-temurin:25-jre-alpine
+
+RUN apk add --no-cache gettext mariadb-client \
+    && addgroup -S brproject \
+    && adduser -S brproject -G brproject
+
+WORKDIR /opt/brproject
+
+COPY --chown=brproject:brproject libs/server.jar /opt/brproject/app.jar
+COPY --chown=brproject:brproject libs/ /opt/brproject/libs/
+COPY --chown=brproject:brproject brproject-data/migrations /opt/brproject/brproject-data/migrations
+COPY --chown=brproject:brproject deploy/docker/seed-gameserver.sql /opt/brproject/seed-gameserver.sql
+COPY --chown=brproject:brproject deploy/docker/run-migrate.sh /opt/brproject/run-migrate.sh
+
+RUN chmod +x /opt/brproject/run-migrate.sh
+
+USER brproject
+ENTRYPOINT ["/opt/brproject/run-migrate.sh"]

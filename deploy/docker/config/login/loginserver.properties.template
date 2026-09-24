@@ -1,0 +1,22 @@
+Hostname = *
+LoginserverHostname = *
+LoginserverPort = 2106
+LoginHostname = *
+LoginPort = 9014
+LoginTryBeforeBan = 5
+LoginBlockAfterBan = 600
+AcceptNewGameServer = False
+ShowLicence = True
+
+sql.url = ${DB_URL}
+sql.login = ${DB_USER}
+sql.password = ${DB_PASSWORD}
+
+AutoCreateAccounts = False
+FloodProtection = True
+FastConnectionLimit = 15
+NormalConnectionTime = 700
+FastConnectionTime = 350
+MaxConnectionPerIP = 50
+ShowConnect = False
+Proxy = False

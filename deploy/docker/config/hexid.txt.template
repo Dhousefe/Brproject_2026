@@ -1,0 +1,2 @@
+ServerID = 1
+HexID = ${GAME_SERVER_HEXID}

@@ -116,7 +116,7 @@ def main() -> None:
         parts.append(f"\n-- ========== {p.name} ==========\n")
         parts.append(transform(p.name, p.read_text(encoding="utf-8", errors="replace")))
         parts.append("\n")
-    baseline = OUT / "V1_0_0__baseline_schema.sql"
+    baseline = OUT / "V1.0.0__baseline_schema.sql"
     baseline.write_text("".join(parts), encoding="utf-8")
     MANIFEST.write_text("\n".join(p.name for p in ordered) + "\n", encoding="utf-8")
     print(f"wrote {baseline} ({baseline.stat().st_size} bytes) from {len(ordered)} files")
