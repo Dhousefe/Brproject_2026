@@ -10,6 +10,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.config.ConfigPlayers;
 import ext.mods.config.ConfigProject;
@@ -32,7 +33,6 @@ public final class PlayerSkillsDb
 	
 	static final String RESTORE_SKILLS_FOR_CHAR = "SELECT skill_id,skill_level FROM character_skills WHERE char_obj_id=? AND class_index=?";
 	static final String RESTORE_SKILLS_FOR_CHAR_ALT_SUBCLASS = "SELECT skill_id,skill_level FROM character_skills WHERE char_obj_id=?";
-	static final String ADD_OR_UPDATE_SKILL = "INSERT INTO character_skills (char_obj_id,skill_id,skill_level,class_index) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE skill_level=VALUES(skill_level)";
 	static final String DELETE_SKILL_FROM_CHAR = "DELETE FROM character_skills WHERE skill_id=? AND char_obj_id=? AND class_index=?";
 	/** Shared with {@link PlayerSubClass#modifySubClass} wipe path (same Connection). */
 	public static final String DELETE_CHAR_SKILLS = "DELETE FROM character_skills WHERE char_obj_id=? AND class_index=?";
@@ -54,8 +54,15 @@ public final class PlayerSkillsDb
 	 */
 	public void storeSkill(L2Skill skill, int classIndex)
 	{
+		final String addOrUpdateSkill = DatabaseDialect.upsert(
+			"character_skills",
+			"char_obj_id,skill_id,skill_level,class_index",
+			"?,?,?,?",
+			"char_obj_id,skill_id,class_index",
+			"skill_level");
+
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SKILL))
+			PreparedStatement ps = con.prepareStatement(addOrUpdateSkill))
 		{
 			ps.setInt(1, _owner.getObjectId());
 			ps.setInt(2, skill.getId());
