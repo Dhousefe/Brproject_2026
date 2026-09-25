@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import ext.mods.commons.jdbc.SqlDialect;
+import ext.mods.commons.jdbc.DatabaseDialect;
 
 /**
  * Example Phase 5 repository for {@code accounts} table.
@@ -88,7 +88,7 @@ public final class AccountRepository implements Repository<AccountRepository.Acc
 		if (passwordHash == null || passwordHash.isBlank())
 			throw new IllegalArgumentException("passwordHash must be a non-empty hash (never plain empty)");
 		JdbcSupport.update(
-			SqlDialect.upsert("accounts", "login, password, last_active, access_level, last_server", "?, ?, ?, ?, ?", "login", "password, access_level, last_active, last_server"),
+			DatabaseDialect.upsert("accounts", "login, password, last_active, access_level, last_server", "?, ?, ?, ?, ?", "login", "password, access_level, last_active, last_server"),
 			ps ->
 			{
 				ps.setString(1, entity.login());

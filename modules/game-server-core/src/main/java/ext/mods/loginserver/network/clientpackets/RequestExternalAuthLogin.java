@@ -4,7 +4,7 @@ import ext.mods.loginserver.LoginController;
 import ext.mods.loginserver.auth.ExternalAuthManager;
 import ext.mods.loginserver.auth.ExternalAuthManager.VerificationResult;
 import ext.mods.loginserver.data.sql.AccountTable;
-import ext.mods.loginserver.data.sql.AccountTable.ExternalAuthResolution;
+import ext.mods.loginserver.data.repository.AccountStore.ExternalAuthResolution;
 import ext.mods.loginserver.network.LoginClient;
 import ext.mods.loginserver.network.LoginClient.PendingChallenge;
 import ext.mods.loginserver.network.serverpackets.ExternalAuthRejected;
