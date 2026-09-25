@@ -21,7 +21,8 @@ val dbUser = providers.gradleProperty("dbUser").orElse("brproject")
 val dbPassword = providers.gradleProperty("dbPassword").orElse("brproject")
 
 dependencies {
-    implementation("org.flywaydb:flyway-core:11.3.4")
+	implementation(project(":commons"))
+	implementation("org.flywaydb:flyway-core:11.3.4")
     implementation("org.flywaydb:flyway-mysql:11.3.4")
     implementation("org.flywaydb:flyway-database-postgresql:11.3.4")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.5.3")

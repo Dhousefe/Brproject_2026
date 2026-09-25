@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -42,7 +43,6 @@ public class RaidPointManager
 	private static final CLogger LOGGER = new CLogger(RaidPointManager.class.getName());
 	
 	private static final String LOAD_DATA = "SELECT * FROM character_raid_points";
-	private static final String INSERT_DATA = "REPLACE INTO character_raid_points (char_id,boss_id,points) VALUES (?,?,?)";
 	private static final String TRUNCATE_DATA = "TRUNCATE character_raid_points";
 	
 	private final Map<Integer, Map<Integer, Integer>> _entries = new ConcurrentHashMap<>();
@@ -92,7 +92,7 @@ public class RaidPointManager
 		points = playerData.merge(bossId, points, Integer::sum);
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_DATA))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("character_raid_points", "char_id,boss_id,points", "?,?,?", "char_id,boss_id", "points")))
 		{
 			ps.setInt(1, objectId);
 			ps.setInt(2, bossId);

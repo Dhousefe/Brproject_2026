@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 
 import ext.mods.Config;
 import ext.mods.commons.data.StatSet;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.lang.StringUtil;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
@@ -63,7 +64,6 @@ public class HeroManager
 	private static final String LOAD_ALL_HEROES = "SELECT heroes.char_id, characters.char_name, heroes.class_id, heroes.count, heroes.played, heroes.active FROM heroes, characters WHERE characters.obj_Id = heroes.char_id";
 	private static final String SELECT_HEROES_TO_BE = "SELECT olympiad_nobles.char_id, characters.char_name FROM olympiad_nobles, characters WHERE characters.obj_Id = olympiad_nobles.char_id AND olympiad_nobles.class_id = ? AND olympiad_nobles.competitions_done >= ? AND olympiad_nobles.competitions_won > 0 ORDER BY olympiad_nobles.olympiad_points DESC, olympiad_nobles.competitions_done DESC, olympiad_nobles.competitions_won DESC";
 	private static final String RESET_PLAYED = "UPDATE heroes SET played = 0";
-	private static final String INSERT_HERO = "INSERT INTO heroes (char_id, class_id, count, played, active) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE count=VALUES(count),played=VALUES(played),active=VALUES(active)";
 	private static final String LOAD_CLAN_DATA = "SELECT characters.clanid AS clanid, coalesce(clan_data.ally_Id, 0) AS allyId FROM characters LEFT JOIN clan_data ON clan_data.clan_id = characters.clanid WHERE characters.obj_Id = ?";
 	
 	private static final String LOAD_MESSAGE = "SELECT message FROM heroes WHERE char_id=?";
@@ -703,7 +703,7 @@ public class HeroManager
 	private void updateHeroes()
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_HERO))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("heroes", "char_id, class_id, count, played, active", "?,?,?,?,?", "char_id", "count, played, active")))
 		{
 			for (Map.Entry<Integer, StatSet> heroEntry : _heroes.entrySet())
 			{

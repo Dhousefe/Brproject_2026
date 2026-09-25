@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.lang.StringUtil;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
@@ -95,14 +96,12 @@ public class Clan
 	private static final String UPDATE_NOTICE = "UPDATE clan_data SET enabled=?,notice=? WHERE clan_id=?";
 	private static final String UPDATE_INTRODUCTION = "UPDATE clan_data SET introduction=? WHERE clan_id=?";
 	
-	private static final String ADD_OR_UPDATE_SKILL = "INSERT INTO clan_skills (clan_id,skill_id,skill_level) VALUES (?,?,?) ON DUPLICATE KEY UPDATE skill_level=VALUES(skill_level)";
 	private static final String REMOVE_SKILL = "DELETE FROM clan_skills WHERE clan_id=? AND skill_id=?";
 	private static final String REMOVE_ALL_SKILLS = "DELETE FROM clan_skills WHERE clan_id=?";
 	
 	private static final String INSERT_SUBPLEDGE = "INSERT INTO clan_subpledges (clan_id,sub_pledge_id,name,leader_id) values (?,?,?,?)";
 	private static final String UPDATE_SUBPLEDGE = "UPDATE clan_subpledges SET leader_id=?, name=? WHERE clan_id=? AND sub_pledge_id=?";
 	
-	private static final String ADD_OR_UPDATE_PRIVILEGE = "INSERT INTO clan_privs (clan_id,ranking,privs) VALUES (?,?,?) ON DUPLICATE KEY UPDATE privs=VALUES(privs)";
 	
 	private static final String UPDATE_CRP = "UPDATE clan_data SET reputation_score=? WHERE clan_id=?";
 	private static final String UPDATE_AUCTION = "UPDATE clan_data SET auction_bid_at=? WHERE clan_id=?";
@@ -1038,7 +1037,7 @@ public class Clan
 			return false;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SKILL))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("clan_skills", "clan_id,skill_id,skill_level", "?,?,?", "clan_id,skill_id", "skill_level")))
 		{
 			ps.setInt(1, _clanId);
 			ps.setInt(2, skill.getId());
@@ -1116,7 +1115,7 @@ public class Clan
 			return false;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SKILL))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("clan_skills", "clan_id,skill_id,skill_level", "?,?,?", "clan_id,skill_id", "skill_level")))
 		{
 			ps.setInt(1, _clanId);
 			
@@ -1539,7 +1538,7 @@ public class Clan
 		broadcastClanStatus();
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_PRIVILEGE))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("clan_privs", "clan_id,ranking,privs", "?,?,?", "clan_id,ranking", "privs")))
 		{
 			ps.setInt(1, _clanId);
 			ps.setInt(2, rank);

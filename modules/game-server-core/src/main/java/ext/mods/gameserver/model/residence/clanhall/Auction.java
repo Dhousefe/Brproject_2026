@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
 import ext.mods.commons.lang.StringUtil;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
@@ -69,7 +70,6 @@ public class Auction
 	
 	private static final String LOAD_BIDDERS = "SELECT bidder_name, clan_oid, clan_name, max_bid, time_bid FROM auctions WHERE clanhall_id = ? ORDER BY max_bid DESC";
 	private static final String UPDATE_DATE = "UPDATE clanhall SET endDate = ? WHERE id = ?";
-	private static final String INSERT_OR_UPDATE_BIDDER = "INSERT INTO auctions (clanhall_id, bidder_name, clan_oid, clan_name, max_bid, time_bid) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE bidder_name = VALUES(bidder_name), max_bid = VALUES(max_bid), time_bid = VALUES(time_bid)";
 	private static final String DELETE_BIDDERS = "DELETE FROM auctions WHERE clanhall_id = ?";
 	private static final String DELETE_BIDDER = "DELETE FROM auctions WHERE clanhall_id = ? AND clan_oid = ?";
 	private static final String UPDATE_SELLER = "UPDATE clanhall SET sellerBid = ?, sellerName = ?, sellerClanName = ?, endDate = ? WHERE id = ?";
@@ -239,7 +239,7 @@ public class Auction
 		clan.setAuctionBiddedAt(_ch.getId());
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_BIDDER))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("auctions", "clanhall_id, bidder_name, clan_oid, clan_name, max_bid, time_bid", "?, ?, ?, ?, ?, ?", "clanhall_id, clan_oid", "bidder_name, clan_name, max_bid, time_bid")))
 		{
 			ps.setInt(1, _ch.getId());
 			ps.setString(2, player.getName());

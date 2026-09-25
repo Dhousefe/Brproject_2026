@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -36,7 +37,6 @@ public class AdminPremium implements IAdminCommandHandler
 {
 	private static final CLogger LOGGER = new CLogger(AdminPremium.class.getName());
 	
-	private static final String UPDATE_PREMIUMSERVICE = "REPLACE INTO account_premium (premium_service,enddate,account_name) values(?,?,?)";
 	private static final String DELETE_PREMIUMSERVICE = "DELETE FROM account_premium WHERE account_name=?";
 	
 	private static final String[] ADMIN_COMMANDS =
@@ -144,7 +144,7 @@ public class AdminPremium implements IAdminCommandHandler
 	private static void addPremiumServices(Player player, int field, int value, String accName)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(UPDATE_PREMIUMSERVICE))
+			PreparedStatement statement = con.prepareStatement(DatabaseDialect.upsert("account_premium", "premium_service,enddate,account_name", "?,?,?", "account_name", "premium_service,enddate")))
 		{
 			Calendar finishtime = Calendar.getInstance();
 			finishtime.add(field, value);

@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 
 import ext.mods.commons.gui.ThemeManager;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.jdbc.SupportedDatabase;
 
 /**
@@ -707,25 +708,23 @@ public class DatabaseManager {
     private void upsertGameServer(Connection conn, int serverId, String hexId, String host) throws SQLException {
         DbType type = detectDbType(conn);
         String sql;
-        if (type == DbType.SQLITE) {
-            sql = "INSERT OR REPLACE INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?)";
-        } else if (type == DbType.POSTGRESQL) {
-            sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) ON CONFLICT (server_id) DO UPDATE SET hexid = EXCLUDED.hexid, host = EXCLUDED.host";
-        } else if (type == DbType.SQLSERVER) {
+        if (type == DbType.SQLSERVER) {
             sql = "MERGE gameservers AS target USING (SELECT ? AS server_id, ? AS hexid, ? AS host) AS src ON target.server_id = src.server_id "
                 + "WHEN MATCHED THEN UPDATE SET hexid = src.hexid, host = src.host "
                 + "WHEN NOT MATCHED THEN INSERT (server_id, hexid, host) VALUES (src.server_id, src.hexid, src.host);";
         } else {
-            sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE hexid = ?, host = ?";
+            final SupportedDatabase database = switch (type) {
+                case POSTGRESQL -> SupportedDatabase.POSTGRESQL;
+                case SQLITE -> SupportedDatabase.SQLITE;
+                case MYSQL -> SupportedDatabase.MYSQL;
+                default -> SupportedDatabase.MARIADB;
+            };
+            sql = DatabaseDialect.upsert(database, "gameservers", "server_id, hexid, host", "?, ?, ?", "server_id", "hexid, host");
         }
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, serverId);
             ps.setString(2, hexId);
             ps.setString(3, host);
-            if (type == DbType.MARIADB || type == DbType.MYSQL) {
-                ps.setString(4, hexId);
-                ps.setString(5, host);
-            }
             ps.executeUpdate();
         }
     }

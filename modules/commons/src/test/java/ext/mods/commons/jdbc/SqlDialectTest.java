@@ -42,4 +42,12 @@ class SqlDialectTest
 			"INSERT INTO character_data (charId, valueName, valueData) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE valueData=VALUES(valueData)",
 			SqlDialect.upsert("character_data", "charId, valueName, valueData", "?, ?, ?", "charId, valueName", "valueData"));
 	}
+
+	@Test
+	void buildsPostgresqlCompositeKeyUpsert()
+	{
+		assertEquals(
+			"INSERT INTO character_skills (char_obj_id,skill_id,skill_level,class_index) VALUES (?,?,?,?) ON CONFLICT (char_obj_id,skill_id,class_index) DO UPDATE SET skill_level=EXCLUDED.skill_level",
+			DatabaseDialect.upsert(SupportedDatabase.POSTGRESQL, "character_skills", "char_obj_id,skill_id,skill_level,class_index", "?,?,?,?", "char_obj_id,skill_id,class_index", "skill_level"));
+	}
 }

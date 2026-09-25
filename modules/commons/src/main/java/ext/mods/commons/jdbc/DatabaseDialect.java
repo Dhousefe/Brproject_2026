@@ -44,10 +44,19 @@ public final class DatabaseDialect
 	 */
 	public static String upsert(String table, String columns, String values, String conflictColumns, String updateColumns)
 	{
+		return upsert(_activeDb, table, columns, values, conflictColumns, updateColumns);
+	}
+
+	/**
+	 * Builds an upsert for an explicitly selected database, useful for tools
+	 * that manage a connection before the shared pool is initialized.
+	 */
+	public static String upsert(SupportedDatabase database, String table, String columns, String values, String conflictColumns, String updateColumns)
+	{
 		final String insert = "INSERT INTO " + table + " (" + columns + ") VALUES (" + values + ")";
 		final String[] updates = updateColumns.split(",");
 
-		if (_activeDb == SupportedDatabase.POSTGRESQL)
+		if (database == SupportedDatabase.POSTGRESQL)
 		{
 			final String assignments = Arrays.stream(updates)
 				.map(String::trim)
@@ -57,7 +66,7 @@ public final class DatabaseDialect
 			return insert + " ON CONFLICT (" + conflictColumns + ") DO UPDATE SET " + assignments;
 		}
 
-		if (_activeDb == SupportedDatabase.SQLITE)
+		if (database == SupportedDatabase.SQLITE)
 			return insert.replaceFirst("^INSERT INTO", "INSERT OR REPLACE INTO");
 
 		final String assignments = Arrays.stream(updates)
