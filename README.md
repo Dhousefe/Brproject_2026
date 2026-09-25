@@ -65,6 +65,8 @@ Projetado com arquitetura modular multi-module Gradle, desacoplamento total via 
 ## 🏛️ Arquitetura do Sistema & Diagramas
 
 > O mapa investigativo mantido durante a modernização está em [`docs/architecture/system-map.md`](docs/architecture/system-map.md). Ele diferencia o que está integrado no runtime do que ainda é experimental ou planejado.
+>
+> A avaliação detalhada de Docker, MariaDB, PostgreSQL e acoplamento JDBC está em [`docs/architecture/database-decoupling-assessment.md`](docs/architecture/database-decoupling-assessment.md).
 
 ### 1. Visão Geral do Ecossistema
 
