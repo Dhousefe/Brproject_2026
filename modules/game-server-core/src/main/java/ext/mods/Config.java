@@ -190,12 +190,11 @@ public final class Config {
    }
 
    public static final void loadDatabaseProperties(ExProperties properties) {
-      // Default to SQLite (zero-config, no external server needed). If a user already has
-      // sql.url configured to MariaDB/MySQL/Postgres/etc. in their properties, that value wins
-      // and is used as-is (ConnectionPool detects the driver from the URL prefix).
-      DATABASE_URL = getString(properties, "sql.url", "jdbc:sqlite:data/brproject.db");
-      DATABASE_LOGIN = getString(properties, "sql.login", "");
-      DATABASE_PASSWORD = getString(properties, "sql.password", "");
+      // PostgreSQL is the official database. SQLite remains available only when explicitly
+      // configured for isolated legacy tests; ConnectionPool detects the driver from the URL.
+      DATABASE_URL = getString(properties, "sql.url", "jdbc:postgresql://localhost:5432/l2jdb");
+      DATABASE_LOGIN = getString(properties, "sql.login", "brproject");
+      DATABASE_PASSWORD = getString(properties, "sql.password", "change-me-postgres");
    }
 
    private static final void loadLogin() {

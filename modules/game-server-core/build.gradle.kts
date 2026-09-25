@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
 
     implementation(libs.mariadb.java.client)
+    implementation(libs.postgresql.jdbc)
     implementation(libs.hikaricp)
     implementation(libs.capnproto.runtime)
     implementation(libs.zstd.jni)

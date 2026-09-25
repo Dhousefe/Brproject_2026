@@ -56,7 +56,7 @@ public class BuyListManager implements IXmlReader
 		LOGGER.info("Loaded {} buyLists.", _buyLists.size());
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM `buylists`");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM buylists");
 			ResultSet rs = ps.executeQuery())
 		{
 			while (rs.next())

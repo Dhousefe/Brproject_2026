@@ -21,6 +21,4 @@ game/config/server.properties
 login/config/loginserver.properties
 game/config/hexid.txt
 login/config/hexid.txt
-game/data/geodata
-game/data/geodata/*
 game/data/prevention

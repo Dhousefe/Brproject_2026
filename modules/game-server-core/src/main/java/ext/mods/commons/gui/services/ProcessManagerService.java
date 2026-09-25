@@ -595,7 +595,7 @@ public class ProcessManagerService {
 
     private void configureSiteEnvironment(java.util.Map<String, String> env, File projectRoot) {
         Properties dbProps = loadGameServerDbProperties(projectRoot);
-        String dbUrl = dbProps.getProperty("URL", dbProps.getProperty("sql.url", "jdbc:mariadb://127.0.0.1:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8"));
+        String dbUrl = dbProps.getProperty("URL", dbProps.getProperty("sql.url", "jdbc:postgresql://127.0.0.1:5432/l2jdb"));
         String dbUser = dbProps.getProperty("Login", dbProps.getProperty("sql.login", "brproject"));
         String dbPassword = dbProps.getProperty("Password", dbProps.getProperty("sql.password", ""));
         String siteHost = getSiteBindHost(dbProps);
