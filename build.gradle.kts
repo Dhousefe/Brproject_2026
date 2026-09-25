@@ -89,6 +89,56 @@ tasks.register("compileKotlin") {
     dependsOn(":game-server-core:compileKotlin")
 }
 
+val databaseSqlPatterns = linkedMapOf(
+    "ON_DUPLICATE_KEY_UPDATE" to "ON DUPLICATE KEY UPDATE",
+    "REPLACE_INTO" to "REPLACE INTO",
+    "INSERT_OR_REPLACE_INTO" to "INSERT OR REPLACE INTO",
+)
+
+tasks.register("checkDatabaseSql") {
+    group = "verification"
+    description = "Blocks new vendor-specific SQL outside the DatabaseDialect compatibility boundary"
+
+    doLast {
+        val baselineFile = rootProject.file("docs/database/sql-compatibility-baseline.properties")
+        val sourceFiles = rootProject.fileTree("modules") {
+            include("**/*.java")
+            include("**/*.kt")
+            exclude("**/src/test/**")
+            exclude("**/DatabaseDialect.java")
+            exclude("**/SqlDialect.java")
+        }
+        val counts = databaseSqlPatterns.mapValues { (_, token) ->
+            sourceFiles.sumOf { file -> file.readLines().count { line -> line.contains(token) } }
+        }
+
+        if (project.hasProperty("updateDatabaseSqlBaseline")) {
+            baselineFile.parentFile.mkdirs()
+            baselineFile.writeText(counts.entries.joinToString("\n") { (key, value) -> "$key=$value" } + "\n")
+            logger.lifecycle("Database SQL compatibility baseline updated: $counts")
+            return@doLast
+        }
+
+        if (!baselineFile.exists())
+            throw GradleException("Missing $baselineFile. Run with -PupdateDatabaseSqlBaseline once to register existing legacy debt.")
+
+        val baseline = baselineFile.readLines()
+            .mapNotNull { line ->
+                val parts = line.split('=', limit = 2)
+                if (parts.size == 2) parts[0] to parts[1].toInt() else null
+            }
+            .toMap()
+        val newFindings = counts.filter { (key, count) -> count > (baseline[key] ?: 0) }
+        logger.lifecycle("Database SQL compatibility scan: $counts (baseline=$baseline)")
+        if (newFindings.isNotEmpty())
+            throw GradleException("New vendor-specific SQL detected outside DatabaseDialect: $newFindings. Migrate it or update the baseline with review.")
+    }
+}
+
+tasks.named("build") {
+    dependsOn("checkDatabaseSql")
+}
+
 tasks.register("brCompileIncremental") {
     group = "build"
     description = "Build incremental: compila o que mudou + gera libs/server.jar"

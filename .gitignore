@@ -31,6 +31,9 @@ Brproject_7z/
 docs/
 !docs/
 docs/*
+!docs/database/
+!docs/database/*.md
+!docs/database/*.properties
 !docs/architecture/
 !docs/architecture/*.md
 

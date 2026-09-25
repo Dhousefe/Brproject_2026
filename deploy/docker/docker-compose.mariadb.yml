@@ -1,0 +1,44 @@
+# MariaDB compatibility profile.
+# Usage:
+#   docker compose --env-file .env -f deploy/docker/docker-compose.yml \
+#     -f deploy/docker/docker-compose.mariadb.yml up -d --build
+
+services:
+  db:
+    image: mariadb:11.8
+    environment: !override
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-l2jdb}
+      MARIADB_USER: ${MARIADB_USER:-brproject}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD in .env}
+    ports: !override
+      - "${MARIADB_PORT:-3307}:3306"
+    volumes: !override
+      - l2-newera-mariadb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u$$MARIADB_USER -p$$MARIADB_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+
+  migrate:
+    environment:
+      DB_URL: jdbc:mariadb://db:3306/${MARIADB_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MARIADB_USER:-brproject}
+      DB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
+
+  login-server:
+    environment:
+      DB_URL: jdbc:mariadb://db:3306/${MARIADB_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MARIADB_USER:-brproject}
+      DB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
+
+  game-server:
+    environment:
+      DB_URL: jdbc:mariadb://db:3306/${MARIADB_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MARIADB_USER:-brproject}
+      DB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
+
+volumes:
+  l2-newera-mariadb:

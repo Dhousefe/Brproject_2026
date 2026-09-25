@@ -63,3 +63,6 @@ As seguintes regras valem para mudanças de arquitetura:
 - O suporte a múltiplos JDBC não equivale a repositories desacoplados. Antes de trocar o banco, consultar [`docs/architecture/database-decoupling-assessment.md`](docs/architecture/database-decoupling-assessment.md).
 - `deploy/docker` é um protótipo de deployment e deve ser validado contra o Compose real antes de ser usado como ambiente de homologação ou produção.
 - PostgreSQL exige migrations próprias e testes de compatibilidade; não assumir que o diretório MariaDB é portável apenas porque o runner aceita a URL PostgreSQL.
+- `DatabaseDialect` é a fronteira canônica para SQL não portátil. `SqlDialect` permanece somente como fachada de compatibilidade durante a migração gradual.
+- O Compose PostgreSQL é o ambiente padrão; `deploy/docker/docker-compose.mariadb.yml` fornece uma sobreposição isolada para testes MariaDB, com volume e porta próprios.
+- O task `checkDatabaseSql` registra o débito legado de SQL específico e bloqueia novos usos fora da camada de compatibilidade. O baseline só deve ser atualizado junto com uma migração revisada.

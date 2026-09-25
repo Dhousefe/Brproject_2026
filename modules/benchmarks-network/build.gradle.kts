@@ -124,4 +124,9 @@ tasks.register<JavaExec>("runGameCryptBenchmark") {
     jvmArgs = listOf("-Xms256m", "-Xmx1024m", "-Dfile.encoding=UTF-8")
 }
 
+// The benchmark runtime graph can expose the same dependency through more
+// than one project path. Keep distribution packaging deterministic, matching
+// the policy used by the other executable modules.
+tasks.withType<Tar>().configureEach { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.withType<Zip>().configureEach { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 

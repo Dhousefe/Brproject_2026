@@ -28,6 +28,7 @@ dependencies {
 
     // JDBC drivers — multi-database support
     runtimeOnly(libs.sqlite.jdbc)
+    runtimeOnly(libs.mariadb.java.client)
     runtimeOnly(libs.postgresql.jdbc)
     runtimeOnly(libs.mssql.jdbc)
 

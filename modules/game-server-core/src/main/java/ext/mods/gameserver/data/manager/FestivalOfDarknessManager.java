@@ -50,7 +50,7 @@ import ext.mods.gameserver.network.NpcStringId;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.SystemMessage;
 import ext.mods.config.ConfigEvents;
-import ext.mods.commons.jdbc.SqlDialect;
+import ext.mods.commons.jdbc.DatabaseDialect;
 
 public class FestivalOfDarknessManager
 {
@@ -249,7 +249,7 @@ public class FestivalOfDarknessManager
 	 */
 	public void saveFestivalData(boolean updateSettings)
 	{
-		final String insertOrUpdateFestival = SqlDialect.upsert(
+		final String insertOrUpdateFestival = DatabaseDialect.upsert(
 			"seven_signs_festival",
 			"festivalId, cabal, cycle, date, score, members",
 			"?,?,?,?,?,?",
