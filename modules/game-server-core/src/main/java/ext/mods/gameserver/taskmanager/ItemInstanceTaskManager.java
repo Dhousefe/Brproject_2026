@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
@@ -38,12 +39,10 @@ public class ItemInstanceTaskManager implements Runnable
 {
 	private static final CLogger LOGGER = new CLogger(ItemInstanceTaskManager.class.getName());
 	
-	private static final String INSERT_ITEM = "INSERT INTO items (owner_id,object_id,item_id,count,enchant_level,loc,loc_data,custom_type1,custom_type2,mana_left,time) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE owner_id=VALUES(owner_id),count=VALUES(count),loc=VALUES(loc),loc_data=VALUES(loc_data),enchant_level=VALUES(enchant_level),custom_type1=VALUES(custom_type1),custom_type2=VALUES(custom_type2),mana_left=VALUES(mana_left),time=VALUES(time)";
 	private static final String DELETE_ITEM = "DELETE FROM items WHERE object_id=?";
 	
 	private static final String DELETE_PET_ITEM = "DELETE FROM pets WHERE item_obj_id=?";
 	
-	private static final String UPDATE_AUGMENTATION = "INSERT INTO augmentations (item_oid,attributes,skill_id,skill_level) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE attributes=VALUES(attributes),skill_id=VALUES(skill_id),skill_level=VALUES(skill_level)";
 	private static final String DELETE_AUGMENTATION = "DELETE FROM augmentations WHERE item_oid=?";
 	
 	private final Set<ItemInstance> _items = ConcurrentHashMap.newKeySet();
@@ -98,8 +97,8 @@ public class ItemInstanceTaskManager implements Runnable
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps1 = con.prepareStatement(INSERT_ITEM);
-			PreparedStatement ps2 = con.prepareStatement(UPDATE_AUGMENTATION);
+			PreparedStatement ps1 = con.prepareStatement(getInsertItemSql());
+			PreparedStatement ps2 = con.prepareStatement(getUpdateAugmentationSql());
 			PreparedStatement ps3 = con.prepareStatement(DELETE_ITEM);
 			PreparedStatement ps4 = con.prepareStatement(DELETE_AUGMENTATION);
 			PreparedStatement ps5 = con.prepareStatement(DELETE_PET_ITEM))
@@ -183,6 +182,16 @@ public class ItemInstanceTaskManager implements Runnable
 		}
 		
 		items.clear();
+	}
+
+	private static String getInsertItemSql()
+	{
+		return SqlDialect.upsert("items", "owner_id,object_id,item_id,count,enchant_level,loc,loc_data,custom_type1,custom_type2,mana_left,time", "?,?,?,?,?,?,?,?,?,?,?", "object_id", "owner_id,count,loc,loc_data,enchant_level,custom_type1,custom_type2,mana_left,time");
+	}
+
+	private static String getUpdateAugmentationSql()
+	{
+		return SqlDialect.upsert("augmentations", "item_oid,attributes,skill_id,skill_level", "?,?,?,?", "item_oid", "attributes,skill_id,skill_level");
 	}
 	
 	/**

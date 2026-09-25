@@ -72,7 +72,7 @@ public class FishingChampionshipManager
 	
 	private static final String INSERT = "INSERT INTO fishing_championship(player_name,fish_length,rewarded) VALUES (?,?,?)";
 	private static final String TRUNCATE = "TRUNCATE fishing_championship";
-	private static final String SELECT = "SELECT `player_name`, `fish_length`, `rewarded` FROM fishing_championship";
+	private static final String SELECT = "SELECT player_name, fish_length, rewarded FROM fishing_championship";
 	
 	private final List<String> _playersName = new ArrayList<>();
 	private final List<String> _fishLength = new ArrayList<>();

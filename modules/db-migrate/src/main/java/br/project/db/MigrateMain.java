@@ -1,6 +1,10 @@
 package br.project.db;
 
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +16,7 @@ import org.flywaydb.core.api.output.MigrateResult;
  *
  * <pre>
  * java -jar ... br.project.db.MigrateMain \
- *   --url=jdbc:mariadb://localhost:3306/l2jdb \
+ *   --url=jdbc:postgresql://localhost:5432/l2jdb \
  *   --user=brproject --password=brproject
  * </pre>
  */
@@ -25,7 +29,7 @@ public final class MigrateMain
 	public static void main(String[] args)
 	{
 		final Map<String, String> opts = parseArgs(args);
-		final String url = opts.getOrDefault("url", System.getenv().getOrDefault("DB_URL", "jdbc:mariadb://localhost:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8"));
+		final String url = opts.getOrDefault("url", System.getenv().getOrDefault("DB_URL", "jdbc:postgresql://localhost:5432/l2jdb"));
 		final String user = opts.getOrDefault("user", System.getenv().getOrDefault("DB_USER", "brproject"));
 		final String password = opts.getOrDefault("password", System.getenv().getOrDefault("DB_PASSWORD", "brproject"));
 
@@ -51,6 +55,13 @@ public final class MigrateMain
 		final MigrateResult result = flyway.migrate();
 		System.out.println("Migrations executed: " + result.migrationsExecuted);
 		System.out.println("Target schema version: " + result.targetSchemaVersion);
+
+		final String gameServerHexid = System.getenv("GAME_SERVER_HEXID");
+		final String gameServerHost = System.getenv("GAME_SERVER_HOST");
+		if (gameServerHexid != null && !gameServerHexid.isBlank() && gameServerHost != null && !gameServerHost.isBlank())
+		{
+			seedGameServer(url, user, password, gameServerHexid, gameServerHost);
+		}
 		System.out.println("Success.");
 	}
 	
@@ -69,8 +80,47 @@ public final class MigrateMain
 		{
 			return "brproject-data/migrations/sqlite";
 		}
-		// MariaDB / MySQL / PostgreSQL / SQLServer / H2 — share the MariaDB-style DDL (compatible subset).
+		if (normalized.startsWith("jdbc:postgresql:"))
+		{
+			return "brproject-data/migrations/postgresql";
+		}
+		// MariaDB / MySQL / SQLServer / H2 use the legacy MariaDB-compatible subtree.
 		return "brproject-data/migrations/mariadb";
+	}
+
+	private static void seedGameServer(String url, String user, String password, String hexid, String host)
+	{
+		final String normalized = url.toLowerCase();
+		final String sql;
+		if (normalized.startsWith("jdbc:postgresql:"))
+		{
+			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
+				+ "ON CONFLICT (server_id) DO UPDATE SET hexid = EXCLUDED.hexid, host = EXCLUDED.host";
+		}
+		else if (normalized.startsWith("jdbc:sqlite:"))
+		{
+			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
+				+ "ON CONFLICT(server_id) DO UPDATE SET hexid = excluded.hexid, host = excluded.host";
+		}
+		else
+		{
+			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
+				+ "ON DUPLICATE KEY UPDATE hexid = VALUES(hexid), host = VALUES(host)";
+		}
+
+		try (Connection connection = DriverManager.getConnection(url, user, password);
+			PreparedStatement statement = connection.prepareStatement(sql))
+		{
+			statement.setInt(1, 1);
+			statement.setString(2, hexid);
+			statement.setString(3, host);
+			statement.executeUpdate();
+			System.out.println("GameServer seed applied: server_id=1, host=" + host);
+		}
+		catch (SQLException e)
+		{
+			throw new IllegalStateException("Unable to seed gameservers", e);
+		}
 	}
 
 	private static Map<String, String> parseArgs(String[] args)

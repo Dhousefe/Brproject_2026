@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/Gradle-8.10+-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle Multi-Module" />
   <img src="https://img.shields.io/badge/Netty-4.2.16-00599C.svg?style=for-the-badge&logo=eclipse-vert.x&logoColor=white" alt="Netty 4.2" />
   <img src="https://img.shields.io/badge/LMAX-Disruptor_4.0-red.svg?style=for-the-badge" alt="LMAX Disruptor" />
-  <img src="https://img.shields.io/badge/Database-SQLite%20%7C%20MariaDB%20%7C%20Postgres-4479A1.svg?style=for-the-badge&logo=mariadb&logoColor=white" alt="Multi-Database" />
+  <img src="https://img.shields.io/badge/Database-PostgreSQL%20%7C%20SQLite%20legacy-4479A1.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL official database" />
   <img src="https://img.shields.io/badge/Flyway-Migrations-CC0200.svg?style=for-the-badge&logo=flyway&logoColor=white" alt="Flyway Migrations" />
   <img src="https://img.shields.io/badge/Metrics-Micrometer_%26_Prometheus-E6522C.svg?style=for-the-badge&logo=prometheus&logoColor=white" alt="Prometheus Metrics" />
   <img src="https://img.shields.io/badge/Docker-Compose_Ready-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Ready" />
@@ -19,7 +19,7 @@
 
 O **Lineage2 NewEra** é um emulador de servidor de alta performance para **Lineage 2 Interlude (Chronicle 6)**, totalmente modernizado em **Java 25 + Kotlin 2.3.0-Beta2**.
 
-Projetado com arquitetura modular multi-module Gradle, desacoplamento total via **SPI (Service Provider Interface)**, decomposição de entidades para eliminação de *god objects*, persistência multi-database com suporte **zero-config SQLite** e **MariaDB/PostgreSQL em produção**, proxy reverso Netty integrado com rate limiting por IP, observabilidade nativa com **Micrometer/Prometheus**, motor de persistência de latência ultrabaixa com **LMAX Disruptor (Cluster HPC)** e segurança endurecida.
+Projetado com arquitetura modular multi-module Gradle, desacoplamento total via **SPI (Service Provider Interface)**, decomposição de entidades para eliminação de *god objects*, persistência oficial em **PostgreSQL** (com SQLite legado para testes isolados), proxy reverso Netty integrado com rate limiting por IP, observabilidade nativa com **Micrometer/Prometheus**, motor de persistência de latência ultrabaixa com **LMAX Disruptor (Cluster HPC)** e segurança endurecida.
 
 > [!NOTE]
 > Base histórica fundamentada nas comunidades **L2JBrasil** e **aCis**, totalmente refatorada através de ciclos contínuos de decomposição arquitetural, testes automatizados e hardening de produção.
@@ -105,8 +105,8 @@ flowchart TB
 
     subgraph StorageTier [Persistencia e Banco de Dados]
         Flyway[db-migrate - Flyway CLI]
-        SQLite[(SQLite WAL - Zero-Config Dev)]
-        MariaDB[(MariaDB 11+ / Postgres - Producao)]
+        PostgreSQL[(PostgreSQL 16 - Banco oficial)]
+        SQLite[(SQLite WAL - Compatibilidade legada)]
     end
 
     subgraph WebTier [Painel Web e Launcher]
@@ -125,13 +125,10 @@ flowchart TB
     ServiceLoader --> Mods
     GS --> Disruptor
     Disruptor --> WriteBehind
-    WriteBehind --> SQLite
-    GS --> SQLite
-    GS --> MariaDB
-    LS --> MariaDB
-    LS --> SQLite
-    Flyway --> MariaDB
-    Flyway --> SQLite
+    GS --> PostgreSQL
+    LS --> PostgreSQL
+    Flyway --> PostgreSQL
+    SQLite -. testes isolados .-> GS
     AdminSwing --> GS
 ```
 
@@ -530,13 +527,13 @@ Módulo de computação de alta performance e persistência sem bloqueios:
 
 ## 💾 Persistência & Multi-Database (Flyway)
 
-O BrProject adota uma camada de abstração de dados compatível com múltiplos SGDBs através de `SqlDialect` e migrações versionadas com **Flyway**:
+O L2 NewEra usa **PostgreSQL como banco oficial** no Docker e na produção. O runner Flyway mantém compatibilidade com outros dialetos durante a transição:
 
 | Banco de Dados | Perfil de Uso | Configuração de Conexão (`server.properties`) |
 |---|---|---|
-| **SQLite (Padrão)** | **Zero-Config** (Dev, Testes, Offline) | `URL = jdbc:sqlite:data/brproject.sqlite`<br/>*Estado runtime local; schema e migrations ficam em `db/migrations/sqlite/`.* |
-| **MariaDB 11+ / MySQL** | **Produção Recomendada** (Alta Concorrência) | `URL = jdbc:mariadb://localhost:3306/l2jdb?useUnicode=true&characterEncoding=UTF-8` |
-| **PostgreSQL** | Produção Alternativa | `URL = jdbc:postgresql://localhost:5432/l2jdb` |
+| **PostgreSQL 16** | **Oficial** (desenvolvimento Docker e produção) | `URL = jdbc:postgresql://localhost:5433/l2jdb` no host; `jdbc:postgresql://db:5432/l2jdb` no Compose |
+| **SQLite** | Compatibilidade legada (testes isolados) | `URL = jdbc:sqlite:data/brproject.sqlite` |
+| **MariaDB / MySQL** | Compatibilidade legada | `URL = jdbc:mariadb://localhost:3306/l2jdb` |
 | **SQL Server** | Ambientes Corporativos | `URL = jdbc:sqlserver://localhost:1433;databaseName=l2jdb` |
 
 > Os arquivos SQLite de runtime (`data/*.sqlite*`, `data/*.db*`), WAL/SHM, `hexid.txt`, logs e caches locais não são versionados. O arquivo `db/brproject.sqlite` é apenas o seed local versionado; em produção, use um banco externo e aplique as migrations.
@@ -545,7 +542,7 @@ O BrProject adota uma camada de abstração de dados compatível com múltiplos 
 
 ```bash
 # Executar migração via runner dedicado :db-migrate
-./gradlew :db-migrate:run --args="--url=jdbc:mariadb://localhost:3306/l2jdb --user=brproject --password=brproject"
+./gradlew :db-migrate:run --args="--url=jdbc:postgresql://localhost:5432/l2jdb --user=brproject --password=brproject"
 
 # Ou utilizando o script helper
 ./tools/migrate-db.sh
@@ -612,7 +609,7 @@ export JAVA_HOME=.../jdk-25 # Linux/macOS
 cp game/config/server.example.properties game/config/server.properties
 cp login/config/loginserver.example.properties login/config/loginserver.properties
 
-# 5. Inicie o LoginServer e o GameServer (Modo SQLite Zero-Config)
+# 5. Inicie PostgreSQL, migrations, LoginServer e GameServer
 # Terminal 1 (LoginServer):
 ./gradlew :login-server:run
 
@@ -699,7 +696,7 @@ O sistema opera em dois modos mutuamente exclusivos e auto-configuráveis: **Mod
 | **Game API** | *Não Exposta* | `9080` | HTTP (Loopback) | Apenas escuta interna em `127.0.0.1` | Apenas escuta interna em `127.0.0.1` | API Netty HTTP restrita com autenticação criptográfica HMAC-SHA256 |
 | **Fail2Ban IPC** | *Não Exposta* | `19998` | UDP (Loopback) | Push instantâneo (<0.2ms) Game/Login para Proxy | Push desativado se proxy desligado | Notificação de banimentos inter-processos com latência sub-milissegundo |
 | **Prometheus Metrics** | `9090` | `9090` | HTTP | Telemetria e métricas operacionais | Telemetria e métricas operacionais | Endpoint `/metrics` para monitoramento contínuo |
-| **MariaDB** | `3306` | `3306` | TCP | Banco de dados relacional em produção | Banco de dados relacional em produção | Persistência externa (quando não utilizado o SQLite zero-config) |
+| **PostgreSQL** | `5433` | `5432` | TCP | Banco oficial do ambiente Docker/produção | Banco oficial do ambiente Docker/produção | Persistência externa |
 
 ---
 

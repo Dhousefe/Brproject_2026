@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import ext.mods.commons.lang.StringUtil;
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -44,7 +45,6 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 	
 	private static final CLogger LOGGER = new CLogger(MacroList.class.getName());
 	
-	private static final String INSERT_OR_UPDATE_MACRO = "INSERT INTO character_macroses (char_obj_id,id,icon,name,descr,acronym,commands) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE icon=VALUES(icon),name=VALUES(name),descr=VALUES(descr),acronym=VALUES(acronym),commands=VALUES(commands)";
 	private static final String DELETE_MACRO = "DELETE FROM character_macroses WHERE char_obj_id=? AND id=?";
 	private static final String LOAD_MACROS = "SELECT char_obj_id, id, icon, name, descr, acronym, commands FROM character_macroses WHERE char_obj_id=?";
 	
@@ -139,7 +139,7 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 			sb.setLength(255);
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_MACRO))
+			PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("character_macroses", "char_obj_id,id,icon,name,descr,acronym,commands", "?,?,?,?,?,?,?", "char_obj_id,id", "icon,name,descr,acronym,commands")))
 		{
 			ps.setInt(1, _owner.getObjectId());
 			ps.setInt(2, macro.id);

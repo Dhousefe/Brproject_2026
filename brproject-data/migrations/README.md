@@ -6,7 +6,8 @@ Flyway migrations organized by database vendor.
 
 ```
 migrations/
-├── mariadb/    ← MariaDB/MySQL (production recommended)
+├── mariadb/    ← MariaDB/MySQL legacy-compatible schema
+├── postgresql/ ← PostgreSQL (official server database)
 ├── sqlite/     ← SQLite (zero-config, dev/demo)
 └── README.md
 ```
@@ -18,7 +19,7 @@ The migration path is selected automatically based on `sql.url` in your config:
 - `jdbc:sqlite:...` → uses `sqlite/`
 - `jdbc:mariadb:...` → uses `mariadb/`
 - `jdbc:mysql:...` → uses `mariadb/`
-- `jdbc:postgresql:...` → uses `mariadb/` (compatible)
+- `jdbc:postgresql:...` → uses `postgresql/`
 - `jdbc:sqlserver:...` → uses `mariadb/` (compatible)
 
 Override with `--locations=filesystem:/custom/path` on the CLI or pass

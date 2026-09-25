@@ -70,7 +70,6 @@ logs/
 thread-dump.txt
 
 # Geodata / heavy runtime
-game/data/geodata/*
 game/data/prevention/
 
 # --- Secrets / local config (use *.example.properties in Git) ---

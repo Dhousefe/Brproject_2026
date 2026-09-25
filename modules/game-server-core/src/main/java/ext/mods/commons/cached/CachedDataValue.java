@@ -19,6 +19,7 @@ package ext.mods.commons.cached;
 
 import java.sql.SQLException;
 
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -26,13 +27,8 @@ public class CachedDataValue
 {
 	public static final CLogger LOGGER = new CLogger(CachedDataValue.class.getName());
 	
-	private static final String LOAD_QUERY = "SELECT `valueData` FROM `character_data` WHERE `valueName`='%s' AND `charId`=%d LIMIT 1";
-	private static final String UPDATE_QUERY = "INSERT INTO `character_data` (`charId`, `valueName`, `valueData`) VALUES (%d, '%s', ?) ON DUPLICATE KEY UPDATE `valueData`=?";
-	
 	private final String valueName;
-	
-	private final String compiledLoadQuery;
-	private final String compiledUpdateQuery;
+	private final int charId;
 	
 	private volatile String valueData;
 	
@@ -41,9 +37,8 @@ public class CachedDataValue
 	CachedDataValue(String valueName, String defaultValue, int charId)
 	{
 		this.valueName = valueName;
+		this.charId = charId;
 		this.valueData = defaultValue;
-		compiledLoadQuery = String.format(LOAD_QUERY, valueName, charId);
-		compiledUpdateQuery = String.format(UPDATE_QUERY, charId, valueName);
 	}
 	
 	public String getKey()
@@ -63,10 +58,11 @@ public class CachedDataValue
 	void save()
 	{
 		try (var conn = ConnectionPool.getConnection();
-			var stmt = conn.prepareStatement(compiledUpdateQuery))
+			var stmt = conn.prepareStatement(SqlDialect.upsert("character_data", "charId, valueName, valueData", "?, ?, ?", "charId, valueName", "valueData")))
 		{
-			stmt.setString(1, valueData);
-			stmt.setString(2, valueData);
+			stmt.setInt(1, charId);
+			stmt.setString(2, valueName);
+			stmt.setString(3, valueData);
 			stmt.executeUpdate();
 		}
 		catch (SQLException e)
@@ -78,8 +74,10 @@ public class CachedDataValue
 	void load()
 	{
 		try (var conn = ConnectionPool.getConnection();
-			var stmt = conn.prepareStatement(compiledLoadQuery))
+			var stmt = conn.prepareStatement("SELECT valueData FROM character_data WHERE valueName=? AND charId=? LIMIT 1"))
 		{
+			stmt.setString(1, valueName);
+			stmt.setInt(2, charId);
 			try (var rs = stmt.executeQuery())
 			{
 				while (rs.next())

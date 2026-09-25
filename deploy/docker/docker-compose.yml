@@ -2,19 +2,17 @@ name: l2-newera
 
 services:
   db:
-    image: mariadb:11
+    image: postgres:16-alpine
     environment:
-      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
-      MARIADB_DATABASE: ${MYSQL_DATABASE:-l2jdb}
-      MARIADB_USER: ${MYSQL_USER:-brproject}
-      MARIADB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-l2jdb}
+      POSTGRES_USER: ${POSTGRES_USER:-brproject}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
     ports:
-      - "${MYSQL_PORT:-3306}:3306"
+      - "${POSTGRES_PORT:-5433}:5432"
     volumes:
-      - l2-newera-mariadb:/var/lib/mysql
-      - ./init-db.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+      - l2-newera-postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -p$$MARIADB_ROOT_PASSWORD --silent"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -25,10 +23,9 @@ services:
       context: ../..
       dockerfile: deploy/docker/Dockerfile.migrate
     environment:
-      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
-      DB_USER: ${MYSQL_USER:-brproject}
-      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
-      DB_NAME: ${MYSQL_DATABASE:-l2jdb}
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-l2jdb}
+      DB_USER: ${POSTGRES_USER:-brproject}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
       GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
     depends_on:
@@ -40,9 +37,9 @@ services:
       context: ../..
       dockerfile: deploy/docker/Dockerfile.login
     environment:
-      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
-      DB_USER: ${MYSQL_USER:-brproject}
-      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-l2jdb}
+      DB_USER: ${POSTGRES_USER:-brproject}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
       GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
       JAVA_OPTS: ${LOGIN_JAVA_OPTS:--Xms256m -Xmx512m -XX:+UseG1GC}
@@ -65,9 +62,9 @@ services:
       context: ../..
       dockerfile: deploy/docker/Dockerfile.game
     environment:
-      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
-      DB_USER: ${MYSQL_USER:-brproject}
-      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-l2jdb}
+      DB_USER: ${POSTGRES_USER:-brproject}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
       GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
       JAVA_OPTS: ${GAME_JAVA_OPTS:--Xms1g -Xmx2g -XX:+UseG1GC}
@@ -85,6 +82,6 @@ services:
       memlock: -1
 
 volumes:
-  l2-newera-mariadb:
+  l2-newera-postgres:
   l2-newera-login-logs:
   l2-newera-game-logs:
