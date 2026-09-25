@@ -136,7 +136,9 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 			}
 		}
 
-		_enabled = props.getProperty("QuestRecommenderEnabled", true);
+		// The recommender is opt-in. Standard quest scripts remain enabled regardless
+		// of this setting; this only controls recommendations, hints and navigation.
+		_enabled = props.getProperty("QuestRecommenderEnabled", false);
 		_questionMarkId = props.getProperty("QuestRecommenderQuestionMarkId", 2020);
 		_castTimeMs = Math.max(1000, props.getProperty("QuestRecommenderCastTimeMs", 10000));
 		_scrollSkillId = props.getProperty("QuestRecommenderScrollSkillId", 2040);
