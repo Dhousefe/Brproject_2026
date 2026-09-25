@@ -137,7 +137,9 @@ public final class LevelUpMakerManager implements OnBypassCommandListener, OnLev
 			LOGGER.error("Failed to load levelupmaker.properties (UTF-8). Using defaults.", e);
 		}
 
-		_enabled = props.getProperty("LevelUpMakerEnabled", true);
+		// This optional progression helper is opt-in. The standard quest engine is
+		// independent and remains available when LevelUpMaker is disabled.
+		_enabled = props.getProperty("LevelUpMakerEnabled", false);
 		_questionMarkId = props.getProperty("LevelUpMakerQuestionMarkId", 2010);
 		_levelOffset = props.getProperty("LevelUpMakerLevelOffset", 5);
 		_levelTolerance = props.getProperty("LevelUpMakerLevelTolerance", 2);
