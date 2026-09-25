@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import ext.mods.commons.jdbc.SqlDialect;
+
 /**
  * Example Phase 5 repository for {@code accounts} table.
  * New code paths should prefer this style over raw SQL in call sites.
@@ -86,12 +88,7 @@ public final class AccountRepository implements Repository<AccountRepository.Acc
 		if (passwordHash == null || passwordHash.isBlank())
 			throw new IllegalArgumentException("passwordHash must be a non-empty hash (never plain empty)");
 		JdbcSupport.update(
-			"""
-			INSERT INTO accounts (login, password, last_active, access_level, last_server)
-			VALUES (?, ?, ?, ?, ?)
-			ON DUPLICATE KEY UPDATE password=VALUES(password), access_level=VALUES(access_level),
-				last_active=VALUES(last_active), last_server=VALUES(last_server)
-			""",
+			SqlDialect.upsert("accounts", "login, password, last_active, access_level, last_server", "?, ?, ?, ?, ?", "login", "password, access_level, last_active, last_server"),
 			ps ->
 			{
 				ps.setString(1, entity.login());

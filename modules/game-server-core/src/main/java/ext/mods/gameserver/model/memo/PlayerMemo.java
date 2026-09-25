@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import ext.mods.commons.data.MemoSet;
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -36,7 +37,6 @@ public class PlayerMemo extends MemoSet
 	
 	private static final String SELECT_MEMOS = "SELECT * FROM character_memo WHERE charId = ?";
 	private static final String DELETE_MEMO = "DELETE FROM character_memo WHERE charId = ? AND var = ?";
-	private static final String INSERT_OR_UPDATE_MEMO = "INSERT INTO character_memo (charId, var, val) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE val = VALUES(val)";
 	
 	private final int _objectId;
 	
@@ -65,7 +65,7 @@ public class PlayerMemo extends MemoSet
 	protected void onSet(String key, String value)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_MEMO))
+			PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("character_memo", "charId, var, val", "?, ?, ?", "charId, var", "val")))
 		{
 			ps.setInt(1, _objectId);
 			ps.setString(2, key);

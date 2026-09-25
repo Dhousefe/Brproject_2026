@@ -28,6 +28,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
@@ -47,7 +48,6 @@ public class MissionList
 	private static final CLogger LOGGER = new CLogger(MissionList.class.getName());
 	
 	private static final String LOAD_MISSION = "SELECT * FROM character_mission WHERE object_id=?";
-	private static final String UPDATE_MISSION = "INSERT INTO character_mission (object_id,type,level,value) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE level=VALUES(level), value=VALUES(value)";
 	
 	private final Player _player;
 	private Map<MissionType, IntIntHolder> _entries = new HashMap<>();
@@ -84,7 +84,7 @@ public class MissionList
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_MISSION))
+				PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("character_mission", "object_id,type,level,value", "?,?,?,?", "object_id,type", "level,value")))
 		{
 			for (Entry<MissionType, IntIntHolder> mission : _entries.entrySet())
 			{

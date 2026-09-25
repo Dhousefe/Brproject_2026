@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.Predicate;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.gameserver.enums.ShortcutType;
@@ -44,7 +45,6 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 	
 	private static final CLogger LOGGER = new CLogger(ShortcutList.class.getName());
 	
-	private static final String INSERT_SHORTCUT = "REPLACE INTO character_shortcuts (char_obj_id,slot,page,type,id,level,class_index) values(?,?,?,?,?,?,?)";
 	private static final String DELETE_SHORTCUT = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND slot=? AND page=? AND class_index=?";
 	private static final String LOAD_SHORTCUTS = "SELECT char_obj_id, slot, page, type, id, level FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
 	
@@ -122,7 +122,7 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 				deleteShortCutFromDb(oldShortcut);
 			
 			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(INSERT_SHORTCUT))
+				PreparedStatement ps = con.prepareStatement(getInsertShortcutSql()))
 			{
 				ps.setInt(1, _owner.getObjectId());
 				ps.setInt(2, shortcut.getSlot());
@@ -238,7 +238,7 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_SHORTCUT))
+			PreparedStatement ps = con.prepareStatement(getInsertShortcutSql()))
 		{
 			for (Shortcut s : shortcuts)
 			{
@@ -262,6 +262,11 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 		{
 			LOGGER.error("Couldn't store shortcuts.", e);
 		}
+	}
+
+	private static String getInsertShortcutSql()
+	{
+		return SqlDialect.upsert("character_shortcuts", "char_obj_id,slot,page,type,id,level,class_index", "?,?,?,?,?,?,?", "char_obj_id,slot,page,class_index", "type,id,level");
 	}
 	
 	/**

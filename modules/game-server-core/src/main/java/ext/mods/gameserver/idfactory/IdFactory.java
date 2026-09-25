@@ -266,8 +266,8 @@ public class IdFactory
 				cleanCount += stmt.executeUpdate("DELETE FROM olympiad_fights WHERE olympiad_fights.charTwoId NOT IN (SELECT obj_Id FROM characters);");
 				cleanCount += stmt.executeUpdate("DELETE FROM heroes_diary WHERE heroes_diary.char_id NOT IN (SELECT obj_Id FROM characters);");
 				
-				cleanCount += stmt.executeUpdate("DELETE FROM character_offline_trade WHERE charId NOT IN (SELECT charId FROM characters);");
-				cleanCount += stmt.executeUpdate("DELETE FROM character_offline_trade_items WHERE charId NOT IN (SELECT charId FROM characters);");
+				cleanCount += stmt.executeUpdate("DELETE FROM character_offline_trade WHERE charId NOT IN (SELECT obj_Id FROM characters);");
+				cleanCount += stmt.executeUpdate("DELETE FROM character_offline_trade_items WHERE charId NOT IN (SELECT obj_Id FROM characters);");
 				
 				cleanCount += stmt.executeUpdate("DELETE FROM auctions WHERE clanhall_id IN (SELECT id FROM clanhall WHERE ownerId <> 0 AND sellerClanName='');");
 				
@@ -277,8 +277,8 @@ public class IdFactory
 				cleanCount += stmt.executeUpdate("DELETE FROM clan_privs WHERE clan_privs.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 				cleanCount += stmt.executeUpdate("DELETE FROM clan_skills WHERE clan_skills.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 				cleanCount += stmt.executeUpdate("DELETE FROM clan_subpledges WHERE clan_subpledges.clan_id NOT IN (SELECT clan_id FROM clan_data);");
-				cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan1 NOT IN (SELECT clan_id FROM clan_data);");
-				cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan2 NOT IN (SELECT clan_id FROM clan_data);");
+				cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan1 NOT IN (SELECT clan_name FROM clan_data);");
+				cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan2 NOT IN (SELECT clan_name FROM clan_data);");
 				cleanCount += stmt.executeUpdate("DELETE FROM siege_clans WHERE siege_clans.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 				
 				cleanCount += stmt.executeUpdate("DELETE FROM items WHERE items.owner_id NOT IN (SELECT obj_Id FROM characters) AND items.owner_id NOT IN (SELECT clan_id FROM clan_data);");
