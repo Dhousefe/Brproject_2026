@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 import ext.mods.commons.data.StatSet;
 import ext.mods.commons.logging.CLogger;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
@@ -79,17 +80,14 @@ public class Castle extends Residence
 	private static final String UPDATE_CURRENT_TAX = "UPDATE castle SET currentTaxPercent=? WHERE id=?";
 	private static final String UPDATE_NEXT_TAX = "UPDATE castle SET nextTaxPercent=? WHERE id=?";
 	
-	private static final String UPDATE_DOORS = "REPLACE INTO castle_doorupgrade (doorId,hp,castleId) VALUES (?,?,?)";
 	private static final String DELETE_DOOR = "DELETE FROM castle_doorupgrade WHERE castleId=?";
 	
 	private static final String DELETE_OLD_OWNER = "UPDATE clan_data SET hasCastle=0 WHERE hasCastle=?";
 	private static final String UPDATE_NEW_OWNER = "UPDATE clan_data SET hasCastle=? WHERE clan_id=?";
 	
-	private static final String UPDATE_TRAP = "REPLACE INTO castle_trapupgrade (castleId, towerIndex, level) VALUES (?,?,?)";
 	private static final String DELETE_TRAP = "DELETE FROM castle_trapupgrade WHERE castleId=?";
 	
 	private static final String LOAD_FUNCTIONS = "SELECT * FROM castle_functions WHERE castle_id = ?";
-	private static final String UPDATE_FUNCTIONS = "REPLACE INTO castle_functions (castle_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)";
 	private static final String DELETE_FUNCTIONS = "DELETE FROM castle_functions WHERE castle_id=? AND type=?";
 	
 	private static final String UPDATE_ITEMS_LOC = "UPDATE items SET loc='INVENTORY' WHERE item_id IN (?,6841) AND owner_id=? AND loc='PAPERDOLL'";
@@ -593,7 +591,7 @@ public class Castle extends Residence
 		if (db)
 		{
 			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(UPDATE_DOORS))
+				PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("castle_doorupgrade", "doorId,hp,castleId", "?,?,?", "doorId", "hp,castleId")))
 			{
 				ps.setInt(1, doorId);
 				ps.setInt(2, hp);
@@ -931,7 +929,7 @@ public class Castle extends Residence
 		if (save)
 		{
 			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(UPDATE_TRAP))
+				PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("castle_trapupgrade", "castleId,towerIndex,level", "?,?,?", "towerIndex,castleId", "level")))
 			{
 				ps.setInt(1, _id);
 				ps.setInt(2, towerIndex);
@@ -1204,7 +1202,7 @@ public class Castle extends Residence
 		public void dbSave()
 		{
 			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement statement = con.prepareStatement(UPDATE_FUNCTIONS))
+				PreparedStatement statement = con.prepareStatement(DatabaseDialect.upsert("castle_functions", "castle_id,type,lvl,lease,rate,endTime", "?,?,?,?,?,?", "castle_id,type", "lvl,lease,rate,endTime")))
 			{
 				statement.setInt(1, getId());
 				statement.setInt(2, getType());

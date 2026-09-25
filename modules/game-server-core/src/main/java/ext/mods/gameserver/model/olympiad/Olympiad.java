@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
 import ext.mods.commons.data.StatSet;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
@@ -57,10 +58,8 @@ public class Olympiad
 	private final Map<Integer, Integer> _rankRewards = new HashMap<>();
 	
 	private static final String SELECT_OLYMPIAD_DATA = "SELECT current_cycle, period, olympiad_end, validation_end, next_weekly_change FROM olympiad_data WHERE id = 0";
-	private static final String INSERT_OLYMPIAD_DATA = "INSERT INTO olympiad_data (id, current_cycle, period, olympiad_end, validation_end, next_weekly_change) VALUES (0,?,?,?,?,?) ON DUPLICATE KEY UPDATE current_cycle=?, period=?, olympiad_end=?, validation_end=?, next_weekly_change=?";
 	
 	private static final String SELECT_OLYMPIAD_NOBLES = "SELECT olympiad_nobles.char_id, olympiad_nobles.class_id, characters.char_name, olympiad_nobles.olympiad_points, olympiad_nobles.competitions_done, olympiad_nobles.competitions_won, olympiad_nobles.competitions_lost, olympiad_nobles.competitions_drawn FROM olympiad_nobles, characters WHERE characters.obj_Id = olympiad_nobles.char_id";
-	private static final String INSERT_OR_UPDATE_OLYMPIAD_NOBLES = "INSERT INTO olympiad_nobles (`char_id`,`class_id`,`olympiad_points`,`competitions_done`,`competitions_won`,`competitions_lost`, `competitions_drawn`) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE olympiad_points=VALUES(olympiad_points), competitions_done=VALUES(competitions_done), competitions_won=VALUES(competitions_won), competitions_lost=VALUES(competitions_lost), competitions_drawn=VALUES(competitions_drawn)";
 	private static final String TRUNCATE_OLYMPIAD_NOBLES = "TRUNCATE olympiad_nobles";
 	
 	private static final String SELECT_CLASSIFIED_NOBLES = "SELECT char_id from olympiad_nobles_eom WHERE competitions_done >= ? ORDER BY olympiad_points DESC, competitions_done DESC, competitions_won DESC";
@@ -607,7 +606,7 @@ public class Olympiad
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_OLYMPIAD_NOBLES))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("olympiad_nobles", "char_id,class_id,olympiad_points,competitions_done,competitions_won,competitions_lost,competitions_drawn", "?,?,?,?,?,?,?", "char_id", "class_id,olympiad_points,competitions_done,competitions_won,competitions_lost,competitions_drawn")))
 		{
 			for (Map.Entry<Integer, StatSet> noble : _nobles.entrySet())
 			{
@@ -640,18 +639,13 @@ public class Olympiad
 		saveNobleData();
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OLYMPIAD_DATA))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("olympiad_data", "id,current_cycle,period,olympiad_end,validation_end,next_weekly_change", "0,?,?,?,?,?", "id", "current_cycle,period,olympiad_end,validation_end,next_weekly_change")))
 		{
 			ps.setInt(1, _currentCycle);
 			ps.setString(2, _period.toString());
 			ps.setLong(3, _olympiadEnd);
 			ps.setLong(4, _validationEnd);
 			ps.setLong(5, _nextWeeklyChange);
-			ps.setInt(6, _currentCycle);
-			ps.setString(7, _period.toString());
-			ps.setLong(8, _olympiadEnd);
-			ps.setLong(9, _validationEnd);
-			ps.setLong(10, _nextWeeklyChange);
 			ps.execute();
 		}
 		catch (Exception e)

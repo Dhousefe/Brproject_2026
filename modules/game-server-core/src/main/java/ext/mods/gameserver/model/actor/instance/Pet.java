@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 import ext.mods.commons.random.Rnd;
@@ -73,7 +74,6 @@ import ext.mods.config.ConfigRates;
 public class Pet extends Summon
 {
 	private static final String LOAD_PET = "SELECT name, level, curHp, curMp, exp, sp, fed FROM pets WHERE item_obj_id=?";
-	private static final String STORE_PET = "INSERT INTO pets (name,level,curHp,curMp,exp,sp,fed,item_obj_id) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE name=VALUES(name),level=VALUES(level),curHp=VALUES(curHp),curMp=VALUES(curMp),exp=VALUES(exp),sp=VALUES(sp),fed=VALUES(fed)";
 	private static final String DELETE_PET = "DELETE FROM pets WHERE item_obj_id=?";
 	
 	private final Map<Integer, Timestamp> _reuseTimeStamps = new ConcurrentHashMap<>();
@@ -320,7 +320,7 @@ public class Pet extends Summon
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(STORE_PET))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("pets", "name,level,curHp,curMp,exp,sp,fed,item_obj_id", "?,?,?,?,?,?,?,?", "item_obj_id", "name,level,curHp,curMp,exp,sp,fed")))
 		{
 			ps.setString(1, getName());
 			ps.setInt(2, getStatus().getLevel());

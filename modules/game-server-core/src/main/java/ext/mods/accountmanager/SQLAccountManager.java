@@ -23,13 +23,13 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 import ext.mods.commons.crypt.BCrypt;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
 
 public class SQLAccountManager
 {
-	private static final String INSERT_OR_UPDATE_ACCOUNT = "INSERT INTO accounts(login, password, access_level) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE password = VALUES(password), access_level = VALUES(access_level)";
 	private static final String UPDATE_ACCOUNT_LEVEL = "UPDATE accounts SET access_level = ? WHERE login = ?";
 	private static final String DELETE_ACCOUNT = "DELETE FROM accounts WHERE login = ?";
 	
@@ -173,7 +173,7 @@ public class SQLAccountManager
 	private static void addOrUpdateAccount(String account, String password, String level)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_ACCOUNT))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("accounts", "login, password, access_level", "?, ?, ?", "login", "password, access_level")))
 		{
 			final String hashed = BCrypt.hashPw(password);
 			

@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.concurrent.ScheduledFuture;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
@@ -56,7 +57,6 @@ public class ClanHallFunction
 {
 	private static final CLogger LOGGER = new CLogger(ClanHallFunction.class.getName());
 	
-	private static final String UPDATE_FUNCTION = "REPLACE INTO clanhall_functions (hall_id, type, lvl, lease, rate, endTime) VALUES (?,?,?,?,?,?)";
 	private static final String DELETE_FUNCTION = "DELETE FROM clanhall_functions WHERE hall_id=? AND type=?";
 	
 	private final ClanHall _ch;
@@ -166,7 +166,7 @@ public class ClanHallFunction
 	public void dbSave()
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_FUNCTION))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("clanhall_functions", "hall_id,type,lvl,lease,rate,endTime", "?,?,?,?,?,?", "hall_id,type", "lvl,lease,rate,endTime")))
 		{
 			ps.setInt(1, _ch.getId());
 			ps.setInt(2, getType());

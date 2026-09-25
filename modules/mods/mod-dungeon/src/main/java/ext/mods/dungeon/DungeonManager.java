@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.gameserver.model.actor.Player;
@@ -211,7 +212,7 @@ public class DungeonManager
 	public void savePlayerCooldown(int dungeonId, int playerId, long lastJoin, long cooldownMillis, String ipAddress, int stage)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO dungeon_cooldowns (dungeon_id, player_id, last_join, next_join, ip_address, stage) " + "VALUES (?, ?, ?, ?, ?, ?) " + "ON DUPLICATE KEY UPDATE last_join = VALUES(last_join), next_join = VALUES(next_join), ip_address = VALUES(ip_address), stage = VALUES(stage)"))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("dungeon_cooldowns", "dungeon_id, player_id, last_join, next_join, ip_address, stage", "?, ?, ?, ?, ?, ?", "dungeon_id, player_id", "last_join, next_join, ip_address, stage")))
 		{
 			
 			long nextJoin = lastJoin + cooldownMillis;

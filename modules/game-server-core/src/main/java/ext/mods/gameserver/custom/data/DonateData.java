@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import ext.mods.commons.data.StatSet;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.data.xml.IXmlReader;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
@@ -50,8 +51,6 @@ import ext.mods.config.ConfigServer;
 public class DonateData implements IXmlReader
 {
 	private final List<Donate> _services = new ArrayList<>();
-	private static final String UPDATE_PREMIUMSERVICE = "REPLACE INTO account_premium (premium_service,enddate,account_name) values(?,?,?)";
-	
 	public DonateData()
 	{
 		load();
@@ -125,8 +124,15 @@ public class DonateData implements IXmlReader
 	
 	public static void updateDatabasePremium(long time, String AccName)
 	{
+		final String updatePremiumService = DatabaseDialect.upsert(
+			"account_premium",
+			"premium_service,enddate,account_name",
+			"?, ?, ?",
+			"account_name",
+			"premium_service,enddate");
+
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(UPDATE_PREMIUMSERVICE))
+			PreparedStatement statement = con.prepareStatement(updatePremiumService))
 		{
 			statement.setInt(1, 1);
 			statement.setLong(2, time);

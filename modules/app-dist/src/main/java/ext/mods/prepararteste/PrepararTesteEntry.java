@@ -52,6 +52,9 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
+import ext.mods.commons.jdbc.SupportedDatabase;
+
 public final class PrepararTesteEntry
 {
     // ===== paths (relativos ao cwd = raiz do projeto) =====
@@ -542,30 +545,17 @@ public final class PrepararTesteEntry
             log("Hexid do banco reaproveitado: " + dbHex);
         }
 
-        // Upsert compativel com SQLite/MariaDB/MySQL/PostgreSQL.
-//   SQLite:        INSERT OR REPLACE
-//   MariaDB/MySQL: INSERT ... ON DUPLICATE KEY UPDATE
-//   PostgreSQL:    INSERT ... ON CONFLICT (server_id) DO UPDATE SET ...
-        String sql;
-        boolean isPg = choice.kind == DbKind.POSTGRESQL;
-        boolean isLite = isSqlite(conn);
-        if (isLite) {
-            sql = "INSERT OR REPLACE INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?)";
-        } else if (isPg) {
-            sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
-                + "ON CONFLICT (server_id) DO UPDATE SET hexid = EXCLUDED.hexid, host = EXCLUDED.host";
-        } else {
-            sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
-                + "ON DUPLICATE KEY UPDATE hexid = ?, host = ?";
-        }
+        final SupportedDatabase database = switch (choice.kind) {
+            case POSTGRESQL -> SupportedDatabase.POSTGRESQL;
+            case MYSQL -> SupportedDatabase.MYSQL;
+            case SQLITE -> SupportedDatabase.SQLITE;
+            default -> SupportedDatabase.MARIADB;
+        };
+        final String sql = DatabaseDialect.upsert(database, "gameservers", "server_id, hexid, host", "?, ?, ?", "server_id", "hexid, host");
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, SERVER_ID);
             ps.setString(2, dbHex);
             ps.setString(3, host);
-            if (!isLite && !isPg) {
-                ps.setString(4, dbHex);
-                ps.setString(5, host);
-            }
             ps.executeUpdate();
             log("gameservers: (server_id=" + SERVER_ID + ", hexid=" + dbHex + ", host=" + host + ") escrito.");
         }

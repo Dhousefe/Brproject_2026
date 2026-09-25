@@ -31,7 +31,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import ext.mods.commons.jdbc.DatabaseDriverResolver;
 import ext.mods.commons.jdbc.DatabaseDriverResolver.DatabaseConfig;
-import ext.mods.commons.jdbc.SqlDialect;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.jdbc.SupportedDatabase;
 import ext.mods.commons.logging.CLogger;
 
@@ -105,12 +105,12 @@ public final class ConnectionPool
 				config.setMinimumIdle(1);
 				config.setConnectionTestQuery("SELECT 1");
 				config.setConnectionInitSql("PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;");
-				SqlDialect.setActiveDatabase(SupportedDatabase.SQLITE);
+				DatabaseDialect.setActiveDatabase(SupportedDatabase.SQLITE);
 				LOGGER.info("SQLite mode: WAL + pool=3 (file: " + jdbcUrl + ")");
 			}
 			else
 			{
-				SqlDialect.setActiveDatabase(dbConfig.database());
+				DatabaseDialect.setActiveDatabase(dbConfig.database());
 			}
 
 			_source = new HikariDataSource(config);
@@ -172,7 +172,7 @@ public final class ConnectionPool
 		{
 			return wrapConnection(conn);
 		}
-		if (SqlDialect.isSqlite())
+		if (DatabaseDialect.isSqlite())
 		{
 			return wrapSqliteDialect(conn);
 		}
@@ -316,7 +316,7 @@ public final class ConnectionPool
 
 				if ("prepareStatement".equals(methodName) && args != null && args.length > 0 && args[0] instanceof String)
 				{
-					args[0] = SqlDialect.adapt((String) args[0]);
+					args[0] = DatabaseDialect.adapt((String) args[0]);
 				}
 
 				Object result = method.invoke(realConnection, args);
@@ -338,7 +338,7 @@ public final class ConnectionPool
 				if (("execute".equals(methodName) || "executeQuery".equals(methodName) || "executeUpdate".equals(methodName))
 					&& args != null && args.length > 0 && args[0] instanceof String)
 				{
-					args[0] = SqlDialect.adapt((String) args[0]);
+					args[0] = DatabaseDialect.adapt((String) args[0]);
 				}
 				return method.invoke(realSt, args);
 			});

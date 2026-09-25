@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.gameserver.model.balance.BalanceGeneration;
@@ -127,7 +128,7 @@ public class BalanceData
 	
 	public void updateModifier(int classAtk, int classTgt, BalanceHolder mod)
 	{
-		String sql = "INSERT INTO balance_classes (class_id_attacker, class_id_target, p_atk_mod, m_atk_mod, p_def_mod, m_def_mod) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE p_atk_mod = VALUES(p_atk_mod), m_atk_mod = VALUES(m_atk_mod), p_def_mod = VALUES(p_def_mod), m_def_mod = VALUES(m_def_mod) ";
+		String sql = DatabaseDialect.upsert("balance_classes", "class_id_attacker, class_id_target, p_atk_mod, m_atk_mod, p_def_mod, m_def_mod", "?, ?, ?, ?, ?, ?", "class_id_attacker, class_id_target", "p_atk_mod, m_atk_mod, p_def_mod, m_def_mod");
 		
 		try (Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql))
@@ -157,7 +158,7 @@ public class BalanceData
 	public void saveVulnerability(String type, double multiplier)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("REPLACE INTO balance_vulnerability (skill_type, multiplier) VALUES (?, ?)"))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("balance_vulnerability", "skill_type, multiplier", "?, ?", "skill_type", "multiplier")))
 		{
 			ps.setString(1, type);
 			ps.setDouble(2, multiplier);

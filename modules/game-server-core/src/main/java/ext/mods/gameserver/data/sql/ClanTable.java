@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.lang.StringUtil;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
@@ -62,7 +63,6 @@ public class ClanTable
 	private static final String DELETE_CLAN_SIEGES = "DELETE FROM siege_clans WHERE clan_id=?";
 	private static final String RESET_CASTLE_TAX = "UPDATE castle SET currentTaxPercent=0, nextTaxPercent=0 WHERE id=?";
 	
-	private static final String INSERT_WAR = "REPLACE INTO clan_wars (clan1, clan2) VALUES(?,?)";
 	private static final String UPDATE_WAR_TIME = "UPDATE clan_wars SET expiry_time=? WHERE clan1=? AND clan2=?";
 	private static final String DELETE_WAR = "DELETE FROM clan_wars WHERE clan1=? AND clan2=?";
 	
@@ -369,7 +369,7 @@ public class ClanTable
 		clan2.broadcastToMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.getName()));
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_WAR))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("clan_wars", "clan1,clan2", "?,?", "clan1,clan2", "clan1")))
 		{
 			ps.setInt(1, clanId1);
 			ps.setInt(2, clanId2);

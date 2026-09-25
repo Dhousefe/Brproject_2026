@@ -50,6 +50,7 @@ import ext.mods.gameserver.network.NpcStringId;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.SystemMessage;
 import ext.mods.config.ConfigEvents;
+import ext.mods.commons.jdbc.DatabaseDialect;
 
 public class FestivalOfDarknessManager
 {
@@ -57,7 +58,6 @@ public class FestivalOfDarknessManager
 	
 	private static final String RESTORE_FESTIVAL = "SELECT festivalId, cabal, cycle, date, score, members FROM seven_signs_festival";
 	private static final String RESTORE_FESTIVAL_2 = "SELECT festival_cycle, accumulated_bonus0, accumulated_bonus1, accumulated_bonus2, accumulated_bonus3, accumulated_bonus4 FROM seven_signs_status WHERE id=0";
-	private static final String INSERT_OR_UPDATE_FESTIVAL = "INSERT INTO seven_signs_festival (festivalId, cabal, cycle, date, score, members) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE date = VALUES(date), score = VALUES(score), members = VALUES(members)";
 	private static final String GET_CLAN_NAME = "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
 	
 	public static final int FESTIVAL_COUNT = 5;
@@ -249,8 +249,15 @@ public class FestivalOfDarknessManager
 	 */
 	public void saveFestivalData(boolean updateSettings)
 	{
+		final String insertOrUpdateFestival = DatabaseDialect.upsert(
+			"seven_signs_festival",
+			"festivalId, cabal, cycle, date, score, members",
+			"?,?,?,?,?,?",
+			"festivalId, cabal, cycle",
+			"date, score, members");
+
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_FESTIVAL))
+			PreparedStatement ps = con.prepareStatement(insertOrUpdateFestival))
 		{
 			for (Map<Integer, StatSet> map : _festivalData.values())
 			{

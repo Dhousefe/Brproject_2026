@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
@@ -52,7 +53,6 @@ public class DerbyTrackManager
 	private static final String SAVE_HISTORY = "INSERT INTO mdt_history (race_id, first, second, odd_rate) VALUES (?,?,?,?)";
 	private static final String LOAD_HISTORY = "SELECT * FROM mdt_history";
 	private static final String LOAD_BETS = "SELECT * FROM mdt_bets";
-	private static final String SAVE_BETS = "REPLACE INTO mdt_bets (lane_id, bet) VALUES (?,?)";
 	private static final String CLEAR_BETS = "UPDATE mdt_bets SET bet = 0";
 	
 	public enum RaceState
@@ -316,7 +316,7 @@ public class DerbyTrackManager
 		if (saveOnDb)
 		{
 			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(SAVE_BETS))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("mdt_bets", "lane_id,bet", "?,?", "lane_id", "bet")))
 			{
 				ps.setInt(1, lane);
 				ps.setLong(2, sum);

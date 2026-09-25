@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -42,7 +43,6 @@ public class RelationManager
 	private static final CLogger LOGGER = new CLogger(RelationManager.class.getName());
 	
 	private static final String LOAD = "SELECT * FROM character_relations";
-	private static final String ADD_OR_UPDATE = "INSERT INTO character_relations (char_id, friend_id, relation) VALUES (?,?,?) ON DUPLICATE KEY UPDATE relation=VALUES(relation)";
 	private static final String DELETE = "DELETE FROM character_relations WHERE char_id=? AND friend_id=?";
 	
 	private static final int ARE_FRIENDS = 1;
@@ -75,7 +75,7 @@ public class RelationManager
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE);
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("character_relations", "char_id, friend_id, relation", "?,?,?", "char_id, friend_id", "relation"));
 			PreparedStatement ps2 = con.prepareStatement(DELETE))
 		{
 			for (Entry<PlayerPair, Integer> entry : _relations.entrySet())

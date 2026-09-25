@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.config.ConfigProject;
 import ext.mods.gameserver.model.actor.Player;
@@ -19,7 +20,6 @@ public final class PlayerPremium
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerPremium.class);
 	
-	private static final String INSERT_PREMIUMSERVICE = "INSERT INTO account_premium (account_name,premium_service,enddate) values(?,?,?) ON DUPLICATE KEY UPDATE premium_service=?, enddate=?";
 	private static final String RESTORE_PREMIUMSERVICE = "SELECT premium_service,enddate FROM account_premium WHERE account_name=?";
 	private static final String UPDATE_PREMIUMSERVICE = "UPDATE account_premium SET premium_service=?,enddate=? WHERE account_name=?";
 	
@@ -36,13 +36,11 @@ public final class PlayerPremium
 			return;
 		
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_PREMIUMSERVICE))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("account_premium", "account_name,premium_service,enddate", "?,?,?", "account_name", "premium_service,enddate")))
 		{
 			ps.setString(1, _owner.getAccountNamePlayer());
 			ps.setInt(2, 0);
 			ps.setLong(3, 0);
-			ps.setInt(4, 0);
-			ps.setLong(5, 0);
 			ps.executeUpdate();
 		}
 		catch (Exception e)

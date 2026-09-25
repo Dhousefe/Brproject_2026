@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ext.mods.commons.data.StatSet;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -36,7 +37,6 @@ public class Product
 {
 	private static final CLogger LOGGER = new CLogger(Product.class.getName());
 	
-	private static final String ADD_OR_UPDATE_BUYLIST = "INSERT INTO buylists (buylist_id,item_id,count,next_restock_time) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE count=VALUES(count), next_restock_time=VALUES(next_restock_time)";
 	private static final String DELETE_BUYLIST = "DELETE FROM buylists WHERE buylist_id=? AND item_id=?";
 	
 	private final int _buyListId;
@@ -142,7 +142,7 @@ public class Product
 	public void save(long nextRestockTime)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_BUYLIST))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("buylists", "buylist_id,item_id,count,next_restock_time", "?,?,?,?", "buylist_id,item_id", "count,next_restock_time")))
 		{
 			ps.setInt(1, getBuyListId());
 			ps.setInt(2, getItemId());

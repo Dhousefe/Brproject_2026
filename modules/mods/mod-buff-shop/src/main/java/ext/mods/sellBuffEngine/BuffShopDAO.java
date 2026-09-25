@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.gameserver.enums.actors.Sex;
 import ext.mods.gameserver.model.actor.container.player.Appearance;
@@ -36,7 +37,7 @@ public class BuffShopDAO
 	
 	public void saveShop(ShopObject shop)
 	{
-		final String SAVE_SHOP = "REPLACE INTO buffshop (ownerId, buffs, title, store_message, x, y, z, heading, class_id, sex, face, hair_style, hair_color, equipped_items) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		final String SAVE_SHOP = DatabaseDialect.upsert("buffshop", "ownerId, buffs, title, store_message, x, y, z, heading, class_id, sex, face, hair_style, hair_color, equipped_items", "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?", "ownerId", "buffs, title, store_message, x, y, z, heading, class_id, sex, face, hair_style, hair_color, equipped_items");
 		try (Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(SAVE_SHOP))
 		{

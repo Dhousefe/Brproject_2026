@@ -11,6 +11,9 @@ import java.util.Map;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
+import ext.mods.commons.jdbc.SupportedDatabase;
+
 /**
  * Phase 5 CLI entry for applying brproject-data Flyway migrations.
  *
@@ -90,23 +93,7 @@ public final class MigrateMain
 
 	private static void seedGameServer(String url, String user, String password, String hexid, String host)
 	{
-		final String normalized = url.toLowerCase();
-		final String sql;
-		if (normalized.startsWith("jdbc:postgresql:"))
-		{
-			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
-				+ "ON CONFLICT (server_id) DO UPDATE SET hexid = EXCLUDED.hexid, host = EXCLUDED.host";
-		}
-		else if (normalized.startsWith("jdbc:sqlite:"))
-		{
-			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
-				+ "ON CONFLICT(server_id) DO UPDATE SET hexid = excluded.hexid, host = excluded.host";
-		}
-		else
-		{
-			sql = "INSERT INTO gameservers (server_id, hexid, host) VALUES (?, ?, ?) "
-				+ "ON DUPLICATE KEY UPDATE hexid = VALUES(hexid), host = VALUES(host)";
-		}
+		final String sql = DatabaseDialect.upsert(SupportedDatabase.fromUrl(url), "gameservers", "server_id, hexid, host", "?, ?, ?", "server_id", "hexid, host");
 
 		try (Connection connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement statement = connection.prepareStatement(sql))

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -29,11 +30,10 @@ public class DonationData
 	
 	private static final String LOAD_PURCHASES = "SELECT * FROM donations";
 	private static final String LOAD_PAYMENTS = "SELECT * FROM donations_payments";
-	private static final String NEW_PURCHASE = "INSERT INTO donations (`purchase_id`, `player_id`,`email`,`product_id`,`quantity`,`unit_price`,`date`,`status`,`payment_method`,`currency`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String NEW_PURCHASE = "INSERT INTO donations (purchase_id, player_id,email,product_id,quantity,unit_price,date,status,payment_method,currency) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE_PURCHASE = "DELETE FROM donations WHERE purchase_id=?";
 	private static final String DELETE_PAYMENT = "DELETE FROM donations_payments WHERE purchase_id=?";
 	private static final String UPDATE_PURCHASE = "UPDATE donations SET payment_id=?, email=?, status=?, terms=? WHERE purchase_id=?";
-	private static final String ADD_OR_UPDATE_PAYMENT = "INSERT INTO donations_payments (`purchase_id`, `mp_preference_id`, `paypal_invoice_id`, `qrcode`, `link`) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE mp_preference_id = VALUES(mp_preference_id), paypal_invoice_id = VALUES(paypal_invoice_id), qrcode = VALUES(qrcode), link = VALUES(link)";
 	
 	private final static Map<Integer, List<Purchase>> _playersPurchases = new ConcurrentHashMap<>();
 	
@@ -158,7 +158,7 @@ public class DonationData
 			
 			if (p.getStatus() == PurchaseStatus.WAITING || p.getStatus() == PurchaseStatus.COMPLETED)
 			{
-				try (PreparedStatement ps2 = con.prepareStatement(ADD_OR_UPDATE_PAYMENT))
+				try (PreparedStatement ps2 = con.prepareStatement(DatabaseDialect.upsert("donations_payments", "purchase_id, mp_preference_id, paypal_invoice_id, qrcode, link", "?,?,?,?,?", "purchase_id", "mp_preference_id, paypal_invoice_id, qrcode, link")))
 				{
 					ps2.setInt(1, p.getId());
 					ps2.setString(2, p.getMpPreferenceId());

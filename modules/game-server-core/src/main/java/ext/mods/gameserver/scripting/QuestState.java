@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import ext.mods.commons.data.MemoSet;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.pool.ConnectionPool;
 
@@ -49,7 +50,6 @@ public final class QuestState extends MemoSet
 	
 	private static final CLogger LOGGER = new CLogger(QuestState.class.getName());
 	
-	private static final String QUEST_SET_VAR = "INSERT INTO character_quests (charId,name,var,value) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE value=VALUES(value)";
 	private static final String QUEST_DEL_VAR = "DELETE FROM character_quests WHERE charId=? AND name=? AND var=?";
 	private static final String QUEST_DELETE = "DELETE FROM character_quests WHERE charId=? AND name=?";
 	private static final String QUEST_COMPLETE = "DELETE FROM character_quests WHERE charId=? AND name=? AND var<>'<state>'";
@@ -104,7 +104,7 @@ public final class QuestState extends MemoSet
 	protected void onSet(String key, String value)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(QUEST_SET_VAR))
+			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("character_quests", "charId,name,var,value", "?,?,?,?", "charId,name,var", "value")))
 		{
 			ps.setInt(1, _player.getObjectId());
 			ps.setString(2, _quest.getName());

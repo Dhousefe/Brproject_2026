@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.gameserver.model.entity.autofarm.AutoFarmManager.AutoFarmType;
@@ -50,7 +51,6 @@ public class AutoFarmData
 	private static final String INSERT_SKILL = "INSERT INTO autofarm_skills (player_id, skill_id, slot) VALUES (?,?,?)";
 	
 	private static final String LOAD_TIME_USAGE = "SELECT time_used FROM autofarm_player_data WHERE player_id = ?";
-	private static final String UPDATE_TIME_USAGE = "INSERT INTO autofarm_player_data (player_id, time_used) VALUES (?, ?) ON DUPLICATE KEY UPDATE time_used = ?";
 	
 	public void restorePlayer(Player player)
 	{
@@ -258,10 +258,9 @@ public class AutoFarmData
 
     public void updatePlayerTimeUsage(int objectId, long timeUsed) {
         try (Connection con = ConnectionPool.getConnection();
-             PreparedStatement ps = con.prepareStatement(UPDATE_TIME_USAGE)) {
+             PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("autofarm_player_data", "player_id, time_used", "?, ?", "player_id", "time_used"))) {
             ps.setInt(1, objectId);
             ps.setLong(2, timeUsed);
-            ps.setLong(3, timeUsed);
             ps.execute();
         } catch (Exception e) {
             LOGGER.error("Erro ao salvar tempo de autofarm: " + e.getMessage(), e);

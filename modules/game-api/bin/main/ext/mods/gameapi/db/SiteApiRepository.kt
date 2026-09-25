@@ -1,6 +1,7 @@
 package ext.mods.gameapi.db
 
 import ext.mods.commons.crypt.BCrypt
+import ext.mods.commons.jdbc.DatabaseDialect
 import ext.mods.commons.pool.ConnectionPool
 import ext.mods.gameapi.GameApiConfig
 import java.sql.Connection
@@ -1384,7 +1385,7 @@ object SiteApiRepository {
             ps.executeUpdate()
         }
         if (instanceId != 0) {
-            con.prepareStatement("INSERT INTO character_memo (charId, var, val) VALUES (?, 'instanceId', ?) ON DUPLICATE KEY UPDATE val=VALUES(val)").use { ps ->
+            con.prepareStatement(DatabaseDialect.upsert("character_memo", "charId, var, val", "?, 'instanceId', ?", "charId, var", "val")).use { ps ->
                 ps.setInt(1, characterId)
                 ps.setString(2, instanceId.toString())
                 ps.executeUpdate()

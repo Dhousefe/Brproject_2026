@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.gameserver.scripting.Quest;
@@ -28,7 +29,6 @@ import ext.mods.gameserver.scripting.Quest;
 public abstract class Events extends Quest
 {
 	private static final String UPDATE_STATUS = "SELECT status FROM events_custom_data WHERE event_name = ?";
-	private static final String EVENT_INSERT = "REPLACE INTO events_custom_data (event_name, status) VALUES (?,?)";
 	private static final String EVENT_DELETE = "UPDATE events_custom_data SET status = ? WHERE event_name = ?";
 	
 	public Events()
@@ -81,7 +81,7 @@ public abstract class Events extends Quest
 	private void updateStatus(boolean newEvent)
 	{
 		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement stmt = con.prepareStatement(newEvent ? EVENT_INSERT : EVENT_DELETE))
+			PreparedStatement stmt = con.prepareStatement(newEvent ? DatabaseDialect.upsert("events_custom_data", "event_name,status", "?,?", "event_name", "status") : EVENT_DELETE))
 		{
 			if (newEvent)
 			{

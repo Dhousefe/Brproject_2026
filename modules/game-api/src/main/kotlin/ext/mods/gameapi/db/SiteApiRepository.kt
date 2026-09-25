@@ -1,6 +1,7 @@
 package ext.mods.gameapi.db
 
 import ext.mods.commons.crypt.BCrypt
+import ext.mods.commons.jdbc.DatabaseDialect
 import ext.mods.commons.pool.ConnectionPool
 import ext.mods.gameapi.GameApiConfig
 import java.sql.Connection
@@ -337,16 +338,13 @@ object SiteApiRepository {
         return try {
             ConnectionPool.getConnection().use { con ->
                 con.prepareStatement(
-                    """
-                    INSERT INTO accounts_hardware_guard (login, credential_id, public_key_der, algorithm, device_name, sign_count, created_at, last_used_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    ON CONFLICT(login, credential_id) DO UPDATE SET
-                        public_key_der=excluded.public_key_der,
-                        algorithm=excluded.algorithm,
-                        device_name=excluded.device_name,
-                        sign_count=excluded.sign_count,
-                        last_used_at=excluded.last_used_at
-                    """.trimIndent()
+                    DatabaseDialect.upsert(
+                        "accounts_hardware_guard",
+                        "login, credential_id, public_key_der, algorithm, device_name, sign_count, created_at, last_used_at",
+                        "?, ?, ?, ?, ?, ?, ?, ?",
+                        "login, credential_id",
+                        "public_key_der, algorithm, device_name, sign_count, created_at, last_used_at"
+                    )
                 ).use { ps ->
                     ps.setString(1, cleanLogin)
                     ps.setString(2, credentialId)
@@ -360,28 +358,7 @@ object SiteApiRepository {
                 }
             }
         } catch (_: Exception) {
-            try {
-                ConnectionPool.getConnection().use { con ->
-                    con.prepareStatement(
-                        """
-                        REPLACE INTO accounts_hardware_guard (login, credential_id, public_key_der, algorithm, device_name, sign_count, created_at, last_used_at)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                        """.trimIndent()
-                    ).use { ps ->
-                        ps.setString(1, cleanLogin)
-                        ps.setString(2, credentialId)
-                        ps.setString(3, publicKeyDer)
-                        ps.setInt(4, algorithm)
-                        ps.setString(5, deviceName)
-                        ps.setLong(6, signCount)
-                        ps.setLong(7, now)
-                        ps.setLong(8, now)
-                        ps.executeUpdate() > 0
-                    }
-                }
-            } catch (_: Exception) {
-                false
-            }
+            false
         }
     }
 
@@ -2547,7 +2524,7 @@ object SiteApiRepository {
                         .invoke(instance, clanId, targetClan.clanId)
                 }
 
-                con.prepareStatement("REPLACE INTO clan_wars (clan1, clan2, expiry_time) VALUES (?, ?, 0)").use { ps ->
+                con.prepareStatement(DatabaseDialect.upsert("clan_wars", "clan1, clan2, expiry_time", "?, ?, 0", "clan1, clan2", "expiry_time")).use { ps ->
                     ps.setInt(1, clanId)
                     ps.setInt(2, targetClan.clanId)
                     ps.executeUpdate()
@@ -3045,7 +3022,7 @@ object SiteApiRepository {
             ps.executeUpdate()
         }
         if (instanceId != 0) {
-            con.prepareStatement("INSERT INTO character_memo (charId, var, val) VALUES (?, 'instanceId', ?) ON DUPLICATE KEY UPDATE val=VALUES(val)").use { ps ->
+            con.prepareStatement(DatabaseDialect.upsert("character_memo", "charId, var, val", "?, 'instanceId', ?", "charId, var", "val")).use { ps ->
                 ps.setInt(1, characterId)
                 ps.setString(2, instanceId.toString())
                 ps.executeUpdate()
