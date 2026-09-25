@@ -1,75 +1,90 @@
+name: l2-newera
+
 services:
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MARIADB_DATABASE: ${MYSQL_DATABASE:-l2jdb}
+      MARIADB_USER: ${MYSQL_USER:-brproject}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - l2-newera-mariadb:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -p$$MARIADB_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  migrate:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.migrate
+    environment:
+      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MYSQL_USER:-brproject}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_NAME: ${MYSQL_DATABASE:-l2jdb}
+      GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
+      GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
+    depends_on:
+      db:
+        condition: service_healthy
+
   login-server:
     build:
       context: ../..
-      dockerfile: deploy/docker/Dockerfile.service
-      args:
-        SERVICE_JAR: libs/server.jar
-        MAIN_CLASS: ext.mods.loginserver.LoginServer
-    image: brproject/login:3.1.0
+      dockerfile: deploy/docker/Dockerfile.login
     environment:
-      DB_URL: jdbc:sqlite:/data/db/brproject.sqlite
-      DB_MODE: READ_ONLY_POOL
+      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MYSQL_USER:-brproject}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
+      GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
+      JAVA_OPTS: ${LOGIN_JAVA_OPTS:--Xms256m -Xmx512m -XX:+UseG1GC}
+    ports:
+      - "${LOGIN_PORT:-2106}:2106"
+      - "${LOGIN_GS_PORT:-9014}:9014"
     volumes:
-      - brproject-db:/data/db
-    depends_on: [api-gateway]
-    cap_add: [IPC_LOCK, SYS_NICE]
+      - l2-newera-login-logs:/l2Brproject/login/log
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    cap_add:
+      - IPC_LOCK
+      - SYS_NICE
     ulimits:
       memlock: -1
 
   game-server:
     build:
       context: ../..
-      dockerfile: deploy/docker/Dockerfile.service
-      args:
-        SERVICE_JAR: libs/server.jar
-        MAIN_CLASS: ext.mods.gameserver.GameServer
-    image: brproject/game:3.1.0
+      dockerfile: deploy/docker/Dockerfile.game
     environment:
-      DB_URL: jdbc:sqlite:/data/db/brproject.sqlite
-      DB_MODE: SINGLE_WRITER
-      DISRUPTOR_RING_SIZE: "1048576"
+      DB_URL: jdbc:mariadb://db:3306/${MYSQL_DATABASE:-l2jdb}?useUnicode=true&characterEncoding=UTF-8
+      DB_USER: ${MYSQL_USER:-brproject}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      GAME_SERVER_HEXID: ${GAME_SERVER_HEXID:-3f8a2c7e6b1d4a9085c2e1f7b9d63042}
+      GAME_SERVER_HOST: ${GAME_SERVER_HOST:-127.0.0.1}
+      JAVA_OPTS: ${GAME_JAVA_OPTS:--Xms1g -Xmx2g -XX:+UseG1GC}
+    ports:
+      - "${GAME_PORT:-7777}:7777"
     volumes:
-      - brproject-db:/data/db
-    depends_on: [login-server, api-gateway]
-    cap_add: [IPC_LOCK, SYS_NICE]
+      - l2-newera-game-logs:/l2Brproject/game/log
+    depends_on:
+      login-server:
+        condition: service_started
+    cap_add:
+      - IPC_LOCK
+      - SYS_NICE
     ulimits:
       memlock: -1
 
-  site-service:
-    build:
-      context: ../..
-      dockerfile: deploy/docker/Dockerfile.service
-      args:
-        SERVICE_JAR: modules/site/build/libs/site.jar
-        MAIN_CLASS: br.project.site.SiteMain
-    image: brproject/site:3.1.0
-    depends_on: [api-gateway]
-
-  api-gateway:
-    build:
-      context: ../..
-      dockerfile: deploy/docker/Dockerfile.service
-      args:
-        SERVICE_JAR: modules/cluster-hpc/build/libs/brproject-cluster-hpc.jar
-        MAIN_CLASS: br.project.cluster.hpc.network.GrpcApiGateway
-    image: brproject/api:3.1.0
-    environment:
-      GRPC_PORT: "9100"
-      FLATBUFFERS_MAX_PAYLOAD_BYTES: "65536"
-    ports: ["9100:9100"]
-
-  dashboardpanel:
-    build:
-      context: ../..
-      dockerfile: deploy/docker/Dockerfile.service
-      args:
-        SERVICE_JAR: modules/cluster-hpc/build/libs/brproject-cluster-hpc.jar
-        MAIN_CLASS: br.project.cluster.hpc.dashboard.Dashboardpanel
-    image: brproject/dashboard:3.1.0
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    profiles: ["ops"]
-
 volumes:
-  brproject-db:
+  l2-newera-mariadb:
+  l2-newera-login-logs:
+  l2-newera-game-logs:

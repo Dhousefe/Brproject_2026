@@ -1,65 +1,62 @@
-# Docker / Compose (Phase 5)
+# L2 NewEra — Docker + MariaDB
 
-## Prerequisites
+Este é o ambiente local reproduzível da primeira etapa de persistência. Ele
+sobe somente os componentes necessários para validar o jogo: MariaDB, Flyway,
+LoginServer e GameServer. Site, API/HPC e painel operacional ficam fora deste
+stack até terem uma imagem e um contrato de configuração próprios.
 
-1. Docker + Docker Compose v2  
-2. Build the distribution:
+## Pré-requisitos
 
-```bash
-./gradlew clean :app-dist:jar
-```
+- Docker Desktop com WSL 2 habilitado;
+- distribuição compilada com `libs/server.jar`.
 
-3. Seed configs (once):
-
-```bash
-./tools/sync-brproject-data.sh
-# For Docker DB hostnames, copy docker examples over live configs (or edit manually):
-cp brproject-data/config-examples/game/server.properties.docker.example game/config/server.properties
-cp brproject-data/config-examples/login/loginserver.properties.docker.example login/config/loginserver.properties
-```
-
-4. Copy env:
+Na raiz do projeto:
 
 ```bash
+./gradlew :app-dist:jar
 cp .env.example .env
 ```
 
-## Start stack
+Altere as senhas de `.env` antes de expor qualquer porta fora da máquina local.
 
-From **repo root**:
+## Subir
 
 ```bash
 docker compose -f deploy/docker/docker-compose.yml --env-file .env up -d --build
 ```
 
-Services:
+O serviço `migrate` executa as migrations MariaDB e registra o GameServer
+local com `server_id=1`. O registro usa um HexID de desenvolvimento definido
+por `GAME_SERVER_HEXID`; troque-o antes de qualquer implantação compartilhada.
 
-| Service | Role | Ports |
-|---------|------|-------|
-| `db` | MariaDB 11 | 3306 |
-| `migrate` | Flyway via Gradle (one-shot) | — |
-| `login` | LoginServer | 2106, 9014 |
-| `game` | GameServer | 7777 |
+Serviços e portas padrão:
 
-## Logs
+| Serviço | Função | Porta |
+|---|---|---:|
+| `db` | MariaDB 11 | 3307 no host / 3306 no container |
+| `migrate` | Flyway + seed do GameServer | — |
+| `login-server` | LoginServer | 2106, 9014 |
+| `game-server` | GameServer | 7777 |
 
-```bash
-docker compose -f deploy/docker/docker-compose.yml logs -f login game
-```
-
-## Migrate only (host)
+## Diagnóstico
 
 ```bash
-export DB_URL=jdbc:mariadb://localhost:3306/l2jdb
-export DB_USER=brproject
-export DB_PASSWORD=brproject
-./tools/migrate-db.sh
+docker compose -f deploy/docker/docker-compose.yml ps
+docker compose -f deploy/docker/docker-compose.yml logs -f login-server game-server
+docker compose -f deploy/docker/docker-compose.yml logs migrate
 ```
 
-## Stop
+Para validar a configuração sem iniciar:
+
+```bash
+docker compose -f deploy/docker/docker-compose.yml --env-file .env config
+```
+
+## Parar e resetar
 
 ```bash
 docker compose -f deploy/docker/docker-compose.yml down
-# keep volume: omit -v
-docker compose -f deploy/docker/docker-compose.yml down -v  # wipe DB
 ```
+
+O volume MariaDB é persistente. Para apagar o banco local e recriar tudo do
+zero, use `down -v`; isso remove personagens, contas e demais dados locais.

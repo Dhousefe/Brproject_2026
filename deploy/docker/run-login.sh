@@ -2,6 +2,14 @@
 set -euo pipefail
 cd /l2Brproject/login
 
+envsubst '${DB_URL} ${DB_USER} ${DB_PASSWORD} ${GAME_SERVER_HOST}' \
+  < config/loginserver.properties.template \
+  > config/loginserver.properties
+
+envsubst '${GAME_SERVER_HEXID}' \
+  < config/hexid.txt.template \
+  > config/hexid.txt
+
 build_cp() {
   local libs="../libs"
   local cp="${libs}/server.jar"

@@ -1,0 +1,23 @@
+Hostname = ${GAME_SERVER_HOST}
+GameserverHostname = *
+GameserverPort = 7777
+LoginHost = login-server
+LoginPort = 9014
+RequestServerID = 1
+AcceptAlternateID = False
+UseBlowfishCipher = True
+
+sql.url = ${DB_URL}
+sql.login = ${DB_USER}
+sql.password = ${DB_PASSWORD}
+
+CnameTemplate = .*
+DonateCnameTemplate = .*
+TitleTemplate = .*
+PetNameTemplate = .*
+ClanAllyNameTemplate = .*
+ServerListBrackets = False
+ServerListClock = False
+ServerGMOnly = False
+DeleteCharsAfterDays = 7
+MaximumOnlineUsers = 2000

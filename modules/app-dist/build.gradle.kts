@@ -188,6 +188,18 @@ tasks.jar {
         exclude(commonMetaExcludes)
     }
 
+    // db-migrate has its own runtime dependencies (Flyway and database
+    // adapters). Include them in the fat distribution so the Docker migrate
+    // image can execute MigrateMain without depending on Gradle caches.
+    from({
+        project(":db-migrate").configurations.getByName("runtimeClasspath")
+            .filter { it.name.endsWith(".jar") }
+            .filter { jar -> !jar.name.startsWith("brproject-db-migrate") }
+            .map { if (it.isDirectory) it else zipTree(it) }
+    }) {
+        exclude(commonMetaExcludes)
+    }
+
     // Generated SPI (core + included mods only) — INCLUDE wins
     from(layout.buildDirectory.dir("generated/spi")) {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE

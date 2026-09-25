@@ -31,7 +31,7 @@ Override with `--locations=filesystem:/custom/path` on the CLI or pass
   `flyway_schema_history` table is interchangeable across vendors.
 - SQLite-specific migrations must remain portable SQLite dialect (no
   `AUTO_INCREMENT`, `ENGINE=`, `CHARSET=`, `ON UPDATE CURRENT_TIMESTAMP`,
-  `ENUM(...)` — see `sqlite/V1_0_0__baseline_schema.sql` for conversions).
-- MariaDB-only hygiene migrations (V1_0_1 ENGINE conversion,
-  V1_0_2 charset conversion) are present as `SELECT 1;` no-ops in `sqlite/`
+  `ENUM(...)` — see `sqlite/V1.0.0__baseline_schema.sql` for conversions).
+- MariaDB-only hygiene migrations (V1.0.1 ENGINE conversion,
+  V1.0.2 charset conversion) are present as `SELECT 1;` no-ops in `sqlite/`
   so version numbering stays aligned.
