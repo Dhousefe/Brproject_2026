@@ -17,15 +17,12 @@
  */
 package ext.mods.gameserver.model.buylist;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import ext.mods.commons.data.StatSet;
-import ext.mods.commons.jdbc.DatabaseDialect;
-import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
 
+import ext.mods.gameserver.data.adapter.JdbcBuyListStore;
+import ext.mods.gameserver.data.repository.BuyListStore;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.model.item.kind.Item;
 import ext.mods.gameserver.taskmanager.BuyListTaskManager;
@@ -35,11 +32,8 @@ import ext.mods.gameserver.taskmanager.BuyListTaskManager;
  */
 public class Product
 {
-	private static final CLogger LOGGER = new CLogger(Product.class.getName());
-	
-	private static final String DELETE_BUYLIST = "DELETE FROM buylists WHERE buylist_id=? AND item_id=?";
-	
 	private final int _buyListId;
+	private final BuyListStore _store;
 	private final Item _item;
 	private final int _price;
 	private final long _restockDelay;
@@ -49,7 +43,13 @@ public class Product
 	
 	public Product(int buyListId, StatSet set)
 	{
+		this(buyListId, set, new JdbcBuyListStore());
+	}
+
+	public Product(int buyListId, StatSet set, BuyListStore store)
+	{
 		_buyListId = buyListId;
+		_store = store;
 		_item = ItemData.getInstance().getTemplate(set.getInteger("id"));
 		_price = set.getInteger("price", 0);
 		_restockDelay = set.getLong("restockDelay", -1) * 60000;
@@ -141,19 +141,7 @@ public class Product
 	 */
 	public void save(long nextRestockTime)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("buylists", "buylist_id,item_id,count,next_restock_time", "?,?,?,?", "buylist_id,item_id", "count,next_restock_time")))
-		{
-			ps.setInt(1, getBuyListId());
-			ps.setInt(2, getItemId());
-			ps.setInt(3, getCount());
-			ps.setLong(4, nextRestockTime);
-			ps.executeUpdate();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't save product for buylist id:{} and item id: {}.", e, getBuyListId(), getItemId());
-		}
+		_store.saveRestock(new BuyListStore.RestockRecord(getBuyListId(), getItemId(), getCount(), nextRestockTime));
 	}
 	
 	/**
@@ -161,16 +149,6 @@ public class Product
 	 */
 	public void delete()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_BUYLIST))
-		{
-			ps.setInt(1, getBuyListId());
-			ps.setInt(2, getItemId());
-			ps.executeUpdate();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't delete product for buylist id:{} and item id: {}.", e, getBuyListId(), getItemId());
-		}
+		_store.deleteRestock(getBuyListId(), getItemId());
 	}
 }
