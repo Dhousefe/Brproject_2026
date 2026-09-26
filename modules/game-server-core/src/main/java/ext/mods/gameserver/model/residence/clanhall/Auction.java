@@ -17,19 +17,16 @@
  */
 package ext.mods.gameserver.model.residence.clanhall;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
 import ext.mods.commons.lang.StringUtil;
-import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
+import ext.mods.gameserver.data.adapter.JdbcClanHallAuctionStore;
+import ext.mods.gameserver.data.repository.ClanHallAuctionStore;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.pledge.Clan;
 import ext.mods.gameserver.network.SystemMessageId;
@@ -68,14 +65,9 @@ public class Auction
 {
 	private static final CLogger LOGGER = new CLogger(Auction.class.getName());
 	
-	private static final String LOAD_BIDDERS = "SELECT bidder_name, clan_oid, clan_name, max_bid, time_bid FROM auctions WHERE clanhall_id = ? ORDER BY max_bid DESC";
-	private static final String UPDATE_DATE = "UPDATE clanhall SET endDate = ? WHERE id = ?";
-	private static final String DELETE_BIDDERS = "DELETE FROM auctions WHERE clanhall_id = ?";
-	private static final String DELETE_BIDDER = "DELETE FROM auctions WHERE clanhall_id = ? AND clan_oid = ?";
-	private static final String UPDATE_SELLER = "UPDATE clanhall SET sellerBid = ?, sellerName = ?, sellerClanName = ?, endDate = ? WHERE id = ?";
-	
 	private final Map<Integer, Bidder> _bidders = new ConcurrentHashMap<>();
 	private final ClanHall _ch;
+	private final ClanHallAuctionStore _store;
 	
 	private long _endDate;
 	
@@ -86,28 +78,26 @@ public class Auction
 	
 	public Auction(ClanHall ch, int sellerBid, String sellerName, String sellerClanName, long endDate)
 	{
+		this(ch, sellerBid, sellerName, sellerClanName, endDate, new JdbcClanHallAuctionStore());
+	}
+
+	Auction(ClanHall ch, int sellerBid, String sellerName, String sellerClanName, long endDate, ClanHallAuctionStore store)
+	{
 		_ch = ch;
+		_store = store;
 		_endDate = endDate;
 		
 		if (!StringUtil.isEmpty(sellerName, sellerClanName))
 			_seller = new Seller(sellerName, sellerClanName, sellerBid);
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_BIDDERS))
+		try
 		{
-			ps.setInt(1, ch.getId());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (ClanHallAuctionStore.BidRecord record : _store.loadBids(ch.getId()))
 			{
-				while (rs.next())
-				{
-					final Bidder bidder = new Bidder(rs.getString("bidder_name"), rs.getString("clan_name"), rs.getInt("max_bid"), rs.getLong("time_bid"));
-					
-					if (rs.isFirst())
-						_highestBidder = bidder;
-					
-					_bidders.put(rs.getInt("clan_oid"), bidder);
-				}
+				final Bidder bidder = new Bidder(record.bidderName(), record.clanName(), record.bid(), record.bidTime());
+				if (_highestBidder == null)
+					_highestBidder = bidder;
+				_bidders.put(record.clanId(), bidder);
 			}
 		}
 		catch (Exception e)
@@ -165,17 +155,7 @@ public class Auction
 		{
 			_endDate = currentTime + 604800000;
 			
-			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(UPDATE_DATE))
-			{
-				ps.setLong(1, _endDate);
-				ps.setInt(2, _ch.getId());
-				ps.execute();
-			}
-			catch (Exception e)
-			{
-				LOGGER.error("Couldn't save Auction date.", e);
-			}
+			_store.updateEndDate(_ch.getId(), _endDate);
 		}
 		else
 			taskDelay = _endDate - currentTime;
@@ -238,21 +218,7 @@ public class Auction
 		
 		clan.setAuctionBiddedAt(_ch.getId());
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("auctions", "clanhall_id, bidder_name, clan_oid, clan_name, max_bid, time_bid", "?, ?, ?, ?, ?, ?", "clanhall_id, clan_oid", "bidder_name, clan_name, max_bid, time_bid")))
-		{
-			ps.setInt(1, _ch.getId());
-			ps.setString(2, player.getName());
-			ps.setInt(3, player.getClanId());
-			ps.setString(4, clan.getName());
-			ps.setInt(5, bid);
-			ps.setLong(6, time);
-			ps.execute();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't update Auction.", e);
-		}
+		_store.saveBid(new ClanHallAuctionStore.BidRecord(_ch.getId(), player.getName(), player.getClanId(), clan.getName(), bid, time));
 	}
 	
 	/**
@@ -303,16 +269,7 @@ public class Auction
 	 */
 	public void removeBids(Clan newOwner)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_BIDDERS))
-		{
-			ps.setInt(1, _ch.getId());
-			ps.execute();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't remove Auction bids.", e);
-		}
+		_store.deleteBids(_ch.getId());
 		
 		for (Bidder bidder : _bidders.values())
 		{
@@ -379,17 +336,7 @@ public class Auction
 		if (bidder == null)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_BIDDER))
-		{
-			ps.setInt(1, _ch.getId());
-			ps.setInt(2, clan.getClanId());
-			ps.execute();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't cancel Auction bid.", e);
-		}
+		_store.deleteBid(_ch.getId(), clan.getClanId());
 		
 		returnItem(clan, bidder.getBid(), true);
 		
@@ -418,20 +365,7 @@ public class Auction
 		if (_seller == null)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_SELLER))
-		{
-			ps.setInt(1, _seller.getBid());
-			ps.setString(2, _seller.getName());
-			ps.setString(3, _seller.getClanName());
-			ps.setLong(4, _endDate);
-			ps.setInt(5, _ch.getId());
-			ps.execute();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't confirm Auction.", e);
-		}
+		_store.updateSeller(new ClanHallAuctionStore.SellerRecord(_ch.getId(), _seller.getBid(), _seller.getName(), _seller.getClanName(), _endDate));
 	}
 	
 	public void recalculateHighestBidder()
