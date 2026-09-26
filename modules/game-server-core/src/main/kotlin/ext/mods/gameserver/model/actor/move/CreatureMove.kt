@@ -394,8 +394,9 @@ open class CreatureMove<T : Creature>(
             val nextX = (target.x + retreatDist * ux).toInt()
             val nextY = (target.y + retreatDist * uy).toInt()
             val nextZ = geoEngine.getHeight(nextX, nextY, currentLoc.z).toInt()
+            val dz = Math.abs(nextZ - currentLoc.z)
             
-            if (geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, nextX, nextY, nextZ) &&
+            if (dz <= 48 && geoEngine.canMoveToTarget(currentLoc.x, currentLoc.y, currentLoc.z, nextX, nextY, nextZ) &&
                 !wouldCollideWithCreature(nextX, nextY)) {
                 return dispatchReposition(Location(nextX, nextY, nextZ))
             }
@@ -633,7 +634,15 @@ open class CreatureMove<T : Creature>(
         val rawPath = geoEngine.findPath(ox, oy, oz, tx, ty, tz, _actor is Playable, null)
         val path = SmoothObstacleAvoidance.getInstance().simplifyPath(rawPath)
         if (path.size < 2) {
-            addGeoPathFailCount()
+            val dx = tx - ox
+            val dy = ty - oy
+            val distSq = dx.toLong() * dx + dy.toLong() * dy
+            val meleeBuffer = _actor.status.physicalAttackRange + _actor.collisionRadius.toInt() + 100
+            if (distSq > meleeBuffer.toLong() * meleeBuffer) {
+                addGeoPathFailCount()
+            } else {
+                resetGeoPathFailCount()
+            }
             return null
         }
         resetGeoPathFailCount()

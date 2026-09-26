@@ -154,6 +154,13 @@ public class CreatureCast<T extends Creature>
     
     public void doCast(L2Skill skill, Creature target, ItemInstance itemInstance)
     {
+        if (_actor instanceof Npc) {
+            final Player actingPlayer = (target != null) ? target.getActingPlayer() : null;
+            if (actingPlayer != null && actingPlayer.getNpcSpawnPacer() != null) {
+                actingPlayer.getNpcSpawnPacer().flushImmediate(_actor.getObjectId());
+            }
+        }
+
         int hitTime = skill.getHitTime();
         int coolTime = skill.getCoolTime();
         if (!skill.isStaticHitTime())
@@ -181,7 +188,6 @@ public class CreatureCast<T extends Creature>
             reuseDelay *= _actor.getStatus().calcStat(skill.isMagic() ? Stats.MAGIC_REUSE_RATE : Stats.P_REUSE, 1, null, null);
             reuseDelay *= 333.0 / (skill.isMagic() ? _actor.getStatus().getMAtkSpd() : _actor.getStatus().getPAtkSpd());
         }
-        
         
         if (_actor.getActingPlayer() != null && !skill.isStaticReuse())
         {

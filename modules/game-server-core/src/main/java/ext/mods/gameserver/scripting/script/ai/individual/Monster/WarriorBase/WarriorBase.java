@@ -637,8 +637,12 @@ public class WarriorBase extends MonsterAI
 					npc.getAI().addAttackDesire(caster, hateRatio * 150);
 				}
 				
-				if (npc.getMove().getGeoPathFailCount() >= 10 && npc.getStatus().getHpRatio() < 1.)
-					npc.teleportTo(caster.getPosition(), 0);
+				if (npc.getMove().getGeoPathFailCount() >= 10)
+				{
+					npc.getMove().resetGeoPathFailCount();
+					if (npc.distance3D(caster) > 250)
+						if (npc instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+				}
 			}
 		}
 		

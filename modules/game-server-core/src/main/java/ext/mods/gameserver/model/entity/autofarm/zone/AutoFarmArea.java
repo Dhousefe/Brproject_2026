@@ -35,6 +35,7 @@ import ext.mods.gameserver.idfactory.IdFactory;
 import ext.mods.gameserver.model.World;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
+import ext.mods.gameserver.enums.ZoneId;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.actor.instance.Monster;
 import ext.mods.gameserver.model.actor.instance.SchemeBuffer;
@@ -576,7 +577,19 @@ public class AutoFarmArea extends ZoneType
 			return;
 		}
 		
-		final Location reference = (_lastKilledMonsterLocation != null) ? _lastKilledMonsterLocation : _deathLocation;
+		Location reference = (_lastKilledMonsterLocation != null) ? _lastKilledMonsterLocation : _deathLocation;
+		
+		if (getProfile() != null && getProfile().getConsecutiveMonsterDeaths() >= 2)
+		{
+			final int adaptiveLevel = getProfile().getAdaptiveTargetLevel(player.getStatus().getLevel());
+			final Location adaptiveSpot = findAdaptiveSpotForPlayer(player, adaptiveLevel);
+			if (adaptiveSpot != null)
+			{
+				reference = adaptiveSpot;
+				_lastKilledMonsterLocation = new Location(adaptiveSpot);
+				player.sendMessage("AutoFarm: Morte consecutiva detectada! Recuando para monstros nível " + adaptiveLevel + " para evitar perda de level.");
+			}
+		}
 		
 		if (player.isOfflineFarm() && reference != null)
 		{
@@ -621,6 +634,39 @@ public class AutoFarmArea extends ZoneType
 		return mAtk > pAtk;
 	}
 
+	private Location findAdaptiveSpotForPlayer(Player player, int targetLevel)
+	{
+		deathReturnLog("{} findAdaptiveSpotForPlayer() targetLevel={}", DEATH_RETURN_TAG, targetLevel);
+		final int minLevel = Math.max(1, targetLevel - 1);
+		final int maxLevel = targetLevel + 1;
+		
+		final Monster suitableMonster = ext.mods.gameserver.model.World.getInstance().getObjects().stream()
+			.filter(o -> o instanceof Monster m && !m.isDead() && !m.isRaidRelated())
+			.map(Monster.class::cast)
+			.filter(m ->
+			{
+				final int lvl = m.getStatus().getLevel();
+				return lvl >= minLevel && lvl >= 10 && lvl <= maxLevel && m.getZ() > -2000 && !m.isInsideZone(ZoneId.PEACE) && !m.isInsideZone(ZoneId.TOWN);
+			})
+			.min((a, b) ->
+			{
+				final int diffA = Math.abs(a.getStatus().getLevel() - targetLevel);
+				final int diffB = Math.abs(b.getStatus().getLevel() - targetLevel);
+				if (diffA != diffB)
+					return Integer.compare(diffA, diffB);
+				return Double.compare(a.distance3D(player), b.distance3D(player));
+			})
+			.orElse(null);
+		
+		if (suitableMonster != null)
+		{
+			deathReturnLog("{} findAdaptiveSpotForPlayer() found suitable monster {} lvl={} loc={}",
+				DEATH_RETURN_TAG, suitableMonster.getName(), suitableMonster.getStatus().getLevel(), suitableMonster.getPosition());
+			return suitableMonster.getPosition();
+		}
+		return null;
+	}
+	
 	private TeleportLocation findClosestTeleport(Location reference)
 	{
 		deathReturnLog("{} findClosestTeleport() entry reference={}", DEATH_RETURN_TAG, reference);

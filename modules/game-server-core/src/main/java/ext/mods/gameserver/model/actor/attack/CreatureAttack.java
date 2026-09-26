@@ -287,14 +287,21 @@ public class CreatureAttack<T extends Creature> {
     }
 
     public void doAttack(Creature target) {
-        
-        
+
+
         if (_isAttackingNow && _attackTask == null) {
             _isAttackingNow = false;
         }
 
         if (_isAttackingNow || _isBowCoolingDown) {
             return;
+        }
+
+        if (_actor instanceof Npc) {
+            final Player actingPlayer = (target != null) ? target.getActingPlayer() : null;
+            if (actingPlayer != null && actingPlayer.getNpcSpawnPacer() != null) {
+                actingPlayer.getNpcSpawnPacer().flushImmediate(_actor.getObjectId());
+            }
         }
         
         if (ConfigNpcs.DEBUG_MELEE_ATTACK && _actor instanceof Npc && _actor.getStatus().getPhysicalAttackRange() <= 200) {

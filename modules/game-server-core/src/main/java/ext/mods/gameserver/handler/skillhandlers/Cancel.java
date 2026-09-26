@@ -71,7 +71,6 @@ public class Cancel implements ISkillHandler
 			final double skillVuln = Formulas.calcSkillVulnerability(creature, targetCreature, skill, skill.getSkillType());
 			
 			final List<AbstractEffect> list = Arrays.asList(targetCreature.getAllEffects());
-			
 			if (ConfigPlayers.CANCEL_DISPEL_ORDER_LIFO)
 				Collections.reverse(list);
 			else

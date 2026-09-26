@@ -81,6 +81,66 @@ public class AutoFarmProfile
 	private boolean _useSpoilSweep = false;
 	private boolean _deathReturnEnabled = true;
 	
+	private int _consecutiveMonsterDeaths = 0;
+	private int _lastKillerMonsterLevel = 0;
+	private int _adaptiveLevelOffset = 0;
+	private int _successfulKillsInSpot = 0;
+	
+	public int getConsecutiveMonsterDeaths()
+	{
+		return _consecutiveMonsterDeaths;
+	}
+	
+	public int getLastKillerMonsterLevel()
+	{
+		return _lastKillerMonsterLevel;
+	}
+	
+	public int getAdaptiveLevelOffset()
+	{
+		return _adaptiveLevelOffset;
+	}
+	
+	public void recordMonsterDeath(int monsterLevel)
+	{
+		_consecutiveMonsterDeaths++;
+		_lastKillerMonsterLevel = monsterLevel;
+		_successfulKillsInSpot = 0;
+		if (_consecutiveMonsterDeaths >= 2)
+		{
+			_adaptiveLevelOffset = Math.min(_adaptiveLevelOffset + 3, 15);
+		}
+	}
+	
+	public void recordMonsterKill()
+	{
+		_successfulKillsInSpot++;
+		if (_successfulKillsInSpot >= 10)
+		{
+			_consecutiveMonsterDeaths = 0;
+			_adaptiveLevelOffset = 0;
+		}
+	}
+	
+	public void recordPvpDeath()
+	{
+		_successfulKillsInSpot = 0;
+	}
+	
+	public void resetDeathStreak()
+	{
+		_consecutiveMonsterDeaths = 0;
+		_adaptiveLevelOffset = 0;
+		_successfulKillsInSpot = 0;
+	}
+	
+	public int getAdaptiveTargetLevel(int playerLevel)
+	{
+		final int baseLevel = _lastKillerMonsterLevel > 0 ? _lastKillerMonsterLevel : playerLevel;
+		final int targetLevel = baseLevel - Math.max(3, _adaptiveLevelOffset);
+		return Math.max(10, targetLevel);
+	}
+	
 	public AutoFarmProfile(Player player)
 	{
 		_player = player;
@@ -438,30 +498,30 @@ public class AutoFarmProfile
 	
 	public int getAreaMaxRadius()
 	{
-		if (_currentSelectAreaId == 0)
-			return 0;
-		else if (getSelectedArea().getType() == AutoFarmType.OPEN && ConfigProject.AUTOFARM_MAX_OPEN_RADIUS > 0)
-			return ConfigProject.AUTOFARM_MAX_OPEN_RADIUS;
-		else
-			return getAttackRange();
+		final int configMax = ConfigProject.AUTOFARM_MAX_OPEN_RADIUS > 0 ? ConfigProject.AUTOFARM_MAX_OPEN_RADIUS : 1500;
+		return Math.min(configMax, 1500);
 	}
 	
 	public int getFinalRadius() 
 	{
-		if (_radius == 0 && _currentSelectAreaId != 0 && getSelectedArea().getType() == AutoFarmType.OPEN)
+		if (_radius > 0)
 		{
-			if (ConfigProject.AUTOFARM_MAX_OPEN_RADIUS != 0)
-				return ConfigProject.AUTOFARM_MAX_OPEN_RADIUS > 1000 ? ConfigProject.AUTOFARM_MAX_OPEN_RADIUS / 2 : ConfigProject.AUTOFARM_MAX_OPEN_RADIUS;
+			return Math.min(_radius, getAreaMaxRadius());
+		}
+		
+		if (_currentSelectAreaId != 0 && getSelectedArea() != null && getSelectedArea().getType() == AutoFarmType.OPEN)
+		{
+			if (ConfigProject.AUTOFARM_MAX_OPEN_RADIUS > 0)
+				return Math.min(ConfigProject.AUTOFARM_MAX_OPEN_RADIUS > 1000 ? ConfigProject.AUTOFARM_MAX_OPEN_RADIUS / 2 : ConfigProject.AUTOFARM_MAX_OPEN_RADIUS, 1500);
 			
 			if (getAttackRange() < 100)
 				return 900;
 			
-			return getAttackRange();
+			return Math.min(Math.max(getAttackRange(), 600), 1500);
 		}
-		else if (_radius == 0 || (_radius > getAttackRange() && _currentSelectAreaId != 0 && getSelectedArea().getType() != AutoFarmType.OPEN))
-			return getAreaMaxRadius();
-		else
-			return _radius;
+		
+		final int fallback = Math.max(getAttackRange(), 600);
+		return Math.min(fallback, getAreaMaxRadius());
 	}
 	
 	public void setRadius(int value)

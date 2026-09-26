@@ -71,8 +71,12 @@ public class WarriorBehavior extends MonsterBehavior
 			
 			if (topDesireTarget != null)
 			{
-				if (npc.getMove().getGeoPathFailCount() > 10 && attacker == topDesireTarget && npc.getStatus().getHpRatio() < 1.)
-					npc.teleportTo(attacker.getPosition(), 0);
+				if (npc.getMove().getGeoPathFailCount() > 10 && attacker == topDesireTarget)
+				{
+					npc.getMove().resetGeoPathFailCount();
+					if (npc.distance3D(attacker) > 250)
+						if (npc instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+				}
 				
 				if (npc.isRooted() && npc.distance2D(topDesireTarget) > 40)
 				{
@@ -117,8 +121,12 @@ public class WarriorBehavior extends MonsterBehavior
 				
 				if (topDesireTarget != null)
 				{
-					if (called.getMove().getGeoPathFailCount() > 10 && attacker == topDesireTarget && called.getStatus().getHpRatio() < 1.)
-						called.teleportTo(attacker.getPosition(), 0);
+					if (called.getMove().getGeoPathFailCount() > 10 && attacker == topDesireTarget)
+					{
+						called.getMove().resetGeoPathFailCount();
+						if (called.distance3D(attacker) > 250)
+							if (called instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+					}
 					
 					if (called.isRooted() && called.distance2D(topDesireTarget) > 40)
 					{
@@ -201,8 +209,12 @@ public class WarriorBehavior extends MonsterBehavior
 					
 					if (topDesireTarget != null)
 					{
-						if (called.getMove().getGeoPathFailCount() > 10 && target == topDesireTarget && called.getStatus().getHpRatio() < 1)
-							called.teleportTo(target.getPosition(), 0);
+						if (called.getMove().getGeoPathFailCount() > 10 && target == topDesireTarget)
+						{
+							called.getMove().resetGeoPathFailCount();
+							if (called.distance3D(target) > 250 && called instanceof ext.mods.gameserver.model.actor.Attackable attackable)
+								attackable.returnHome();
+						}
 						
 						if (called.isRooted() && called.distance2D(topDesireTarget) > 40)
 						{

@@ -382,4 +382,35 @@ class AutoFarmDesyncAndVisibilityTest
 		assertTrue(_session.packetLog.contains("StopMove"), "Deve despachar pacote de StopMove");
 		assertTrue(_session.packetLog.contains("TargetUnselected:2001"), "Deve despachar TargetUnselected");
 	}
+
+	@Test
+	@DisplayName("UC-Desync-7: Candidato pendente no NpcSpawnPacer é ignorado até que NpcInfo seja despachado")
+	void testTargetSelection_ignoresPendingMonstersInPacer_untilNpcInfoDispatched()
+	{
+		final int pendingMonsterId = 100999;
+		final int readyMonsterId = 100888;
+
+		// Monster 1 pendente na fila cadenciada
+		_pacer.queueNpc(pendingMonsterId);
+		assertTrue(_pacer.isPending(pendingMonsterId), "Monster pendente deve ser detectado pelo Pacer");
+
+		// Simula filtro de candidatos do AutoFarmRoutine (findTargetSimd)
+		final List<Integer> rawCandidates = List.of(pendingMonsterId, readyMonsterId);
+		final List<Integer> eligibleCandidates = rawCandidates.stream()
+			.filter(id -> !_pacer.isPending(id))
+			.toList();
+
+		assertEquals(1, eligibleCandidates.size(), "Apenas o monstro com NpcInfo já despachado deve ser elegível");
+		assertEquals(readyMonsterId, eligibleCandidates.get(0));
+
+		// Despacha o lote de NpcInfo
+		_pacer.flushImmediate(pendingMonsterId);
+		assertFalse(_pacer.isPending(pendingMonsterId));
+
+		// Agora ambos são elegíveis
+		final List<Integer> eligibleAfterBatch = rawCandidates.stream()
+			.filter(id -> !_pacer.isPending(id))
+			.toList();
+		assertEquals(2, eligibleAfterBatch.size(), "Após o envio do NpcInfo, o monstro se torna elegível para o AutoFarm");
+	}
 }

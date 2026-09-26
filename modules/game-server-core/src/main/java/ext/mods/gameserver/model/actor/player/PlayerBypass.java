@@ -84,7 +84,6 @@ public final class PlayerBypass
 	{
 		final long now = System.currentTimeMillis();
 
-		
 		if (maxPerSec > 0)
 		{
 			if (now - _bypassSecondStartTick >= 1000L)
@@ -102,7 +101,6 @@ public final class PlayerBypass
 			}
 		}
 
-		
 		if (windowMs > 0 && cmd != null && cmd.equals(_lastBypassCommand))
 		{
 			if (now - _lastBypassTime < windowMs)

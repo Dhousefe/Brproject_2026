@@ -19,6 +19,19 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
+ * JUnit 5 — Validação de Configurações de Stats vs. Referência L2OFF (Vanganth / Interlude).
+ *
+ * <h2>Referências cruzadas com RAG Híbrido (l2off)</h2>
+ * <ul>
+ *   <li>VANGANTH_CONSTANTS_REFERENCE.md — Performance Limits: MaxAttackSpeed (unlimited=0.0),
+ *       MaxCastingSpeed (unlimited=0.0); fórmula: speed / 333.0</li>
+ *   <li>Vanganth_Sources_IL/L2Ext/CreatureAction.cpp — OnSetSkillUsableTime2: staticReuseTime
+ *       sobrescreve Reuse quando pInfo->staticReuseTime > 0</li>
+ *   <li>Vanganth_Sources_IL/L2Ext/InstantEffects.cpp — i_dispel_buff itera vAbnormalStatus de
+ *       forma SEQUENCIAL (iterator begin→end), não randomizado; i_cancel usa RandInt(buffCount)
+ *       por slot — ou seja, L2OFF nativo usa ordem de inserção (LIFO natural do vector)</li>
+ *   <li>VANGANTH_FORMULAS.md §4 — MaxHP/MaxMP/MaxCP são recalculados por ValidateAllOnSIM()</li>
+ * </ul>
  *
  * <h2>Estratégia de Teste (sem servidor completo)</h2>
  * Todos os testes validam a lógica das <b>fórmulas e caps</b> diretamente, sem instanciar
@@ -30,14 +43,14 @@ import org.junit.jupiter.api.Test;
  * @see ext.mods.gameserver.model.actor.cast.CreatureCast
  * @see ext.mods.gameserver.handler.skillhandlers.Cancel
  */
-@DisplayName("ConfigPlayers — Compliance com L2OFF (L2Off Interlude)")
+@DisplayName("ConfigPlayers — Compliance com L2OFF (Vanganth Interlude)")
 class ConfigPlayersStatsCapL2OffComplianceTest
 {
 	// ========================================================================
-	// Valores de referência extraídos do RAG l2off (L2Off_CONSTANTS_REFERENCE.md)
+	// Valores de referência extraídos do RAG l2off (VANGANTH_CONSTANTS_REFERENCE.md)
 	// ========================================================================
 	
-	/** L2OFF padrão: sem cap absoluto de ataque físico (0 = ilimitado no L2Off). BrProject usa 1500. */
+	/** L2OFF padrão: sem cap absoluto de ataque físico (0 = ilimitado no Vanganth). BrProject usa 1500. */
 	private static final int L2OFF_DEFAULT_MAX_PATK_SPEED = 1500;
 	/** L2OFF padrão: sem cap de cast speed (formula: mAtkSpd/333.0). BrProject usa 1999. */
 	private static final int L2OFF_DEFAULT_MAX_MATK_SPEED = 1999;
@@ -97,11 +110,11 @@ class ConfigPlayersStatsCapL2OffComplianceTest
 	class PAtkSpeedCapTests
 	{
 		@Test
-		@DisplayName("Padrão L2OFF: cap = 1500 (L2Off default)")
+		@DisplayName("Padrão L2OFF: cap = 1500 (Vanganth default)")
 		void defaultMatchesL2Off()
 		{
 			assertEquals(L2OFF_DEFAULT_MAX_PATK_SPEED, ConfigPlayers.MAX_PATK_SPEED_LIMIT,
-				"PAtkSpd cap padrão deve ser 1500 como no L2OFF L2Off");
+				"PAtkSpd cap padrão deve ser 1500 como no L2OFF Vanganth");
 		}
 		
 		@Test
@@ -144,7 +157,7 @@ class ConfigPlayersStatsCapL2OffComplianceTest
 	{
 		/**
 		 * Referência L2OFF: formula castTime = hitTime * (333.0 / mAtkSpd).
-		 * Cap padrão L2Off = sem limite (o Extender define MaxCastingSpeed=0.0 = ilimitado).
+		 * Cap padrão Vanganth = sem limite (o Extender define MaxCastingSpeed=0.0 = ilimitado).
 		 * BrProject impõe 1999 por segurança. Este teste valida a fórmula interna.
 		 */
 		@Test
@@ -188,7 +201,7 @@ class ConfigPlayersStatsCapL2OffComplianceTest
 	class RunSpeedCapTests
 	{
 		@Test
-		@DisplayName("Padrão L2OFF: MaxRunSpeed = 250 (hardcoded no binary L2Off)")
+		@DisplayName("Padrão L2OFF: MaxRunSpeed = 250 (hardcoded no binary Vanganth)")
 		void defaultMatchesL2Off()
 		{
 			assertEquals(L2OFF_DEFAULT_MAX_RUN_SPEED, ConfigPlayers.MAX_RUN_SPEED_LIMIT,
@@ -430,7 +443,7 @@ class ConfigPlayersStatsCapL2OffComplianceTest
 		 * simula a ordem "último buff adicionado primeiro" (equivalente ao L2OFF nativo).
 		 */
 		@Test
-		@DisplayName("Padrão L2OFF: LIFO = true (compatível com i_cancel L2Off)")
+		@DisplayName("Padrão L2OFF: LIFO = true (compatível com i_cancel Vanganth)")
 		void defaultIsLifo()
 		{
 			assertTrue(ConfigPlayers.CANCEL_DISPEL_ORDER_LIFO,

@@ -254,6 +254,7 @@ public final class PlayerCombat
 		_owner.disableBeastShots();
 		AntiFeedManager.getInstance().setLastDeathTime(_owner.getObjectId());
 		_owner.getMissions().update(MissionType.DEATHS);
+		ext.mods.gameserver.model.entity.autofarm.AutoFarmManager.getInstance().onPlayerDeath(_owner, killer);
 
 		return true;
 	}

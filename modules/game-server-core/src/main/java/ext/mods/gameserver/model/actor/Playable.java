@@ -580,8 +580,10 @@ public abstract class Playable extends Creature
 		if (target instanceof Playable)
 		{
 			final Player targetPlayer = target.getActingPlayer();
+			if (targetPlayer == null || targetPlayer.isDead())
+				return false;
 			
-			if (targetPlayer.getKarma() > 0)
+			if (targetPlayer.getKarma() > 0 || targetPlayer.getPvpFlag() > 0)
 				return true;
 			
 			if (isInSameActiveOlympiadMatch(targetPlayer))
@@ -590,16 +592,25 @@ public abstract class Playable extends Creature
 			if (isInSameActiveDuel(targetPlayer))
 				return true;
 			
-			
-			if (this instanceof Player)
+			if (this instanceof Player player)
 			{
-				Player player = getActingPlayer();
-				Player targett = target.getActingPlayer();
-				if (TournamentState.isIn(player) && TournamentState.isIn(targett))
+				if (TournamentState.isIn(player) && TournamentState.isIn(targetPlayer))
 				{
 					return true;
 				}
 				
+				if (player.isAutoFarming())
+				{
+					final ext.mods.gameserver.model.entity.autofarm.AutoFarmProfile profile = ext.mods.gameserver.model.entity.autofarm.AutoFarmManager.getInstance().getProfile(player);
+					if (profile != null && profile.isOffensiveMode())
+						return true;
+				}
+			}
+			else if (this instanceof Summon summon && summon.getOwner() != null && summon.getOwner().isAutoFarming())
+			{
+				final ext.mods.gameserver.model.entity.autofarm.AutoFarmProfile profile = ext.mods.gameserver.model.entity.autofarm.AutoFarmManager.getInstance().getProfile(summon.getOwner());
+				if (profile != null && profile.isOffensiveMode())
+					return true;
 			}
 			
 			if (isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP))

@@ -44,7 +44,9 @@ import ext.mods.gameserver.data.manager.ZoneManager;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.enums.ZoneId;
 import ext.mods.gameserver.geoengine.GeoEngine;
+import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.model.actor.instance.Monster;
 import ext.mods.gameserver.model.entity.autofarm.zone.AutoFarmArea;
 import ext.mods.gameserver.model.entity.autofarm.zone.AutoFarmRoute;
 import ext.mods.gameserver.model.entity.autofarm.zone.AutoFarmZone;
@@ -183,11 +185,25 @@ public class AutoFarmManager
 	
 	public void onPlayerDeath(Player player)
 	{
+		onPlayerDeath(player, null);
+	}
+	
+	public void onPlayerDeath(Player player, Creature killer)
+	{
 		try
 		{
 			final AutoFarmProfile autoFarmProfile = getPlayer(player.getObjectId());
 			if (autoFarmProfile == null)
 				return;
+			
+			if (killer instanceof Monster monster)
+			{
+				autoFarmProfile.recordMonsterDeath(monster.getStatus().getLevel());
+			}
+			else if (killer != null && killer.getActingPlayer() != null)
+			{
+				autoFarmProfile.recordPvpDeath();
+			}
 			
 			if (autoFarmProfile.isEnabled())
 			{
@@ -1367,7 +1383,7 @@ public class AutoFarmManager
 	{
 		stopTimeDisplay(player);
 
-		final int maxTicks = 30;
+		final int maxTicks = 30; 
 		final java.util.concurrent.atomic.AtomicInteger tickCounter = new java.util.concurrent.atomic.AtomicInteger(0);
 
 		ScheduledFuture<?> task = ThreadPool.scheduleAtFixedRate(() -> {

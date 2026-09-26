@@ -419,6 +419,7 @@ public class AutoFarmRoutine
 				final AutoFarmArea area = _autoFarmProfile.getSelectedArea();
 				if (area != null)
 					area.updateLastKilledMonsterLocation(currentTarget.getPosition());
+				_autoFarmProfile.recordMonsterKill();
 				clearTargetSynchronized(player);
 			}
 			
@@ -510,15 +511,16 @@ public class AutoFarmRoutine
 			return false;
 		}
 		
-		if (_autoFarmProfile.getSelectedArea().getType() == AutoFarmType.ZONA && !target.isInsideZone(ZoneId.AUTO_FARM))
-			return false;
-		
 		if (!target.isAttackableBy(player))
 			return false;
 		
 		if (_autoFarmProfile.isDefensiveMode())
-			return wasRecentlyAttackedBy(player, target);
+		{
+			// Modo Defesa: só ataca se foi atacado recentemente E o agressor está com flag de PvP ou PK
+			return wasRecentlyAttackedBy(player, target) && (target.getPvpFlag() > 0 || target.getKarma() > 0);
+		}
 		
+		// Modo Ofensivo: ataca qualquer player válido no campo de visão que não seja aliado
 		return _autoFarmProfile.isOffensiveMode();
 	}
 
@@ -532,12 +534,26 @@ public class AutoFarmRoutine
 			if (_pvpAggressorListenerRegistered)
 				return;
 			
-			ext.mods.extensions.listener.manager.CreatureListenerManager.getInstance().addHpDamageListener((creature, damageHp, attacker, skill) ->
+			final ext.mods.extensions.listener.manager.CreatureListenerManager clm = ext.mods.extensions.listener.manager.CreatureListenerManager.getInstance();
+			
+			clm.addHpDamageListener((creature, damageHp, attacker, skill) ->
 			{
 				if (damageHp <= 0)
 					return;
 				
 				final Player victim = creature != null ? creature.getActingPlayer() : null;
+				final Player aggressor = attacker != null ? attacker.getActingPlayer() : null;
+				if (victim == null || aggressor == null || victim == aggressor)
+					return;
+				
+				_pvpAggressors
+					.computeIfAbsent(victim.getObjectId(), id -> new ConcurrentHashMap<>())
+					.put(aggressor.getObjectId(), System.currentTimeMillis());
+			});
+			
+			clm.addAttackListener((attacker, target) ->
+			{
+				final Player victim = target != null ? target.getActingPlayer() : null;
 				final Player aggressor = attacker != null ? attacker.getActingPlayer() : null;
 				if (victim == null || aggressor == null || victim == aggressor)
 					return;
@@ -581,7 +597,8 @@ public class AutoFarmRoutine
 		if (!_autoFarmProfile.isDefensiveMode() && !_autoFarmProfile.isOffensiveMode())
 			return null;
 		
-		final int searchRange = Math.max(600, _autoFarmProfile.getAttackRange());
+		// Busca no raio de visibilidade real do cliente (teto visual de 1500 unidades)
+		final int searchRange = Math.min(1500, Math.max(1200, _autoFarmProfile.getAttackRange()));
 		
 		final Player current = (player.getTarget() instanceof Player) ? (Player) player.getTarget() : null;
 		if (current != null && isValidPvpTarget(player, current))
@@ -712,6 +729,7 @@ public class AutoFarmRoutine
 			.filter(m -> !m.isDead())
 			.filter(m -> !isInvalidTarget(m))
 			.filter(this::isTargetInsideZone)
+			.filter(m -> player.getNpcSpawnPacer() == null || !player.getNpcSpawnPacer().isPending(m.getObjectId()))
 			.filter(m -> m.getAI().getAggroList().getHate(player) > 0)
 			.min(Comparator.comparingDouble(m -> player.distance3D(m)))
 			.orElse(null);
@@ -788,6 +806,8 @@ public class AutoFarmRoutine
 			if (m == null || m.isDead() || isInvalidTarget(m))
 				continue;
 			if (!player.knows(m))
+				continue;
+			if (player.getNpcSpawnPacer() != null && player.getNpcSpawnPacer().isPending(m.getObjectId()))
 				continue;
 			if (_unreachableTargets.containsKey(m.getObjectId()))
 				continue;
@@ -959,13 +979,13 @@ public class AutoFarmRoutine
 		switch (area.getType())
 		{
 			case ROTA:
-				return 800;
+				return Math.min(1500, Math.max(800, _autoFarmProfile.getFinalRadius()));
 			case ZONA:
-				return _autoFarmProfile.getFinalRadius() * 2;
+				return Math.min(1500, Math.max(800, _autoFarmProfile.getFinalRadius()));
 			case OPEN:
-				return Math.max(2000, _autoFarmProfile.getFinalRadius() * 3);
+				return Math.min(1500, Math.max(900, _autoFarmProfile.getFinalRadius()));
 			default:
-				return 1000;
+				return Math.min(1500, Math.max(800, _autoFarmProfile.getFinalRadius()));
 		}
 	}
 	
@@ -2709,7 +2729,8 @@ public class AutoFarmRoutine
 		final List<L2Skill> candidates = new ArrayList<>();
 		final List<L2Skill> debuffs = _autoFarmProfile.getAttackSkills(true);
 		final List<L2Skill> damage = _autoFarmProfile.getAttackSkills(false);
-		final boolean unflaggedCtrlTarget = (_autoFarmProfile.isDefensiveMode() || _autoFarmProfile.isOffensiveMode())
+		// No modo ofensivo, não há restrição contra alvos não-flaggados: ataca imediatamente em modo PK forçado
+		final boolean unflaggedCtrlTarget = _autoFarmProfile.isDefensiveMode()
 			&& target instanceof Player targetPlayer
 			&& targetPlayer.getPvpFlag() == 0 && targetPlayer.getKarma() == 0;
 		
@@ -2757,7 +2778,7 @@ public class AutoFarmRoutine
 		
 		final double dist = summon.distance3D(target);
 		final List<L2Skill> candidates = new ArrayList<>();
-		final boolean unflaggedCtrlTarget = (_autoFarmProfile.isDefensiveMode() || _autoFarmProfile.isOffensiveMode())
+		final boolean unflaggedCtrlTarget = _autoFarmProfile.isDefensiveMode()
 			&& target instanceof Player targetPlayer
 			&& targetPlayer.getPvpFlag() == 0 && targetPlayer.getKarma() == 0;
 		for (L2Skill skill : summon.getSkills().values())
@@ -2796,7 +2817,7 @@ public class AutoFarmRoutine
 			return true;
 		}
 		
-		summon.getAI().tryToAttack(target);
+		summon.getAI().tryToAttack(target, useCtrl, false);
 		return true;
 	}
 	
@@ -2983,6 +3004,7 @@ public class AutoFarmRoutine
 			_lastArcherShotTime = System.currentTimeMillis();
 			player.updatePvPStatus(target);
 			setIntention(player, IntentionType.ATTACK, target);
+			player.getAI().tryToAttack(target, useCtrl, false);
 			
 			if (kiteEnabled)
 			{

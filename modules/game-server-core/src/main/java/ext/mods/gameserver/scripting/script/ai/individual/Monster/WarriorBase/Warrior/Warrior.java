@@ -487,8 +487,12 @@ public class Warrior extends WarriorBase
 		final Creature mostHated = npc.getAI().getAggroList().getMostHatedCreature();
 		if (mostHated != null)
 		{
-			if (npc.getMove().getGeoPathFailCount() >= 10 && attacker == mostHated && npc.getStatus().getHpRatio() < 1.)
-				npc.teleportTo(attacker.getPosition(), 0);
+			if (npc.getMove().getGeoPathFailCount() >= 10 && attacker == mostHated)
+			{
+				npc.getMove().resetGeoPathFailCount();
+				if (npc.distance3D(attacker) > 250)
+					if (npc instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+			}
 			
 			final int i0 = getAbnormalLevel(npc, 1201, 1);
 			if (i0 >= 0 && npc.distance2D(attacker) > 40)
@@ -526,8 +530,12 @@ public class Warrior extends WarriorBase
 		if (called.getAI().getLifeTime() > 7)
 		{
 			final Creature mostHated = called.getAI().getAggroList().getMostHatedCreature();
-			if (mostHated != null && attacker == mostHated && called.getMove().getGeoPathFailCount() >= 10 && called.getStatus().getHpRatio() < 1.)
-				called.teleportTo(attacker.getPosition(), 0);
+			if (mostHated != null && attacker == mostHated && called.getMove().getGeoPathFailCount() >= 10)
+			{
+				called.getMove().resetGeoPathFailCount();
+				if (called.distance3D(attacker) > 250)
+					if (called instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+			}
 			
 			if (attacker instanceof Playable)
 			{
@@ -553,8 +561,12 @@ public class Warrior extends WarriorBase
 			npc.getAI().addAttackDesire(caster, hateRatio * 150);
 		}
 		
-		if (caster == mostHated && npc.getMove().getGeoPathFailCount() >= 10 && npc.getStatus().getHpRatio() < 1.)
-			npc.teleportTo(caster.getPosition(), 0);
+		if (caster == mostHated && npc.getMove().getGeoPathFailCount() >= 10)
+		{
+			npc.getMove().resetGeoPathFailCount();
+			if (npc.distance3D(caster) > 250)
+				if (npc instanceof ext.mods.gameserver.model.actor.Attackable attackable) attackable.returnHome();
+		}
 	}
 	
 	

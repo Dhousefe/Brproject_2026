@@ -337,6 +337,7 @@ public final class OlympiadGameTask implements Runnable
 		_game.cleanEffects();
 		_game.healPlayers();
 		_game.resetDamage();
+		_game.broadcastOlympiadInfo(_zone);
 		
 		_state = GameState.BATTLE_COUNTDOWN;
 		_countDown = ConfigEvents.OLY_WAIT_BATTLE;

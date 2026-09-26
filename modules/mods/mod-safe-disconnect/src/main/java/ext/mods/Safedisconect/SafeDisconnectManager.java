@@ -146,7 +146,6 @@ public final class SafeDisconnectManager
 				DungeonState.get(player).resumeForReconnect(player);
 			if (ConfigSafeDisconnect.SAFEDISCONNECT_INTEGRATION_TOURNAMENT && TournamentState.battle(player) != null)
 				TournamentState.battle(player).resumeForReconnect(player);
-			resumeOlympiadIfNeeded(player);
 			ensureInstanceConsistency(player);
 			return true;
 		}
@@ -163,7 +162,6 @@ public final class SafeDisconnectManager
 					DungeonState.get(player).resumeForReconnect(player);
 				if (ConfigSafeDisconnect.SAFEDISCONNECT_INTEGRATION_TOURNAMENT && TournamentState.battle(player) != null)
 					TournamentState.battle(player).resumeForReconnect(player);
-				resumeOlympiadIfNeeded(player);
 				ensureInstanceConsistency(player);
 				return true;
 			}
@@ -178,7 +176,6 @@ public final class SafeDisconnectManager
 			DungeonState.get(player).resumeForReconnect(player);
 		if (ConfigSafeDisconnect.SAFEDISCONNECT_INTEGRATION_TOURNAMENT && TournamentState.battle(player) != null)
 			TournamentState.battle(player).resumeForReconnect(player);
-		resumeOlympiadIfNeeded(player);
 		ensureInstanceConsistency(player);
 		return true;
 	}
@@ -498,6 +495,7 @@ public final class SafeDisconnectManager
 		
 		oldClient.setPlayer(null);
 		oldClient.setDetached(true);
+		oldClient.close(ext.mods.gameserver.network.serverpackets.ServerClose.STATIC_PACKET);
 		oldClient.cleanMe(true);
 	}
 	
@@ -509,6 +507,7 @@ public final class SafeDisconnectManager
 		
 		oldClient.setPlayer(null);
 		oldClient.setDetached(true);
+		oldClient.close(ext.mods.gameserver.network.serverpackets.ServerClose.STATIC_PACKET);
 		oldClient.cleanMe(true);
 	}
 	

@@ -208,7 +208,7 @@ public final class PlayerSessionPersistence
 
 		if (client.isDetached())
 			client.cleanMe(true);
-		else if (!client.getConnection().isClosed())
+		else
 			client.close((closeClient) ? LeaveWorld.STATIC_PACKET : ServerClose.STATIC_PACKET);
 	}
 

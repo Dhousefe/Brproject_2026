@@ -81,7 +81,7 @@ public class NpcCast extends CreatureCast<Npc>
             quest.onUseSkillFinished(_actor, target, _skill, !isInterrupted);
         
         boolean repositioned = false;
-        if (!isInterrupted && target != null)
+        if (!isInterrupted && target != null && _actor.getStatus().getPhysicalAttackRange() > 200 && _skill != null && _skill.getCastRange() > 250)
         {
             repositioned = _actor.getMove().repositionAfterAttack(target);
         }
