@@ -18,16 +18,13 @@
 package ext.mods.gameserver.data.manager;
 
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ext.mods.commons.data.xml.IXmlReader;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.adapter.JdbcBuyListStore;
+import ext.mods.gameserver.data.repository.BuyListStore;
 import ext.mods.gameserver.model.buylist.NpcBuyList;
 import ext.mods.gameserver.model.buylist.Product;
 import ext.mods.gameserver.taskmanager.BuyListTaskManager;
@@ -43,9 +40,16 @@ import org.w3c.dom.NamedNodeMap;
 public class BuyListManager implements IXmlReader
 {
 	private final Map<Integer, NpcBuyList> _buyLists = new HashMap<>();
+	private final BuyListStore _store;
 	
 	protected BuyListManager()
 	{
+		this(new JdbcBuyListStore());
+	}
+
+	BuyListManager(BuyListStore store)
+	{
+		_store = store;
 		load();
 	}
 	
@@ -55,21 +59,19 @@ public class BuyListManager implements IXmlReader
 		parseDataFile("xml/buyLists.xml");
 		LOGGER.info("Loaded {} buyLists.", _buyLists.size());
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM buylists");
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
+			for (BuyListStore.RestockRecord restock : _store.loadRestocks())
 			{
-				final NpcBuyList buyList = _buyLists.get(rs.getInt("buylist_id"));
+				final NpcBuyList buyList = _buyLists.get(restock.buyListId());
 				if (buyList == null)
 					continue;
 				
-				final Product product = buyList.get(rs.getInt("item_id"));
+				final Product product = buyList.get(restock.itemId());
 				if (product == null)
 					continue;
 				
-				BuyListTaskManager.getInstance().test(product, rs.getInt("count"), rs.getLong("next_restock_time"));
+				BuyListTaskManager.getInstance().test(product, restock.count(), restock.nextRestockTime());
 			}
 		}
 		catch (Exception e)
@@ -87,7 +89,7 @@ public class BuyListManager implements IXmlReader
 			final int buyListId = parseInteger(attrs, "id");
 			final NpcBuyList buyList = new NpcBuyList(buyListId);
 			buyList.setNpcId(parseInteger(attrs, "npcId"));
-			forEach(buyListNode, "product", productNode -> buyList.addProduct(new Product(buyListId, parseAttributes(productNode))));
+			forEach(buyListNode, "product", productNode -> buyList.addProduct(new Product(buyListId, parseAttributes(productNode), _store)));
 			_buyLists.put(buyListId, buyList);
 		}));
 	}
