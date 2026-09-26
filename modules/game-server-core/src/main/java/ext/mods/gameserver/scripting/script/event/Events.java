@@ -17,23 +17,23 @@
  */
 package ext.mods.gameserver.scripting.script.event;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import ext.mods.commons.jdbc.DatabaseDialect;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.adapter.JdbcCustomEventStateStore;
+import ext.mods.gameserver.data.repository.CustomEventStateStore;
 import ext.mods.gameserver.scripting.Quest;
 
 public abstract class Events extends Quest
 {
-	private static final String UPDATE_STATUS = "SELECT status FROM events_custom_data WHERE event_name = ?";
-	private static final String EVENT_DELETE = "UPDATE events_custom_data SET status = ? WHERE event_name = ?";
+	private final CustomEventStateStore _stateStore;
 	
 	public Events()
 	{
+		this(new JdbcCustomEventStateStore());
+	}
+
+	protected Events(CustomEventStateStore stateStore)
+	{
 		super(-1, "events");
+		_stateStore = stateStore;
 		
 		restoreStatus(0);
 	}
@@ -54,51 +54,14 @@ public abstract class Events extends Quest
 	
 	private void restoreStatus(int priority)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(UPDATE_STATUS))
-		{
-			statement.setString(1, getName());
-			try (ResultSet rset = statement.executeQuery())
-			{
-				int status = 0;
-				while (rset.next())
-				{
-					status = rset.getInt("status");
-				}
-				
-				if (status > 0)
-					eventStart(priority);
-				else
-					eventStop();
-			}
-		}
-		catch (Exception e)
-		{
-			LOGGER.warn("Error: Could not restore custom event data info: " + e);
-		}
+		if (_stateStore.isEnabled(getName()))
+			eventStart(priority);
+		else
+			eventStop();
 	}
 	
 	private void updateStatus(boolean newEvent)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement stmt = con.prepareStatement(newEvent ? DatabaseDialect.upsert("events_custom_data", "event_name,status", "?,?", "event_name", "status") : EVENT_DELETE))
-		{
-			if (newEvent)
-			{
-				stmt.setString(1, getName());
-				stmt.setInt(2, 1);
-			}
-			else
-			{
-				stmt.setInt(1, 0);
-				stmt.setString(2, getName());
-			}
-			
-			stmt.execute();
-		}
-		catch (Exception e)
-		{
-			LOGGER.warn("Error: could not update custom event database!");
-		}
+		_stateStore.setEnabled(getName(), newEvent);
 	}
 }
