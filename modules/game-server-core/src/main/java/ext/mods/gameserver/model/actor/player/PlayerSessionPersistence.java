@@ -208,7 +208,9 @@ public final class PlayerSessionPersistence
 
 		if (client.isDetached())
 			client.cleanMe(true);
-		else if (!client.getConnection().isClosed())
+		else
+			// Keep this compatibility facade transport-agnostic as well. The active
+			// Netty transport intentionally has no legacy MMO connection object.
 			client.close((closeClient) ? LeaveWorld.STATIC_PACKET : ServerClose.STATIC_PACKET);
 	}
 

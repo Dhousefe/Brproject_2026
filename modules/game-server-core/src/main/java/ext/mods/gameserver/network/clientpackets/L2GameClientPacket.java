@@ -78,7 +78,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<GameClient>
 		}
 		catch (Exception e)
 		{
-			LOGGER.error("Failed executing {} for {}. ", e, getType(), getClient().toString());
+			LOGGER.error("Failed executing " + getType() + ".", e);
 			
 			if (this instanceof EnterWorld)
 				getClient().closeNow();

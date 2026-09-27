@@ -1900,7 +1900,10 @@ public class Player extends Playable
 
 		if (client.isDetached())
 			client.cleanMe(true);
-		else if (!client.getConnection().isClosed())
+		else
+			// GameClient.close() handles both the legacy MMO connection and Netty.
+			// Netty clients do not expose getConnection(), so checking it here causes
+			// a NullPointerException during every normal logout.
 			client.close((closeClient) ? LeaveWorld.STATIC_PACKET : ServerClose.STATIC_PACKET);
 	}
 	
