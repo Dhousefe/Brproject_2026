@@ -17,9 +17,6 @@
  */
 package ext.mods.gameserver.model.itemcontainer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,9 +26,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
 import ext.mods.Config;
+import ext.mods.gameserver.data.repository.ItemRecord;
+import ext.mods.gameserver.data.service.ItemPersistenceService;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.enums.items.ItemLocation;
 import ext.mods.gameserver.model.World;
@@ -45,8 +42,6 @@ import ext.mods.config.ConfigServer;
 public abstract class ItemContainer
 {
 	protected static final CLogger LOGGER = new CLogger(ItemContainer.class.getName());
-	
-	private static final String RESTORE_ITEMS = "SELECT * FROM items WHERE owner_id=? AND (loc=?)";
 	
 	protected final Set<ItemInstance> _items = new ConcurrentSkipListSet<>();
 	
@@ -553,30 +548,20 @@ public abstract class ItemContainer
 	 */
 	public void restore()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_ITEMS))
+		try
 		{
-			ps.setInt(1, getOwnerId());
-			ps.setString(2, getBaseLocation().name());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (ItemRecord record : ItemPersistenceService.loadItems(getOwnerId(), getBaseLocation()))
 			{
-				while (rs.next())
-				{
-					final ItemInstance item = ItemInstance.restoreFromDb(rs);
-					if (item == null)
-						continue;
-					
-					if (ItemInstanceTaskManager.getInstance().contains(item))
-						continue;
-					
-					World.getInstance().addObject(item);
-					
-					if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
-						addItem(item);
-					else
-						addBasicItem(item);
-				}
+				final ItemInstance item = ItemInstance.restoreFromDb(record);
+				if (item == null || ItemInstanceTaskManager.getInstance().contains(item))
+					continue;
+
+				World.getInstance().addObject(item);
+
+				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
+					addItem(item);
+				else
+					addBasicItem(item);
 			}
 		}
 		catch (Exception e)

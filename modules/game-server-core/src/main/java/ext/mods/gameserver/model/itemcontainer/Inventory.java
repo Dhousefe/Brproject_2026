@@ -17,9 +17,6 @@
  */
 package ext.mods.gameserver.model.itemcontainer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,10 +27,10 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import ext.mods.commons.pool.ConnectionPool;
-
 import ext.mods.Config;
 import ext.mods.gameserver.data.manager.HeroManager;
+import ext.mods.gameserver.data.repository.ItemRecord;
+import ext.mods.gameserver.data.service.ItemPersistenceService;
 import ext.mods.gameserver.enums.Paperdoll;
 import ext.mods.gameserver.enums.items.ArmorType;
 import ext.mods.gameserver.enums.items.EtcItemType;
@@ -62,8 +59,6 @@ import ext.mods.config.ConfigServer;
 public abstract class Inventory extends ItemContainer
 {
 	private static final Logger ITEM_LOG = Logger.getLogger("item");
-	
-	private static final String RESTORE_INVENTORY = "SELECT * FROM items WHERE owner_id=? AND (loc=? OR loc=?) ORDER BY loc_data";
 	
 	protected Playable _owner;
 	
@@ -123,37 +118,26 @@ public abstract class Inventory extends ItemContainer
 	@Override
 	public void restore()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_INVENTORY))
+		try
 		{
-			ps.setInt(1, getOwnerId());
-			ps.setString(2, getBaseLocation().name());
-			ps.setString(3, getEquipLocation().name());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (ItemRecord record : ItemPersistenceService.loadItems(getOwnerId(), getBaseLocation(), getEquipLocation()))
 			{
-				while (rs.next())
-				{
-					final ItemInstance item = ItemInstance.restoreFromDb(rs);
-					if (item == null)
-						continue;
-					
-					if (ItemInstanceTaskManager.getInstance().contains(item))
-						continue;
-					
-					if (getOwner() instanceof Player && item.isHeroItem() && !HeroManager.getInstance().isActiveHero(getOwnerId()))
-						item.setLocation(ItemLocation.INVENTORY);
-					
-					World.getInstance().addObject(item);
-					
-					if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
-						addItem(item);
-					else
-						super.addBasicItem(item);
-					
-					if (item.isEquipped())
-						equipItem(item);
-				}
+				final ItemInstance item = ItemInstance.restoreFromDb(record);
+				if (item == null || ItemInstanceTaskManager.getInstance().contains(item))
+					continue;
+
+				if (getOwner() instanceof Player && item.isHeroItem() && !HeroManager.getInstance().isActiveHero(getOwnerId()))
+					item.setLocation(ItemLocation.INVENTORY);
+
+				World.getInstance().addObject(item);
+
+				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
+					addItem(item);
+				else
+					super.addBasicItem(item);
+
+				if (item.isEquipped())
+					equipItem(item);
 			}
 		}
 		catch (Exception e)

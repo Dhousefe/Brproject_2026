@@ -17,17 +17,13 @@
  */
 package ext.mods.gameserver.model.item.instance;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
 import ext.mods.gameserver.data.manager.CastleManager;
+import ext.mods.gameserver.data.repository.ItemRecord;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.enums.items.EtcItemType;
 import ext.mods.gameserver.enums.items.ItemLocation;
@@ -65,8 +61,6 @@ import ext.mods.gameserver.taskmanager.ItemsOnGroundTaskManager;
  */
 public final class ItemInstance extends WorldObject implements Runnable, Comparable<ItemInstance>
 {
-	private static final String RESTORE_AUGMENTATION = "SELECT attributes, skill_id, skill_level FROM augmentations WHERE item_oid = ?";
-	
 	private static final long REGULAR_LOOT_PROTECTION_TIME = 15000;
 	private static final long RAID_LOOT_PROTECTION_TIME = 300000;
 	
@@ -122,22 +116,24 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		setName(_item.getName());
 	}
 	
-	public ItemInstance(ResultSet rs) throws SQLException
+	private ItemInstance(ItemRecord record)
 	{
-		super(rs.getInt("object_id"));
+		super(record.objectId());
 		
-		_item = ItemData.getInstance().getTemplate(rs.getInt("item_id"));
-		_count = rs.getInt("count");
-		_enchantLevel = rs.getInt("enchant_level");
-		_ownerId = rs.getInt("owner_id");
-		_type1 = rs.getInt("custom_type1");
-		_type2 = rs.getInt("custom_type2");
-		_loc = ItemLocation.valueOf(rs.getString("loc"));
-		_locationSlot = rs.getInt("loc_data");
-		_manaLeft = rs.getInt("mana_left");
-		_time = rs.getLong("time");
+		_item = ItemData.getInstance().getTemplate(record.itemId());
+		_count = record.count();
+		_enchantLevel = record.enchantLevel();
+		_ownerId = record.ownerId();
+		_type1 = record.customType1();
+		_type2 = record.customType2();
+		_loc = record.location();
+		_locationSlot = record.locationSlot();
+		_manaLeft = record.manaLeft();
+		_time = record.time();
 		
 		setName(_item.getName());
+		if (record.augmentationId() != null && isEquipable())
+			_augmentation = new Augmentation(record.augmentationId(), record.augmentationSkillId(), record.augmentationSkillLevel());
 	}
 	
 	@Override
@@ -690,25 +686,6 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		updateState(player, ItemState.MODIFIED);
 	}
 	
-	private void restoreAttributes()
-	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_AUGMENTATION))
-		{
-			ps.setInt(1, getObjectId());
-			
-			try (ResultSet rs = ps.executeQuery())
-			{
-				if (rs.next())
-					_augmentation = new Augmentation(rs.getInt("attributes"), rs.getInt("skill_id"), rs.getInt("skill_level"));
-			}
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't restore augmentation for {}.", e, toString());
-		}
-	}
-	
 	/**
 	 * @return True if this {@link ItemInstance} is a shadow item. Shadow items have a limited life-time.
 	 */
@@ -754,19 +731,14 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	}
 	
 	/**
-	 * @param rs : The {@link ResultSet} of the item.
-	 * @return A new {@link ItemInstance} from database using a {@link ResultSet} content.
+	 * @param record : The persisted item state.
+	 * @return A new {@link ItemInstance} from database using the persisted state.
 	 */
-	public static ItemInstance restoreFromDb(ResultSet rs)
+	public static ItemInstance restoreFromDb(ItemRecord record)
 	{
 		try
 		{
-			final ItemInstance item = new ItemInstance(rs);
-			
-			if (item.isEquipable())
-				item.restoreAttributes();
-			
-			return item;
+			return new ItemInstance(record);
 		}
 		catch (Exception e)
 		{
