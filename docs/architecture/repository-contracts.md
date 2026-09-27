@@ -46,3 +46,12 @@ administrator premium commands. Its operations preserve the existing behavior:
 The JDBC implementation is `JdbcPremiumStore`, exposed to game code through
 `PremiumPersistenceService`. This prevents the same table and dialect-specific
 upsert logic from being repeated across unrelated handlers.
+
+## `RecommendationStore`
+
+`ext.mods.gameserver.data.repository.RecommendationStore` owns the
+`character_recommends` row and the two counter updates that must accompany it.
+`addRecommendation` commits all three writes atomically, while
+`loadGivenRecommendations` restores the giver's target list. The in-memory
+rollback behavior remains in `PlayerRecom`; database transaction handling is
+implemented by `JdbcRecommendationStore`.
