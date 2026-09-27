@@ -1,16 +1,14 @@
 package ext.mods.gameserver.model.actor.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ext.mods.commons.jdbc.DatabaseDialect;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.config.ConfigProject;
+import ext.mods.gameserver.data.repository.PremiumStore;
+import ext.mods.gameserver.data.service.PremiumPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 
 /**
@@ -19,9 +17,6 @@ import ext.mods.gameserver.model.actor.Player;
 public final class PlayerPremium
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerPremium.class);
-	
-	private static final String RESTORE_PREMIUMSERVICE = "SELECT premium_service,enddate FROM account_premium WHERE account_name=?";
-	private static final String UPDATE_PREMIUMSERVICE = "UPDATE account_premium SET premium_service=?,enddate=? WHERE account_name=?";
 	
 	private final Player _owner;
 	
@@ -35,13 +30,9 @@ public final class PlayerPremium
 		if (!ConfigProject.USE_PREMIUM_SERVICE)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("account_premium", "account_name,premium_service,enddate", "?,?,?", "account_name", "premium_service,enddate")))
+		try
 		{
-			ps.setString(1, _owner.getAccountNamePlayer());
-			ps.setInt(2, 0);
-			ps.setLong(3, 0);
-			ps.executeUpdate();
+			PremiumPersistenceService.upsert(_owner.getAccountNamePlayer(), 0, 0);
 		}
 		catch (Exception e)
 		{
@@ -54,13 +45,9 @@ public final class PlayerPremium
 		if (!ConfigProject.USE_PREMIUM_SERVICE)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_PREMIUMSERVICE))
+		try
 		{
-			ps.setInt(1, 0);
-			ps.setLong(2, 0);
-			ps.setString(3, account);
-			ps.execute();
+			PremiumPersistenceService.expire(account);
 		}
 		catch (SQLException e)
 		{
@@ -73,15 +60,9 @@ public final class PlayerPremium
 		if (!ConfigProject.USE_PREMIUM_SERVICE)
 			return 0;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_PREMIUMSERVICE))
+		try
 		{
-			ps.setString(1, _owner.getAccountName());
-			try (ResultSet rs = ps.executeQuery())
-			{
-				if (rs.next())
-					return rs.getLong("enddate");
-			}
+			return PremiumPersistenceService.find(_owner.getAccountName()).map(PremiumStore.PremiumRecord::endDate).orElse(0L);
 		}
 		catch (SQLException e)
 		{
@@ -100,40 +81,36 @@ public final class PlayerPremium
 			return;
 		}
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(RESTORE_PREMIUMSERVICE))
+		try
 		{
-			statement.setString(1, account);
-			try (ResultSet rset = statement.executeQuery())
+			final Optional<PremiumStore.PremiumRecord> data = PremiumPersistenceService.find(account);
+			if (data.isPresent())
 			{
-				if (rset.next())
+				if (data.get().endDate() <= System.currentTimeMillis())
 				{
-					if (rset.getLong("enddate") <= System.currentTimeMillis())
-					{
-						psTimeOver(account);
-						player.setPremiumService(0);
-						
-						player.getMemos().unset("name_color");
-						player.getMemos().unset("title_color");
-						
-						player.getAppearance().setNameColor(0xFFFFFF);
-						player.getAppearance().setTitleColor(0xFFFF77);
-						player.broadcastUserInfo();
-					}
-					else
-						player.setPremiumService(rset.getInt("premium_service"));
-				}
-				else
-				{
-					player.getPremium().createPSdb();
+					psTimeOver(account);
 					player.setPremiumService(0);
+
 					player.getMemos().unset("name_color");
 					player.getMemos().unset("title_color");
-					
+
 					player.getAppearance().setNameColor(0xFFFFFF);
 					player.getAppearance().setTitleColor(0xFFFF77);
 					player.broadcastUserInfo();
 				}
+				else
+					player.setPremiumService(data.get().premiumService());
+			}
+			else
+			{
+				player.getPremium().createPSdb();
+				player.setPremiumService(0);
+				player.getMemos().unset("name_color");
+				player.getMemos().unset("title_color");
+
+				player.getAppearance().setNameColor(0xFFFFFF);
+				player.getAppearance().setTitleColor(0xFFFF77);
+				player.broadcastUserInfo();
 			}
 		}
 		catch (SQLException e)

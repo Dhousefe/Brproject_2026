@@ -18,8 +18,6 @@
 package ext.mods.gameserver.custom.data;
 
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,13 +27,12 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import ext.mods.commons.data.StatSet;
-import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.data.xml.IXmlReader;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
 import ext.mods.Config;
 import ext.mods.gameserver.data.sql.PlayerInfoTable;
+import ext.mods.gameserver.data.service.PremiumPersistenceService;
 import ext.mods.gameserver.enums.actors.Sex;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.holder.IntIntHolder;
@@ -124,20 +121,9 @@ public class DonateData implements IXmlReader
 	
 	public static void updateDatabasePremium(long time, String AccName)
 	{
-		final String updatePremiumService = DatabaseDialect.upsert(
-			"account_premium",
-			"premium_service,enddate,account_name",
-			"?, ?, ?",
-			"account_name",
-			"premium_service,enddate");
-
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(updatePremiumService))
+		try
 		{
-			statement.setInt(1, 1);
-			statement.setLong(2, time);
-			statement.setString(3, AccName);
-			statement.execute();
+			PremiumPersistenceService.upsert(AccName, 1, time);
 		}
 		catch (Exception e)
 		{
