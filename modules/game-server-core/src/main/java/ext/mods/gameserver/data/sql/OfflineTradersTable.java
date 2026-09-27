@@ -41,8 +41,8 @@ public final class OfflineTradersTable
 {
 	private static final CLogger LOGGER = new CLogger(OfflineTradersTable.class.getName());
 	
-	private static final String SAVE_OFFLINE_STATUS = "INSERT INTO character_offline_trade (`charId`,`time`,`type`,`title`) VALUES (?,?,?,?)";
-	private static final String SAVE_ITEMS = "INSERT INTO character_offline_trade_items (`charId`,`item`,`count`,`price`,`enchant`) VALUES (?,?,?,?,?)";
+	private static final String SAVE_OFFLINE_STATUS = "INSERT INTO character_offline_trade (charId,time,type,title) VALUES (?,?,?,?)";
+	private static final String SAVE_ITEMS = "INSERT INTO character_offline_trade_items (charId,item,count,price,enchant) VALUES (?,?,?,?,?)";
 	private static final String CLEAR_OFFLINE_TABLE = "DELETE FROM character_offline_trade";
 	private static final String CLEAR_OFFLINE_TABLE_ITEMS = "DELETE FROM character_offline_trade_items";
 	private static final String LOAD_OFFLINE_STATUS = "SELECT * FROM character_offline_trade";

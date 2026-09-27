@@ -17,17 +17,13 @@
  */
 package ext.mods.gameserver.scripting;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
 import ext.mods.commons.data.MemoSet;
-import ext.mods.commons.jdbc.DatabaseDialect;
-import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.adapter.JdbcQuestStore;
+import ext.mods.gameserver.data.repository.QuestStore;
 import ext.mods.gameserver.enums.QuestStatus;
 import ext.mods.gameserver.enums.actors.MissionType;
 import ext.mods.gameserver.model.actor.Player;
@@ -48,18 +44,13 @@ public final class QuestState extends MemoSet
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final CLogger LOGGER = new CLogger(QuestState.class.getName());
-	
-	private static final String QUEST_DEL_VAR = "DELETE FROM character_quests WHERE charId=? AND name=? AND var=?";
-	private static final String QUEST_DELETE = "DELETE FROM character_quests WHERE charId=? AND name=?";
-	private static final String QUEST_COMPLETE = "DELETE FROM character_quests WHERE charId=? AND name=? AND var<>'<state>'";
-	
 	public static final String COND = "<cond>";
 	public static final String FLAGS = "<flags>";
 	public static final String STATE = "<state>";
 	
 	private final Player _player;
 	private final Quest _quest;
+	private final QuestStore _store;
 	
 	/**
 	 * Constructor of the new {@link Player}'s {@link QuestState} with {@link QuestStatus} CREATED.
@@ -68,8 +59,14 @@ public final class QuestState extends MemoSet
 	 */
 	public QuestState(Player player, Quest quest)
 	{
+		this(player, quest, new JdbcQuestStore());
+	}
+
+	public QuestState(Player player, Quest quest, QuestStore store)
+	{
 		_player = player;
 		_quest = quest;
+		_store = store;
 		
 		put(STATE, String.valueOf(QuestStatus.CREATED));
 		
@@ -103,36 +100,13 @@ public final class QuestState extends MemoSet
 	@Override
 	protected void onSet(String key, String value)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DatabaseDialect.upsert("character_quests", "charId,name,var,value", "?,?,?,?", "charId,name,var", "value")))
-		{
-			ps.setInt(1, _player.getObjectId());
-			ps.setString(2, _quest.getName());
-			ps.setString(3, key);
-			ps.setString(4, value);
-			ps.executeUpdate();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't set quest {} variable {}.", e, _quest.getName(), key);
-		}
+		_store.saveVariable(_player.getObjectId(), _quest.getName(), key, value);
 	}
 	
 	@Override
 	protected void onUnset(String key)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(QUEST_DEL_VAR))
-		{
-			ps.setInt(1, _player.getObjectId());
-			ps.setString(2, _quest.getName());
-			ps.setString(3, key);
-			ps.executeUpdate();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't remove quest {} variable {}.", e, _quest.getName(), key);
-		}
+		_store.deleteVariable(_player.getObjectId(), _quest.getName(), key);
 	}
 	
 	@Override
@@ -169,6 +143,13 @@ public final class QuestState extends MemoSet
 			return;
 		
 		put(variable, value);
+	}
+
+	/** Load a persisted variable without writing it back to the database. */
+	public void loadVariable(String variable, String value)
+	{
+		if (variable != null && !variable.isEmpty() && value != null && !value.isEmpty())
+			put(variable, value);
 	}
 	
 	/**
@@ -326,17 +307,10 @@ public final class QuestState extends MemoSet
 				Quest.takeItems(_player, itemId, -1);
 		}
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement((repeatable) ? QUEST_DELETE : QUEST_COMPLETE))
-		{
-			ps.setInt(1, _player.getObjectId());
-			ps.setString(2, _quest.getName());
-			ps.executeUpdate();
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't delete quest.", e);
-		}
+		if (repeatable)
+			_store.deleteQuest(_player.getObjectId(), _quest.getName());
+		else
+			_store.completeQuest(_player.getObjectId(), _quest.getName());
 	}
 	
 	/**
