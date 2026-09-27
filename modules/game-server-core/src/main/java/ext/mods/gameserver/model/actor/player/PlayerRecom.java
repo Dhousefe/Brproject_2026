@@ -1,15 +1,12 @@
 package ext.mods.gameserver.model.actor.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ext.mods.commons.pool.ConnectionPool;
+import ext.mods.gameserver.data.service.RecommendationPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 
 /**
@@ -18,11 +15,6 @@ import ext.mods.gameserver.model.actor.Player;
 public final class PlayerRecom
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerRecom.class);
-	
-	private static final String RESTORE_CHAR_RECOMS = "SELECT char_id,target_id FROM character_recommends WHERE char_id=?";
-	private static final String ADD_CHAR_RECOM = "INSERT INTO character_recommends (char_id,target_id) VALUES (?,?)";
-	private static final String UPDATE_TARGET_RECOM_HAVE = "UPDATE characters SET rec_have=? WHERE obj_Id=?";
-	private static final String UPDATE_CHAR_RECOM_LEFT = "UPDATE characters SET rec_left=? WHERE obj_Id=?";
 	
 	private final Player _owner;
 	
@@ -113,58 +105,10 @@ public final class PlayerRecom
 		_recomChars.add(targetObjectId);
 		
 		boolean committed = false;
-		try (Connection con = ConnectionPool.getConnection())
+		try
 		{
-			final boolean previousAutoCommit = con.getAutoCommit();
-			con.setAutoCommit(false);
-			try
-			{
-				try (PreparedStatement ps = con.prepareStatement(ADD_CHAR_RECOM))
-				{
-					ps.setInt(1, _owner.getObjectId());
-					ps.setInt(2, targetObjectId);
-					ps.execute();
-				}
-				
-				try (PreparedStatement ps = con.prepareStatement(UPDATE_TARGET_RECOM_HAVE))
-				{
-					ps.setInt(1, target.getRecomHave());
-					ps.setInt(2, targetObjectId);
-					ps.execute();
-				}
-				
-				try (PreparedStatement ps = con.prepareStatement(UPDATE_CHAR_RECOM_LEFT))
-				{
-					ps.setInt(1, getRecomLeft());
-					ps.setInt(2, _owner.getObjectId());
-					ps.execute();
-				}
-				
-				con.commit();
-				committed = true;
-			}
-			catch (Exception e)
-			{
-				try
-				{
-					con.rollback();
-				}
-				catch (Exception re)
-				{
-					LOGGER.warn("Couldn't rollback recommendation transaction.", re);
-				}
-				throw e;
-			}
-			finally
-			{
-				try
-				{
-					con.setAutoCommit(previousAutoCommit);
-				}
-				catch (Exception ignored)
-				{
-				}
-			}
+			RecommendationPersistenceService.addRecommendation(_owner.getObjectId(), targetObjectId, target.getRecomHave(), getRecomLeft());
+			committed = true;
 		}
 		catch (Exception e)
 		{
@@ -181,16 +125,9 @@ public final class PlayerRecom
 	/** Load given-recom target ids for this character. */
 	public void restore()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_CHAR_RECOMS))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			
-			try (ResultSet rset = ps.executeQuery())
-			{
-				while (rset.next())
-					_recomChars.add(rset.getInt("target_id"));
-			}
+			_recomChars.addAll(RecommendationPersistenceService.loadGivenRecommendations(_owner.getObjectId()));
 		}
 		catch (Exception e)
 		{
