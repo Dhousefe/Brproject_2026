@@ -21,12 +21,15 @@ Para cada solicitação de feature, fix ou hotfix:
 1. Atualizar `main` com `git pull --ff-only` e criar a branch correspondente a partir dela; nunca desenvolver diretamente em `main`.
 2. Implementar a mudança na branch de trabalho.
 3. Compilar e validar o projeto.
-4. Fazer commit com uma mensagem seguindo Conventional Commits.
-5. Publicar a branch no remoto.
-6. Criar o Pull Request da branch de trabalho para `main`; não fazer merge automático localmente.
-7. Aguardar o merge do Pull Request antes de iniciar a próxima feature/fix.
-8. Após o merge aprovado, atualizar `main` localmente e iniciar LoginServer, GameServer e Proxy a partir de `main` para validação.
-9. Informar o commit, a branch e o resultado da compilação/inicialização.
+4. Construir as imagens Docker a partir da própria branch.
+5. Subir o stack completo com Docker Compose e validar banco, LoginServer, GameServer, portas e logs.
+6. Corrigir qualquer falha encontrada na mesma branch antes de abrir o Pull Request; não transformar falhas detectadas nessa etapa em hotfix separado.
+7. Fazer commit com uma mensagem seguindo Conventional Commits.
+8. Publicar a branch no remoto.
+9. Criar o Pull Request da branch de trabalho para `main`; não fazer merge automático localmente.
+10. Aguardar o merge do Pull Request antes de iniciar a próxima feature/fix.
+11. Após o merge aprovado, atualizar `main`, reconstruir as imagens e iniciar LoginServer, GameServer e Proxy a partir de `main` para validação final.
+12. Informar o commit, a branch e os resultados da compilação, imagem e inicialização.
 
 Alterações de runtime, banco local, caches, certificados e arquivos gerados não devem ser commitadas. A branch `main` recebe mudanças somente por Pull Request. A branch `dev` fica fora do fluxo padrão enquanto o projeto tiver um único desenvolvedor; se for retomada no futuro, deverá ser explicitamente solicitada.
 
