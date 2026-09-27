@@ -19,9 +19,6 @@ package ext.mods.gameserver.network;
 
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
@@ -32,15 +29,13 @@ import ext.mods.commons.logging.CLogger;
 import ext.mods.commons.mmocore.MMOClient;
 import ext.mods.commons.mmocore.MMOConnection;
 import ext.mods.commons.mmocore.ReceivablePacket;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 import ext.mods.extensions.hooks.SafeDisconnectHooks;
-import ext.mods.extensions.listener.manager.GameListenerManager;
 import ext.mods.gameserver.LoginServerThread;
 import ext.mods.gameserver.data.manager.AntiFeedManager;
 import ext.mods.gameserver.data.sql.ClanTable;
 import ext.mods.gameserver.data.sql.OfflineTradersTable;
-import ext.mods.gameserver.data.sql.PlayerInfoTable;
+import ext.mods.gameserver.data.service.CharacterLifecycleService;
 import ext.mods.gameserver.enums.FloodProtector;
 import ext.mods.gameserver.enums.MessageType;
 import ext.mods.gameserver.model.CharSelectSlot;
@@ -68,29 +63,6 @@ import ext.mods.config.ConfigServer;
 public final class GameClient extends MMOClient<MMOConnection<GameClient>> implements Runnable
 {
 	private static final CLogger LOGGER = new CLogger(GameClient.class.getName());
-	
-	private static final String SELECT_CLAN = "SELECT clanId FROM characters WHERE obj_id=?";
-	private static final String UPDATE_DELETE_TIME = "UPDATE characters SET deletetime=? WHERE obj_id=?";
-	
-	private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_MACROS = "DELETE FROM character_macroses WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_MEMOS = "DELETE FROM character_memo WHERE charId=?";
-	private static final String DELETE_CHAR_QUESTS = "DELETE FROM character_quests WHERE charId=?";
-	private static final String DELETE_CHAR_RECIPES = "DELETE FROM character_recipebook WHERE charId=?";
-	private static final String DELETE_CHAR_RELATIONS = "DELETE FROM character_relations WHERE char_id=? OR friend_id=?";
-	private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_SKILLS = "DELETE FROM character_skills WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_SKILLS_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_SUBCLASSES = "DELETE FROM character_subclasses WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_HERO = "DELETE FROM heroes WHERE char_id=?";
-	private static final String DELETE_CHAR_NOBLE = "DELETE FROM olympiad_nobles WHERE char_id=?";
-	private static final String DELETE_CHAR_SEVEN_SIGNS = "DELETE FROM seven_signs WHERE char_obj_id=?";
-	private static final String DELETE_CHAR_PETS = "DELETE FROM pets WHERE item_obj_id IN (SELECT object_id FROM items WHERE items.owner_id=?)";
-	private static final String DELETE_CHAR_AUGMENTS = "DELETE FROM augmentations WHERE item_oid IN (SELECT object_id FROM items WHERE items.owner_id=?)";
-	private static final String DELETE_CHAR_ITEMS = "DELETE FROM items WHERE owner_id=?";
-	private static final String DELETE_CHAR_RBP = "DELETE FROM character_raid_points WHERE char_id=?";
-	private static final String DELETE_CHAR = "DELETE FROM characters WHERE obj_Id=?";
-	private static final String DELETE_CHAR_CACHE = "DELETE FROM character_data WHERE charId=?";
 	
 	public enum GameClientState
 	{
@@ -704,43 +676,26 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		
 		byte answer = 0;
 		
-		try (Connection con = ConnectionPool.getConnection())
+		try
 		{
-			try (PreparedStatement ps = con.prepareStatement(SELECT_CLAN))
+			final int clanId = CharacterLifecycleService.findClanId(objectId);
+			if (clanId != 0)
 			{
-				ps.setInt(1, objectId);
-				
-				try (ResultSet rs = ps.executeQuery())
-				{
-					rs.next();
-					
-					final int clanId = rs.getInt(1);
-					if (clanId != 0)
-					{
-						final Clan clan = ClanTable.getInstance().getClan(clanId);
-						if (clan == null)
-							answer = 0;
-						else if (clan.getLeaderId() == objectId)
-							answer = 2;
-						else
-							answer = 1;
-					}
-				}
+				final Clan clan = ClanTable.getInstance().getClan(clanId);
+				if (clan == null)
+					answer = 0;
+				else if (clan.getLeaderId() == objectId)
+					answer = 2;
+				else
+					answer = 1;
 			}
-			
+
 			if (answer == 0)
 			{
 				if (ConfigServer.DELETE_DAYS == 0)
 					deleteCharByObjId(objectId);
 				else
-				{
-					try (PreparedStatement ps = con.prepareStatement(UPDATE_DELETE_TIME))
-					{
-						ps.setLong(1, System.currentTimeMillis() + ConfigServer.DELETE_DAYS * 86400000L);
-						ps.setInt(2, objectId);
-						ps.execute();
-					}
-				}
+					CharacterLifecycleService.updateDeleteTime(objectId, System.currentTimeMillis() + ConfigServer.DELETE_DAYS * 86400000L);
 			}
 		}
 		catch (Exception e)
@@ -757,12 +712,9 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		if (objectId < 0)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_DELETE_TIME))
+		try
 		{
-			ps.setLong(1, 0);
-			ps.setInt(2, objectId);
-			ps.execute();
+			CharacterLifecycleService.updateDeleteTime(objectId, 0);
 		}
 		catch (Exception e)
 		{
@@ -775,125 +727,9 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		if (objectId < 0)
 			return;
 		
-		PlayerInfoTable.getInstance().removePlayer(objectId);
-		GameListenerManager.getInstance().notifyCharacterDelete(objectId);
-		
-		try (Connection con = ConnectionPool.getConnection())
+		try
 		{
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_HENNAS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_MACROS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_MEMOS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_QUESTS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_RECIPES))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_RELATIONS))
-			{
-				ps.setInt(1, objectId);
-				ps.setInt(2, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SHORTCUTS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SKILLS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SKILLS_SAVE))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SUBCLASSES))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_HERO))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_NOBLE))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SEVEN_SIGNS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_PETS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_AUGMENTS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_ITEMS))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_RBP))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_CACHE))
-			{
-				ps.setInt(1, objectId);
-				ps.execute();
-			}
+			CharacterLifecycleService.deleteCharacter(objectId);
 		}
 		catch (Exception e)
 		{
