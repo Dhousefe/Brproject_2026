@@ -17,16 +17,13 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.adapter.JdbcQuestStore;
+import ext.mods.gameserver.data.repository.QuestStore;
 import ext.mods.gameserver.data.xml.ScriptData;
 import ext.mods.gameserver.enums.EventHandler;
 import ext.mods.gameserver.model.World;
@@ -42,15 +39,20 @@ public final class QuestList extends ArrayList<QuestState>
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final String LOAD_PLAYER_QUESTS = "SELECT name,var,value FROM character_quests WHERE charId=?";
-	
 	private final Player _player;
+	private final QuestStore _store;
 	
 	private int _lastQuestNpcObjectId;
 	
 	public QuestList(Player player)
 	{
+		this(player, new JdbcQuestStore());
+	}
+
+	public QuestList(Player player, QuestStore store)
+	{
 		_player = player;
+		_store = store;
 	}
 	
 	public int getLastQuestNpcObjectId()
@@ -105,30 +107,23 @@ public final class QuestList extends ArrayList<QuestState>
 	 */
 	public void restore()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_PLAYER_QUESTS))
+		try
 		{
-			ps.setInt(1, _player.getObjectId());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (QuestStore.VariableRecord record : _store.loadVariables(_player.getObjectId()))
 			{
-				while (rs.next())
+				final String questName = record.questName();
+				final Quest quest = ScriptData.getInstance().getQuest(questName);
+				if (quest == null)
 				{
-					final String questName = rs.getString("name");
-					
-					final Quest quest = ScriptData.getInstance().getQuest(questName);
-					if (quest == null)
-					{
-						LOGGER.warn("Unknown quest {} for player {}.", questName, _player.getName());
-						continue;
-					}
-					
-					QuestState qs = getQuestState(questName);
-					if (qs == null)
-						qs = new QuestState(_player, quest);
-					
-					qs.loadFromDB(rs);
+					LOGGER.warn("Unknown quest {} for player {}.", questName, _player.getName());
+					continue;
 				}
+
+				QuestState qs = getQuestState(questName);
+				if (qs == null)
+					qs = new QuestState(_player, quest, _store);
+
+				qs.loadVariable(record.variable(), record.value());
 			}
 		}
 		catch (Exception e)
