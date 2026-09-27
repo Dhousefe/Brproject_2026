@@ -29,7 +29,7 @@ import ext.mods.gameserver.data.sql.ClanTable;
 import ext.mods.gameserver.enums.Paperdoll;
 import ext.mods.gameserver.model.CharSelectSlot;
 import ext.mods.gameserver.model.pledge.Clan;
-import ext.mods.gameserver.network.GameClient;
+import ext.mods.gameserver.data.service.CharacterLifecycleService;
 
 public class CharSelectInfo extends L2GameServerPacket
 {
@@ -208,7 +208,7 @@ public class CharSelectInfo extends L2GameServerPacket
 						if (clan != null)
 							clan.removeClanMember(objectId, 0);
 						
-						GameClient.deleteCharByObjId(objectId);
+						CharacterLifecycleService.deleteCharacter(objectId);
 						continue;
 					}
 					
