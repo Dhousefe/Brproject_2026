@@ -18,9 +18,6 @@
 package ext.mods.gameserver.data.manager;
 
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,10 +29,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import ext.mods.commons.data.xml.IXmlReader;
 import ext.mods.commons.lang.StringUtil;
-import ext.mods.commons.pool.ConnectionPool;
-
 import ext.mods.Config;
 import ext.mods.gameserver.data.SkillTable;
+import ext.mods.gameserver.data.adapter.JdbcBufferSchemeStore;
+import ext.mods.gameserver.data.repository.BufferSchemeStore;
 import ext.mods.gameserver.model.World;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
@@ -54,13 +51,10 @@ import ext.mods.config.ConfigProject;
  */
 public class BufferManager implements IXmlReader
 {
-	private static final String LOAD_SCHEMES = "SELECT * FROM buffer_schemes";
-	private static final String TRUNCATE_SCHEMES = "TRUNCATE buffer_schemes";
-	private static final String INSERT_SCHEME = "INSERT INTO buffer_schemes (object_id, scheme_name, skills, levels) VALUES (?,?,?,?)";
-	
 	private final Map<Integer, Map<String, ArrayList<L2Skill>>> _schemesTable = new ConcurrentHashMap<>();
 	private final Map<L2Skill, BuffSkill> _availableBuffs = new LinkedHashMap<>();
 	private final Map<BufferSchemeType, List<BuffSkill>> _availableSchemes = new HashMap<>();
+	private final BufferSchemeStore _store;
 	
 	public enum BufferSchemeType
 	{
@@ -70,6 +64,12 @@ public class BufferManager implements IXmlReader
 	
 	protected BufferManager()
 	{
+		this(new JdbcBufferSchemeStore());
+	}
+
+	BufferManager(BufferSchemeStore store)
+	{
+		_store = store;
 		load();
 	}
 	
@@ -80,16 +80,14 @@ public class BufferManager implements IXmlReader
 		LOGGER.info("Loaded {} available buffs.", _availableBuffs.size());
 		LOGGER.info("Loaded {} ready to use schemes.", _availableSchemes.size());
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_SCHEMES);
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
+			for (BufferSchemeStore.SchemeRecord record : _store.loadSchemes())
 			{
 				final ArrayList<L2Skill> schemeList = new ArrayList<>();
 				
-				final String[] skills = rs.getString("skills").split(",");
-				String levelsString = rs.getString("levels");
+				final String[] skills = record.skills().split(",");
+				String levelsString = record.levels();
 				String[] levels = null;
 				if (levelsString != null && levelsString.length() != 0)
 					levels = levelsString.split(",");
@@ -109,7 +107,7 @@ public class BufferManager implements IXmlReader
 						schemeList.add(skill);
 				}
 				
-				setScheme(rs.getInt("object_id"), rs.getString("scheme_name"), schemeList);
+				setScheme(record.playerId(), record.name(), schemeList);
 			}
 		}
 		catch (Exception e)
@@ -157,51 +155,26 @@ public class BufferManager implements IXmlReader
 	
 	public void saveSchemes()
 	{
-		final StringBuilder sb = new StringBuilder();
-		final StringBuilder sb2 = new StringBuilder();
-		
-		try (Connection con = ConnectionPool.getConnection())
+		final List<BufferSchemeStore.SchemeRecord> schemes = new ArrayList<>();
+		for (Map.Entry<Integer, Map<String, ArrayList<L2Skill>>> player : _schemesTable.entrySet())
 		{
-			try (PreparedStatement ps = con.prepareStatement(TRUNCATE_SCHEMES))
+			for (Map.Entry<String, ArrayList<L2Skill>> scheme : player.getValue().entrySet())
 			{
-				ps.execute();
-			}
-			
-			try (PreparedStatement ps = con.prepareStatement(INSERT_SCHEME))
-			{
-				for (Map.Entry<Integer, Map<String, ArrayList<L2Skill>>> player : _schemesTable.entrySet())
+				final StringBuilder skills = new StringBuilder();
+				final StringBuilder levels = new StringBuilder();
+				for (L2Skill skill : scheme.getValue())
 				{
-					for (Map.Entry<String, ArrayList<L2Skill>> scheme : player.getValue().entrySet())
-					{
-						for (L2Skill skill : scheme.getValue())
-						{
-							StringUtil.append(sb, skill.getId(), ",");
-							StringUtil.append(sb2, skill.getLevel(), ",");
-						}
-						
-						if (sb.length() > 0)
-							sb.setLength(sb.length() - 1);
-						
-						if (sb2.length() > 0)
-							sb2.setLength(sb2.length() - 1);
-						
-						ps.setInt(1, player.getKey());
-						ps.setString(2, scheme.getKey());
-						ps.setString(3, sb.toString());
-						ps.setString(4, sb2.toString());
-						ps.addBatch();
-						
-						sb.setLength(0);
-						sb2.setLength(0);
-					}
+					StringUtil.append(skills, skill.getId(), ",");
+					StringUtil.append(levels, skill.getLevel(), ",");
 				}
-				ps.executeBatch();
+				if (skills.length() > 0)
+					skills.setLength(skills.length() - 1);
+				if (levels.length() > 0)
+					levels.setLength(levels.length() - 1);
+				schemes.add(new BufferSchemeStore.SchemeRecord(player.getKey(), scheme.getKey(), skills.toString(), levels.toString()));
 			}
 		}
-		catch (Exception e)
-		{
-			LOGGER.error("Failed to save schemes data.", e);
-		}
+		_store.replaceSchemes(schemes);
 	}
 	
 	/**
