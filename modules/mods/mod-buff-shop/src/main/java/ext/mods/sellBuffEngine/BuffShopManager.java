@@ -32,6 +32,8 @@ import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.sellBuffEngine.BuffShopConfigs.Cost;
 import ext.mods.sellBuffEngine.BuffShopConfigs.SkillPath;
 import ext.mods.sellBuffEngine.ShopObject.PrivateBuff;
+import ext.mods.sellBuffEngine.persistence.BuffShopStore;
+import ext.mods.sellBuffEngine.persistence.JdbcBuffShopStore;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -41,7 +43,7 @@ public final class BuffShopManager
 	private static final int OFFLINE_SHOPS_PER_TICK = 5;
 	private static final int OFFLINE_SHOPS_TICK_DELAY = 800;
 	
-	private final BuffShopDAO dao;
+	private final BuffShopStore store;
 	private final BuffShopFactory factory;
 	
 	private final Map<Integer, ShopObject> shops = new ConcurrentHashMap<>();
@@ -60,7 +62,7 @@ public final class BuffShopManager
 	
 	private BuffShopManager()
 	{
-		this.dao = new BuffShopDAO();
+		this.store = new JdbcBuffShopStore();
 		this.factory = BuffShopFactory.getInstance();
 		_log.info("BuffShopManager: Sistema de Lojas de Buffs inicializado.");
 	}
@@ -130,7 +132,7 @@ public final class BuffShopManager
 		sellerNpc.broadcastUserInfo();
 		sellerNpc.broadcastPacket(new RecipeShopMsg(sellerNpc));
 		
-		ThreadPool.executeIO(() -> dao.saveShop(shopConfig));
+		ThreadPool.executeIO(() -> store.saveShop(shopConfig));
 		player.sendMessage("Sua loja de buffs foi aberta com sucesso.");
 	}
 	
@@ -149,7 +151,7 @@ public final class BuffShopManager
 					sellerNpc.deleteMe();
 				}
 			}
-			ThreadPool.executeIO(() -> dao.removeShop(playerOwner.getObjectId()));
+			ThreadPool.executeIO(() -> store.removeShop(playerOwner.getObjectId()));
 		}
 	}
 	
@@ -181,7 +183,7 @@ public final class BuffShopManager
 	{
 		_log.info("BuffShopManager: Agendando restauracao de lojas de buffs offline...");
 		
-		final List<ShopObject> offlineShops = dao.loadShops();
+		final List<ShopObject> offlineShops = store.loadShops();
 		
 		if (offlineShops.isEmpty())
 		{
@@ -269,7 +271,7 @@ public final class BuffShopManager
 		}
 		else
 		{
-			ThreadPool.executeIO(() -> dao.addAdenaToOfflinePlayer(ownerId, price));
+			ThreadPool.executeIO(() -> store.addAdenaToOfflinePlayer(ownerId, price));
 		}
 	}
 	

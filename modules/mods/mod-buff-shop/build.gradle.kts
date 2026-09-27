@@ -19,6 +19,9 @@ dependencies {
     implementation(project(":commons"))
     implementation(files(rootLibs.resolve("fastutil-8.5.13.jar")))
     implementation(files(rootLibs.resolve("fastutil-core-8.5.18.jar")))
+
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.jar {
@@ -27,4 +30,8 @@ tasks.jar {
 
 tasks.named<JavaCompile>("compileJava") {
     options.encoding = "UTF-8"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
