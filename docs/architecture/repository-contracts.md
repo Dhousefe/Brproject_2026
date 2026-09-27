@@ -63,3 +63,10 @@ the class-indexed data removed during a subclass replacement. `wipe` deletes
 the subclass, hennas, shortcuts, saved effects and skills in one transaction;
 the subsequent creation of the replacement slot remains orchestrated by
 `PlayerSubClass`, preserving the existing game flow.
+
+## `SkillStore`
+
+`ext.mods.gameserver.data.repository.SkillStore` owns character skill rows
+and saved effect/cooldown state. `JdbcSkillStore.replaceSkillSaves` replaces
+the saved state in one transaction, while `PlayerSkillsDb` continues to own
+skill lookup, effect construction and runtime cooldown decisions.
