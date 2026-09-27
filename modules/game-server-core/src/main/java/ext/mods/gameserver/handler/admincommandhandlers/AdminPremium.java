@@ -17,18 +17,15 @@
  */
 package ext.mods.gameserver.handler.admincommandhandlers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-import ext.mods.commons.jdbc.DatabaseDialect;
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
 import ext.mods.gameserver.handler.IAdminCommandHandler;
+import ext.mods.gameserver.data.service.PremiumPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.taskmanager.PremiumTaskManager;
 import ext.mods.config.ConfigProject;
@@ -36,8 +33,6 @@ import ext.mods.config.ConfigProject;
 public class AdminPremium implements IAdminCommandHandler
 {
 	private static final CLogger LOGGER = new CLogger(AdminPremium.class.getName());
-	
-	private static final String DELETE_PREMIUMSERVICE = "DELETE FROM account_premium WHERE account_name=?";
 	
 	private static final String[] ADMIN_COMMANDS =
 	{
@@ -143,16 +138,11 @@ public class AdminPremium implements IAdminCommandHandler
 	
 	private static void addPremiumServices(Player player, int field, int value, String accName)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(DatabaseDialect.upsert("account_premium", "premium_service,enddate,account_name", "?,?,?", "account_name", "premium_service,enddate")))
+		try
 		{
 			Calendar finishtime = Calendar.getInstance();
 			finishtime.add(field, value);
-			
-			statement.setInt(1, 1);
-			statement.setLong(2, finishtime.getTimeInMillis());
-			statement.setString(3, accName);
-			statement.execute();
+			PremiumPersistenceService.upsert(accName, 1, finishtime.getTimeInMillis());
 			
 			PremiumTaskManager.getInstance().add(player);
 			player.sendMessage(player.getSysString(10_098, finishtime.getTime(), accName));
@@ -180,11 +170,9 @@ public class AdminPremium implements IAdminCommandHandler
 	
 	private static void removePremiumServices(Player player, String accName)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement statement = con.prepareStatement(DELETE_PREMIUMSERVICE))
+		try
 		{
-			statement.setString(1, accName);
-			statement.execute();
+			PremiumPersistenceService.delete(accName);
 			
 			player.sendMessage("The premium has been remove for account: " + accName);
 		}

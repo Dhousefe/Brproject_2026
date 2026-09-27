@@ -31,3 +31,18 @@ query found outside an adapter is a Phase 4 cleanup candidate and should be
 registered before being migrated. The adapter remains replaceable by another
 implementation (for example, a future MariaDB or PostgreSQL-specific adapter)
 without changing the game flow.
+
+## `PremiumStore`
+
+`ext.mods.gameserver.data.repository.PremiumStore` centralizes the
+`account_premium` table used by player login, the donation item flow and the
+administrator premium commands. Its operations preserve the existing behavior:
+
+- `upsert` creates or updates the service and expiration timestamp;
+- `find` reads the account state without creating it;
+- `expire` clears an existing row;
+- `delete` removes the row completely.
+
+The JDBC implementation is `JdbcPremiumStore`, exposed to game code through
+`PremiumPersistenceService`. This prevents the same table and dialect-specific
+upsert logic from being repeated across unrelated handlers.
