@@ -55,3 +55,11 @@ upsert logic from being repeated across unrelated handlers.
 `loadGivenRecommendations` restores the giver's target list. The in-memory
 rollback behavior remains in `PlayerRecom`; database transaction handling is
 implemented by `JdbcRecommendationStore`.
+
+## `SubclassStore`
+
+`ext.mods.gameserver.data.repository.SubclassStore` owns subclass slots and
+the class-indexed data removed during a subclass replacement. `wipe` deletes
+the subclass, hennas, shortcuts, saved effects and skills in one transaction;
+the subsequent creation of the replacement slot remains orchestrated by
+`PlayerSubClass`, preserving the existing game flow.

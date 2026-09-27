@@ -1,8 +1,5 @@
 package ext.mods.gameserver.model.actor.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -12,7 +9,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ext.mods.commons.pool.ConnectionPool;
+import ext.mods.gameserver.data.repository.SubclassRecord;
+import ext.mods.gameserver.data.service.SubclassPersistenceService;
 import ext.mods.gameserver.data.xml.PlayerData;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Player;
@@ -34,14 +32,6 @@ import ext.mods.gameserver.skills.L2Skill;
 public final class PlayerSubClass
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerSubClass.class);
-	
-	private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
-	private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
-	private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
-	private static final String DELETE_CHAR_SUBCLASS = "DELETE FROM character_subclasses WHERE char_obj_id=? AND class_index=?";
-	
-	private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE char_obj_id=? AND class_index=?";
-	private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
 	
 	private static final Comparator<GeneralSkillNode> COMPARE_SKILLS_BY_LVL = Comparator.comparing(GeneralSkillNode::getValue);
 	
@@ -101,18 +91,12 @@ public final class PlayerSubClass
 	 */
 	public static boolean restoreSubClassData(Player player)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_CHAR_SUBCLASSES))
+		try
 		{
-			ps.setInt(1, player.getObjectId());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (SubclassRecord record : SubclassPersistenceService.load(player.getObjectId()))
 			{
-				while (rs.next())
-				{
-					final SubClass subClass = new SubClass(rs.getInt("class_id"), rs.getInt("class_index"), rs.getLong("exp"), rs.getInt("sp"), rs.getByte("level"));
-					player.getSubClasses().put(subClass.getClassIndex(), subClass);
-				}
+				final SubClass subClass = new SubClass(record.classId(), record.classIndex(), record.exp(), record.sp(), (byte) record.level());
+				player.getSubClasses().put(subClass.getClassIndex(), subClass);
 			}
 		}
 		catch (Exception e)
@@ -130,20 +114,10 @@ public final class PlayerSubClass
 		if (_subClasses.isEmpty())
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_CHAR_SUBCLASS))
+		try
 		{
-			for (final SubClass subClass : _subClasses.values())
-			{
-				ps.setLong(1, subClass.getExp());
-				ps.setInt(2, subClass.getSp());
-				ps.setInt(3, subClass.getLevel());
-				ps.setInt(4, subClass.getClassId());
-				ps.setInt(5, _owner.getObjectId());
-				ps.setInt(6, subClass.getClassIndex());
-				ps.addBatch();
-			}
-			ps.executeBatch();
+			final var records = _subClasses.values().stream().map(subClass -> new SubclassRecord(subClass.getClassId(), subClass.getClassIndex(), subClass.getExp(), subClass.getSp(), subClass.getLevel())).toList();
+			SubclassPersistenceService.update(_owner.getObjectId(), records);
 		}
 		catch (Exception e)
 		{
@@ -177,16 +151,9 @@ public final class PlayerSubClass
 		
 		final SubClass subclass = new SubClass(classId, classIndex);
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_CHAR_SUBCLASS))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, subclass.getClassId());
-			ps.setLong(3, subclass.getExp());
-			ps.setInt(4, subclass.getSp());
-			ps.setInt(5, subclass.getLevel());
-			ps.setInt(6, subclass.getClassIndex());
-			ps.execute();
+			SubclassPersistenceService.add(_owner.getObjectId(), new SubclassRecord(subclass.getClassId(), subclass.getClassIndex(), subclass.getExp(), subclass.getSp(), subclass.getLevel()));
 		}
 		catch (Exception e)
 		{
@@ -221,72 +188,9 @@ public final class PlayerSubClass
 		
 		try
 		{
-			try (Connection con = ConnectionPool.getConnection())
+			try
 			{
-				final boolean previousAutoCommit = con.getAutoCommit();
-				con.setAutoCommit(false);
-				try
-				{
-					try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_HENNAS))
-					{
-						ps.setInt(1, _owner.getObjectId());
-						ps.setInt(2, classIndex);
-						ps.execute();
-					}
-					
-					try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SHORTCUTS))
-					{
-						ps.setInt(1, _owner.getObjectId());
-						ps.setInt(2, classIndex);
-						ps.execute();
-					}
-					
-					// Same connection as other deletes (avoid multi-connection wipe).
-					try (PreparedStatement ps = con.prepareStatement(PlayerSkillsDb.DELETE_SKILL_SAVE))
-					{
-						ps.setInt(1, _owner.getObjectId());
-						ps.setInt(2, classIndex);
-						ps.execute();
-					}
-					
-					try (PreparedStatement ps = con.prepareStatement(PlayerSkillsDb.DELETE_CHAR_SKILLS))
-					{
-						ps.setInt(1, _owner.getObjectId());
-						ps.setInt(2, classIndex);
-						ps.execute();
-					}
-					
-					try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_SUBCLASS))
-					{
-						ps.setInt(1, _owner.getObjectId());
-						ps.setInt(2, classIndex);
-						ps.execute();
-					}
-					
-					con.commit();
-				}
-				catch (Exception e)
-				{
-					try
-					{
-						con.rollback();
-					}
-					catch (Exception re)
-					{
-						LOGGER.warn("Couldn't rollback subclass wipe for {}.", _owner.getName(), re);
-					}
-					throw e;
-				}
-				finally
-				{
-					try
-					{
-						con.setAutoCommit(previousAutoCommit);
-					}
-					catch (Exception ignored)
-					{
-					}
-				}
+				SubclassPersistenceService.wipe(_owner.getObjectId(), classIndex);
 			}
 			catch (Exception e)
 			{
