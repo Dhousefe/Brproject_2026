@@ -69,3 +69,13 @@ As seguintes regras valem para mudanças de arquitetura:
 - `DatabaseDialect` é a fronteira canônica para SQL não portátil. `SqlDialect` permanece somente como fachada de compatibilidade durante a migração gradual.
 - O Compose PostgreSQL é o ambiente padrão; `deploy/docker/docker-compose.mariadb.yml` fornece uma sobreposição isolada para testes MariaDB, com volume e porta próprios.
 - O task `checkDatabaseSql` registra o débito legado de SQL específico e bloqueia novos usos fora da camada de compatibilidade. O baseline só deve ser atualizado junto com uma migração revisada.
+
+## Estado do roadmap
+
+Atualizado em 2026-09-28:
+
+- O problema de login e seleção de personagens observado após a atualização da infraestrutura foi considerado resolvido; o stack PostgreSQL, LoginServer e GameServer está operacional após a reinicialização do ambiente.
+- A Fase 1 (documentação, proteção e compatibilidade), a Fase 2 (fluxos críticos) e a Fase 3 (sistemas secundários) foram concluídas e integradas na `main`.
+- A Fase 4 (limpeza arquitetural) está em andamento. O trabalho atual remove SQL direto do fluxo de seleção de personagens, mantendo o protocolo e o comportamento do jogo inalterados.
+- A ordem restante da Fase 4 é: migrar os demais fluxos ainda acoplados a JDBC, eliminar duplicações, consolidar fronteiras transacionais e completar a documentação dos contratos dos repositories.
+- Depois da Fase 4, permanecem como trabalho estrutural a matriz automatizada PostgreSQL/MariaDB, testes de persistência mais amplos e o endurecimento do deployment para AWS/produção. A reorganização deve continuar incremental, por domínio, sem reescrever o motor de pacotes ou o núcleo do jogo.

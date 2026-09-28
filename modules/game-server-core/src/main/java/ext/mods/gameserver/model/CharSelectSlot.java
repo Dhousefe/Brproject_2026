@@ -17,13 +17,6 @@
  */
 package ext.mods.gameserver.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
 import ext.mods.gameserver.enums.Paperdoll;
 
 import ext.mods.extensions.api.IDressMeSkin;
@@ -33,10 +26,6 @@ import ext.mods.extensions.api.IDressMeSkin;
  */
 public class CharSelectSlot
 {
-	private static final CLogger LOGGER = new CLogger(CharSelectSlot.class.getName());
-	
-	private static final String RESTORE_PAPERDOLLS = "SELECT object_id,item_id,loc_data,enchant_level FROM items WHERE owner_id=? AND loc='PAPERDOLL'";
-	
 	private final int _objectId;
 	private final String _name;
 	
@@ -70,11 +59,11 @@ public class CharSelectSlot
 	private IDressMeSkin _armorSkin;
 	private IDressMeSkin _weaponSkin;
 	
-	public CharSelectSlot(int objectId, String name)
+	public CharSelectSlot(int objectId, String name, int[][] paperdoll)
 	{
 		_objectId = objectId;
 		_name = name;
-		_paperdoll = restoreVisibleInventory(objectId);
+		_paperdoll = (paperdoll == null) ? new int[0x12][3] : paperdoll;
 	}
 	
 	public int getObjectId()
@@ -360,34 +349,6 @@ public class CharSelectSlot
 	public void setZ(int z)
 	{
 		_z = z;
-	}
-	
-	private static int[][] restoreVisibleInventory(int objectId)
-	{
-		int[][] paperdoll = new int[0x12][3];
-		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_PAPERDOLLS))
-		{
-			ps.setInt(1, objectId);
-			
-			try (ResultSet rs = ps.executeQuery())
-			{
-				while (rs.next())
-				{
-					final int slot = rs.getInt("loc_data");
-					
-					paperdoll[slot][0] = rs.getInt("object_id");
-					paperdoll[slot][1] = rs.getInt("item_id");
-					paperdoll[slot][2] = rs.getInt("enchant_level");
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			LOGGER.error("Couldn't restore paperdolls for {}.", e, objectId);
-		}
-		return paperdoll;
 	}
 	
 	public IDressMeSkin getArmorSkin()
