@@ -80,7 +80,7 @@ _brproject_find_java() {
     echo "AVISO: BRPROJECT_JAVA_HOME=$BRPROJECT_JAVA_HOME não é JDK >= $BRPROJECT_MIN_JAVA; ignorando." >&2
   fi
 
-  # 2) SDKMAN (muito comum no macOS)
+  # 2) SDKMAN (muito comum no macOS e Linux)
   local sdk_root="${SDKMAN_DIR:-$HOME/.sdkman}/candidates/java"
   if [[ -d "$sdk_root" ]]; then
     # 25.x primeiro (ordem reverso: mais novo primeiro)
@@ -102,6 +102,21 @@ _brproject_find_java() {
       fi
     done
   fi
+
+  # 2.5) Locais Comuns Linux / GraalVM 25
+  local linux_locs=(
+    "/opt/graalvm25"
+    "/usr/lib/jvm/graalvm25"
+    "/usr/lib/jvm/java-25-openjdk-amd64"
+    "$HOME/.graalvm/graalvm-jdk-25"
+    "/mnt/d/graalvm25"
+    "/mnt/d/jdk25"
+  )
+  for loc in "${linux_locs[@]}"; do
+    if _brproject_try_java_home "$loc"; then
+      return 0
+    fi
+  done
 
   # 3) macOS java_home
   if [[ "$(uname -s)" == "Darwin" ]] && [[ -x /usr/libexec/java_home ]]; then

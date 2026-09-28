@@ -1,6 +1,4 @@
-driver=sqlite
-url=jdbc:sqlite:data/brproject.db
-user=
+PrepararTeste done at 1784571927444
 host=127.0.0.1
-port=3306
-database=data/brproject.db
+user=root
+dbKind=MARIADB
