@@ -67,7 +67,11 @@ public final class MigrateMain
 		{
 			return "brproject-data/migrations/sqlite";
 		}
-		// MariaDB / MySQL / PostgreSQL / SQLServer / H2 — share the MariaDB-style DDL (compatible subset).
+		if (normalized.startsWith("jdbc:postgresql:"))
+		{
+			return "brproject-data/migrations/postgresql";
+		}
+		// MariaDB / MySQL / SQLServer — share the MariaDB-style DDL.
 		return "brproject-data/migrations/mariadb";
 	}
 

@@ -163,6 +163,11 @@ public final class ConnectionPool
 		}
 	}
 	
+	public static boolean isInitialized()
+	{
+		return _source != null && !_source.isClosed();
+	}
+
 	public static Connection getConnection() throws SQLException
 	{
 		Connection conn = _source.getConnection();

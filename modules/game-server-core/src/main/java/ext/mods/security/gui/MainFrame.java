@@ -38,6 +38,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
@@ -94,8 +95,10 @@ public class MainFrame {
         }, "BrProject-ShutdownHook"));
 
         
-        frame.setSize(650, 400); 
+        frame.setSize(920, 640);
         frame.setLocationRelativeTo(null);
+        new ext.mods.commons.gui.ComponentResizer(frame);
+        ((JComponent) frame.getContentPane()).setBorder(BorderFactory.createLineBorder(new Color(60, 45, 90), 1));
         
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -272,6 +275,8 @@ public class MainFrame {
     
     public void showLoginPanel() {
         loginPanel.updateRememberMeState();
+        frame.setSize(680, 440);
+        frame.setLocationRelativeTo(null);
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         cl.show(mainPanel, "login");
     }
@@ -282,12 +287,16 @@ public class MainFrame {
         mainPanel.remove(prepararPanel.getPanel());
         prepararPanel = new PrepararAmbientePanel(frame, authService, this);
         mainPanel.add(prepararPanel.getPanel(), "preparar");
+        frame.setSize(920, 640);
+        frame.setLocationRelativeTo(null);
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         cl.show(mainPanel, "preparar");
     }
 
     public void showDashboardPanel() {
         dashboardPanel.updateLayout(LauncherApp.getKey());
+        frame.setSize(980, 660);
+        frame.setLocationRelativeTo(null);
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         cl.show(mainPanel, "dashboard");
     }

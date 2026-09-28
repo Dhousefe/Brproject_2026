@@ -40,15 +40,16 @@ public final class HttpRedirectServer implements AutoCloseable {
 
     public HttpRedirectServer(ProxyRoute route) {
         this.route = route;
-        this.bossGroup = new NioEventLoopGroup(1);
-        this.workerGroup = new NioEventLoopGroup(1);
+        this.bossGroup = NettyTransportSupport.createEventLoopGroup(1, "proxy-redir-boss-" + route.name());
+        this.workerGroup = NettyTransportSupport.createEventLoopGroup(1, "proxy-redir-worker-" + route.name());
     }
 
     public void start() throws InterruptedException {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class)
+            .channel(NettyTransportSupport.serverSocketChannelClass())
             .option(ChannelOption.SO_BACKLOG, 128)
+            .option(ChannelOption.SO_REUSEADDR, true)
             .childHandler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) {

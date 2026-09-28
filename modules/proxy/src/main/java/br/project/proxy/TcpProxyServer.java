@@ -43,15 +43,16 @@ public final class TcpProxyServer implements AutoCloseable {
     public TcpProxyServer(ProxyRoute route, FixedWindowRateLimiter limiter) {
         this.route = route;
         this.limiter = limiter;
-        this.bossGroup = new NioEventLoopGroup(1);
-        this.workerGroup = new NioEventLoopGroup();
+        this.bossGroup = NettyTransportSupport.createEventLoopGroup(1, "proxy-tcp-boss-" + route.name());
+        this.workerGroup = NettyTransportSupport.createEventLoopGroup(0, "proxy-tcp-worker-" + route.name());
     }
 
     public void start() throws InterruptedException {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class)
+            .channel(NettyTransportSupport.serverSocketChannelClass())
             .option(ChannelOption.SO_BACKLOG, 256)
+            .option(ChannelOption.SO_REUSEADDR, true)
             .childOption(ChannelOption.SO_KEEPALIVE, true)
             .childOption(ChannelOption.TCP_NODELAY, true)
             .childOption(ChannelOption.AUTO_READ, false)

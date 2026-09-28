@@ -814,6 +814,34 @@ public class Fail2BanDashboard {
 		return System.getProperty("os.name", "").toLowerCase().contains("win");
 	}
 
+	private boolean isLinux() {
+		return System.getProperty("os.name", "").toLowerCase().contains("linux");
+	}
+
+	private boolean isMac() {
+		return System.getProperty("os.name", "").toLowerCase().contains("mac");
+	}
+
+	private static Font getFont(int style, int size) {
+		String os = System.getProperty("os.name", "").toLowerCase();
+		String fontName = os.contains("win") ? "Segoe UI" : (os.contains("mac") ? "Helvetica Neue" : "DejaVu Sans");
+		Font f = new Font(fontName, style, size);
+		if (!f.getFamily().equalsIgnoreCase(fontName)) {
+			return new Font(Font.SANS_SERIF, style, size);
+		}
+		return f;
+	}
+
+	private static Font getMonoFont(int style, int size) {
+		String os = System.getProperty("os.name", "").toLowerCase();
+		String fontName = os.contains("win") ? "Consolas" : (os.contains("mac") ? "Menlo" : "DejaVu Sans Mono");
+		Font f = new Font(fontName, style, size);
+		if (!f.getFamily().equalsIgnoreCase(fontName)) {
+			return new Font(Font.MONOSPACED, style, size);
+		}
+		return f;
+	}
+
 	private boolean isWindowsAdmin() {
 		if (!isWindows()) return false;
 		try {
@@ -1168,7 +1196,7 @@ public class Fail2BanDashboard {
 	private void styleTable(JTable table, boolean isBanTable) {
 		table.setBackground(ModernUI.BG_DARK);
 		table.setForeground(ModernUI.TEXT_WHITE);
-		table.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		table.setFont(getMonoFont(Font.PLAIN, 11));
 		table.setRowHeight(24);
 		table.setSelectionBackground(ModernUI.NEON_PURPLE);
 		table.setSelectionForeground(Color.WHITE);
@@ -1177,7 +1205,7 @@ public class Fail2BanDashboard {
 
 		table.getTableHeader().setBackground(ModernUI.BG_PANEL);
 		table.getTableHeader().setForeground(ModernUI.NEON_CYAN);
-		table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 11));
+		table.getTableHeader().setFont(getFont(Font.BOLD, 11));
 		table.getTableHeader().setReorderingAllowed(false);
 
 		// Custom cell renderers with semantic color tags
@@ -1273,7 +1301,7 @@ public class Fail2BanDashboard {
 		field.setBackground(ModernUI.BG_PANEL);
 		field.setForeground(ModernUI.TEXT_WHITE);
 		field.setCaretColor(ModernUI.NEON_CYAN);
-		field.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		field.setFont(getMonoFont(Font.PLAIN, 11));
 		field.setBorder(BorderFactory.createCompoundBorder(
 			BorderFactory.createLineBorder(ModernUI.NEON_BLUE, 1),
 			BorderFactory.createEmptyBorder(3, 6, 3, 6)
@@ -1284,7 +1312,7 @@ public class Fail2BanDashboard {
 		JButton btn = new JButton(text);
 		btn.setBackground(bg);
 		btn.setForeground(fg);
-		btn.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		btn.setFont(getFont(Font.BOLD, 11));
 		btn.setFocusPainted(false);
 		btn.setOpaque(true);
 		btn.setBorder(BorderFactory.createCompoundBorder(

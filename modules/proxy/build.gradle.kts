@@ -11,6 +11,8 @@ java {
 
 dependencies {
     implementation(libs.netty.all)
+    runtimeOnly("io.netty:netty-transport-native-epoll:4.2.16.Final:linux-x86_64")
+    runtimeOnly("io.netty:netty-transport-native-epoll:4.2.16.Final:linux-aarch_64")
     implementation(libs.slf4j.api)
     // Logback for runtime logging (rotation, format, async appender)
     implementation("ch.qos.logback:logback-classic:1.5.18")

@@ -210,8 +210,22 @@ public final class Fail2BanConfig {
 	public boolean isEnabled() { return enabled; }
 	public boolean isFirewallEnabled() { return firewallEnabled; }
 	public boolean isPersistenceEnabled() { return persistenceEnabled; }
-	public String getPersistencePath() { return persistencePath; }
+	public String getPersistencePath() { return resolveCanonicalPersistencePath(persistencePath); }
 	public int getMaxActiveBans() { return maxActiveBans; }
+
+	public static String resolveCanonicalPersistencePath(String rawPath) {
+		if (rawPath == null || rawPath.isBlank()) {
+			rawPath = "data/fail2ban.sqlite";
+		}
+		// Se o processo estiver executando com CWD dentro de game/ (onde ../data existe e game/ nao),
+		// redireciona o caminho para a raiz do projeto garantindo que nunca crie em game/data/
+		if (Files.exists(Paths.get("../data")) && !Files.exists(Paths.get("game"))) {
+			if (rawPath.startsWith("data/")) {
+				return "../" + rawPath;
+			}
+		}
+		return rawPath;
+	}
 	public long getGcIntervalMs() { return gcIntervalMs; }
 	public String[] getIgnoreIps() { return ignoreIps.clone(); }
 	public Map<String, Jail> getJails() { return new HashMap<>(jails); }

@@ -1445,7 +1445,7 @@ public class AutoFarmManager
 		long remainingMs = profile.getRemainingTime();
 		if (remainingMs <= 0)
 		{
-			return "D: 00, H: 00, M: 00, S: 00";
+			return "Dia: 00, Hora: 00, Minuto: 00, Segundos: 00";
 		}
 
 		long days = remainingMs / (24 * 3600 * 1000L);
@@ -1453,7 +1453,7 @@ public class AutoFarmManager
 		long minutes = (remainingMs % (3600 * 1000L)) / (60 * 1000L);
 		long seconds = (remainingMs % (60 * 1000L)) / 1000L;
 
-		return String.format("D: %02d, H: %02d, M: %02d, S: %02d", days, hours, minutes, seconds);
+		return String.format("Dia: %02d, Hora: %02d, Minuto: %02d, Segundos: %02d", days, hours, minutes, seconds);
 	}
 	
 	public void createArea(Player player, AutoFarmProfile autoFarmProfile, StringTokenizer st) throws IllegalArgumentException, NumberFormatException

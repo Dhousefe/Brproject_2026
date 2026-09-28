@@ -115,7 +115,7 @@ public class ProcessManagerService {
         resolved = resolveJavaFromHome(embeddedHome, ext);
         if (resolved != null) return resolved;
 
-        // 2.5) JDK 25 Autônomo Local / GraalVM (Paridade com brproject-java.inc.bat)
+        // 2.5) JDK 25 Autônomo Local / GraalVM (Paridade com brproject-java.inc.bat e brproject-java.inc.sh)
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             String[] localJdkPaths = new String[] {
                 "D:\\graalvm25",
@@ -127,6 +127,22 @@ public class ProcessManagerService {
                 resolved = resolveJavaFromHome(localJdk, ext);
                 if (resolved != null) {
                     System.err.println("[INFO] Java 25 local detectado: " + resolved);
+                    return resolved;
+                }
+            }
+        } else {
+            // Linux / macOS / WSL
+            String[] linuxJdkPaths = new String[] {
+                "/opt/graalvm25",
+                "/usr/lib/jvm/graalvm25",
+                "/usr/lib/jvm/java-25-openjdk-amd64",
+                "/mnt/d/graalvm25",
+                "/mnt/d/jdk25"
+            };
+            for (String linuxJdk : linuxJdkPaths) {
+                resolved = resolveJavaFromHome(linuxJdk, ext);
+                if (resolved != null) {
+                    System.err.println("[INFO] Java 25 Linux detectado: " + resolved);
                     return resolved;
                 }
             }
@@ -231,25 +247,146 @@ public class ProcessManagerService {
         return null;
     }
 
-    private File findSiteNativeExecutable(File projectRoot) {
-        String exeExt = isWindows() ? ".exe" : "";
-        File[] candidates = new File[] {
-            new File(projectRoot, "bin/site-native" + exeExt),
-            new File(projectRoot, "bin/brproject-site" + exeExt),
-            new File("D:/Site_ktor/dist/site-native" + exeExt),
-            new File("D:/Site_ktor/bin/site-native" + exeExt),
-            new File("D:/Site_ktor/build/native/nativeOptimizedCompile/site-release" + exeExt),
-            new File("D:/Site_ktor/build/native/nativeCompile/site-release" + exeExt),
-            new File(projectRoot, "modules/site/build/native/nativeOptimizedCompile/site-release" + exeExt),
-            new File(projectRoot, "modules/site/build/native/nativeCompile/site" + exeExt),
-            new File("bin/site-native" + exeExt)
+    public enum SitePlatformType {
+        WINDOWS_NATIVE("Nativo Windows (PE)", "[WIN Nativo]"),
+        LINUX_NATIVE("Nativo Linux (ELF)", "[Linux Nativo]"),
+        WSL_BRIDGE("Linux via WSL Bridge", "[WSL Linux]"),
+        UNAVAILABLE("Binário não encontrado", "[Não Compilado]");
+
+        private final String label;
+        private final String badge;
+
+        SitePlatformType(String label, String badge) {
+            this.label = label;
+            this.badge = badge;
+        }
+
+        public String getLabel() { return label; }
+        public String getBadge() { return badge; }
+    }
+
+    public static class SiteExecutionTarget {
+        public final SitePlatformType type;
+        public final File binaryFile;
+        public final List<String> command;
+        public final String description;
+
+        public SiteExecutionTarget(SitePlatformType type, File binaryFile, List<String> command, String description) {
+            this.type = type;
+            this.binaryFile = binaryFile;
+            this.command = command;
+            this.description = description;
+        }
+
+        public boolean isAvailable() {
+            return type != SitePlatformType.UNAVAILABLE && binaryFile != null && binaryFile.exists();
+        }
+    }
+
+    public static String toWslPath(File file) {
+        if (file == null) return "";
+        String abs = file.getAbsolutePath().replace('\\', '/');
+        if (abs.length() >= 2 && abs.charAt(1) == ':') {
+            char drive = Character.toLowerCase(abs.charAt(0));
+            return "/mnt/" + drive + abs.substring(2);
+        }
+        return abs;
+    }
+
+    public SiteExecutionTarget resolveSiteExecutionTarget(File projectRoot) {
+        boolean onWindows = isWindows();
+
+        // 1. Se estamos em ambiente Linux nativo (ex: VPS Linux ou container)
+        if (!onWindows) {
+            File[] linuxCandidates = new File[] {
+                new File(projectRoot, "bin/site-native"),
+                new File(projectRoot, "bin/brproject-site"),
+                new File("bin/site-native"),
+                new File("/opt/site_ktor/dist/site-native"),
+                new File("/opt/site_ktor/bin/site-native")
+            };
+            for (File f : linuxCandidates) {
+                if (f.exists() && f.isFile()) {
+                    try { f.setExecutable(true); } catch (Exception ignored) {}
+                    List<String> cmd = new ArrayList<>();
+                    cmd.add(f.getAbsolutePath());
+                    return new SiteExecutionTarget(SitePlatformType.LINUX_NATIVE, f, cmd, "Executável ELF Linux: " + f.getAbsolutePath());
+                }
+            }
+            return new SiteExecutionTarget(SitePlatformType.UNAVAILABLE, null, new ArrayList<>(), "Nenhum binário 'site-native' Linux encontrado");
+        }
+
+        // 2. Se estamos no Windows Host:
+        // 2.1 Primeiro tenta encontrar o binário nativo do Windows (.exe)
+        File[] winCandidates = new File[] {
+            new File(projectRoot, "bin/site-native.exe"),
+            new File(projectRoot, "bin/brproject-site.exe"),
+            new File("D:/Site_ktor/dist/site-native.exe"),
+            new File("D:/Site_ktor/bin/site-native.exe"),
+            new File("D:/Site_ktor/build/native/nativeOptimizedCompile/site-release.exe"),
+            new File("D:/Site_ktor/build/native/nativeCompile/site-release.exe"),
+            new File(projectRoot, "modules/site/build/native/nativeOptimizedCompile/site-release.exe"),
+            new File("bin/site-native.exe")
         };
-        for (File f : candidates) {
+        for (File f : winCandidates) {
             if (f.exists() && f.isFile()) {
-                return f;
+                List<String> cmd = new ArrayList<>();
+                cmd.add(f.getAbsolutePath());
+                return new SiteExecutionTarget(SitePlatformType.WINDOWS_NATIVE, f, cmd, "Executável Windows PE: " + f.getAbsolutePath());
             }
         }
-        return null;
+
+        // 2.2 Se não encontrou o .exe, verifica se existe o binário nativo Linux e o WSL está disponível
+        File[] linuxElfCandidates = new File[] {
+            new File(projectRoot, "bin/site-native"),
+            new File("D:/Site_ktor/dist/site-native"),
+            new File("D:/Site_ktor/bin/site-native"),
+            new File(projectRoot, "modules/site/build/native/nativeOptimizedCompile/site-release"),
+            new File("bin/site-native")
+        };
+        for (File f : linuxElfCandidates) {
+            if (f.exists() && f.isFile()) {
+                boolean wslAvailable = isWslAvailable();
+                if (wslAvailable) {
+                    String wslBinPath = toWslPath(f);
+                    String wslProjPath = toWslPath(projectRoot);
+                    List<String> cmd = new ArrayList<>();
+                    cmd.add("wsl.exe");
+                    cmd.add("-d");
+                    cmd.add("Debian");
+                    cmd.add("--");
+                    cmd.add("bash");
+                    cmd.add("-c");
+                    cmd.add("chmod +x '" + wslBinPath + "' 2>/dev/null; cd '" + wslProjPath + "' && '" + wslBinPath + "'");
+                    return new SiteExecutionTarget(SitePlatformType.WSL_BRIDGE, f, cmd, "Executável Linux via WSL Bridge: " + wslBinPath);
+                }
+            }
+        }
+
+        return new SiteExecutionTarget(SitePlatformType.UNAVAILABLE, null, new ArrayList<>(), "Nenhum binário nativo (Windows ou WSL Linux) encontrado");
+    }
+
+    public boolean isWslAvailable() {
+        if (!isWindows()) return false;
+        try {
+            ProcessBuilder pb = new ProcessBuilder("where", "wsl.exe");
+            Process p = pb.start();
+            boolean finished = p.waitFor(2, java.util.concurrent.TimeUnit.SECONDS);
+            return finished && p.exitValue() == 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getSitePlatformBadge() {
+        File projectRoot = findProjectRoot();
+        SiteExecutionTarget target = resolveSiteExecutionTarget(projectRoot);
+        return target.type.getBadge();
+    }
+
+    private File findSiteNativeExecutable(File projectRoot) {
+        SiteExecutionTarget target = resolveSiteExecutionTarget(projectRoot);
+        return target.isAvailable() ? target.binaryFile : null;
     }
 
     public boolean isSiteRunning() {
@@ -263,17 +400,23 @@ public class ProcessManagerService {
         }
 
         File projectRoot = findProjectRoot();
-        File nativeExe = findSiteNativeExecutable(projectRoot);
-        boolean isNative = (nativeExe != null);
+        SiteExecutionTarget target = resolveSiteExecutionTarget(projectRoot);
+        boolean isNative = target.isAvailable();
 
         List<String> command = new ArrayList<>();
         if (isNative) {
-            command.add(nativeExe.getAbsolutePath());
+            command.addAll(target.command);
+            System.out.println("[SITE-AUTONOMOUS-SELECTOR] Ambiente selecionado: " + target.type.getLabel());
+            System.out.println("[SITE-AUTONOMOUS-SELECTOR] Descrição: " + target.description);
         } else {
             JOptionPane.showMessageDialog(frame,
                 "Executável nativo do Site Ktor não encontrado.\n\n" +
-                "Verifique se o arquivo 'site-native.exe' está presente em 'bin/' ou em 'D:/Site_ktor'.\n" +
-                "Para compilar o binário nativo, use o repositório D:/Site_ktor.",
+                "O seletor autônomo verificou:\n" +
+                " - Windows PE: 'site-native.exe' em bin/ ou D:/Site_ktor\n" +
+                " - Linux ELF (WSL Bridge): 'site-native' em bin/ ou D:/Site_ktor\n\n" +
+                "Para compilar:\n" +
+                " - Windows: execute 'scripts\\build_native.bat' em D:/Site_ktor\n" +
+                " - Linux/WSL: execute 'scripts\\build_native_linux_wsl.bat' em D:/Site_ktor",
                 "Binário Nativo não Encontrado", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -296,7 +439,7 @@ public class ProcessManagerService {
         String sitePort = getSiteBindPort(serverProps);
 
         printSiteStartingBanner(siteHost, sitePort, isNative);
-        SiteKtorLogManager.getInstance().addLog("INFO", "LAUNCHER", "Iniciando Site NATIVO (" + nativeExe.getName() + ") em http://" + siteHost + ":" + sitePort + "...");
+        SiteKtorLogManager.getInstance().addLog("INFO", "LAUNCHER", "Iniciando Site [" + target.type.getLabel() + "] (" + target.binaryFile.getName() + ") em http://" + siteHost + ":" + sitePort + "...");
 
         stoppingSite = false;
         new Thread(() -> {
@@ -904,10 +1047,119 @@ public class ProcessManagerService {
         };
         for (File f : candidates) {
             if (f.exists() && f.isFile()) {
+                if (!isWindows()) {
+                    f.setExecutable(true, false);
+                }
                 return f;
             }
         }
+
+        // Fallback 1: Buscar cloudflared instalado no PATH do SO (Linux / macOS)
+        if (!isWindows()) {
+            String[] systemPaths = new String[] {
+                "/usr/local/bin/cloudflared",
+                "/usr/bin/cloudflared",
+                "/opt/homebrew/bin/cloudflared",
+                "/bin/cloudflared"
+            };
+            for (String sp : systemPaths) {
+                File sf = new File(sp);
+                if (sf.exists() && sf.canExecute()) {
+                    System.out.println("[CLOUDFLARE] Binário cloudflared localizado no sistema: " + sp);
+                    return sf;
+                }
+            }
+
+            try {
+                Process p = new ProcessBuilder("sh", "-c", "command -v cloudflared").start();
+                try (java.util.Scanner sc = new java.util.Scanner(p.getInputStream())) {
+                    if (sc.hasNextLine()) {
+                        String fromWhich = sc.nextLine().trim();
+                        if (!fromWhich.isEmpty() && new File(fromWhich).exists()) {
+                            File wf = new File(fromWhich);
+                            wf.setExecutable(true, false);
+                            System.out.println("[CLOUDFLARE] Binário cloudflared localizado via PATH: " + fromWhich);
+                            return wf;
+                        }
+                    }
+                }
+                p.waitFor();
+            } catch (Exception ignored) {}
+
+            // Fallback 2: Auto-download sob demanda do binário oficial da Cloudflare para bin/cloudflared
+            File targetBin = new File(projectRoot, "bin/cloudflared");
+            if (tryDownloadCloudflared(targetBin)) {
+                targetBin.setExecutable(true, false);
+                return targetBin;
+            }
+        }
+
         return null;
+    }
+
+    /**
+     * Auto-download resiliente do binário oficial cloudflared no Linux e macOS.
+     */
+    private boolean tryDownloadCloudflared(File targetFile) {
+        try {
+            String os = System.getProperty("os.name", "").toLowerCase();
+            String arch = System.getProperty("os.arch", "").toLowerCase();
+            String downloadUrl = null;
+
+            if (os.contains("linux")) {
+                if (arch.contains("aarch64") || arch.contains("arm64")) {
+                    downloadUrl = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64";
+                } else {
+                    downloadUrl = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64";
+                }
+            } else if (os.contains("mac")) {
+                if (arch.contains("aarch64") || arch.contains("arm64")) {
+                    downloadUrl = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-darwin-arm64";
+                } else {
+                    downloadUrl = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-darwin-amd64";
+                }
+            }
+
+            if (downloadUrl == null) {
+                return false;
+            }
+
+            System.out.println("[CLOUDFLARE] Baixando binário oficial cloudflared para " + os + "/" + arch + "...");
+            SiteKtorLogManager.getInstance().addLog("INFO", "CLOUDFLARE", "Baixando binário oficial cloudflared de " + downloadUrl + "...");
+
+            if (targetFile.getParentFile() != null) {
+                targetFile.getParentFile().mkdirs();
+            }
+
+            java.net.URI uri = java.net.URI.create(downloadUrl);
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+                .followRedirects(java.net.http.HttpClient.Redirect.ALWAYS)
+                .connectTimeout(java.time.Duration.ofSeconds(15))
+                .build();
+
+            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder(uri)
+                .header("User-Agent", "BrProject-Cloudflare-Provisioner/2026")
+                .GET()
+                .build();
+
+            java.net.http.HttpResponse<java.nio.file.Path> resp = client.send(req,
+                java.net.http.HttpResponse.BodyHandlers.ofFile(targetFile.toPath()));
+
+            if (resp.statusCode() == 200 && targetFile.exists() && targetFile.length() > 100_000) {
+                targetFile.setExecutable(true, false);
+                System.out.println("[CLOUDFLARE] Download concluído com sucesso: " + targetFile.getAbsolutePath() + " (" + targetFile.length() + " bytes)");
+                SiteKtorLogManager.getInstance().addLog("INFO", "CLOUDFLARE", "Binário cloudflared provisionado com sucesso!");
+                return true;
+            } else {
+                targetFile.delete();
+                System.err.println("[CLOUDFLARE] Falha no download do cloudflared: HTTP " + resp.statusCode());
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println("[CLOUDFLARE] Não foi possível baixar cloudflared automaticamente: " + e.getMessage());
+            SiteKtorLogManager.getInstance().addLog("WARN", "CLOUDFLARE", "Instale manualmente via: sudo apt install cloudflared ou brew install cloudflare/cloudflare/cloudflared");
+            return false;
+        }
     }
 
     public static final java.util.regex.Pattern CLOUDFLARE_URL_PATTERN =
@@ -1156,10 +1408,21 @@ public class ProcessManagerService {
                 List<String> cmd;
                 if (isWindows()) {
                     File gradlew = new File(effectiveRoot, "gradlew.bat");
-                    cmd = gradlew.exists() ? List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet") : List.of("cmd.exe", "/c", "gradlew.bat", ":proxy:run", "--quiet");
+                    cmd = gradlew.exists() ? List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet", "--console=plain") : List.of("cmd.exe", "/c", "gradlew.bat", ":proxy:run", "--quiet", "--console=plain");
                 } else {
-                    File gradlew = new File(effectiveRoot, "gradlew");
-                    cmd = gradlew.exists() ? List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet") : List.of("sh", "-c", "./gradlew :proxy:run --quiet");
+                    File proxySh = new File(effectiveRoot, "StartProxy.sh");
+                    if (proxySh.exists()) {
+                        proxySh.setExecutable(true, false);
+                        cmd = List.of(proxySh.getAbsolutePath());
+                    } else {
+                        File gradlew = new File(effectiveRoot, "gradlew");
+                        if (gradlew.exists()) {
+                            gradlew.setExecutable(true, false);
+                            cmd = List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet", "--console=plain");
+                        } else {
+                            cmd = List.of("sh", "-c", "./gradlew :proxy:run --quiet --console=plain");
+                        }
+                    }
                 }
 
                 ProcessBuilder pb = new ProcessBuilder(cmd);

@@ -230,6 +230,9 @@ public final class ProxyConfigLoader {
         if (Files.exists(Path.of("data/custom/mods/proxy.xml"))) {
             return "data/custom/mods/proxy.xml";
         }
+        if (Files.exists(Path.of("../game/data/custom/mods/proxy.xml"))) {
+            return "../game/data/custom/mods/proxy.xml";
+        }
         return "game/data/custom/mods/proxy.xml";
     }
 

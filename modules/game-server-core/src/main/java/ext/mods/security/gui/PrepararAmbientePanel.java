@@ -15,6 +15,10 @@
  */
 package ext.mods.security.gui;
 
+import ext.mods.commons.jdbc.AutonomousDatabaseInstaller;
+import ext.mods.commons.jdbc.SupportedDatabase;
+import ext.mods.commons.util.SafePropertiesEditor;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -138,11 +142,11 @@ public class PrepararAmbientePanel {
         header.setBorder(BorderFactory.createEmptyBorder(20, 30, 12, 30));
         JLabel titulo = new JLabel("BrProject  -  Preparar Ambiente");
         titulo.setForeground(ThemeManager.BASE_PURPLE.brighter());
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        titulo.setFont(getUiFont(Font.BOLD, 22));
         titulo.setHorizontalAlignment(SwingConstants.LEFT);
         header.add(titulo, BorderLayout.WEST);
         JLabel subtitulo = new JLabel("<html><span style='color:#A0A0A8;'>Bem-vindo! Nesta tela voce configura a licenca e o banco de dados do servidor em um so lugar.</span></html>");
-        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        subtitulo.setFont(getUiFont(Font.PLAIN, 11));
         header.add(subtitulo, BorderLayout.SOUTH);
         rootPanel.add(header, BorderLayout.NORTH);
 
@@ -165,11 +169,11 @@ public class PrepararAmbientePanel {
         logArea.setWrapStyleWord(true);
         logArea.setBackground(new Color(15, 15, 22));
         logArea.setForeground(new Color(180, 220, 255));
-        logArea.setFont(new Font("Consolas", Font.PLAIN, 11));
+        logArea.setFont(getMonoFont(Font.PLAIN, 11));
         JScrollPane scroll = new JScrollPane(logArea);
         scroll.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(ThemeManager.BORDER_COLOR),
-                "Log", 0, 0, new Font("Segoe UI", Font.PLAIN, 11), ThemeManager.TEXT_COLOR));
+                "Log", 0, 0, getUiFont(Font.PLAIN, 11), ThemeManager.TEXT_COLOR));
         south.add(scroll, BorderLayout.CENTER);
 
         progress = new JProgressBar();
@@ -246,14 +250,16 @@ public class PrepararAmbientePanel {
 
         // Credenciais padrao visiveis
         g.gridx = 0; g.gridy = 2; g.gridwidth = 2;
-        JLabel hint = new JLabel("<html><span style='color:#888;'>Padrao OSS: brprojeto@l2jbrasil.com / 12345678</span></html>");
-        hint.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        String devToken = (authService != null) ? authService.getActiveDevToken() : null;
+        String passHint = (devToken != null) ? "DevAuth ativo (token pre-configurado)" : "Padrao OSS: brprojeto@l2jbrasil.com / 12345678";
+        JLabel hint = new JLabel("<html><span style='color:#888;'>" + passHint + "</span></html>");
+        hint.setFont(getUiFont(Font.PLAIN, 10));
         box.add(hint, g);
 
         // Status
         g.gridx = 0; g.gridy = 3; g.gridwidth = 2;
         JLabel status = new JLabel(" ");
-        status.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        status.setFont(getUiFont(Font.PLAIN, 11));
         box.add(status, g);
 
         // Espaco elastico embaixo
@@ -319,7 +325,7 @@ public class PrepararAmbientePanel {
         // Hint
         g.gridx = 0; g.gridy = 6; g.gridwidth = 2;
         JLabel hint = new JLabel("<html><span style='color:#888;'>Dica: clique em 'Detectar DB' antes - ele tenta MariaDB em 127.0.0.1 e cai pra SQLite se nao existir.</span></html>");
-        hint.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        hint.setFont(getUiFont(Font.PLAIN, 10));
         box.add(hint, g);
 
         // Espaco elastico
@@ -332,12 +338,26 @@ public class PrepararAmbientePanel {
     // ====================================================================
     //  Helpers visuais
     // ====================================================================
+    private static Font getUiFont(int style, int size) {
+        String os = System.getProperty("os.name", "").toLowerCase();
+        String fontName = os.contains("win") ? "Segoe UI" : (os.contains("mac") ? "Helvetica Neue" : "DejaVu Sans");
+        Font f = new Font(fontName, style, size);
+        return f.getFamily().equalsIgnoreCase(fontName) ? f : new Font(Font.SANS_SERIF, style, size);
+    }
+
+    private static Font getMonoFont(int style, int size) {
+        String os = System.getProperty("os.name", "").toLowerCase();
+        String fontName = os.contains("win") ? "Consolas" : (os.contains("mac") ? "Menlo" : "DejaVu Sans Mono");
+        Font f = new Font(fontName, style, size);
+        return f.getFamily().equalsIgnoreCase(fontName) ? f : new Font(Font.MONOSPACED, style, size);
+    }
+
     private JPanel makeBox(String title) {
         JPanel box = new JPanel(new GridBagLayout());
         box.setBackground(new Color(22, 20, 28));
         box.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(ThemeManager.BORDER_COLOR),
-                title, 0, 0, new Font("Segoe UI", Font.BOLD, 12), ThemeManager.TEXT_COLOR));
+                title, 0, 0, getUiFont(Font.BOLD, 12), ThemeManager.TEXT_COLOR));
         box.setOpaque(true);
         return box;
     }
@@ -354,7 +374,7 @@ public class PrepararAmbientePanel {
     private JLabel label(String s) {
         JLabel l = new JLabel(s);
         l.setForeground(ThemeManager.TEXT_COLOR);
-        l.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        l.setFont(getUiFont(Font.PLAIN, 12));
         return l;
     }
 
@@ -363,7 +383,7 @@ public class PrepararAmbientePanel {
         b.setBackground(color);
         b.setForeground(Color.WHITE);
         b.setFocusPainted(false);
-        b.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        b.setFont(getUiFont(Font.BOLD, 12));
         b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         b.setPreferredSize(new Dimension(0, 32));
         return b;
@@ -608,32 +628,19 @@ public class PrepararAmbientePanel {
     //  Logica de migracao + hexid
     // ====================================================================
     private boolean applyMigrations(Connection c, DbOption opt) throws Exception {
-        // Tenta Flyway via reflection (Flyway nao e dependencia direta do game-server-core;
-        // quando app-dist empacota db-migrate + Flyway, ele aparece no classpath).
-        try {
-            Class<?> flywayClass = Class.forName("org.flywaydb.core.Flyway");
-            log("Flyway detectado - usando migracao completa.");
-            // Equivalente a: Flyway.configure().dataSource(conn).locations(loc).baselineOnMigrate(true).load()
-            Object cfg = flywayClass.getMethod("configure").invoke(null);
-            cfg = cfg.getClass().getMethod("dataSource", Connection.class).invoke(cfg, c);
-            cfg = cfg.getClass().getMethod("locations", String[].class).invoke(cfg, new Object[]{new String[]{opt.flywayLocation()}});
-            cfg = cfg.getClass().getMethod("baselineOnMigrate", boolean.class).invoke(cfg, true);
-            Object fw = cfg.getClass().getMethod("load").invoke(cfg);
-            Object result = fw.getClass().getMethod("migrate").invoke(fw);
-            int n = (Integer) result.getClass().getMethod("getMigrationsExecuted").invoke(result);
-            log("Flyway aplicou " + n + " migration(s).");
-            return true;
-        } catch (ClassNotFoundException nf) {
-            log("Flyway ausente no classpath - usando SQL inline minimo.");
-        } catch (Throwable t) {
-            log("Flyway falhou: " + t.getMessage() + " - usando SQL inline.");
+        log("Iniciando instalacao e migracao autonoma para: " + opt.label);
+        boolean ok = AutonomousDatabaseInstaller.installOrMigrate(c, opt.toSupportedDatabase(), this::log);
+        if (ok) {
+            log("Migracao concluida com sucesso para " + opt.label + ".");
+        } else {
+            log("Aviso durante migracao para " + opt.label + ". Aplicando baseline de seguranca...");
+            applyInlineBaseline(c, opt);
         }
-        return applyInlineBaseline(c, opt);
+        return true;
     }
 
     private boolean applyInlineBaseline(Connection c, DbOption opt) {
         try (Statement st = c.createStatement()) {
-            // Cria tabela gameservers basica (necessaria para o hexid)
             st.execute("CREATE TABLE IF NOT EXISTS gameservers (" +
                     "server_id INTEGER PRIMARY KEY, " +
                     "hexid VARCHAR(50) NOT NULL DEFAULT '', " +
@@ -678,12 +685,10 @@ public class PrepararAmbientePanel {
     private void saveHexIdFile(String path, String hex) throws Exception {
         File f = new File(path);
         f.getParentFile().mkdirs();
-        Properties p = new Properties();
-        p.setProperty("ServerID", "1");
-        p.setProperty("HexID", hex.toUpperCase());
-        try (var out = Files.newOutputStream(f.toPath())) {
-            p.store(out, "the hexID to auth into login");
-        }
+        Map<String, String> updates = new LinkedHashMap<>();
+        updates.put("ServerID", "1");
+        updates.put("HexID", hex.toUpperCase());
+        SafePropertiesEditor.updateProperties(f, updates);
     }
 
     private void updateProperties(String url, String user, String pass) throws Exception {
@@ -693,23 +698,12 @@ public class PrepararAmbientePanel {
 
     private void upsertProperty(String path, String url, String user, String pass) throws Exception {
         File f = new File(path);
-        f.getParentFile().mkdirs();
-        Properties p = new Properties();
-        if (f.exists()) {
-            try (var in = Files.newInputStream(f.toPath())) {
-                p.load(in);
-            }
-        }
-        p.setProperty("URL", url);
-        p.setProperty("sql.url", url);
-        p.setProperty("Login", user);
-        p.setProperty("sql.login", user);
-        p.setProperty("Password", pass);
-        p.setProperty("sql.password", pass);
-        try (var out = Files.newOutputStream(f.toPath())) {
-            p.store(out, "brproject");
-        }
-        log("Atualizado " + path);
+        Map<String, String> updates = new LinkedHashMap<>();
+        updates.put("sql.url", url);
+        updates.put("sql.login", user != null ? user : "");
+        updates.put("sql.password", pass != null ? pass : "");
+        SafePropertiesEditor.updateProperties(f, updates);
+        log("Propriedades atualizadas cirurgicamente (comentarios e layout preservados): " + path);
     }
 
     private void writeMarker(DbOption opt, String url, String user) throws Exception {
@@ -774,6 +768,14 @@ public class PrepararAmbientePanel {
                 case "sqlite":     return "classpath:brproject-data/migrations/sqlite";
                 case "postgresql": return "classpath:brproject-data/migrations/postgresql";
                 default:           return "classpath:brproject-data/migrations/mariadb";
+            }
+        }
+        SupportedDatabase toSupportedDatabase() {
+            switch (key) {
+                case "sqlite": return SupportedDatabase.SQLITE;
+                case "postgresql": return SupportedDatabase.POSTGRESQL;
+                case "mysql": return SupportedDatabase.MYSQL;
+                default: return SupportedDatabase.MARIADB;
             }
         }
         @Override public String toString() { return label; }

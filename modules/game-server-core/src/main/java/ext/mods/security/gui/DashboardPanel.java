@@ -208,11 +208,13 @@ public class DashboardPanel {
         CustomToggleSwitch tglDev = new CustomToggleSwitch(databaseManager.isDeveloperModeEnabled());
         tglDev.addActionListener(e -> databaseManager.setDeveloperMode(tglDev.isOn(), parentFrame));
         addToggleRow(toggleContainer, "Developer Mode", tglDev, 1);
-        
-        
+
+        // Seletor autônomo de plataforma (Windows Nativo, Linux Nativo ou WSL Bridge)
+        String siteBadge = processManagerService.getSitePlatformBadge();
+        String siteLabel = "Site Ktor " + siteBadge;
         tglSiteKtor = new CustomToggleSwitch(processManagerService.isSiteRunning());
         tglSiteKtor.addActionListener(e -> toggleSiteKtor());
-        addToggleRow(toggleContainer, "Site Ktor", tglSiteKtor, 3);
+        addToggleRow(toggleContainer, siteLabel, tglSiteKtor, 3);
 
         NeonButton btnSiteKtorLogs = new NeonButton("Logs Site Ktor", ModernUI.NEON_CYAN, ModernUI.NEON_BLUE, true, null);
         btnSiteKtorLogs.setPreferredSize(new Dimension(140, 26));

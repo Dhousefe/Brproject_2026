@@ -70,7 +70,6 @@ public final class PlayerBypass
 	private long _bypassSecondStartTick = 0L;
 
 	/**
-	 * By Dhousefe
 	 * Verifica e atualiza o debounce para requisições de bypass com Mechanical Sympathy.
 	 * 1. Teto global anti-DOS: Se ultrapassar maxPerSec dentro do mesmo segundo, retorna false.
 	 * 2. Deduplicação: Se o comando for idêntico ao anterior dentro da janela windowMs, retorna false (drop silencioso).

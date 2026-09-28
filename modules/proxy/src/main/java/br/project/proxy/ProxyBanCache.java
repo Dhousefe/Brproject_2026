@@ -42,7 +42,6 @@ public final class ProxyBanCache implements AutoCloseable {
     private void resolveDbPath() {
         String[] candidates = {
             "data/fail2ban.sqlite",
-            "game/data/fail2ban.sqlite",
             "../data/fail2ban.sqlite"
         };
         for (String c : candidates) {
@@ -182,6 +181,10 @@ public final class ProxyBanCache implements AutoCloseable {
     }
 
     public void syncFromDatabase() {
+        long now = System.currentTimeMillis();
+        // Purge expired memory bans first
+        activeBans.entrySet().removeIf(entry -> entry.getValue() > 0 && entry.getValue() <= now);
+
         try {
             resolveDbPath();
             Path dbPath = Path.of(resolvedDbPath);
@@ -193,28 +196,23 @@ public final class ProxyBanCache implements AutoCloseable {
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException ignored) {
-                // SQLite driver might not be on proxy standalone classpath if minimal
                 return;
             }
 
-            long now = System.currentTimeMillis();
             String url = "jdbc:sqlite:" + resolvedDbPath;
             try (Connection conn = DriverManager.getConnection(url);
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(
                      "SELECT ip, expire_time FROM fail2ban_bans WHERE status = 'ACTIVE'")) {
 
-                ConcurrentHashMap<String, Long> fresh = new ConcurrentHashMap<>();
                 while (rs.next()) {
                     String ip = rs.getString("ip");
                     long expire = rs.getLong("expire_time");
                     if (expire <= 0 || expire > now) {
-                        fresh.put(ip, expire);
+                        addBan(ip, expire);
                     }
                 }
-                activeBans.clear();
-                activeBans.putAll(fresh);
-                LOG.debug("[proxy/bancache] Synced {} active bans from {}", activeBans.size(), resolvedDbPath);
+                LOG.debug("[proxy/bancache] Synced active bans from {} (current total: {})", resolvedDbPath, activeBans.size());
             }
         } catch (Throwable t) {
             LOG.debug("[proxy/bancache] SQLite sync skipped or unavailable: {}", t.getMessage());

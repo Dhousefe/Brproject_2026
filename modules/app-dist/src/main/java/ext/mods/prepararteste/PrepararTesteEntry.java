@@ -109,16 +109,14 @@ public final class PrepararTesteEntry
         ensureSchema(choice);
 
         // Gerar/registrar hexid (ou abrir GUI na 1ª vez, se aplicavel)
-                boolean viaGui = false;
-                boolean exampleExists = Files.exists(Paths.get("game", "config", "server.properties.example"));
-                if (firstRun && !skipGui && hasDisplay() && exampleExists) {
-                    log("Primeira execução + display + server.properties.example encontrado -> abrindo PrepararAmbientePanel standalone.");
-                    viaGui = openPrepararAmbientePanelStandalone();
-                } else if (firstRun) {
-                    if (!exampleExists) log("server.properties.example ausente -> fluxo silencioso (sem GUI).");
-                    if (skipGui)         log("--no-gui informado -> fluxo silencioso.");
-                    if (!hasDisplay())   log("Sem display -> fluxo silencioso.");
-                }
+        boolean viaGui = false;
+        if (firstRun && !skipGui && hasDisplay()) {
+            log("Primeira execução sem flag/PrepararTeste.done + display detectado -> abrindo PrepararAmbientePanel.");
+            viaGui = openPrepararAmbientePanelStandalone();
+        } else if (firstRun) {
+            if (skipGui)       log("--no-gui informado -> fluxo silencioso.");
+            if (!hasDisplay()) log("Sem display (headless) -> fluxo silencioso.");
+        }
 
         // Após GUI (ou se não usou), registrar hexid
         try (Connection c = openConnection(choice)) {
@@ -153,10 +151,7 @@ public final class PrepararTesteEntry
     // ====================================================================
     static boolean isFirstRun()
     {
-        if (Files.exists(FLAG_DONE)) return false;
-        if (Files.exists(GAME_HEXID) && Files.exists(GAME_SERVER_PROPS)
-                && Files.exists(LOGIN_SERVER_PROPS)) return false;
-        return true;
+        return !Files.exists(FLAG_DONE);
     }
 
     // ====================================================================

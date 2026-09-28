@@ -83,7 +83,7 @@ public final class ProxyMain {
                     }
                 }
             } catch (Exception e) {
-                LOG.error("[proxy] failed to start route '{}': {}", route.name(), e.toString(), e);
+                logRouteStartError(route, e);
             }
         }
 
@@ -97,6 +97,26 @@ public final class ProxyMain {
         LOG.info("[proxy] {} route(s) started. Press Ctrl+C to stop.", servers.size());
 
         Thread.currentThread().join();
+    }
+
+    private static void logRouteStartError(ProxyRoute route, Exception e) {
+        String msg = e.getMessage() != null ? e.getMessage() : e.toString();
+        boolean isPermissionDenied = msg.contains("Permission denied") || (e.getCause() != null && e.getCause().getMessage() != null && e.getCause().getMessage().contains("Permission denied"));
+        boolean isPrivilegedPort = route.bindPort() > 0 && route.bindPort() < 1024;
+
+        if (isPermissionDenied && isPrivilegedPort) {
+            LOG.error("\n================================================================================\n" +
+                      "[proxy/error] PERMISSION DENIED binding privileged port {} on route '{}'!\n" +
+                      "In Linux, ports below 1024 require CAP_NET_BIND_SERVICE or root privileges.\n" +
+                      "To fix this issue on Linux, choose one option:\n" +
+                      "  1) Grant capability to java binary: sudo setcap 'cap_net_bind_service=+ep' $(which java)\n" +
+                      "  2) In game/data/custom/mods/proxy.xml, change bindPort to an unprivileged port (>= 1024, e.g. 8443 or 8080)\n" +
+                      "  3) Redirect ports via iptables/nftables: sudo iptables -t nat -A PREROUTING -p tcp --dport {} -j REDIRECT --to-port 8{}" +
+                      "\n================================================================================",
+                      route.bindPort(), route.name(), route.bindPort(), route.bindPort());
+        } else {
+            LOG.error("[proxy] failed to start route '{}': {}", route.name(), msg, e);
+        }
     }
 
     private void shutdown() {

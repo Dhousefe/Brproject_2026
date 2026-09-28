@@ -68,8 +68,8 @@ public final class HttpProxyServer implements AutoCloseable {
     public HttpProxyServer(ProxyRoute route, FixedWindowRateLimiter limiter) {
         this.route = route;
         this.limiter = limiter;
-        this.bossGroup = new NioEventLoopGroup(1);
-        this.workerGroup = new NioEventLoopGroup();
+        this.bossGroup = NettyTransportSupport.createEventLoopGroup(1, "proxy-http-boss-" + route.name());
+        this.workerGroup = NettyTransportSupport.createEventLoopGroup(0, "proxy-http-worker-" + route.name());
         if (route.tlsEnabled()) {
             try {
                 if (route.isAutoTls()) {
@@ -102,8 +102,9 @@ public final class HttpProxyServer implements AutoCloseable {
     public void start() throws InterruptedException {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class)
+            .channel(NettyTransportSupport.serverSocketChannelClass())
             .option(ChannelOption.SO_BACKLOG, 512)
+            .option(ChannelOption.SO_REUSEADDR, true)
             .childOption(ChannelOption.TCP_NODELAY, true)
             .childOption(ChannelOption.SO_KEEPALIVE, true)
             .childHandler(new ChannelInitializer<SocketChannel>() {
