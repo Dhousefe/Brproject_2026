@@ -150,7 +150,15 @@ public final class ServerList extends L2LoginServerPacket
 		final String configuredHost = gsi.getHostName();
 		final String connectionIp = gsi.getGameServerThread() != null ? gsi.getGameServerThread().getConnectionIp() : null;
 
-		// 1. Se o host configurado na tabela gameservers ou AuthRequest for um IP valido ou dominio (nao loopback, nao wildcard)
+		// 1. Se o host configurado for explicitamente 127.0.0.1/localhost e o cliente conectou via loopback,
+		// honra loopback local (essencial para clientes no Windows Host conectando em Game/Proxy no WSL2/localhost)
+		if (("127.0.0.1".equals(configuredHost) || "localhost".equalsIgnoreCase(configuredHost)) &&
+		    (clientIp != null && clientIp.isLoopbackAddress()))
+		{
+			return "127.0.0.1";
+		}
+
+		// 2. Se o host configurado na tabela gameservers ou AuthRequest for um IP valido ou dominio (nao loopback, nao wildcard)
 		// Este IP eh o endereco canonico de escuta acessivel aos clientes (ex: 192.168.100.14 ou IP publico / DDNS)
 		if (configuredHost != null && !configuredHost.isBlank() && !"*".equals(configuredHost) && !"127.0.0.1".equals(configuredHost) && !"localhost".equalsIgnoreCase(configuredHost))
 		{
