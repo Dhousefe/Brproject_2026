@@ -18,23 +18,19 @@
 package ext.mods.gsregistering;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Map;
 import java.util.Scanner;
 
 import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
+import ext.mods.gameserver.data.service.GameServerRegistrationPersistenceService;
 import ext.mods.gameserver.LoginServerThread;
 import ext.mods.loginserver.data.manager.GameServerManager;
 import ext.mods.loginserver.model.GameServerInfo;
 
 public class GameServerRegister
 {
-	private static final String DELETE_SERVER = "DELETE FROM gameservers WHERE server_id=?";
-	private static final String TRUNCATE_SERVERS = "TRUNCATE gameservers";
-	
 	private static String _choice;
 	
 	public static void main(String[] args)
@@ -92,11 +88,9 @@ public class GameServerRegister
 								System.out.println("This server id isn't used.");
 							else
 							{
-								try (Connection con = ConnectionPool.getConnection();
-									PreparedStatement ps = con.prepareStatement(DELETE_SERVER))
+								try
 								{
-									ps.setInt(1, id);
-									ps.executeUpdate();
+									GameServerRegistrationPersistenceService.delete(id);
 								}
 								catch (Exception e)
 								{
@@ -122,10 +116,9 @@ public class GameServerRegister
 					
 					if (_choice.equals("y"))
 					{
-						try (Connection con = ConnectionPool.getConnection();
-							PreparedStatement ps = con.prepareStatement(TRUNCATE_SERVERS))
+						try
 						{
-							ps.executeUpdate();
+							GameServerRegistrationPersistenceService.deleteAll();
 						}
 						catch (Exception e)
 						{
