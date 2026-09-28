@@ -17,15 +17,12 @@
  */
 package ext.mods.gameserver.network.serverpackets;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import ext.mods.commons.pool.ConnectionPool;
-
 import ext.mods.gameserver.data.sql.ClanTable;
+import ext.mods.gameserver.data.repository.CharacterSelection;
+import ext.mods.gameserver.data.service.CharacterSelectionPersistenceService;
 import ext.mods.gameserver.enums.Paperdoll;
 import ext.mods.gameserver.model.CharSelectSlot;
 import ext.mods.gameserver.model.pledge.Clan;
@@ -33,10 +30,6 @@ import ext.mods.gameserver.data.service.CharacterLifecycleService;
 
 public class CharSelectInfo extends L2GameServerPacket
 {
-	private static final String SELECT_INFOS = "SELECT obj_Id, char_name, level, maxHp, curHp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, title, accesslevel, lastAccess, base_class FROM characters WHERE account_name=?";
-	private static final String SELECT_CURRENT_SUBCLASS = "SELECT exp, sp, level FROM character_subclasses WHERE char_obj_id=? AND class_id=? ORDER BY char_obj_id";
-	private static final String SELECT_AUGMENTS = "SELECT attributes FROM augmentations WHERE item_oid = ?";
-	
 	private final CharSelectSlot[] _slots;
 	private final String _loginName;
 	private final int _sessionId;
@@ -189,102 +182,50 @@ public class CharSelectInfo extends L2GameServerPacket
 	{
 		final List<CharSelectSlot> list = new ArrayList<>();
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(SELECT_INFOS))
+		try
 		{
-			ps.setString(1, loginName);
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (CharacterSelection character : CharacterSelectionPersistenceService.findByAccount(loginName))
 			{
-				while (rs.next())
+				final int objectId = character.objectId();
+				final long deleteTime = character.deleteTime();
+				if (deleteTime > 0 && System.currentTimeMillis() > deleteTime)
 				{
-					final int objectId = rs.getInt("obj_id");
-					final String name = rs.getString("char_name");
-					
-					final long deleteTime = rs.getLong("deletetime");
-					if (deleteTime > 0 && System.currentTimeMillis() > deleteTime)
-					{
-						final Clan clan = ClanTable.getInstance().getClan(rs.getInt("clanid"));
-						if (clan != null)
-							clan.removeClanMember(objectId, 0);
-						
-						CharacterLifecycleService.deleteCharacter(objectId);
-						continue;
-					}
-					
-					final CharSelectSlot slot = new CharSelectSlot(objectId, name);
-					slot.setAccessLevel(rs.getInt("accesslevel"));
-					slot.setLevel(rs.getInt("level"));
-					slot.setMaxHp(rs.getInt("maxhp"));
-					slot.setCurrentHp(rs.getDouble("curhp"));
-					slot.setMaxMp(rs.getInt("maxmp"));
-					slot.setCurrentMp(rs.getDouble("curmp"));
-					slot.setKarma(rs.getInt("karma"));
-					slot.setPkKills(rs.getInt("pkkills"));
-					slot.setPvpKills(rs.getInt("pvpkills"));
-					slot.setFace(rs.getInt("face"));
-					slot.setHairStyle(rs.getInt("hairstyle"));
-					slot.setHairColor(rs.getInt("haircolor"));
-					slot.setSex(rs.getInt("sex"));
-					slot.setExp(rs.getLong("exp"));
-					slot.setSp(rs.getInt("sp"));
-					slot.setClanId(rs.getInt("clanid"));
-					slot.setRace(rs.getInt("race"));
-					slot.setX(rs.getInt("x"));
-					slot.setY(rs.getInt("y"));
-					slot.setZ(rs.getInt("z"));
-					
-					final int baseClassId = rs.getInt("base_class");
-					final int activeClassId = rs.getInt("classid");
-					
-					if (baseClassId != activeClassId)
-					{
-						try (PreparedStatement ps2 = con.prepareStatement(SELECT_CURRENT_SUBCLASS))
-						{
-							ps2.setInt(1, objectId);
-							ps2.setInt(2, activeClassId);
-							
-							try (ResultSet rs2 = ps2.executeQuery())
-							{
-								if (rs2.next())
-								{
-									slot.setExp(rs2.getLong("exp"));
-									slot.setSp(rs2.getInt("sp"));
-									slot.setLevel(rs2.getInt("level"));
-								}
-							}
-						}
-					}
-					
-					slot.setClassId(activeClassId);
-					
-					final int weaponObjId = slot.getPaperdollObjectId(Paperdoll.RHAND);
-					if (weaponObjId > 0)
-					{
-						try (PreparedStatement ps3 = con.prepareStatement(SELECT_AUGMENTS))
-						{
-							ps3.setInt(1, weaponObjId);
-							
-							try (ResultSet rs3 = ps3.executeQuery())
-							{
-								if (rs3.next())
-								{
-									final int augment = rs3.getInt("attributes");
-									slot.setAugmentationId((augment == -1) ? 0 : augment);
-								}
-							}
-						}
-					}
-					
-					slot.setBaseClassId((baseClassId == 0 && activeClassId > 0) ? activeClassId : baseClassId);
-					slot.setDeleteTimer(deleteTime);
-					slot.setLastAccess(rs.getLong("lastAccess"));
-					
-					list.add(slot);
+					final Clan clan = ClanTable.getInstance().getClan(character.clanId());
+					if (clan != null)
+						clan.removeClanMember(objectId, 0);
+					CharacterLifecycleService.deleteCharacter(objectId);
+					continue;
 				}
+
+				final CharSelectSlot slot = new CharSelectSlot(objectId, character.name(), character.paperdoll());
+				slot.setAccessLevel(character.accessLevel());
+				slot.setLevel(character.level());
+				slot.setMaxHp(character.maxHp());
+				slot.setCurrentHp(character.currentHp());
+				slot.setMaxMp(character.maxMp());
+				slot.setCurrentMp(character.currentMp());
+				slot.setKarma(character.karma());
+				slot.setPkKills(character.pkKills());
+				slot.setPvpKills(character.pvpKills());
+				slot.setFace(character.face());
+				slot.setHairStyle(character.hairStyle());
+				slot.setHairColor(character.hairColor());
+				slot.setSex(character.sex());
+				slot.setExp(character.exp());
+				slot.setSp(character.sp());
+				slot.setClanId(character.clanId());
+				slot.setRace(character.race());
+				slot.setX(character.x());
+				slot.setY(character.y());
+				slot.setZ(character.z());
+				slot.setClassId(character.classId());
+				slot.setAugmentationId(character.augmentationId());
+				slot.setBaseClassId(character.baseClassId());
+				slot.setDeleteTimer(deleteTime);
+				slot.setLastAccess(character.lastAccess());
+				list.add(slot);
 			}
-			
-			return list.toArray(new CharSelectSlot[list.size()]);
+			return list.toArray(new CharSelectSlot[0]);
 		}
 		catch (Exception e)
 		{
