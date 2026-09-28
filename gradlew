@@ -89,6 +89,36 @@ APP_BASE_NAME=${0##*/}
 APP_HOME=$( cd -P "${APP_HOME:-./}" > /dev/null && printf '%s
 ' "$PWD" ) || exit
 
+# --- BrProject: Auto-deteccao de Java 25 compativel ---
+if [ -f "$APP_HOME/cache/brproject-java.inc.sh" ]; then
+    . "$APP_HOME/cache/brproject-java.inc.sh" >/dev/null 2>&1 || true
+fi
+
+# --- BrProject: Atalhos customizados equivalentes ao gradlew.bat ---
+if [ "${1:-}" = "br-menu" ]; then
+    exec "$APP_HOME/brproject-menu.sh"
+elif [ "${1:-}" = "br-compile" ] || [ "${1:-}" = "1" ]; then
+    shift
+    set -- brCompileIncremental "$@"
+elif [ "${1:-}" = "br-compile-clean" ] || [ "${1:-}" = "2" ]; then
+    shift
+    set -- clean brCompileClean "$@"
+elif [ "${1:-}" = "br-start" ] || [ "${1:-}" = "3" ]; then
+    shift
+    echo "[BrProject] Modo 3: gerar libs/server.jar e iniciar Login + Game..."
+    "$0" :app-dist:jar
+    if [ ! -f "$APP_HOME/flag/PrepararTeste.done" ]; then
+        echo "[BrProject] Primeira execucao detectada. Abrindo Preparar Ambiente..."
+        "$0" PrepararTeste
+    fi
+    echo "Iniciando LoginServer em background..."
+    nohup "$APP_HOME/StartLogin_SemDashboard.sh" > "$APP_HOME/logs/login-server.log" 2>&1 &
+    echo "Iniciando GameServer em background..."
+    nohup "$APP_HOME/StartGame_SemDashboard.sh" > "$APP_HOME/logs/game-server.log" 2>&1 &
+    echo "[OK] Servidores iniciados em background."
+    exit 0
+fi
+
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD=maximum
 

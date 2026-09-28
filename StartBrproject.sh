@@ -19,6 +19,9 @@ if [[ -z "${XDG_RUNTIME_DIR:-}" ]] && [[ -d "/run/user/$(id -u)" ]]; then
   export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 fi
 
+# Garante permissao de execucao nos binarios nativos e scripts
+chmod +x "$ROOT/bin/site-native" "$ROOT/bin/cloudflared"* "$ROOT/StartProxy.sh" "$ROOT/tools/"*.sh "$ROOT/gradlew" 2>/dev/null || true
+
 # shellcheck source=cache/brproject-java.inc.sh
 source "$ROOT/cache/brproject-java.inc.sh"
 # shellcheck source=cache/brproject-classpath.inc.sh

@@ -307,7 +307,12 @@ public class ProcessManagerService {
             };
             for (File f : linuxCandidates) {
                 if (f.exists() && f.isFile()) {
-                    try { f.setExecutable(true); } catch (Exception ignored) {}
+                    try {
+                        f.setExecutable(true, false);
+                        if (!f.canExecute()) {
+                            new ProcessBuilder("chmod", "+x", f.getAbsolutePath()).start().waitFor();
+                        }
+                    } catch (Exception ignored) {}
                     List<String> cmd = new ArrayList<>();
                     cmd.add(f.getAbsolutePath());
                     return new SiteExecutionTarget(SitePlatformType.LINUX_NATIVE, f, cmd, "Executável ELF Linux: " + f.getAbsolutePath());
@@ -450,6 +455,14 @@ public class ProcessManagerService {
                 pb.directory(projectRoot);
                 pb.redirectErrorStream(true);
                 configureSiteEnvironment(pb.environment(), projectRoot);
+                if (!isWindows() && target.binaryFile != null && target.binaryFile.exists()) {
+                    try {
+                        target.binaryFile.setExecutable(true, false);
+                        if (!target.binaryFile.canExecute()) {
+                            new ProcessBuilder("chmod", "+x", target.binaryFile.getAbsolutePath()).start().waitFor();
+                        }
+                    } catch (Exception ignored) {}
+                }
                 siteProcess = pb.start();
 
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(siteProcess.getInputStream(), StandardCharsets.UTF_8))) {
@@ -1411,23 +1424,43 @@ public class ProcessManagerService {
                     cmd = gradlew.exists() ? List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet", "--console=plain") : List.of("cmd.exe", "/c", "gradlew.bat", ":proxy:run", "--quiet", "--console=plain");
                 } else {
                     File proxySh = new File(effectiveRoot, "StartProxy.sh");
+                    File gradlew = new File(effectiveRoot, "gradlew");
                     if (proxySh.exists()) {
-                        proxySh.setExecutable(true, false);
-                        cmd = List.of(proxySh.getAbsolutePath());
-                    } else {
-                        File gradlew = new File(effectiveRoot, "gradlew");
-                        if (gradlew.exists()) {
+                        try {
+                            proxySh.setExecutable(true, false);
+                            if (!proxySh.canExecute()) {
+                                new ProcessBuilder("chmod", "+x", proxySh.getAbsolutePath()).start().waitFor();
+                            }
+                        } catch (Exception ignored) {}
+                    }
+                    if (gradlew.exists()) {
+                        try {
                             gradlew.setExecutable(true, false);
-                            cmd = List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet", "--console=plain");
-                        } else {
-                            cmd = List.of("sh", "-c", "./gradlew :proxy:run --quiet --console=plain");
-                        }
+                            if (!gradlew.canExecute()) {
+                                new ProcessBuilder("chmod", "+x", gradlew.getAbsolutePath()).start().waitFor();
+                            }
+                        } catch (Exception ignored) {}
+                    }
+
+                    if (proxySh.exists()) {
+                        cmd = List.of(proxySh.getAbsolutePath());
+                    } else if (gradlew.exists()) {
+                        cmd = List.of(gradlew.getAbsolutePath(), ":proxy:run", "--quiet", "--console=plain");
+                    } else {
+                        cmd = List.of("sh", "-c", "./gradlew :proxy:run --quiet --console=plain");
                     }
                 }
 
                 ProcessBuilder pb = new ProcessBuilder(cmd);
                 pb.directory(effectiveRoot);
                 pb.redirectErrorStream(true);
+                java.util.Map<String, String> env = pb.environment();
+                String javaHome = System.getProperty("java.home");
+                if (javaHome != null && !javaHome.isBlank()) {
+                    env.put("JAVA_HOME", javaHome);
+                    String existingPath = env.getOrDefault("PATH", "");
+                    env.put("PATH", javaHome + File.separator + "bin" + (existingPath.isEmpty() ? "" : File.pathSeparator + existingPath));
+                }
                 nativeProxyProcess = pb.start();
 
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(nativeProxyProcess.getInputStream(), StandardCharsets.UTF_8))) {
