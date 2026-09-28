@@ -17,15 +17,11 @@
  */
 package ext.mods.gameserver.data.sql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.service.BookmarkPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.records.Bookmark;
 
@@ -41,12 +37,9 @@ public class BookmarkTable
 	
 	protected BookmarkTable()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM bookmarks");
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
-				_bks.add(new Bookmark(rs.getString("name"), rs.getInt("obj_Id"), rs.getInt("x"), rs.getInt("y"), rs.getInt("z")));
+			_bks.addAll(BookmarkPersistenceService.load());
 		}
 		catch (Exception e)
 		{
@@ -105,15 +98,9 @@ public class BookmarkTable
 		
 		_bks.add(new Bookmark(name, objId, x, y, z));
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO bookmarks (name, obj_Id, x, y, z) values (?,?,?,?,?)"))
+		try
 		{
-			ps.setString(1, name);
-			ps.setInt(2, objId);
-			ps.setInt(3, x);
-			ps.setInt(4, y);
-			ps.setInt(5, z);
-			ps.execute();
+			BookmarkPersistenceService.save(new Bookmark(name, objId, x, y, z));
 		}
 		catch (Exception e)
 		{
@@ -133,12 +120,9 @@ public class BookmarkTable
 		{
 			_bks.remove(bookmark);
 			
-			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement("DELETE FROM bookmarks WHERE name=? AND obj_Id=?"))
+			try
 			{
-				ps.setString(1, name);
-				ps.setInt(2, objId);
-				ps.execute();
+				BookmarkPersistenceService.delete(name, objId);
 			}
 			catch (Exception e)
 			{
