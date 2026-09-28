@@ -1,19 +1,16 @@
 package ext.mods.gameserver.model.actor.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 import ext.mods.config.ConfigOfflineShop;
 import ext.mods.config.ConfigPlayers;
 import ext.mods.gameserver.data.manager.CursedWeaponManager;
 import ext.mods.gameserver.data.manager.HeroManager;
+import ext.mods.gameserver.data.repository.CharacterState;
 import ext.mods.gameserver.data.sql.ClanTable;
+import ext.mods.gameserver.data.service.CharacterLifecycleService;
 import ext.mods.gameserver.data.xml.PlayerData;
 import ext.mods.gameserver.enums.actors.Sex;
 import ext.mods.gameserver.model.World;
@@ -35,13 +32,6 @@ public final class PlayerPersistence
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerPersistence.class);
 	
-	public static final String INSERT_CHARACTER = "INSERT INTO characters (account_name,obj_Id,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,face,hairStyle,hairColor,sex,exp,sp,race,classid,base_class,title,accesslevel) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,sex=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,wantspeace=?,base_class=?,onlinetime=?,punish_level=?,punish_timer=?,nobless=?,power_grade=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,char_name=?,death_penalty_level=?,herountil=? WHERE obj_id=?";
-	public static final String RESTORE_CHARACTER = "SELECT * FROM characters WHERE obj_id=?";
-	public static final String UPDATE_ONLINE_STATUS = "UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?";
-	public static final String RESTORE_ACCOUNT_CHARS = "SELECT obj_Id, char_name FROM characters WHERE account_name=? AND obj_Id<>?";
-	public static final String UPDATE_NOBLESS = "UPDATE characters SET nobless=? WHERE obj_Id=?";
-	
 	private final Player _owner;
 	
 	public PlayerPersistence(Player owner)
@@ -54,31 +44,9 @@ public final class PlayerPersistence
 	 */
 	public static boolean insertCharacter(Player player, String accountName)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(INSERT_CHARACTER))
+		try
 		{
-			ps.setString(1, accountName);
-			ps.setInt(2, player.getObjectId());
-			ps.setString(3, player.getName());
-			ps.setInt(4, player.getStatus().getLevel());
-			ps.setInt(5, player.getStatus().getMaxHp());
-			ps.setDouble(6, player.getStatus().getHp());
-			ps.setInt(7, player.getStatus().getMaxCp());
-			ps.setDouble(8, player.getStatus().getCp());
-			ps.setInt(9, player.getStatus().getMaxMp());
-			ps.setDouble(10, player.getStatus().getMp());
-			ps.setInt(11, player.getAppearance().getFace());
-			ps.setInt(12, player.getAppearance().getHairStyle());
-			ps.setInt(13, player.getAppearance().getHairColor());
-			ps.setInt(14, player.getAppearance().getSex().ordinal());
-			ps.setLong(15, player.getStatus().getExp());
-			ps.setInt(16, player.getStatus().getSp());
-			ps.setInt(17, player.getRace().ordinal());
-			ps.setInt(18, player.getClassId().getId());
-			ps.setInt(19, player.getBaseClass());
-			ps.setString(20, player.getTitle());
-			ps.setInt(21, player.getAccessLevel().getLevel());
-			ps.executeUpdate();
+			CharacterLifecycleService.insert(CharacterState.initial(accountName, player.getObjectId(), player.getName(), player.getStatus().getLevel(), player.getStatus().getMaxHp(), player.getStatus().getHp(), player.getStatus().getMaxCp(), player.getStatus().getCp(), player.getStatus().getMaxMp(), player.getStatus().getMp(), player.getAppearance().getFace(), player.getAppearance().getHairStyle(), player.getAppearance().getHairColor(), player.getAppearance().getSex().ordinal(), player.getStatus().getExp(), player.getStatus().getSp(), player.getRace().ordinal(), player.getClassId().getId(), player.getBaseClass(), player.getTitle(), player.getAccessLevel().getLevel()));
 			return true;
 		}
 		catch (Exception e)
@@ -93,13 +61,9 @@ public final class PlayerPersistence
 	 */
 	public void updateOnlineStatus()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_ONLINE_STATUS))
+		try
 		{
-			ps.setInt(1, _owner.isOnlineInt());
-			ps.setLong(2, System.currentTimeMillis());
-			ps.setInt(3, _owner.getObjectId());
-			ps.execute();
+			CharacterLifecycleService.updateOnlineStatus(_owner.getObjectId(), _owner.isOnlineInt(), System.currentTimeMillis());
 		}
 		catch (Exception e)
 		{
@@ -112,12 +76,9 @@ public final class PlayerPersistence
 	 */
 	public void storeNobless(boolean isNoble)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_NOBLESS))
+		try
 		{
-			ps.setBoolean(1, isNoble);
-			ps.setInt(2, _owner.getObjectId());
-			ps.executeUpdate();
+			CharacterLifecycleService.updateNobless(_owner.getObjectId(), isNoble);
 		}
 		catch (Exception e)
 		{
@@ -163,70 +124,67 @@ public final class PlayerPersistence
 	 */
 	public static Player restore(int objectId, boolean offline)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(RESTORE_CHARACTER))
+		try
 		{
-			ps.setInt(1, objectId);
-			
-			try (ResultSet rs = ps.executeQuery())
-			{
-				while (rs.next())
-				{
-					final int activeClassId = rs.getInt("classid");
+			final CharacterState state = CharacterLifecycleService.restore(objectId);
+			if (state == null)
+				return null;
+
+			final int activeClassId = state.classId();
 					final PlayerTemplate template = PlayerData.getInstance().getTemplate(activeClassId);
-					final Appearance app = new Appearance(rs.getByte("face"), rs.getByte("hairColor"), rs.getByte("hairStyle"), Sex.VALUES[rs.getInt("sex")]);
-					
-					final Player player = new Player(objectId, template, rs.getString("account_name"), app);
-					player.restorePremServiceData(player, rs.getString("account_name"));
-					player.setName(rs.getString("char_name"));
-					player.setLastAccess(rs.getLong("lastAccess"));
-					
-					player.getStatus().setExp(rs.getLong("exp"));
-					player.getStatus().setLevel(rs.getByte("level"));
-					player.getStatus().setSp(rs.getInt("sp"));
-					
-					player.setExpBeforeDeath(rs.getLong("expBeforeDeath"));
-					player.setWantsPeace(rs.getInt("wantspeace") == 1);
-					player.setKarma(rs.getInt("karma"));
-					player.setPvpKills(rs.getInt("pvpkills"));
-					player.setPkKills(rs.getInt("pkkills"));
-					player.setOnlineTime(rs.getLong("onlinetime"));
-					player.setNoble(rs.getInt("nobless") == 1, false);
-					
-					player.setClanJoinExpiryTime(rs.getLong("clan_join_expiry_time"));
+					final Appearance app = new Appearance((byte) state.face(), (byte) state.hairColor(), (byte) state.hairStyle(), Sex.VALUES[state.sex()]);
+
+					final Player player = new Player(objectId, template, state.accountName(), app);
+					player.restorePremServiceData(player, state.accountName());
+					player.setName(state.charName());
+					player.setLastAccess(state.lastAccess());
+
+					player.getStatus().setExp(state.exp());
+					player.getStatus().setLevel((byte) state.level());
+					player.getStatus().setSp(state.sp());
+
+					player.setExpBeforeDeath(state.expBeforeDeath());
+					player.setWantsPeace(state.wantsPeace() == 1);
+					player.setKarma(state.karma());
+					player.setPvpKills(state.pvpKills());
+					player.setPkKills(state.pkKills());
+					player.setOnlineTime(state.onlineTime());
+					player.setNoble(state.nobless() == 1, false);
+
+					player.setClanJoinExpiryTime(state.clanJoinExpiryTime());
 					if (player.getClanJoinExpiryTime() < System.currentTimeMillis())
 						player.setClanJoinExpiryTime(0);
 					
-					player.setClanCreateExpiryTime(rs.getLong("clan_create_expiry_time"));
+					player.setClanCreateExpiryTime(state.clanCreateExpiryTime());
 					if (player.getClanCreateExpiryTime() < System.currentTimeMillis())
 						player.setClanCreateExpiryTime(0);
 					
-					player.setSponsor(rs.getInt("sponsor"));
-					player.setLvlJoinedAcademy(rs.getInt("lvl_joined_academy"));
+					player.setSponsor(state.sponsor());
+					player.setLvlJoinedAcademy(state.levelJoinedAcademy());
 					
-					final Clan clan = ClanTable.getInstance().getClan(rs.getInt("clanid"));
+					final Clan clan = ClanTable.getInstance().getClan(state.clanId());
 					if (clan != null)
 					{
 						player.setClan(clan);
-						player.setPowerGrade(rs.getInt("power_grade"));
-						player.setPledgeType(rs.getInt("subpledge"));
+						player.setPowerGrade(state.powerGrade());
+						player.setPledgeType(state.subpledge());
 						player.setPledgeClass(ClanMember.calculatePledgeClass(player));
 					}
 					
-					player.setDeleteTimer(rs.getLong("deletetime"));
-					player.setTitle(rs.getString("title"));
-					int characterAccessLevel = rs.getInt("accesslevel");
+					player.setDeleteTimer(state.deleteTime());
+					player.setTitle(state.title());
+					int characterAccessLevel = state.accessLevel();
 					final var account = ext.mods.loginserver.data.sql.AccountTable.getInstance().getAccount(player.getAccountName());
 					final int accountAccessLevel = account != null ? account.getAccessLevel() : 0;
 					player.setAccessLevel(Math.max(characterAccessLevel, accountAccessLevel));
 					player.setUptime(System.currentTimeMillis());
-					player.setRecomHave(rs.getInt("rec_have"));
-					player.setRecomLeft(rs.getInt("rec_left"));
+					player.setRecomHave(state.recHave());
+					player.setRecomLeft(state.recLeft());
 					
 					player.getSubClassComponent().setClassIndex(0);
 					try
 					{
-						player.setBaseClass(rs.getInt("base_class"));
+						player.setBaseClass(state.baseClass());
 					}
 					catch (Exception e)
 					{
@@ -245,20 +203,20 @@ public final class PlayerPersistence
 					else
 						player.setClassTemplate(activeClassId);
 					
-					player.setApprentice(rs.getInt("apprentice"));
-					player.setIsIn7sDungeon(rs.getInt("isin7sdungeon") == 1);
+					player.setApprentice(state.apprentice());
+					player.setIsIn7sDungeon(state.inSevenSignsDungeon() == 1);
 					
-					player.getPunishment().load(rs.getInt("punish_level"), rs.getLong("punish_timer"));
+					player.getPunishment().load(state.punishmentLevel(), state.punishmentTimer());
 					
 					CursedWeaponManager.getInstance().checkPlayer(player);
 					
-					player.setAllianceWithVarkaKetra(rs.getInt("varka_ketra_ally"));
+					player.setAllianceWithVarkaKetra(state.varkaKetraAlly());
 					
-					player.setDeathPenaltyBuffLevel(rs.getInt("death_penalty_level"));
+					player.setDeathPenaltyBuffLevel(state.deathPenaltyLevel());
 					
-					player.setHeroUntil(rs.getLong("herountil"));
+					player.setHeroUntil(state.heroUntil());
 					
-					player.getPosition().set(rs.getInt("x"), rs.getInt("y"), rs.getInt("z"), rs.getInt("heading"));
+					player.getPosition().set(state.x(), state.y(), state.z(), state.heading());
 					
 					if (HeroManager.getInstance().isActiveHero(objectId))
 						player.setHero(true);
@@ -310,9 +268,9 @@ public final class PlayerPersistence
 					player.setRunning(true);
 					player.setStanding(true);
 					
-					final double currentHp = rs.getDouble("curHp");
+					final double currentHp = state.curHp();
 					
-					player.getStatus().setCpHpMp(rs.getDouble("curCp"), currentHp, rs.getDouble("curMp"));
+					player.getStatus().setCpHpMp(state.curCp(), currentHp, state.curMp());
 					
 					if (currentHp < 0.5)
 					{
@@ -325,21 +283,10 @@ public final class PlayerPersistence
 					
 					World.getInstance().addPlayer(player);
 					
-					try (PreparedStatement ps2 = con.prepareStatement(RESTORE_ACCOUNT_CHARS))
-					{
-						ps2.setString(1, player.getAccountNamePlayer());
-						ps2.setInt(2, objectId);
-						
-						try (ResultSet rs2 = ps2.executeQuery())
-						{
-							while (rs2.next())
-								player.getAccountChars().put(rs2.getInt("obj_Id"), rs2.getString("char_name"));
-						}
-					}
-					
-					return player;
-				}
-			}
+			for (final var character : CharacterLifecycleService.findAccountCharacters(player.getAccountNamePlayer(), objectId))
+				player.getAccountChars().put(character.objectId(), character.name());
+
+			return player;
 		}
 		catch (Exception e)
 		{
@@ -362,74 +309,26 @@ public final class PlayerPersistence
 		final int level = _owner.getStatus().getBaseClassLevel();
 		final int sp = _owner.getStatus().getBaseClassSp();
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(UPDATE_CHARACTER))
+		try
 		{
-			ps.setInt(1, level);
-			ps.setInt(2, _owner.getStatus().getMaxHp());
-			ps.setDouble(3, _owner.getStatus().getHp());
-			ps.setInt(4, _owner.getStatus().getMaxCp());
-			ps.setDouble(5, _owner.getStatus().getCp());
-			ps.setInt(6, _owner.getStatus().getMaxMp());
-			ps.setDouble(7, _owner.getStatus().getMp());
-			ps.setInt(8, _owner.getAppearance().getFace());
-			ps.setInt(9, _owner.getAppearance().getHairStyle());
-			ps.setInt(10, _owner.getAppearance().getHairColor());
-			ps.setInt(11, _owner.getAppearance().getSex().ordinal());
-			ps.setInt(12, _owner.getHeading());
-			
-			Location location = _owner.getBoatInfo().getDockLocation();
-			if (location.equals(Location.DUMMY_LOC))
-				location = (!_owner.isInObserverMode() ? _owner.getPosition() : _owner.getSavedLocation());
-			
-			ps.setInt(13, location.getX());
-			ps.setInt(14, location.getY());
-			ps.setInt(15, location.getZ());
-			
-			ps.setLong(16, exp);
-			ps.setLong(17, _owner.getExpBeforeDeath());
-			ps.setInt(18, sp);
-			ps.setInt(19, _owner.getKarma());
-			ps.setInt(20, _owner.getPvpKills());
-			ps.setInt(21, _owner.getPkKills());
-			ps.setInt(22, _owner.getClanId());
-			ps.setInt(23, _owner.getRace().ordinal());
-			ps.setInt(24, _owner.getClassId().getId());
-			ps.setLong(25, _owner.getDeleteTimer());
-			ps.setString(26, _owner.getTitle());
-			ps.setInt(27, _owner.getAccessLevel().getLevel());
-			ps.setInt(28, _owner.isOnlineInt());
-			ps.setInt(29, _owner.isIn7sDungeon() ? 1 : 0);
-			ps.setInt(30, _owner.wantsPeace() ? 1 : 0);
-			ps.setInt(31, _owner.getBaseClass());
-			
+			final Location location = resolveStoreLocation();
 			long totalOnlineTime = _owner.getOnlineTime();
 			if (_owner.getOnlineBeginTime() > 0)
 				totalOnlineTime += (System.currentTimeMillis() - _owner.getOnlineBeginTime()) / 1000;
-			
-			ps.setLong(32, totalOnlineTime);
-			ps.setInt(33, _owner.getPunishment().getType().ordinal());
-			ps.setLong(34, _owner.getPunishment().getTimer());
-			ps.setInt(35, _owner.isNoble() ? 1 : 0);
-			ps.setLong(36, _owner.getPowerGrade());
-			ps.setInt(37, _owner.getPledgeType());
-			ps.setInt(38, _owner.getLvlJoinedAcademy());
-			ps.setLong(39, _owner.getApprentice());
-			ps.setLong(40, _owner.getSponsor());
-			ps.setInt(41, _owner.getAllianceWithVarkaKetra());
-			ps.setLong(42, _owner.getClanJoinExpiryTime());
-			ps.setLong(43, _owner.getClanCreateExpiryTime());
-			ps.setString(44, _owner.getName());
-			ps.setLong(45, _owner.getDeathPenaltyBuffLevel());
-			ps.setLong(46, _owner.getHeroUntil());
-			ps.setInt(47, _owner.getObjectId());
-			
-			ps.execute();
+			CharacterLifecycleService.update(new CharacterState(_owner.getAccountName(), _owner.getObjectId(), _owner.getName(), level, _owner.getStatus().getMaxHp(), _owner.getStatus().getHp(), _owner.getStatus().getMaxCp(), _owner.getStatus().getCp(), _owner.getStatus().getMaxMp(), _owner.getStatus().getMp(), _owner.getAppearance().getFace(), _owner.getAppearance().getHairStyle(), _owner.getAppearance().getHairColor(), _owner.getAppearance().getSex().ordinal(), exp, sp, _owner.getRace().ordinal(), _owner.getClassId().getId(), _owner.getBaseClass(), _owner.getTitle(), _owner.getAccessLevel().getLevel(), 0, _owner.getHeading(), location.getX(), location.getY(), location.getZ(), _owner.getExpBeforeDeath(), _owner.getKarma(), _owner.getPvpKills(), _owner.getPkKills(), _owner.getClanId(), _owner.getDeleteTimer(), _owner.isOnlineInt(), _owner.isIn7sDungeon() ? 1 : 0, _owner.wantsPeace() ? 1 : 0, totalOnlineTime, _owner.getPunishment().getType().ordinal(), _owner.getPunishment().getTimer(), _owner.isNoble() ? 1 : 0, _owner.getPowerGrade(), _owner.getPledgeType(), _owner.getLvlJoinedAcademy(), _owner.getApprentice(), _owner.getSponsor(), _owner.getAllianceWithVarkaKetra(), _owner.getClanJoinExpiryTime(), _owner.getClanCreateExpiryTime(), _owner.getDeathPenaltyBuffLevel(), _owner.getHeroUntil(), 0, 0));
 		}
 		catch (Exception e)
 		{
 			LOGGER.error("Couldn't store player base data.", e);
 		}
+	}
+
+	private Location resolveStoreLocation()
+	{
+		Location location = _owner.getBoatInfo().getDockLocation();
+		if (location.equals(Location.DUMMY_LOC))
+			location = (!_owner.isInObserverMode() ? _owner.getPosition() : _owner.getSavedLocation());
+		return location;
 	}
 	
 	/**

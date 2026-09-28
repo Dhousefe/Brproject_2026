@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import ext.mods.commons.pool.ConnectionPool;
+import ext.mods.gameserver.data.repository.CharacterState;
 
 /** Optional PostgreSQL contract test for atomic character lifecycle persistence. */
 class JdbcCharacterStorePersistenceTest
 {
 	private static final int CHARACTER_ID = 2147483005;
 	private static final int ITEM_OBJECT_ID = 2147483006;
+	private static final int STATE_CHARACTER_ID = 2147483004;
 
 	@AfterEach
 	void tearDown()
@@ -25,6 +27,7 @@ class JdbcCharacterStorePersistenceTest
 		{
 			try (Connection con = ConnectionPool.getConnection())
 			{
+				deleteByColumn(con, "characters", "obj_Id", STATE_CHARACTER_ID);
 				deleteByColumn(con, "augmentations", "item_oid", ITEM_OBJECT_ID);
 				deleteByColumn(con, "pets", "item_obj_id", ITEM_OBJECT_ID);
 				deleteByColumn(con, "items", "owner_id", CHARACTER_ID);
@@ -52,6 +55,26 @@ class JdbcCharacterStorePersistenceTest
 			}
 		}
 		ConnectionPool.shutdown();
+	}
+
+	@Test
+	void persistsBasicCharacterStateThroughTheRepositoryContract() throws Exception
+	{
+		Assumptions.assumeTrue(databaseUrl() != null, "Set DB_TEST_URL to run the character persistence contract test");
+		ConnectionPool.init(databaseUrl(), databaseUser(), databasePassword(), "CharacterStateContractPool");
+		final JdbcCharacterStore store = new JdbcCharacterStore();
+		store.insert(CharacterState.initial("character-state-account", STATE_CHARACTER_ID, "CharacterStateContract", 1, 100, 100, 50, 50, 80, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0));
+
+		assertEquals(1, count("characters", "obj_Id", STATE_CHARACTER_ID));
+		final CharacterState restored = store.restore(STATE_CHARACTER_ID);
+		assertEquals("character-state-account", restored.accountName());
+		assertEquals("CharacterStateContract", restored.charName());
+		assertEquals(1, restored.level());
+
+		store.update(restored);
+		store.updateOnlineStatus(STATE_CHARACTER_ID, 1, 123456789L);
+		store.updateNobless(STATE_CHARACTER_ID, true);
+		assertEquals(1, count("characters", "obj_Id", STATE_CHARACTER_ID));
 	}
 
 	@Test
