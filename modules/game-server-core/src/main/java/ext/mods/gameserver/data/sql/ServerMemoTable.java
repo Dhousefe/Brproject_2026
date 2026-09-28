@@ -17,14 +17,11 @@
  */
 package ext.mods.gameserver.data.sql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.Map;
 
 import ext.mods.commons.data.MemoSet;
-import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
+import ext.mods.gameserver.data.service.ServerMemoPersistenceService;
 
 /**
  * A global, server-size, container for variables of any type, which can be then saved/restored upon server restart. It extends {@link MemoSet}.
@@ -35,17 +32,12 @@ public class ServerMemoTable extends MemoSet
 	
 	private static final CLogger LOGGER = new CLogger(ServerMemoTable.class.getName());
 	
-	private static final String SELECT_MEMOS = "SELECT * FROM server_memo";
-	private static final String DELETE_MEMO = "DELETE FROM server_memo WHERE var = ?";
-	
 	protected ServerMemoTable()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(SELECT_MEMOS);
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
-				put(rs.getString("var"), rs.getString("value"));
+			for (Map.Entry<String, String> memo : ServerMemoPersistenceService.load().entrySet())
+				put(memo.getKey(), memo.getValue());
 		}
 		catch (Exception e)
 		{
@@ -57,12 +49,9 @@ public class ServerMemoTable extends MemoSet
 	@Override
 	protected void onSet(String key, String value)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("server_memo", "var, value", "?, ?", "var", "value")))
+		try
 		{
-			ps.setString(1, key);
-			ps.setString(2, value);
-			ps.execute();
+			ServerMemoPersistenceService.upsert(key, value);
 		}
 		catch (Exception e)
 		{
@@ -73,11 +62,9 @@ public class ServerMemoTable extends MemoSet
 	@Override
 	protected void onUnset(String key)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_MEMO))
+		try
 		{
-			ps.setString(1, key);
-			ps.execute();
+			ServerMemoPersistenceService.delete(key);
 		}
 		catch (Exception e)
 		{
