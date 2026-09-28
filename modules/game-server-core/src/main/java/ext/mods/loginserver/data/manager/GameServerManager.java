@@ -22,9 +22,6 @@ import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.spec.RSAKeyGenParameterSpec;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,10 +29,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import ext.mods.commons.data.StatSet;
 import ext.mods.commons.data.xml.IXmlReader;
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.random.Rnd;
 
 import ext.mods.Config;
+import ext.mods.gameserver.data.repository.GameServerRegistration;
+import ext.mods.gameserver.data.service.GameServerRegistrationPersistenceService;
 import ext.mods.loginserver.model.GameServerInfo;
 
 import org.w3c.dom.Document;
@@ -45,9 +43,6 @@ public class GameServerManager implements IXmlReader
 	private static final CLogger LOGGER = new CLogger(GameServerManager.class.getName());
 	
 	private static final int KEYS_SIZE = 10;
-	
-	private static final String LOAD_SERVERS = "SELECT * FROM gameservers";
-	private static final String ADD_SERVER = "INSERT INTO gameservers (hexid,server_id,host) values (?,?,?)";
 	
 	private final Map<Integer, String> _serverNames = new HashMap<>();
 	private final Map<Integer, GameServerInfo> _registeredServers = new ConcurrentHashMap<>();
@@ -120,15 +115,13 @@ public class GameServerManager implements IXmlReader
 	
 	private void loadRegisteredGameServers()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_SERVERS);
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
+			for (GameServerRegistration registration : GameServerRegistrationPersistenceService.load())
 			{
-				final int id = rs.getInt("server_id");
-				final GameServerInfo gsi = new GameServerInfo(id, stringToHex(rs.getString("hexid")));
-				final String host = rs.getString("host");
+				final int id = registration.serverId();
+				final GameServerInfo gsi = new GameServerInfo(id, stringToHex(registration.hexId()));
+				final String host = registration.host();
 				if (host != null && !host.isBlank() && !"*".equals(host.trim()))
 				{
 					gsi.setHostName(host.trim());
@@ -179,13 +172,9 @@ public class GameServerManager implements IXmlReader
 	
 	public void registerServerOnDB(byte[] hexId, int id, String hostName)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(ADD_SERVER))
+		try
 		{
-			ps.setString(1, hexToString(hexId));
-			ps.setInt(2, id);
-			ps.setString(3, hostName);
-			ps.executeUpdate();
+			GameServerRegistrationPersistenceService.save(new GameServerRegistration(id, hexToString(hexId), hostName));
 		}
 		catch (Exception e)
 		{
