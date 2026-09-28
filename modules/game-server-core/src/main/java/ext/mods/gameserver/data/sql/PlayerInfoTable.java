@@ -17,16 +17,13 @@
  */
 package ext.mods.gameserver.data.sql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.repository.PlayerDirectoryEntry;
+import ext.mods.gameserver.data.service.PlayerInfoPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 
 /**
@@ -39,18 +36,14 @@ public final class PlayerInfoTable
 {
 	private static final CLogger LOGGER = new CLogger(PlayerInfoTable.class.getName());
 	
-	private static final String LOAD_DATA = "SELECT account_name, obj_Id, char_name, accesslevel FROM characters";
-	
 	private final Map<Integer, PlayerInfo> _infos = new ConcurrentHashMap<>();
 	
 	protected PlayerInfoTable()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_DATA);
-			ResultSet rs = ps.executeQuery())
+		try
 		{
-			while (rs.next())
-				_infos.put(rs.getInt("obj_Id"), new PlayerInfo(rs.getString("account_name"), rs.getString("char_name"), rs.getInt("accesslevel")));
+			for (PlayerDirectoryEntry entry : PlayerInfoPersistenceService.load())
+				_infos.put(entry.objectId(), new PlayerInfo(entry.accountName(), entry.playerName(), entry.accessLevel()));
 		}
 		catch (Exception e)
 		{
