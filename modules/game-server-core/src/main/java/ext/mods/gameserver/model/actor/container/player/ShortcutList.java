@@ -17,17 +17,15 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.Predicate;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.jdbc.SqlDialect;
-import ext.mods.commons.pool.ConnectionPool;
 
+import ext.mods.gameserver.data.repository.ShortcutRecord;
+import ext.mods.gameserver.data.service.PlayerAuxiliaryPersistenceService;
 import ext.mods.gameserver.enums.ShortcutType;
 import ext.mods.gameserver.enums.items.EtcItemType;
 import ext.mods.gameserver.model.Macro;
@@ -44,9 +42,6 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 	private static final long serialVersionUID = 1L;
 	
 	private static final CLogger LOGGER = new CLogger(ShortcutList.class.getName());
-	
-	private static final String DELETE_SHORTCUT = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND slot=? AND page=? AND class_index=?";
-	private static final String LOAD_SHORTCUTS = "SELECT char_obj_id, slot, page, type, id, level FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
 	
 	private static final int MAX_SHORTCUTS_PER_BAR = 12;
 	
@@ -121,17 +116,9 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 			if (oldShortcut != null)
 				deleteShortCutFromDb(oldShortcut);
 			
-			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(getInsertShortcutSql()))
+			try
 			{
-				ps.setInt(1, _owner.getObjectId());
-				ps.setInt(2, shortcut.getSlot());
-				ps.setInt(3, shortcut.getPage());
-				ps.setString(4, shortcut.getType().toString());
-				ps.setInt(5, shortcut.getId());
-				ps.setInt(6, shortcut.getLevel());
-				ps.setInt(7, _owner.getClassIndex());
-				ps.execute();
+				PlayerAuxiliaryPersistenceService.saveShortcut(_owner.getObjectId(), new ShortcutRecord(shortcut.getSlot(), shortcut.getPage(), shortcut.getType().toString(), shortcut.getId(), shortcut.getLevel(), _owner.getClassIndex()));
 			}
 			catch (Exception e)
 			{
@@ -170,14 +157,9 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 	
 	private void deleteShortCutFromDb(Shortcut shortcut)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_SHORTCUT))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, shortcut.getSlot());
-			ps.setInt(3, shortcut.getPage());
-			ps.setInt(4, _owner.getClassIndex());
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.deleteShortcut(_owner.getObjectId(), new ShortcutRecord(shortcut.getSlot(), shortcut.getPage(), shortcut.getType().toString(), shortcut.getId(), shortcut.getLevel(), _owner.getClassIndex()));
 		}
 		catch (Exception e)
 		{
@@ -192,19 +174,13 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 	{
 		clear();
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_SHORTCUTS))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, _owner.getClassIndex());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (ShortcutRecord record : PlayerAuxiliaryPersistenceService.loadShortcuts(_owner.getObjectId(), _owner.getClassIndex()))
 			{
-				while (rs.next())
-				{
-					final int slot = rs.getInt("slot");
-					final int page = rs.getInt("page");
-					final Shortcut shortcut = new Shortcut(slot, page, Enum.valueOf(ShortcutType.class, rs.getString("type")), rs.getInt("id"), rs.getInt("level"), 1);
+				final int slot = record.slot();
+				final int page = record.page();
+				final Shortcut shortcut = new Shortcut(slot, page, Enum.valueOf(ShortcutType.class, record.type()), record.id(), record.level(), 1);
 					
 					if (shortcut.getType() == ShortcutType.ITEM)
 					{
@@ -216,8 +192,7 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 							shortcut.setSharedReuseGroup(item.getEtcItem().getSharedReuseGroup());
 					}
 					
-					put(slot + (page * MAX_SHORTCUTS_PER_BAR), shortcut);
-				}
+				put(slot + (page * MAX_SHORTCUTS_PER_BAR), shortcut);
 			}
 		}
 		catch (Exception e)
@@ -237,9 +212,9 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 		if (shortcuts.isEmpty())
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(getInsertShortcutSql()))
+		try
 		{
+			final List<ShortcutRecord> records = new ArrayList<>(shortcuts.size());
 			for (Shortcut s : shortcuts)
 			{
 				if (level > 0)
@@ -247,16 +222,9 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 				
 				_owner.sendPacket(new ShortCutRegister(_owner, s));
 				
-				ps.setInt(1, _owner.getObjectId());
-				ps.setInt(2, s.getSlot());
-				ps.setInt(3, s.getPage());
-				ps.setString(4, s.getType().toString());
-				ps.setInt(5, s.getId());
-				ps.setInt(6, s.getLevel());
-				ps.setInt(7, _owner.getClassIndex());
-				ps.addBatch();
+				records.add(new ShortcutRecord(s.getSlot(), s.getPage(), s.getType().toString(), s.getId(), s.getLevel(), _owner.getClassIndex()));
 			}
-			ps.executeBatch();
+			PlayerAuxiliaryPersistenceService.saveShortcuts(_owner.getObjectId(), records);
 		}
 		catch (Exception e)
 		{
@@ -264,11 +232,6 @@ public class ShortcutList extends ConcurrentSkipListMap<Integer, Shortcut>
 		}
 	}
 
-	private static String getInsertShortcutSql()
-	{
-		return SqlDialect.upsert("character_shortcuts", "char_obj_id,slot,page,type,id,level,class_index", "?,?,?,?,?,?,?", "char_obj_id,slot,page,class_index", "type,id,level");
-	}
-	
 	/**
 	 * Refresh all occurences of {@link Shortcut}s based on a {@link Predicate}.
 	 * @param predicate : The {@link Predicate} to use as filter.

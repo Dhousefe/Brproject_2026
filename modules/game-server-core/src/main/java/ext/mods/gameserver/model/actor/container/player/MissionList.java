@@ -17,9 +17,6 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +25,11 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.jdbc.SqlDialect;
-import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
 import ext.mods.gameserver.custom.data.MissionData;
+import ext.mods.gameserver.data.repository.MissionRecord;
+import ext.mods.gameserver.data.service.PlayerAuxiliaryPersistenceService;
 import ext.mods.gameserver.enums.SayType;
 import ext.mods.gameserver.enums.actors.MissionType;
 import ext.mods.gameserver.model.Mission;
@@ -47,8 +44,6 @@ public class MissionList
 {
 	private static final CLogger LOGGER = new CLogger(MissionList.class.getName());
 	
-	private static final String LOAD_MISSION = "SELECT * FROM character_mission WHERE object_id=?";
-	
 	private final Player _player;
 	private Map<MissionType, IntIntHolder> _entries = new HashMap<>();
 	
@@ -62,14 +57,11 @@ public class MissionList
 		if (!ConfigProject.ENABLE_MISSION)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_MISSION))
+		try
 		{
-			ps.setInt(1, _player.getObjectId());
-			try (ResultSet rs = ps.executeQuery())
+			for (MissionRecord record : PlayerAuxiliaryPersistenceService.loadMissions(_player.getObjectId()))
 			{
-				while (rs.next())
-					_entries.put(MissionType.valueOf(rs.getString("type")), new IntIntHolder(rs.getInt("level"), rs.getInt("value")));
+				_entries.put(MissionType.valueOf(record.type()), new IntIntHolder(record.level(), record.value()));
 			}
 		}
 		catch (Exception e)
@@ -83,20 +75,17 @@ public class MissionList
 		if (!ConfigProject.ENABLE_MISSION)
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("character_mission", "object_id,type,level,value", "?,?,?,?", "object_id,type", "level,value")))
+		try
 		{
+			final List<MissionRecord> records = new java.util.ArrayList<>();
 			for (Entry<MissionType, IntIntHolder> mission : _entries.entrySet())
 			{
 				if (mission.getValue().getId() == 0 && mission.getValue().getValue() == 0)
 					continue;
 				
-				ps.setInt(1, _player.getObjectId());
-				ps.setString(2, String.valueOf(mission.getKey()));
-				ps.setInt(3, mission.getValue().getId());
-				ps.setInt(4, mission.getValue().getValue());
-				ps.executeUpdate();
+				records.add(new MissionRecord(String.valueOf(mission.getKey()), mission.getValue().getId(), mission.getValue().getValue()));
 			}
+			PlayerAuxiliaryPersistenceService.saveMissions(_player.getObjectId(), records);
 		}
 		catch (Exception e)
 		{

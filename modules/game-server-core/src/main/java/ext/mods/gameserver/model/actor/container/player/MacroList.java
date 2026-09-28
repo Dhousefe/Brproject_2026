@@ -17,19 +17,16 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import ext.mods.commons.lang.StringUtil;
-import ext.mods.commons.jdbc.SqlDialect;
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
 
+import ext.mods.gameserver.data.repository.MacroRecord;
+import ext.mods.gameserver.data.service.PlayerAuxiliaryPersistenceService;
 import ext.mods.gameserver.enums.ShortcutType;
 import ext.mods.gameserver.model.Macro;
 import ext.mods.gameserver.model.actor.Player;
@@ -44,9 +41,6 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 	private static final long serialVersionUID = 1L;
 	
 	private static final CLogger LOGGER = new CLogger(MacroList.class.getName());
-	
-	private static final String DELETE_MACRO = "DELETE FROM character_macroses WHERE char_obj_id=? AND id=?";
-	private static final String LOAD_MACROS = "SELECT char_obj_id, id, icon, name, descr, acronym, commands FROM character_macroses WHERE char_obj_id=?";
 	
 	private final Player _owner;
 	
@@ -138,17 +132,9 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 		if (sb.length() > 255)
 			sb.setLength(255);
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(SqlDialect.upsert("character_macroses", "char_obj_id,id,icon,name,descr,acronym,commands", "?,?,?,?,?,?,?", "char_obj_id,id", "icon,name,descr,acronym,commands")))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, macro.id);
-			ps.setInt(3, macro.icon);
-			ps.setString(4, macro.name);
-			ps.setString(5, macro.descr);
-			ps.setString(6, macro.acronym);
-			ps.setString(7, sb.toString());
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.saveMacro(_owner.getObjectId(), new MacroRecord(macro.id, macro.icon, macro.name, macro.descr, macro.acronym, sb.toString()));
 		}
 		catch (Exception e)
 		{
@@ -162,12 +148,9 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 	 */
 	private void deleteMacroFromDb(Macro macro)
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_MACRO))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, macro.id);
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.deleteMacro(_owner.getObjectId(), macro.id);
 		}
 		catch (Exception e)
 		{
@@ -182,20 +165,15 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 	{
 		super.clear();
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_MACROS))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (MacroRecord record : PlayerAuxiliaryPersistenceService.loadMacros(_owner.getObjectId()))
 			{
-				while (rs.next())
-				{
-					final int id = rs.getInt("id");
-					final int icon = rs.getInt("icon");
-					String name = rs.getString("name");
-					String descr = rs.getString("descr");
-					String acronym = rs.getString("acronym");
+					final int id = record.id();
+					final int icon = record.icon();
+					String name = record.name();
+					String descr = record.description();
+					String acronym = record.acronym();
 					
 					if (name != null && name.length() > 12)
 						name = name.substring(0, 12);
@@ -205,7 +183,7 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 						acronym = acronym.substring(0, 4);
 					
 					final List<MacroCmd> commands = new ArrayList<>();
-					final StringTokenizer st1 = new StringTokenizer(rs.getString("commands"), ";");
+					final StringTokenizer st1 = new StringTokenizer(record.commands(), ";");
 					
 					while (st1.hasMoreTokens())
 					{
@@ -227,7 +205,6 @@ public class MacroList extends LinkedHashMap<Integer, Macro>
 					
 					final Macro macro = new Macro(id, icon, name, descr, acronym, commands.toArray(new MacroCmd[commands.size()]));
 					put(macro.id, macro);
-				}
 			}
 		}
 		catch (Exception e)

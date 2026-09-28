@@ -17,16 +17,12 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.service.PlayerAuxiliaryPersistenceService;
 import ext.mods.gameserver.data.xml.RecipeData;
 import ext.mods.gameserver.enums.ShortcutType;
 import ext.mods.gameserver.model.Shortcut;
@@ -37,10 +33,6 @@ import ext.mods.gameserver.model.records.Recipe;
 public class RecipeBook
 {
 	private static final CLogger LOGGER = new CLogger(RecipeBook.class.getName());
-	
-	private static final String INSERT_RECIPE = "INSERT INTO character_recipebook (charId, recipeId) VALUES (?,?)";
-	private static final String DELETE_RECIPE = "DELETE FROM character_recipebook WHERE charId=? AND recipeId=?";
-	private static final String LOAD_RECIPE_BOOK = "SELECT recipeId FROM character_recipebook WHERE charId=?";
 	
 	private final Player _owner;
 	
@@ -121,12 +113,9 @@ public class RecipeBook
 		
 		if (saveOnDb)
 		{
-			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(INSERT_RECIPE))
+			try
 			{
-				ps.setInt(1, _owner.getObjectId());
-				ps.setInt(2, recipe.id());
-				ps.execute();
+				PlayerAuxiliaryPersistenceService.addRecipe(_owner.getObjectId(), recipe.id());
 			}
 			catch (Exception e)
 			{
@@ -151,12 +140,9 @@ public class RecipeBook
 		
 		_owner.getShortcutList().deleteShortcuts(recipeId, ShortcutType.RECIPE);
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(DELETE_RECIPE))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, recipeId);
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.deleteRecipe(_owner.getObjectId(), recipeId);
 		}
 		catch (Exception e)
 		{
@@ -169,18 +155,12 @@ public class RecipeBook
 	 */
 	public void restore()
 	{
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement(LOAD_RECIPE_BOOK))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (int recipeId : PlayerAuxiliaryPersistenceService.loadRecipes(_owner.getObjectId()))
 			{
-				while (rs.next())
-				{
-					final Recipe recipe = RecipeData.getInstance().getRecipeList(rs.getInt("recipeId"));
-					putRecipe(recipe, recipe.isDwarven(), false);
-				}
+				final Recipe recipe = RecipeData.getInstance().getRecipeList(recipeId);
+				putRecipe(recipe, recipe.isDwarven(), false);
 			}
 		}
 		catch (Exception e)

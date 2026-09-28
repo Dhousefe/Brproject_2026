@@ -82,3 +82,13 @@ The periodic `ItemInstanceTaskManager` still controls when dirty items are
 flushed; it now delegates the batch to `ItemPersistenceService`. The model
 continues to decide which item state is dirty, while the adapter owns SQL,
 upsert syntax and JDBC connections.
+
+## `PlayerAuxiliaryStore`
+
+`ext.mods.gameserver.data.repository.PlayerAuxiliaryStore` groups the
+character-owned auxiliary state that is restored and saved around the player
+session: macros, shortcuts, recipes, hennas, mission progress and memos.
+`JdbcPlayerAuxiliaryStore` is the only class in this group that knows the table
+names, JDBC statements and dialect-specific upserts. The player models keep
+their validation, parsing and packet behavior and call
+`PlayerAuxiliaryPersistenceService` for persistence.
