@@ -70,3 +70,15 @@ the subsequent creation of the replacement slot remains orchestrated by
 and saved effect/cooldown state. `JdbcSkillStore.replaceSkillSaves` replaces
 the saved state in one transaction, while `PlayerSkillsDb` continues to own
 skill lookup, effect construction and runtime cooldown decisions.
+
+## `ItemStore`
+
+`ext.mods.gameserver.data.repository.ItemStore` owns item restoration, item
+upserts, augmentation state and pet-item cleanup. `JdbcItemStore` performs one
+joined read for item plus augmentation state, preserving the old behavior while
+removing the per-item SQL call from `ItemInstance`.
+
+The periodic `ItemInstanceTaskManager` still controls when dirty items are
+flushed; it now delegates the batch to `ItemPersistenceService`. The model
+continues to decide which item state is dirty, while the adapter owns SQL,
+upsert syntax and JDBC connections.

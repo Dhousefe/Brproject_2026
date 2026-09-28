@@ -17,20 +17,14 @@
  */
 package ext.mods.gameserver.taskmanager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.jdbc.SqlDialect;
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.commons.pool.ThreadPool;
 
-import ext.mods.gameserver.enums.items.ItemLocation;
-import ext.mods.gameserver.model.Augmentation;
+import ext.mods.gameserver.data.service.ItemPersistenceService;
 import ext.mods.gameserver.model.item.instance.ItemInstance;
-import ext.mods.gameserver.model.item.kind.Weapon;
 
 /**
  * Lazy save items upon database. Delete old items.
@@ -38,12 +32,6 @@ import ext.mods.gameserver.model.item.kind.Weapon;
 public class ItemInstanceTaskManager implements Runnable
 {
 	private static final CLogger LOGGER = new CLogger(ItemInstanceTaskManager.class.getName());
-	
-	private static final String DELETE_ITEM = "DELETE FROM items WHERE object_id=?";
-	
-	private static final String DELETE_PET_ITEM = "DELETE FROM pets WHERE item_obj_id=?";
-	
-	private static final String DELETE_AUGMENTATION = "DELETE FROM augmentations WHERE item_oid=?";
 	
 	private final Set<ItemInstance> _items = ConcurrentHashMap.newKeySet();
 	
@@ -96,85 +84,9 @@ public class ItemInstanceTaskManager implements Runnable
 		if (items.isEmpty())
 			return;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps1 = con.prepareStatement(getInsertItemSql());
-			PreparedStatement ps2 = con.prepareStatement(getUpdateAugmentationSql());
-			PreparedStatement ps3 = con.prepareStatement(DELETE_ITEM);
-			PreparedStatement ps4 = con.prepareStatement(DELETE_AUGMENTATION);
-			PreparedStatement ps5 = con.prepareStatement(DELETE_PET_ITEM))
+		try
 		{
-			for (ItemInstance item : items)
-			{
-				final boolean isWeapon = item.getItem() instanceof Weapon;
-				
-				if (item.getCount() <= 0 || item.getLocation() == ItemLocation.VOID)
-				{
-					ps3.setInt(1, item.getObjectId());
-					ps3.addBatch();
-					
-					if (item.getCount() <= 0)
-					{
-						if (isWeapon)
-						{
-							ps4.setInt(1, item.getObjectId());
-							ps4.addBatch();
-						}
-						
-						if (item.isSummonItem())
-						{
-							ps5.setInt(1, item.getObjectId());
-							ps5.addBatch();
-						}
-					}
-					continue;
-				}
-				
-				ps1.setInt(1, item.getOwnerId());
-				ps1.setInt(2, item.getObjectId());
-				ps1.setInt(3, item.getItemId());
-				ps1.setInt(4, item.getCount());
-				ps1.setInt(5, item.getEnchantLevel());
-				ps1.setString(6, item.getLocation().name());
-				ps1.setInt(7, item.getLocationSlot());
-				ps1.setInt(8, item.getCustomType1());
-				ps1.setInt(9, item.getCustomType2());
-				ps1.setInt(10, item.getManaLeft());
-				ps1.setLong(11, item.getTime());
-				ps1.addBatch();
-				
-				if (isWeapon)
-				{
-					final Augmentation aug = item.getAugmentation();
-					if (item.getAugmentation() == null)
-					{
-						ps4.setInt(1, item.getObjectId());
-						ps4.addBatch();
-					}
-					else
-					{
-						ps2.setInt(1, item.getObjectId());
-						ps2.setInt(2, aug.getId());
-						
-						if (aug.getSkill() == null)
-						{
-							ps2.setInt(3, 0);
-							ps2.setInt(4, 0);
-						}
-						else
-						{
-							ps2.setInt(3, aug.getSkill().getId());
-							ps2.setInt(4, aug.getSkill().getLevel());
-						}
-						ps2.addBatch();
-					}
-				}
-			}
-			
-			ps1.executeBatch();
-			ps2.executeBatch();
-			ps3.executeBatch();
-			ps4.executeBatch();
-			ps5.executeBatch();
+			ItemPersistenceService.saveItems(items);
 		}
 		catch (Exception e)
 		{
@@ -184,16 +96,6 @@ public class ItemInstanceTaskManager implements Runnable
 		items.clear();
 	}
 
-	private static String getInsertItemSql()
-	{
-		return SqlDialect.upsert("items", "owner_id,object_id,item_id,count,enchant_level,loc,loc_data,custom_type1,custom_type2,mana_left,time", "?,?,?,?,?,?,?,?,?,?,?", "object_id", "owner_id,count,loc,loc_data,enchant_level,custom_type1,custom_type2,mana_left,time");
-	}
-
-	private static String getUpdateAugmentationSql()
-	{
-		return SqlDialect.upsert("augmentations", "item_oid,attributes,skill_id,skill_level", "?,?,?,?", "item_oid", "attributes,skill_id,skill_level");
-	}
-	
 	/**
 	 * Manually trigger the task. Used by shutdown process.
 	 */

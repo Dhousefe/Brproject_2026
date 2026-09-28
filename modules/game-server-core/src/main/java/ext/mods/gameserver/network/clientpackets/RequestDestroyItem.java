@@ -17,19 +17,14 @@
  */
 package ext.mods.gameserver.network.clientpackets;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
-import ext.mods.commons.pool.ConnectionPool;
 import ext.mods.gameserver.data.manager.CursedWeaponManager;
+import ext.mods.gameserver.data.service.ItemPersistenceService;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.network.SystemMessageId;
 
 public final class RequestDestroyItem extends L2GameClientPacket
 {
-	private static final String DELETE_PET = "DELETE FROM pets WHERE item_obj_id=?";
-	
 	private int _objectId;
 	private int _count;
 	
@@ -84,11 +79,9 @@ public final class RequestDestroyItem extends L2GameClientPacket
 				return;
 			}
 			
-			try (Connection con = ConnectionPool.getConnection();
-				PreparedStatement ps = con.prepareStatement(DELETE_PET))
+			try
 			{
-				ps.setInt(1, _objectId);
-				ps.execute();
+				ItemPersistenceService.deletePet(_objectId);
 			}
 			catch (Exception e)
 			{
