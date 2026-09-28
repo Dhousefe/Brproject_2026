@@ -8,6 +8,17 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
+# WSLg Display Auto-detection para GUI / Swing DashboardPanel
+if [[ -z "${DISPLAY:-}" ]] && [[ -e "/tmp/.X11-unix/X0" || -d "/mnt/wslg" ]]; then
+  export DISPLAY=":0"
+fi
+if [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ -e "/mnt/wslg/runtime-dir/wayland-0" ]]; then
+  export WAYLAND_DISPLAY="wayland-0"
+fi
+if [[ -z "${XDG_RUNTIME_DIR:-}" ]] && [[ -d "/run/user/$(id -u)" ]]; then
+  export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+fi
+
 # shellcheck source=cache/brproject-java.inc.sh
 source "$ROOT/cache/brproject-java.inc.sh"
 # shellcheck source=cache/brproject-classpath.inc.sh
