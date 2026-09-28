@@ -17,16 +17,13 @@
  */
 package ext.mods.gameserver.model.actor.container.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import ext.mods.commons.logging.CLogger;
-import ext.mods.commons.pool.ConnectionPool;
-
+import ext.mods.gameserver.data.repository.HennaRecord;
+import ext.mods.gameserver.data.service.PlayerAuxiliaryPersistenceService;
 import ext.mods.gameserver.data.xml.HennaData;
 import ext.mods.gameserver.enums.actors.ClassId;
 import ext.mods.gameserver.enums.actors.HennaType;
@@ -136,18 +133,12 @@ public class HennaList
 	{
 		final Henna[] hennas = new Henna[MAX_HENNAS_AMOUNT];
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT slot, symbol_id FROM character_hennas WHERE char_obj_id = ? AND class_index = ?"))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, _owner.getClassIndex());
-			
-			try (ResultSet rs = ps.executeQuery())
+			for (HennaRecord record : PlayerAuxiliaryPersistenceService.loadHennas(_owner.getObjectId(), _owner.getClassIndex()))
 			{
-				while (rs.next())
-				{
-					final int slot = rs.getInt("slot");
-					final int symbolId = rs.getInt("symbol_id");
+					final int slot = record.slot();
+					final int symbolId = record.symbolId();
 					
 					if (slot < HENNA_FIRST_SLOT_ID || slot > HENNA_FIRST_SLOT_ID + MAX_HENNAS_AMOUNT)
 					{
@@ -163,7 +154,6 @@ public class HennaList
 					}
 					
 					hennas[slot - HENNA_FIRST_SLOT_ID] = henna;
-				}
 			}
 		}
 		catch (Exception e)
@@ -261,14 +251,9 @@ public class HennaList
 		
 		_hennas[slot] = henna;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO character_hennas (char_obj_id,symbol_id,slot,class_index) VALUES (?,?,?,?)"))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, henna.symbolId());
-			ps.setInt(3, slot + HENNA_FIRST_SLOT_ID);
-			ps.setInt(4, _owner.getClassIndex());
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.addHenna(_owner.getObjectId(), new HennaRecord(slot + HENNA_FIRST_SLOT_ID, henna.symbolId()), _owner.getClassIndex());
 		}
 		catch (Exception e)
 		{
@@ -291,13 +276,9 @@ public class HennaList
 		
 		_hennas[slot] = null;
 		
-		try (Connection con = ConnectionPool.getConnection();
-			PreparedStatement ps = con.prepareStatement("DELETE FROM character_hennas WHERE char_obj_id=? AND slot=? AND class_index=?"))
+		try
 		{
-			ps.setInt(1, _owner.getObjectId());
-			ps.setInt(2, slot + HENNA_FIRST_SLOT_ID);
-			ps.setInt(3, _owner.getClassIndex());
-			ps.execute();
+			PlayerAuxiliaryPersistenceService.deleteHenna(_owner.getObjectId(), slot + HENNA_FIRST_SLOT_ID, _owner.getClassIndex());
 		}
 		catch (Exception e)
 		{
