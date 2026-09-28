@@ -9,6 +9,12 @@ or JDBC statements directly.
 `ext.mods.gameserver.data.repository.CharacterStore` owns the persistence
 operations required by the character lifecycle:
 
+- `insert(state)` creates the initial character row;
+- `update(state)` persists the rollback-sensitive base character state;
+- `restore(objectId)` and `findAccountCharacters(account, excludedId)` load
+  character state for login;
+- `updateOnlineStatus(objectId, online, lastAccess)` records session state;
+- `updateNobless(objectId, noble)` persists the noblesse flag;
 - `findClanId(objectId)` reads the clan relationship needed before deletion;
 - `updateDeleteTime(objectId, deleteTime)` schedules or restores deletion;
 - `deleteCharacter(objectId)` removes the character and all owned records.
@@ -16,6 +22,13 @@ operations required by the character lifecycle:
 The contract deliberately does not expose `Connection`, `PreparedStatement`,
 SQL strings, or a database-specific type. `JdbcCharacterStore` is the current
 adapter and is responsible for SQL dialect details and connection handling.
+
+The same contract also owns the basic character-row lifecycle used by creation,
+login restoration, autosave/logout, online status and noblesse updates.
+`CharacterState` is a value-only snapshot: the model assembles or applies it,
+while `JdbcCharacterStore` performs the JDBC mapping. This keeps the
+rollback-sensitive character row behind one persistence boundary without
+moving gameplay decisions into the adapter.
 
 ### Transaction boundary
 
