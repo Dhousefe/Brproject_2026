@@ -145,13 +145,13 @@ public class LoginServer
 		AccountTable.getInstance();
 
 		String os = System.getProperty("os.name").toLowerCase();
-		if ((os.contains("win") || os.contains("mac")) && !GraphicsEnvironment.isHeadless())
+		if (!GraphicsEnvironment.isHeadless())
 		{
 			try
 			{
-				System.out.println("Login: Running in Interface GUI (Windows).");
+				System.out.println("Login: Running in Interface GUI (" + os + ").");
 				new InterfaceLS();
-				// Oculta o cmd.exe 6 segundos apos o GUI abrir.
+
 				ConsoleWindow.hideAfter(6000);
 			}
 			catch (Throwable t)
@@ -162,7 +162,7 @@ public class LoginServer
 		}
 		else
 		{
-			System.out.println("Login: Running in console mode (" + os + ").");
+			System.out.println("Login: Running in console mode (headless " + os + ").");
 		}
 		
 		StringUtil.printSection("LoginController");

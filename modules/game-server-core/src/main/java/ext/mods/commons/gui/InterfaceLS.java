@@ -253,13 +253,47 @@ public class InterfaceLS {
     }
 
     private void redirectSystemStreams() {
+        final PrintStream originalOut = System.out;
+        final PrintStream originalErr = System.err;
+
         OutputStream out = new OutputStream() {
-            @Override public void write(int b) { updateConsole(String.valueOf((char) b)); }
-            @Override public void write(byte[] b, int off, int len) { updateConsole(new String(b, off, len, StandardCharsets.UTF_8)); }
-            @Override public void write(byte[] b) { write(b, 0, b.length); }
+            @Override public void write(int b) {
+                originalOut.write(b);
+                updateConsole(String.valueOf((char) b));
+            }
+            @Override public void write(byte[] b, int off, int len) {
+                originalOut.write(b, off, len);
+                updateConsole(new String(b, off, len, StandardCharsets.UTF_8));
+            }
+            @Override public void write(byte[] b) {
+                originalOut.write(b, 0, b.length);
+                updateConsole(new String(b, 0, b.length, StandardCharsets.UTF_8));
+            }
+            @Override public void flush() {
+                originalOut.flush();
+            }
         };
+
+        OutputStream err = new OutputStream() {
+            @Override public void write(int b) {
+                originalErr.write(b);
+                updateConsole(String.valueOf((char) b));
+            }
+            @Override public void write(byte[] b, int off, int len) {
+                originalErr.write(b, off, len);
+                updateConsole(new String(b, off, len, StandardCharsets.UTF_8));
+            }
+            @Override public void write(byte[] b) {
+                originalErr.write(b, 0, b.length);
+                updateConsole(new String(b, 0, b.length, StandardCharsets.UTF_8));
+            }
+            @Override public void flush() {
+                originalErr.flush();
+            }
+        };
+
         System.setOut(new PrintStream(out, true, StandardCharsets.UTF_8));
-        System.setErr(new PrintStream(out, true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(err, true, StandardCharsets.UTF_8));
 
         installJavaUtilLoggingHandler();
     }

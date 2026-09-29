@@ -59,6 +59,18 @@ class ServerListHostResolutionTest
 	}
 
 	@Test
+	@DisplayName("Deve retornar 127.0.0.1 quando configuredHost for 127.0.0.1 e cliente conectar via loopback (WSL2/Local)")
+	void testResolveServerHostWithExplicitLoopbackClient() throws UnknownHostException
+	{
+		final GameServerInfo gsi = new GameServerInfo(1, new byte[16]);
+		gsi.setHostName("127.0.0.1");
+
+		final InetAddress clientIp = InetAddress.getByName("127.0.0.1");
+		final String resolved = ServerList.resolveServerHostForClient(clientIp, gsi);
+		assertEquals("127.0.0.1", resolved, "Deve retornar 127.0.0.1 para que clientes no mesmo host nao recebam IP virtual de LAN");
+	}
+
+	@Test
 	@DisplayName("getLocalLanAddress() deve retornar um endereco valido e nao lancar excecao")
 	void testGetLocalLanAddress()
 	{

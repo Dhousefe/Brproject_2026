@@ -943,7 +943,8 @@ public class ProcessManagerService {
         command.add("-Dfile.encoding=UTF-8");
         command.add("-Dsun.stdout.encoding=UTF-8");
         command.add("-Dsun.stderr.encoding=UTF-8");
-        
+        command.add("--enable-native-access=ALL-UNNAMED");
+
         if ("loginserver".equalsIgnoreCase(tipo)) {
             command.add("-Dext.mods.Config.dataPath=../game/data");
         }
@@ -988,10 +989,6 @@ public class ProcessManagerService {
             command.add(userEmail);
         }
 
-        // Desabilitado: ocultando log do comando JVM para manter painel limpo
-        // System.out.println("\n--- COMANDO JVM OTIMIZADO ---");
-        // System.out.println(String.join(" ", command));
-        // System.out.println("-----------------------------\n");
 
         new Thread(() -> {
             try {
@@ -1003,6 +1000,10 @@ public class ProcessManagerService {
                     this.gameServerProcess = processo;
                 } else if ("loginserver".equalsIgnoreCase(tipo)) {
                     this.loginServerProcess = processo;
+                }
+
+                if ((ext.mods.config.ConfigServer.ENABLE_NATIVE_PROXY || ext.mods.config.ConfigServer.NATIVE_PROXY_AUTO_START) && !isNativeProxyRunning()) {
+                    startNativeProxy(new File("."));
                 }
 
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getInputStream(), StandardCharsets.UTF_8))) {

@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.disruptor)
     implementation(libs.gson)
     implementation(libs.slf4j.api)
+    runtimeOnly("ch.qos.logback:logback-classic:1.5.18")
     implementation(libs.micrometer.core)
     implementation(libs.micrometer.prometheus)
 

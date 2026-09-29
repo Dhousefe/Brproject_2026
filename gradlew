@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #
 # Copyright © 2015-2021 the original authors.
@@ -92,6 +92,10 @@ APP_HOME=$( cd -P "${APP_HOME:-./}" > /dev/null && printf '%s
 # --- BrProject: Auto-deteccao de Java 25 compativel ---
 if [ -f "$APP_HOME/cache/brproject-java.inc.sh" ]; then
     . "$APP_HOME/cache/brproject-java.inc.sh" >/dev/null 2>&1 || true
+    if [ -n "${JAVA_CMD:-}" ]; then
+        JAVACMD="$JAVA_CMD"
+        export JAVACMD JAVA_HOME
+    fi
 fi
 
 # --- BrProject: Atalhos customizados equivalentes ao gradlew.bat ---

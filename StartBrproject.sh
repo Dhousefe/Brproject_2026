@@ -42,6 +42,9 @@ JVM_FLAGS=(
   -Dbrproject.devAuth=true
 )
 
+if [[ "${JAVA_MAJOR:-0}" -ge 21 ]]; then
+  JVM_FLAGS+=(--enable-native-access=ALL-UNNAMED)
+fi
 if [[ "${JAVA_MAJOR:-0}" -ge 25 ]]; then
   JVM_FLAGS+=(-XX:+UseCompactObjectHeaders)
 fi

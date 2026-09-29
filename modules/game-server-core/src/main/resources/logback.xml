@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BrProject GameServer — Logback configuration for production and development.
+  Filters noisy internal debug messages from Netty, HikariCP, and SQLite.
+-->
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Silencia testes de plataforma e debugs do Netty (Unsafe, DirectByteBuffer, Cleaner) -->
+    <logger name="io.netty" level="WARN"/>
+
+    <!-- Silencia o housekeeper periódico de 30s do HikariCP -->
+    <logger name="com.zaxxer.hikari" level="WARN"/>
+    <logger name="com.zaxxer.hikari.pool.HikariPool" level="WARN"/>
+
+    <!-- Silencia debugs do driver SQLite -->
+    <logger name="org.sqlite" level="WARN"/>
+
+    <!-- Nivel padrao limpo para aplicacao -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

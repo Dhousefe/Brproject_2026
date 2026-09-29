@@ -55,22 +55,34 @@ while true; do
     echo
     case "$opt" in
         1)
-            echo -e "${GREEN}--- Compilando incrementalmente... ---${NC}"
-            "$ROOT/gradlew" br-compile
+            echo -e "${GREEN}--- Compilando incrementalmente (Java 25)... ---${NC}"
+            if bash "$ROOT/gradlew" br-compile --console=plain; then
+                echo
+                echo -e "${GREEN}[SUCESSO] Compilacao concluida com sucesso!${NC}"
+                if [ -f "$ROOT/StartBrproject.sh" ]; then
+                    echo -n -e "${CYAN}Deseja iniciar o Launcher (StartBrproject.sh) agora? [S/n]: ${NC}"
+                    read -r start_now || start_now="s"
+                    if [[ "$start_now" =~ ^[sSyY]?$ ]]; then
+                        exec "$ROOT/StartBrproject.sh"
+                    fi
+                fi
+            else
+                echo -e "${RED}[ERRO] A compilacao falhou. Verifique as mensagens acima.${NC}"
+            fi
             echo
             echo -e "${CYAN}Pressione [Enter] para voltar ao menu...${NC}"
             read -r _
             ;;
         2)
             echo -e "${YELLOW}--- Executando Clean + Compilacao Completa... ---${NC}"
-            "$ROOT/gradlew" br-compile-clean
+            bash "$ROOT/gradlew" br-compile-clean --console=plain
             echo
             echo -e "${CYAN}Pressione [Enter] para voltar ao menu...${NC}"
             read -r _
             ;;
         3)
             echo -e "${MAGENTA}--- Executando br-start (Compilando e Inicializando)... ---${NC}"
-            "$ROOT/gradlew" br-start
+            bash "$ROOT/gradlew" br-start
             echo
             echo -e "${CYAN}Pressione [Enter] para voltar ao menu...${NC}"
             read -r _

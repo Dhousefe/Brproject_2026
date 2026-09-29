@@ -109,10 +109,9 @@ public class Shutdown extends Thread
 	{
 		if (this == SingletonHolder.INSTANCE)
 		{
-			String os = System.getProperty("os.name").toLowerCase();
-			if ((os.contains("win") || os.contains("mac")))
+			if (!java.awt.GraphicsEnvironment.isHeadless())
 				playServerLoadedSound();
-			
+
 			GameListenerManager.getInstance().notifyShutdown();
 			StringUtil.printSection("Under " + MODE_TEXT[_shutdownMode] + " process");
 			

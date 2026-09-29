@@ -65,24 +65,21 @@ public final class ProxyMain {
 
         for (ProxyRoute route : config.enabledRoutes()) {
             try {
-                switch (route.type()) {
-                    case TCP -> {
-                        TcpProxyServer server = new TcpProxyServer(route, limiter);
-                        server.start();
-                        servers.add(server);
-                    }
-                    case HTTP -> {
-                        HttpProxyServer server = new HttpProxyServer(route, limiter);
-                        server.start();
-                        servers.add(server);
-                    }
-                    case HTTP_REDIRECT -> {
-                        HttpRedirectServer server = new HttpRedirectServer(route);
-                        server.start();
-                        servers.add(server);
+                startRoute(route, limiter);
+            } catch (Exception e) {
+
+                int fallbackPort = getUnprivilegedFallbackPort(route);
+                if (fallbackPort > 0 && isPermissionDenied(e)) {
+                    ProxyRoute fallbackRoute = route.withBindPort(fallbackPort);
+                    LOG.warn("[proxy/fallback] Tentando porta alternativa unprivileged {} para rota '{}'...", fallbackPort, route.name());
+                    try {
+                        startRoute(fallbackRoute, limiter);
+                        LOG.info("[proxy/fallback] Rota '{}' ativa com sucesso na porta alternativa: {}", route.name(), fallbackPort);
+                        continue;
+                    } catch (Exception ex2) {
+                        LOG.debug("[proxy/fallback] Falha no fallback da rota '{}': {}", route.name(), ex2.getMessage());
                     }
                 }
-            } catch (Exception e) {
                 logRouteStartError(route, e);
             }
         }
@@ -97,6 +94,37 @@ public final class ProxyMain {
         LOG.info("[proxy] {} route(s) started. Press Ctrl+C to stop.", servers.size());
 
         Thread.currentThread().join();
+    }
+
+    private void startRoute(ProxyRoute route, FixedWindowRateLimiter limiter) throws Exception {
+        switch (route.type()) {
+            case TCP -> {
+                TcpProxyServer server = new TcpProxyServer(route, limiter);
+                server.start();
+                servers.add(server);
+            }
+            case HTTP -> {
+                HttpProxyServer server = new HttpProxyServer(route, limiter);
+                server.start();
+                servers.add(server);
+            }
+            case HTTP_REDIRECT -> {
+                HttpRedirectServer server = new HttpRedirectServer(route);
+                server.start();
+                servers.add(server);
+            }
+        }
+    }
+
+    private static int getUnprivilegedFallbackPort(ProxyRoute route) {
+        if (route.bindPort() == 443) return 8443;
+        if (route.bindPort() == 80) return 8088;
+        return -1;
+    }
+
+    private static boolean isPermissionDenied(Exception e) {
+        String msg = e.getMessage() != null ? e.getMessage() : e.toString();
+        return msg.contains("Permission denied") || (e.getCause() != null && e.getCause().getMessage() != null && e.getCause().getMessage().contains("Permission denied"));
     }
 
     private static void logRouteStartError(ProxyRoute route, Exception e) {

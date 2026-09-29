@@ -301,13 +301,15 @@ class GameServer : Runnable {
     }
     private fun initGUI() {
         val os = System.getProperty("os.name").lowercase()
-        if ((os.contains("win") || os.contains("mac")) && !GraphicsEnvironment.isHeadless()) {
+        if (!GraphicsEnvironment.isHeadless()) {
             try {
                 InterfaceGS()
-                println("Game: Running in Interface GUI.")
+                println("Game: Running in Interface GUI ($os).")
             } catch (t: Throwable) {
-                println("Game: Fallback to console mode.")
+                println("Game: Fallback to console mode: ${t.message}")
             }
+        } else {
+            println("Game: Running in console mode (headless $os).")
         }
     }
     private suspend fun loadParallel() = coroutineScope {

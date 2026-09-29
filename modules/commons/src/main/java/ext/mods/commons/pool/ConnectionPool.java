@@ -21,7 +21,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.atomic.AtomicLong;
@@ -101,12 +103,13 @@ public final class ConnectionPool
 			// SQLite: WAL mode for concurrent reads, pool=3 to avoid deadlock during parallel boot
 			if (dbConfig.isSqlite())
 			{
+				autoRepairSqliteDatabase(jdbcUrl);
 				config.setMaximumPoolSize(3);
 				config.setMinimumIdle(1);
 				config.setConnectionTestQuery("SELECT 1");
-				config.setConnectionInitSql("PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;");
+				config.setConnectionInitSql("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL; PRAGMA busy_timeout=10000; PRAGMA foreign_keys=ON; PRAGMA wal_autocheckpoint=1000;");
 				SqlDialect.setActiveDatabase(SupportedDatabase.SQLITE);
-				LOGGER.info("SQLite mode: WAL + pool=3 (file: " + jdbcUrl + ")");
+				LOGGER.info("SQLite mode: WAL + synchronous=NORMAL + pool=3 (file: " + jdbcUrl + ")");
 			}
 			else
 			{
@@ -347,5 +350,43 @@ public final class ConnectionPool
 				}
 				return method.invoke(realSt, args);
 			});
+	}
+
+	private static void autoRepairSqliteDatabase(String jdbcUrl)
+	{
+		try (Connection testConn = DriverManager.getConnection(jdbcUrl))
+		{
+			try (Statement st = testConn.createStatement())
+			{
+				st.execute("PRAGMA journal_mode=WAL;");
+				st.execute("PRAGMA synchronous=NORMAL;");
+				st.execute("PRAGMA busy_timeout=10000;");
+
+				boolean corrupt = false;
+				try (ResultSet rs = st.executeQuery("PRAGMA quick_check;"))
+				{
+					if (rs.next())
+					{
+						String status = rs.getString(1);
+						if (!"ok".equalsIgnoreCase(status))
+						{
+							corrupt = true;
+							LOGGER.warn("SQLite health-check detectou inconsistencias: " + status);
+						}
+					}
+				}
+				if (corrupt)
+				{
+					LOGGER.info("Iniciando auto-recuperacao e reindexacao do banco SQLite...");
+					st.execute("REINDEX;");
+					st.execute("PRAGMA wal_checkpoint(TRUNCATE);");
+					LOGGER.info("SQLite auto-recuperacao e REINDEX concluidos com sucesso!");
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			LOGGER.warn("Aviso na verificacao de saude do SQLite: " + ex.getMessage());
+		}
 	}
 }

@@ -67,6 +67,13 @@ public record ProxyRoute(
         return autoTls || "auto".equalsIgnoreCase(tlsCertPath);
     }
 
+    public ProxyRoute withBindPort(int newPort) {
+        return new ProxyRoute(
+            name, type, enabled, bindHost, newPort, targetHost, targetPort,
+            preserveHost, addForwardedHeaders, rateLimit, tlsCertPath, tlsKeyPath, autoTls, tlsDomain, maxContentLength
+        );
+    }
+
     public enum RouteType {
         TCP,
         HTTP,

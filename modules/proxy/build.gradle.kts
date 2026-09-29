@@ -24,7 +24,7 @@ dependencies {
 
 application {
     mainClass.set("br.project.proxy.ProxyMain")
-    applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Xms128m", "-Xmx512m")
+    applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Xms128m", "-Xmx512m", "--enable-native-access=ALL-UNNAMED")
 }
 
 tasks.named<JavaExec>("run") {

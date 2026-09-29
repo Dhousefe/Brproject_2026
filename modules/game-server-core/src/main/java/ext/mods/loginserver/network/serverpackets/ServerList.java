@@ -165,20 +165,22 @@ public final class ServerList extends L2LoginServerPacket
 			return configuredHost;
 		}
 
-		// 2. Se a maquina servidora possui um IP de rede local / LAN (ex: 192.168.100.14)
+		
 		final String localLanIp = getLocalLanAddress();
+		if (clientIp != null && clientIp.isLoopbackAddress() && (localLanIp == null || isVirtualSubnet(localLanIp)))
+		{
+			return "127.0.0.1";
+		}
 		if (localLanIp != null && !localLanIp.isBlank() && !"127.0.0.1".equals(localLanIp))
 		{
 			return localLanIp;
 		}
 
-		// 3. Se o GS conectou com um IP valido que nao seja loopback
 		if (connectionIp != null && !connectionIp.isBlank() && !"127.0.0.1".equals(connectionIp) && !"::1".equals(connectionIp))
 		{
 			return connectionIp;
 		}
 
-		// 4. Fallback se houver host configurado
 		if (configuredHost != null && !configuredHost.isBlank() && !"*".equals(configuredHost))
 		{
 			return configuredHost;
@@ -187,10 +189,26 @@ public final class ServerList extends L2LoginServerPacket
 		return "127.0.0.1";
 	}
 
+	public static boolean isVirtualSubnet(String ip)
+	{
+		if (ip == null || !ip.startsWith("172.")) return false;
+		try
+		{
+			String[] parts = ip.split("\\.");
+			int second = Integer.parseInt(parts[1]);
+			return second >= 16 && second <= 31; 
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
+	}
+
 	public static String getLocalLanAddress()
 	{
 		try
 		{
+			List<String> lanIps = new ArrayList<>();
 			java.util.Enumeration<java.net.NetworkInterface> interfaces = java.net.NetworkInterface.getNetworkInterfaces();
 			while (interfaces.hasMoreElements())
 			{
@@ -202,9 +220,21 @@ public final class ServerList extends L2LoginServerPacket
 					InetAddress addr = addrs.nextElement();
 					if (addr.isSiteLocalAddress() && addr instanceof java.net.Inet4Address)
 					{
-						return addr.getHostAddress();
+						lanIps.add(addr.getHostAddress());
 					}
 				}
+			}
+
+			for (String ip : lanIps)
+			{
+				if (ip.startsWith("192.168.") || ip.startsWith("10."))
+				{
+					return ip;
+				}
+			}
+			if (!lanIps.isEmpty())
+			{
+				return lanIps.get(0);
 			}
 			InetAddress localHost = InetAddress.getLocalHost();
 			if (localHost != null && !localHost.isLoopbackAddress())
