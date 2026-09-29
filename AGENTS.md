@@ -78,4 +78,46 @@ Atualizado em 2026-09-28:
 - A Fase 1 (documentação, proteção e compatibilidade), a Fase 2 (fluxos críticos) e a Fase 3 (sistemas secundários) foram concluídas e integradas na `main`.
 - A Fase 4 (limpeza arquitetural) está em andamento. O trabalho atual remove SQL direto do fluxo de seleção de personagens, mantendo o protocolo e o comportamento do jogo inalterados.
 - A ordem restante da Fase 4 é: migrar os demais fluxos ainda acoplados a JDBC, eliminar duplicações, consolidar fronteiras transacionais e completar a documentação dos contratos dos repositories.
-- Depois da Fase 4, permanecem como trabalho estrutural a matriz automatizada PostgreSQL/MariaDB, testes de persistência mais amplos e o endurecimento do deployment para AWS/produção. A reorganização deve continuar incremental, por domínio, sem reescrever o motor de pacotes ou o núcleo do jogo.
+- A Fase 4.1 foi adicionada como etapa oficial para depois da Fase 4 e antes da Fase 5. Ela trata a normalização estrutural do repositório, sem reescrever o motor de pacotes ou o núcleo do jogo.
+- Depois da Fase 4.1, permanecem como trabalho estrutural a matriz automatizada PostgreSQL/MariaDB, testes de persistência mais amplos e o endurecimento do deployment para AWS/produção.
+
+### Fase 4.1 — normalização estrutural do projeto
+
+Objetivo: separar claramente código-fonte, dados versionáveis, runtime, artefatos gerados e ferramentas legadas, preservando o comportamento do servidor. Esta fase não deve ser executada como uma grande movimentação de pastas; cada fronteira deve ser validada em uma PR independente ou em um pequeno grupo de PRs relacionadas.
+
+Escopo oficial:
+
+1. Inventariar dependências e classificar as áreas do repositório como fonte, configuração, dados, runtime, artefato gerado, ferramenta ou legado.
+2. Retirar `libs/server.jar` do versionamento depois de adaptar Gradle, Docker e scripts para reconstruí-lo de forma reproduzível.
+3. Definir a publicação de artefatos por GitHub Actions, GitHub Releases e/ou registro de imagens Docker, sem usar o Git como armazenamento de binários gerados.
+4. Consolidar migrations, seeds, fixtures e documentação de banco em uma estrutura única, mantendo compatibilidade temporária com os caminhos legados.
+5. Definir um fluxo oficial de inicialização local e de validação, reduzindo a duplicação entre scripts `.bat`, `.sh`, `.ps1`, `.vbs` e `.command`.
+6. Isolar e documentar `Hwid`, `bin`, `site`, `libs` e demais componentes legados antes de mover ou remover qualquer arquivo.
+7. Separar documentação mantida manualmente de documentação gerada, logs, caches e estado de runtime.
+8. Registrar os limites entre o servidor, o site e ferramentas administrativas, preparando eventual extração para repositórios independentes sem fazê-la prematuramente.
+9. Criar validação de clone limpo: build, testes, migrations, Docker Compose, LoginServer, GameServer, login do cliente, criação de personagem e persistência no PostgreSQL.
+
+Critérios de segurança:
+
+- Não apagar nem mover arquivos apenas pela aparência; antes, procurar referências no código, scripts, Dockerfiles e documentação.
+- Não alterar o protocolo ou o núcleo do jogo como parte desta fase.
+- Manter wrappers legados durante a transição quando forem necessários para não quebrar o fluxo existente.
+- Toda mudança estrutural deve ser testada a partir de um checkout limpo e documentar seu impacto no desenvolvimento local e no deployment.
+
+Sequência planejada da Fase 4.1:
+
+```text
+inventário e mapa de dependências
+        ↓
+política de artefatos e higiene do Git
+        ↓
+layout de banco e migrations
+        ↓
+scripts oficiais de build/start/deploy
+        ↓
+isolamento de site, ferramentas e legado
+        ↓
+CI, release reproduzível e validação de clone limpo
+```
+
+A Fase 5 só deve começar quando a Fase 4 e a Fase 4.1 estiverem concluídas ou quando uma exceção for registrada explicitamente no roadmap.
