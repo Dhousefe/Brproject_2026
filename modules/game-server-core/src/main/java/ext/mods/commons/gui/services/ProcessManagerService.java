@@ -1002,6 +1002,7 @@ public class ProcessManagerService {
                     this.loginServerProcess = processo;
                 }
 
+
                 if ((ext.mods.config.ConfigServer.ENABLE_NATIVE_PROXY || ext.mods.config.ConfigServer.NATIVE_PROXY_AUTO_START) && !isNativeProxyRunning()) {
                     startNativeProxy(new File("."));
                 }

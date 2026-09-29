@@ -174,13 +174,22 @@ public final class TcpProxyServer implements AutoCloseable {
 
                             @Override
                             public void channelInactive(ChannelHandlerContext backendCtx) {
-                                ctx.close();
+                                if (ctx.channel().isOpen()) {
+                                    ctx.close();
+                                }
                             }
 
                             @Override
                             public void exceptionCaught(ChannelHandlerContext backendCtx, Throwable cause) {
-                                LOG.debug("[proxy/tcp] backend error route='{}'", route.name(), cause);
-                                backendCtx.close();
+                                if (cause instanceof java.nio.channels.ClosedChannelException ||
+                                    (cause instanceof java.io.IOException && "Connection reset by peer".equalsIgnoreCase(cause.getMessage()))) {
+                                    LOG.debug("[proxy/tcp] backend disconnected route='{}'", route.name());
+                                } else {
+                                    LOG.debug("[proxy/tcp] backend error route='{}'", route.name(), cause);
+                                }
+                                if (backendCtx.channel().isOpen()) {
+                                    backendCtx.close();
+                                }
                             }
                         });
                     }
@@ -244,7 +253,13 @@ public final class TcpProxyServer implements AutoCloseable {
             if (outboundChannel != null) {
                 io.netty.channel.Channel c = outboundChannel;
                 outboundChannel = null;
-                c.close();
+                if (c.isOpen()) {
+                    c.close().addListener((ChannelFutureListener) f -> {
+                        if (!f.isSuccess() && !(f.cause() instanceof java.nio.channels.ClosedChannelException)) {
+                            LOG.debug("[proxy/tcp] outbound close notice: {}", f.cause().getMessage());
+                        }
+                    });
+                }
             }
         }
 
@@ -257,8 +272,15 @@ public final class TcpProxyServer implements AutoCloseable {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-            LOG.debug("[proxy/tcp] frontend error route='{}'", route.name(), cause);
-            ctx.close();
+            if (cause instanceof java.nio.channels.ClosedChannelException ||
+                (cause instanceof java.io.IOException && "Connection reset by peer".equalsIgnoreCase(cause.getMessage()))) {
+                LOG.debug("[proxy/tcp] client disconnected route='{}': {}", route.name(), cause.getMessage());
+            } else {
+                LOG.debug("[proxy/tcp] frontend error route='{}'", route.name(), cause);
+            }
+            if (ctx.channel().isOpen()) {
+                ctx.close();
+            }
         }
 
         private static String remoteIp(ChannelHandlerContext ctx) {

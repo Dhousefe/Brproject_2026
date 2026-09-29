@@ -2219,11 +2219,16 @@
                 Registrar
               </button>
             </div>
-            <div id="nav-user-menu" class="hidden items-center gap-3">
-              <span class="text-xs text-slate-400" data-i18n="nav.connected_as">Conectado como</span>
-              <strong id="nav-username" class="text-accent-400 font-mono text-sm"></strong>
+            <div id="nav-user-menu" class="hidden items-center gap-2 sm:gap-3">
+              <button id="nav-open-account-panel-btn"
+                      type="button"
+                      class="px-2.5 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 hover:text-white text-xs font-mono font-bold transition-all shadow-[0_0_10px_rgba(6,182,212,0.15)] flex items-center gap-1.5 cursor-pointer"
+                      title="Abrir painel da conta">
+                <span>⚔️</span> <span data-i18n="nav.characters_panel">Painel</span>
+              </button>
+              <strong id="nav-username" class="text-accent-400 font-mono text-xs sm:text-sm truncate max-w-[100px] sm:max-w-[140px]"></strong>
               <button id="logout-btn"
-                      class="text-xs px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10"
+                      class="text-xs px-2.5 py-1.5 rounded-md bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 cursor-pointer"
                       data-i18n="nav.logout">
                 Sair
               </button>
@@ -3393,7 +3398,7 @@
             <li><a href="#about" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>›</span> <span data-i18n="footer.link_about">Informações do Servidor</span></a></li>
             <li><a href="#rankings" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>›</span> <span data-i18n="footer.link_rankings">Hall da Fama (Rankings)</span></a></li>
             <li><a href="#downloads" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>›</span> <span data-i18n="footer.link_downloads">Downloads & Patches</span></a></li>
-            <li><a href="javascript:void(0)" onclick="window.openLoginModal()" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>›</span> <span data-i18n="footer.link_account">Painel da Conta</span></a></li>
+            <li><a href="javascript:void(0)" onclick="window.toggleAccountPanel ? window.toggleAccountPanel() : window.openLoginModal()" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span>›</span> <span data-i18n="footer.link_account">Painel da Conta</span></a></li>
           </ul>
         </div>
 
@@ -4962,6 +4967,7 @@
       "modal.success_title": "Sucesso",
       "modal.understood": "Entendido",
       "nav.about": "Sobre",
+      "nav.characters_panel": "Painel",
       "nav.connected_as": "Conectado como",
       "nav.downloads": "Downloads",
       "nav.home": "Início",
@@ -6018,6 +6024,7 @@
       "modal.success_title": "Success",
       "modal.understood": "Understood",
       "nav.about": "About",
+      "nav.characters_panel": "Panel",
       "nav.connected_as": "Logged in as",
       "nav.downloads": "Downloads",
       "nav.home": "Home",
@@ -7074,6 +7081,7 @@
       "modal.success_title": "Éxito",
       "modal.understood": "Entendido",
       "nav.about": "Sobre",
+      "nav.characters_panel": "Panel",
       "nav.connected_as": "Conectado como",
       "nav.downloads": "Descargas",
       "nav.home": "Inicio",
@@ -8130,6 +8138,7 @@
       "modal.success_title": "Успешно",
       "modal.understood": "Понятно",
       "nav.about": "О сервере",
+      "nav.characters_panel": "Панель",
       "nav.connected_as": "Вы вошли как",
       "nav.downloads": "Файлы",
       "nav.home": "Главная",
@@ -15476,7 +15485,10 @@
     }
     if (sidebar) {
       sidebar.classList.remove('hidden');
-      sidebar.classList.add('lg:block');
+      sidebar.classList.remove('account-panel-collapsed');
+      if (window.gsap) {
+        window.gsap.fromTo(sidebar, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' });
+      }
     }
     if (navName) navName.textContent = payload.login || '';
     const sb = document.getElementById('sidebar-username');
@@ -15505,7 +15517,6 @@
     }
     if (sidebar) {
       sidebar.classList.add('hidden');
-      sidebar.classList.remove('lg:block');
     }
     resetCharacterPanel();
     if (typeof fetchVoteInfo === 'function') fetchVoteInfo();
@@ -15662,6 +15673,32 @@
       window.gsap.fromTo(panel, { scale: collapsed ? 1.02 : 0.98 }, { scale: 1, duration: 0.22, ease: 'power2.out' });
     }
   });
+
+  function toggleAccountPanel() {
+    if (!AUTH_STATE.currentSession || !AUTH_STATE.currentSession.login) {
+      if (typeof window.openLoginModal === 'function') {
+        window.openLoginModal();
+      }
+      return;
+    }
+    const panel = document.getElementById('account-sidebar');
+    if (!panel) return;
+    if (panel.classList.contains('hidden')) {
+      panel.classList.remove('hidden');
+      panel.classList.remove('account-panel-collapsed');
+      if (window.gsap) window.gsap.fromTo(panel, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' });
+      loadAccountCharacters();
+    } else {
+      const isCollapsed = panel.classList.toggle('account-panel-collapsed');
+      if (accountPanelToggle) {
+        accountPanelToggle.textContent = isCollapsed ? '☰' : '×';
+      }
+    }
+  }
+  window.toggleAccountPanel = toggleAccountPanel;
+
+  const navAccountBtn = document.getElementById('nav-open-account-panel-btn');
+  if (navAccountBtn) navAccountBtn.addEventListener('click', toggleAccountPanel);
 
   const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) logoutBtn.addEventListener('click', () => {

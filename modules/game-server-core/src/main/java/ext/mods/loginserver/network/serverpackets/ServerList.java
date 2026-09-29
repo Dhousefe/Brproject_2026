@@ -165,7 +165,7 @@ public final class ServerList extends L2LoginServerPacket
 			return configuredHost;
 		}
 
-		
+
 		final String localLanIp = getLocalLanAddress();
 		if (clientIp != null && clientIp.isLoopbackAddress() && (localLanIp == null || isVirtualSubnet(localLanIp)))
 		{
@@ -176,10 +176,12 @@ public final class ServerList extends L2LoginServerPacket
 			return localLanIp;
 		}
 
+
 		if (connectionIp != null && !connectionIp.isBlank() && !"127.0.0.1".equals(connectionIp) && !"::1".equals(connectionIp))
 		{
 			return connectionIp;
 		}
+
 
 		if (configuredHost != null && !configuredHost.isBlank() && !"*".equals(configuredHost))
 		{
@@ -196,7 +198,7 @@ public final class ServerList extends L2LoginServerPacket
 		{
 			String[] parts = ip.split("\\.");
 			int second = Integer.parseInt(parts[1]);
-			return second >= 16 && second <= 31; 
+			return second >= 16 && second <= 31;
 		}
 		catch (Exception e)
 		{
