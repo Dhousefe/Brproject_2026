@@ -1011,6 +1011,11 @@ public class ProcessManagerService {
                     while ((linha = reader.readLine()) != null) {
                         System.out.println("[" + tipo.toUpperCase() + "] " + linha);
                     }
+                } catch (java.io.IOException ioe) {
+
+                    if (!isShuttingDown && !"Stream closed".equalsIgnoreCase(ioe.getMessage())) {
+                        System.err.println("[" + tipo.toUpperCase() + "] Pipe de leitura encerrado: " + ioe.getMessage());
+                    }
                 }
 
                 int exitCode = processo.waitFor();
