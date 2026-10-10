@@ -116,6 +116,7 @@ public class Attackable extends Npc
 			
 			if (player != null)
 			{
+				player.getAI().stopAttackStance();
 				NpcListenerManager.getInstance().notifyNpcKill(this, player);
 				PcCafeManager.getInstance().onAttackableKill(player);
 				
@@ -133,6 +134,12 @@ public class Attackable extends Npc
 			LOGGER.warn("Erro em doDie Quest System: ", e);
 		}
 		
+		for (Creature attacker : _attackedBy)
+		{
+			if (attacker instanceof Player playerAttacker)
+				playerAttacker.getAI().stopAttackStance();
+		}
+
 		_attackedBy.clear();
 		return true;
 	}
@@ -272,21 +279,20 @@ public class Attackable extends Npc
 	 */
 	public boolean returnHome()
 	{
-		if (isInMyTerritory())
+		if (getSpawnLocation() == null || isIn2DRadius(getSpawnLocation(), 20))
 			return false;
-		
-		if (!getAI().getHateList().isEmpty())
-			return false;
-		
-		if (getSpawnLocation() == null || isIn2DRadius(getSpawnLocation(), getDriftRange()))
-			return false;
-		
+
 		getAI().getAggroList().cleanAllHate();
-		
+		getAI().getHateList().clear();
+		removeAllAttackDesire();
+
 		forceWalkStance();
-		
+
 		if (getMove().getGeoPathFailCount() >= 10)
+		{
 			teleportTo(getSpawnLocation(), 0);
+			getMove().resetGeoPathFailCount();
+		}
 		else
 		{
 			getMove().maybeMoveToLocation(getSpawnLocation(), 0, true, false);
@@ -299,7 +305,7 @@ public class Attackable extends Npc
 				}
 			}, (int) (Rnd.get(1500, 2500) * (100 / getStatus().getMoveSpeed())));
 		}
-		
+
 		return true;
 	}
 	

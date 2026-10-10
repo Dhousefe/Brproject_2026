@@ -28,6 +28,7 @@ import ext.mods.gameserver.enums.AiEventType;
 import ext.mods.gameserver.enums.skills.AbnormalEffect;
 import ext.mods.gameserver.handler.IAdminCommandHandler;
 import ext.mods.gameserver.model.World;
+import ext.mods.gameserver.model.actor.Attackable;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
 import ext.mods.gameserver.model.actor.Player;
@@ -76,6 +77,18 @@ public class AdminEffects implements IAdminCommandHandler
 				player.decayMe();
 				player.broadcastUserInfo();
 				player.spawnMe();
+
+				player.forEachKnownTypeInRadius(Attackable.class, 2500, attackable ->
+				{
+					attackable.getAI().getAggroList().stopHate(player);
+					attackable.getAI().getHateList().stopHate(player);
+					attackable.removeAllAttackDesire();
+					if (attackable.getAI().getCurrentIntention().getFinalTarget() == player)
+					{
+						attackable.getAI().setBackToPeace();
+						attackable.returnHome();
+					}
+				});
 			}
 			else
 			{

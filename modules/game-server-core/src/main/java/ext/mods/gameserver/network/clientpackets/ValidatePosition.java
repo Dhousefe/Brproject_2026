@@ -19,6 +19,8 @@ package ext.mods.gameserver.network.clientpackets;
 
 import ext.mods.gameserver.enums.RestartType;
 import ext.mods.gameserver.enums.actors.MoveType;
+import ext.mods.gameserver.geoengine.GeoEngine;
+import ext.mods.gameserver.geoengine.geodata.GeoStructure;
 import ext.mods.gameserver.model.WorldObject;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.location.Location;
@@ -58,7 +60,7 @@ public class ValidatePosition extends L2GameClientPacket
 	protected void runImpl()
 	{
 		final Player player = getClient().getPlayer();
-		if (player == null || player.isDead() || player.isTeleporting() || player.isInObserverMode())
+		if (player == null || player.isDead() || player.isFakeDeath() || player.isTeleporting() || player.isInObserverMode())
 			return;
 		
 		if (player.isFalling(_z))
@@ -81,14 +83,13 @@ public class ValidatePosition extends L2GameClientPacket
 		}
 		
 		final double speed = player.getStatus().getMoveSpeed();
-		final double softThreshold = Math.max(speed * 1.2, 180.0);
+		final double softThreshold = Math.max(speed * 1.5, 220.0);
 		final double softThresholdSq = softThreshold * softThreshold;
-		final double hardThresholdSq = Math.max(speed * 2.5, 500.0) * Math.max(speed * 2.5, 500.0);
-		
+		final double hardThresholdSq = Math.max(speed * 2.8, 550.0) * Math.max(speed * 2.8, 550.0);
+
 		final int dz = Math.abs(_z - realZ);
 		final boolean isGround = player.getMove().getMoveType() == MoveType.GROUND;
-		
-		
+
 		if (_z < -30000 || _z > 30000)
 		{
 			player.incIncorrectValidateCount();
@@ -102,29 +103,27 @@ public class ValidatePosition extends L2GameClientPacket
 			return;
 		}
 
-		// If player is not moving (idle), reconcile position if small drift without physical loop conflict
+		
 		if (!player.isMoving())
 		{
-			if (diffSq <= softThresholdSq && (dz <= 120 || !isGround))
+			player.resetIncorrectValidateCount();
+			if (diffSq <= softThresholdSq)
 			{
-				if (diffSq >= 16) // Only set if difference is meaningful
-					player.getPosition().set(_x, _y, _z, _heading);
-				player.resetIncorrectValidateCount();
-			}
-			else
-			{
-				if (!player.isAutoFarming())
+				
+				if (isValidStandingGround(player, _x, _y, _z))
 				{
-					player.incIncorrectValidateCount();
-					if (player.getIncorrectValidateCount() >= 3)
+					if (diffSq >= 16.0)
 					{
-						player.teleportTo(RestartType.TOWN);
-						player.resetIncorrectValidateCount();
-						return;
+						final int safeZ = GeoEngine.getInstance().hasGeo(_x, _y) ? GeoEngine.getInstance().getHeight(_x, _y, player.getZ()) : _z;
+						player.getPosition().set(_x, _y, safeZ, _heading);
 					}
+					
+					return;
 				}
-				player.sendPacket(new ValidateLocation(player));
 			}
+
+			
+			player.sendPacket(new ValidateLocation(player));
 			return;
 		}
 		
@@ -154,13 +153,8 @@ public class ValidatePosition extends L2GameClientPacket
 				return;
 			}
 
-			player.incIncorrectValidateCount();
-			if (player.getIncorrectValidateCount() >= 3)
-			{
-				player.teleportTo(RestartType.TOWN);
-				player.resetIncorrectValidateCount();
-				return;
-			}
+			
+			player.resetIncorrectValidateCount();
 			player.sendPacket(new ValidateLocation(player));
 			return;
 		}
@@ -186,5 +180,26 @@ public class ValidatePosition extends L2GameClientPacket
 		
 		// 3. Green Zone (diffSq <= softThresholdSq): Natural latency convergence, reset counter!
 		player.resetIncorrectValidateCount();
+	}
+
+	private static boolean isValidStandingGround(Player player, int x, int y, int z)
+	{
+		if (!GeoEngine.getInstance().hasGeo(x, y))
+			return true;
+
+		final int curZ = player.getZ();
+		final int groundZ = GeoEngine.getInstance().getHeight(x, y, curZ);
+
+		final byte nswe = GeoEngine.getInstance().getNswe(x, y, groundZ);
+		if (nswe == GeoStructure.CELL_FLAG_NONE)
+			return false;
+
+		if (Math.abs(z - groundZ) > 36)
+			return false;
+
+		if (!GeoEngine.getInstance().canMoveToTarget(player.getX(), player.getY(), player.getZ(), x, y, groundZ))
+			return false;
+
+		return true;
 	}
 }

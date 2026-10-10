@@ -232,12 +232,16 @@ public class PlayerAI extends PlayableAI<Player>
     {
         final Creature target = _currentIntention.getFinalTarget();
         if (target == null)
+        {
+            clientActionFailed();
             return;
-            
+        }
+
         final boolean isShiftPressed = _currentIntention.isShiftPressed();
-        
+
         if (tryShiftClick(target, isShiftPressed))
         {
+            clientActionFailed();
             _actor.sendMessage("Você não pode atacar usando o Shift");
             return;
         }
@@ -303,12 +307,14 @@ public class PlayerAI extends PlayableAI<Player>
         
         if (!_actor.getAttack().canAttack(target))
         {
+            clientActionFailed();
             doIdleIntention();
             return;
         }
-        
+
         if (target.isDead())
         {
+            clientActionFailed();
             doIdleIntention();
             return;
         }
@@ -316,6 +322,7 @@ public class PlayerAI extends PlayableAI<Player>
 		if (ConfigGeoengine.SISTEMA_PATHFINDING && !MovementIntegration.canSeeTarget(_actor, target))
 		{
 				_actor.sendPacket(SystemMessageId.CANT_SEE_TARGET);
+				clientActionFailed();
 				doIdleIntention();
 				return;
 		}
@@ -340,20 +347,18 @@ public class PlayerAI extends PlayableAI<Player>
                 if (_actor.getMove().maybeMoveToPawn(target, attackRange, isShiftPressed))
                     return;
             }
-            
+
+            clientActionFailed();
             doIdleIntention();
             return;
         }
         
         if (_actor.isMoving())
             _actor.getMove().stop();
-        
+
         _actor.getPosition().setHeadingTo(target);
         _actor.rechargeShots(true, false);
         _actor.getAttack().doAttack(target);
-        
-        if (!ConfigProject.ATTACK_PTS)
-            setNextIntention(_currentIntention);
     }
     
     @Override
@@ -598,26 +603,36 @@ public class PlayerAI extends PlayableAI<Player>
         synchronized (item)
         {
             if (!item.isVisible())
+            {
+                clientActionFailed();
+                doIdleIntention();
                 return null;
-            
+            }
+
             if (((_actor.isInParty() && _actor.getParty().getLootRule() == LootRule.ITEM_LOOTER) || !_actor.isInParty()) && !_actor.getInventory().validateCapacity(item))
             {
                 _actor.sendPacket(SystemMessageId.SLOTS_FULL);
+                clientActionFailed();
+                doIdleIntention();
                 return null;
             }
-            
+
             if (!_actor.getInventory().validateWeight(item.getWeight()))
             {
                 _actor.sendPacket(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
+                clientActionFailed();
+                doIdleIntention();
                 return null;
             }
-            
+
             if (_actor.getActiveTradeList() != null)
             {
                 _actor.sendPacket(SystemMessageId.CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING);
+                clientActionFailed();
+                doIdleIntention();
                 return null;
             }
-            
+
             if (item.getOwnerId() != 0 && !_actor.isLooterOrInLooterParty(item.getOwnerId()))
             {
                 if (item.getItemId() == 57)
@@ -626,24 +641,26 @@ public class PlayerAI extends PlayableAI<Player>
                     _actor.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S).addItemName(item).addNumber(item.getCount()));
                 else
                     _actor.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1).addItemName(item));
-                
+
+                clientActionFailed();
+                doIdleIntention();
                 return null;
             }
-            
+
             if (item.hasDropProtection())
                 item.removeDropProtection();
-            
+
             item.pickupMe(_actor);
             PlayerListenerManager.getInstance().notifyItemPickup(_actor, item);
             ItemsOnGroundTaskManager.getInstance().remove(item);
         }
-        
+
         if (item.getItemType() == EtcItemType.HERB)
         {
             final IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
             if (handler != null)
                 handler.useItem(_actor, item, false);
-            
+
             item.destroyMe();
         }
         else if (CursedWeaponManager.getInstance().isCursed(item.getItemId()))
@@ -657,10 +674,10 @@ public class PlayerAI extends PlayableAI<Player>
                     sm = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3).addString(_actor.getName()).addNumber(item.getEnchantLevel()).addItemName(item.getItemId());
                 else
                     sm = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2).addString(_actor.getName()).addItemName(item.getItemId());
-                
+
                 _actor.broadcastPacketInRadius(sm, 1400);
             }
-            
+
             if (_actor.isInParty())
                 _actor.getParty().distributeItem(_actor, item, null);
             else if (item.getItemId() == 57 && _actor.getInventory().getAdenaInstance() != null)
@@ -671,10 +688,7 @@ public class PlayerAI extends PlayableAI<Player>
             else
                 _actor.addItem(item, true);
         }
-        
-        ThreadPool.schedule(() -> _actor.setIsParalyzed(false), 200);
-        _actor.setIsParalyzed(true);
-        
+
         return item;
     }
     
@@ -835,17 +849,27 @@ public class PlayerAI extends PlayableAI<Player>
     @Override
     protected void thinkStand()
     {
-        if (_actor.denyAiAction() || !_actor.isSitting() || _actor.isMounted())
+        if (_actor.isMounted())
         {
             doIdleIntention();
             clientActionFailed();
             return;
         }
-        
+
         if (_actor.isFakeDeath())
+        {
             _actor.stopFakeDeath(true);
-        else
-            _actor.standUp();
+            return;
+        }
+
+        if (_actor.denyAiAction() || !_actor.isSitting())
+        {
+            doIdleIntention();
+            clientActionFailed();
+            return;
+        }
+
+        _actor.standUp();
     }
     
     @Override

@@ -574,7 +574,7 @@ public abstract class Playable extends Creature
 	 */
 	public boolean canKeepAttacking(Creature target)
 	{
-		if (target == null)
+		if (target == null || target.isDead())
 			return false;
 		
 		if (target instanceof Playable)

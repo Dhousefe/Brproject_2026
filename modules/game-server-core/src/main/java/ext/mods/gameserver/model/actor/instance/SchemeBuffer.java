@@ -35,6 +35,7 @@ import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.actor.template.NpcTemplate;
 import ext.mods.gameserver.model.records.BuffSkill;
 import ext.mods.gameserver.network.serverpackets.ActionFailed;
+import ext.mods.gameserver.network.serverpackets.MagicSkillUse;
 import ext.mods.gameserver.network.serverpackets.NpcHtmlMessage;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.config.ConfigNpcs;
@@ -81,14 +82,24 @@ public class SchemeBuffer extends Folk
 				break;
 			
 			case "heal":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showPage(player);
+					break;
+				}
 				if (target == player)
 					player.getStatus().setMaxCpHpMp();
 				else
 					target.getStatus().setMaxHpMp();
-				
+
 				showPage(player);
 				break;
 			case "cleanse":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showPage(player);
+					break;
+				}
 				target.stopAllEffectsDebuff();
 				showPage(player);
 				break;
@@ -96,6 +107,11 @@ public class SchemeBuffer extends Folk
 				showGiveBuffsWindow(player);
 				break;
 			case "cleanup":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showPage(player);
+					break;
+				}
 				target.stopAllEffectsExceptThoseThatLastThroughDeath();
 				showPage(player);
 				break;
@@ -122,6 +138,12 @@ public class SchemeBuffer extends Folk
 		}
 		else if (command.startsWith("getscheme"))
 		{
+			if (!BufferManager.getInstance().checkAndSetCooldown(player))
+			{
+				showPage(player);
+				return;
+			}
+
 			final List<L2Skill> schemes = BufferManager.getInstance().getSchemeSkills(BufferSchemeType.valueOf(st.nextToken().toUpperCase()));
 			try (var batch = player.openPacketBatch();
 			     var bulk = target.openBulkBuffScope())
@@ -139,6 +161,9 @@ public class SchemeBuffer extends Folk
 		}
 		else if (command.startsWith("getbuff"))
 		{
+			if (!BufferManager.getInstance().checkAndSetSingleBuffCooldown(player))
+				return;
+
 			final int skillId = Integer.parseInt(st.nextToken());
 			final int skillLevel = Integer.parseInt(st.nextToken());
 			List<L2Skill> list = new ArrayList<>();
@@ -151,6 +176,12 @@ public class SchemeBuffer extends Folk
 			showSingleBuffSelectionWindow(player, st.nextToken(), Integer.parseInt(st.nextToken()));
 		else if (command.startsWith("givebuffs"))
 		{
+			if (!BufferManager.getInstance().checkAndSetCooldown(player))
+			{
+				showGiveBuffsWindow(player);
+				return;
+			}
+
 			final String schemeName = st.nextToken();
 			final int cost = Integer.parseInt(st.nextToken());
 			
@@ -173,6 +204,9 @@ public class SchemeBuffer extends Folk
 			showEditSchemeWindow(player, st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken()));
 		else if (command.startsWith("buff"))
 		{
+			if (!BufferManager.getInstance().checkAndSetSingleBuffCooldown(player))
+				return;
+
 			int buffIds = 0, buffLevel = 1, nextWindow = 0;
 			if (st.countTokens() == 3)
 			{
@@ -213,8 +247,11 @@ public class SchemeBuffer extends Folk
 					if (cost == 0 || player.reduceAdena(cost, true))
 					{
 						if (skill != null)
-							skill.getEffectsNpc(target, target);
-						
+						{
+							skill.getEffectsNpc(this, target);
+							target.broadcastPacket(new MagicSkillUse(this, target, skill.getId(), skill.getLevel(), 0, 0));
+						}
+
 						showChatWindow(player, nextWindow);
 						return;
 					}
@@ -305,8 +342,9 @@ public class SchemeBuffer extends Folk
 		Creature target = player;
 		if (_isPetTarget.getOrDefault(player.getObjectId(), false) && player.getSummon() != null)
 			target = player.getSummon();
-		
+
 		buff.getEffectsNpc(this, target);
+		target.broadcastPacket(new MagicSkillUse(this, target, buff.getId(), buff.getLevel(), 0, 0));
 	}
 	
 	@Override

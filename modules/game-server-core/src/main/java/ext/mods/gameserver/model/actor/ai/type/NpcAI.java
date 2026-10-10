@@ -116,51 +116,72 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
 
         final Creature target = _currentIntention.getFinalTarget();
 
-        if (target == null || target.isAlikeDead() || !target.isVisible()) {
+        final boolean isTargetLost = target == null || target.isAlikeDead() || !target.isVisible() || (target instanceof Player p && !p.getAppearance().isVisible());
+        if (isTargetLost) {
+            _actor.getMove().stop();
+            _actor.getMove().cancelFollowTask();
             if (_actor instanceof Attackable attackable) {
                 attackable.getAI().getAggroList().cleanAllHate();
+                attackable.getAI().getHateList().clear();
                 attackable.returnHome();
             }
             doIdleIntention();
-            
+
             return;
         }
 
         if (_actor.distance3D(target) > 2000) {
+            _actor.getMove().stop();
+            _actor.getMove().cancelFollowTask();
             if (_actor instanceof Attackable attackable) {
                 attackable.getAI().getAggroList().cleanAllHate();
+                attackable.getAI().getHateList().clear();
                 attackable.returnHome();
             }
             doIdleIntention();
-            
+
             return;
         }
-        
+
         int weaponRange = (int) _actor.getStatus().getPhysicalAttackRange();
-        
+
         if (!_actor.knows(target)) {
+            if (target instanceof Player p && !p.getAppearance().isVisible()) {
+                _actor.getMove().stop();
+                _actor.getMove().cancelFollowTask();
+                if (_actor instanceof Attackable attackable) {
+                    attackable.getAI().getAggroList().cleanAllHate();
+                    attackable.getAI().getHateList().clear();
+                    attackable.returnHome();
+                }
+                doIdleIntention();
+                return;
+            }
             if (_actor instanceof Npc npc) {
                 final int aggroRange = npc.getTemplate().getAggroRange() > 0 ? npc.getTemplate().getAggroRange() : npc.getSeeRange();
-                
+
                 if (_actor.isIn3DRadius(target, aggroRange + 100)) {
-                    
+
                     if (!GeoEngine.getInstance().canSeeTarget(_actor, target)) {
+                        _actor.getMove().stop();
+                        _actor.getMove().cancelFollowTask();
                         if (_actor instanceof Attackable attackable) {
                             attackable.getAI().getAggroList().cleanAllHate();
+                            attackable.getAI().getHateList().clear();
                             attackable.returnHome();
                         }
                         doIdleIntention();
-                        
+
                         return;
                     }
 
                     _actor.refreshKnownlist();
                     _actor.getMove().maybeStartOffensiveFollow(target, weaponRange);
-                    
+
                     if (ConfigNpcs.DEBUG_MELEE_ATTACK && weaponRange <= 200) {
                         LOGGER.info("[MeleeDebug] thinkAttack: refreshKnownlist npc={} target={} dist={}", _actor.getObjectId(), target.getObjectId(), _actor.distance3D(target));
                     }
-                    
+
                     ThreadPool.scheduleIO(() -> notifyEvent(AiEventType.THINK, null, null), 100);
                     return;
                 }
@@ -168,8 +189,14 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
             if (ConfigNpcs.DEBUG_MELEE_ATTACK && weaponRange <= 200) {
                 LOGGER.info("[MeleeDebug] thinkAttack: lostKnownlist npc={} target={}", _actor.getObjectId(), target.getObjectId());
             }
+            _actor.getMove().stop();
+            _actor.getMove().cancelFollowTask();
+            if (_actor instanceof Attackable attackable) {
+                attackable.getAI().getAggroList().cleanAllHate();
+                attackable.getAI().getHateList().clear();
+                attackable.returnHome();
+            }
             doIdleIntention();
-            
 
             return;
         }
@@ -573,6 +600,9 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
     {
         _aggroList.clear();
         _hateList.clear();
+        _actor.getMove().stop();
+        _actor.getMove().cancelFollowTask();
+        doIdleIntention();
     }
     
     public final AggroList getAggroList()
@@ -715,6 +745,7 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
         _desireQueue.getDesires().removeIf(d -> {
             if (d.getFinalTarget() == null) return false;
             if (d.getFinalTarget().isAlikeDead()) return true;
+            if (d.getFinalTarget() instanceof Player p && !p.getAppearance().isVisible()) return true;
             if (d.getType() == IntentionType.ATTACK && _actor instanceof Npc npc) {
                 final int aggroRange = npc.getTemplate().getAggroRange() > 0 ? npc.getTemplate().getAggroRange() : npc.getSeeRange();
                 if (_actor.isIn3DRadius(d.getFinalTarget(), aggroRange + 100)) {
@@ -725,7 +756,7 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
             return !_actor.knows(d.getFinalTarget());
         });
         _desireQueue.getDesires().removeIf(d -> d.getTarget() != null && (!_actor.knows(d.getTarget())));
-        
+
         if (!_actor.isOutOfControl()) {
             final boolean instantRun = _lifeTime == 0 && getDesires().stream().anyMatch(d -> d.getType() == IntentionType.ATTACK);
             if (!_actor.getCast().isCastingNow() && (_lifeTime > 0 || instantRun) && _lastSocialBroadcast <= System.currentTimeMillis()) {
@@ -734,11 +765,18 @@ public class NpcAI<T extends Npc> extends CreatureAI<T>
                         if (_currentIntention.getType() == IntentionType.ATTACK) {
                             final Creature target = _currentIntention.getFinalTarget();
                             if (target != null && !target.isAlikeDead() && _actor instanceof Npc npc) {
-                                final int aggroRange = npc.getTemplate().getAggroRange() > 0 ? npc.getTemplate().getAggroRange() : npc.getSeeRange();
-                                if (_actor.isIn3DRadius(target, aggroRange + 100)) {
-                                    return;
+                                if (!(target instanceof Player p && !p.getAppearance().isVisible())) {
+                                    final int aggroRange = npc.getTemplate().getAggroRange() > 0 ? npc.getTemplate().getAggroRange() : npc.getSeeRange();
+                                    if (_actor.isIn3DRadius(target, aggroRange + 100)) {
+                                        return;
+                                    }
                                 }
                             }
+                        }
+                        if (_actor instanceof Attackable attackable) {
+                            attackable.getAI().getAggroList().cleanAllHate();
+                            attackable.getAI().getHateList().clear();
+                            attackable.returnHome();
                         }
                         if (_currentIntention.getType() != IntentionType.IDLE) doIdleIntention();
                     } else if (!_actor.getAttack().isAttackingNow()) {

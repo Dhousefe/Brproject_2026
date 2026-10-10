@@ -1884,17 +1884,17 @@ public class Player extends Playable
 	 */
 	public void setRecentFakeDeath()
 	{
-		_deathLifecycle.setRecentFakeDeath();
+		_death.setRecentFakeDeathEndTime(System.currentTimeMillis() + ConfigPlayers.PLAYER_FAKEDEATH_UP_PROTECTION * 1000L);
 	}
 
 	public void clearRecentFakeDeath()
 	{
-		_death.setRecentFakeDeathEndTime(0);
+		_death.setRecentFakeDeathEndTime(0L);
 	}
 
 	public boolean isRecentFakeDeath()
 	{
-		return _deathLifecycle.isRecentFakeDeath();
+		return _death.getRecentFakeDeathEndTime() > System.currentTimeMillis();
 	}
 	
 	@Override
@@ -2073,16 +2073,6 @@ public class Player extends Playable
 		if (getClient() == null || packet == null)
 			return;
 
-		if (packet instanceof ActionFailed)
-		{
-			final long now = System.currentTimeMillis();
-			final int minInterval = ConfigPlayers.ACTION_FAILED_MIN_INTERVAL_MS;
-			if (minInterval > 0 && !canSendActionFailed(now, minInterval))
-			{
-				return;
-			}
-		}
-		
 		if (packet instanceof NpcHtmlMessage html) {
 			
 			if (html.isFromTranslator()) {
@@ -5201,22 +5191,49 @@ public class Player extends Playable
 	
 	public final void startFakeDeath()
 	{
+		getMove().stop();
+		getAI().tryToIdle();
+
 		setIsFakeDeath(true);
-		getAI().notifyEvent(AiEventType.SAT_DOWN, null, null);
+		_isSittingNow = true;
+		_isStanding = false;
+
+		ThreadPool.schedule(() ->
+		{
+			_isSittingNow = false;
+			_isSitting = true;
+
+			getAI().notifyEvent(AiEventType.SAT_DOWN, null, null);
+
+		}, 2500);
+
 		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_START_FAKEDEATH));
 	}
-	
+
 	public final void stopFakeDeath(boolean removeEffects)
 	{
 		if (removeEffects)
 			stopEffects(EffectType.FAKE_DEATH);
-		
-		setIsFakeDeath(false);
+
 		setRecentFakeDeath();
-		
-		getAI().notifyEvent(AiEventType.STOOD_UP, null, null);
+
+		_isStandingNow = true;
+		_isSitting = false;
+		setIsFakeDeath(false);
+
 		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STOP_FAKEDEATH));
 		broadcastPacket(new Revive(this));
+
+		ThreadPool.schedule(() ->
+		{
+			_isStandingNow = false;
+			_isStanding = true;
+
+			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
+			broadcastUserInfo();
+			getAI().notifyEvent(AiEventType.STOOD_UP, null, null);
+
+		}, 2500);
 	}
 	
 	public final void setIsFakeDeath(boolean value)

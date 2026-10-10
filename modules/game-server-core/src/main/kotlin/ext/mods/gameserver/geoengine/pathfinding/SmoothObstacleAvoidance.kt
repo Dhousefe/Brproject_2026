@@ -160,10 +160,12 @@ object SmoothObstacleAvoidance {
                 val directX = start.x * directRatio + end.x * (1 - directRatio)
                 val directY = start.y * directRatio + end.y * (1 - directRatio)
                 val directZ = start.z * directRatio + end.z * (1 - directRatio)
-                val smoothedX = point.x * smoothingFactor + directX * (1 - smoothingFactor)
-                val smoothedY = point.y * smoothingFactor + directY * (1 - smoothingFactor)
-                val smoothedZ = point.z * smoothingFactor + directZ * (1 - smoothingFactor)
-                Location(smoothedX.toInt(), smoothedY.toInt(), smoothedZ.toInt())
+                val smoothedX = (point.x * smoothingFactor + directX * (1 - smoothingFactor)).toInt()
+                val smoothedY = (point.y * smoothingFactor + directY * (1 - smoothingFactor)).toInt()
+                val refZ = point.z
+                val sampledZ = geoEngine.getHeight(smoothedX, smoothedY, refZ).toInt()
+                val safeZ = if (abs(sampledZ - refZ) <= 48) sampledZ else refZ
+                Location(smoothedX, smoothedY, safeZ)
             }
         }
     }
@@ -194,10 +196,12 @@ object SmoothObstacleAvoidance {
     }
     
     private fun interpolateLocation(start: Location, end: Location, ratio: Double): Location {
-        val x = start.x + (end.x - start.x) * ratio
-        val y = start.y + (end.y - start.y) * ratio
-        val z = start.z + (end.z - start.z) * ratio
-        return Location(x.toInt(), y.toInt(), z.toInt())
+        val x = (start.x + (end.x - start.x) * ratio).toInt()
+        val y = (start.y + (end.y - start.y) * ratio).toInt()
+        val refZ = (start.z + (end.z - start.z) * ratio).toInt()
+        val sampledZ = geoEngine.getHeight(x, y, refZ).toInt()
+        val safeZ = if (abs(sampledZ - refZ) <= 48) sampledZ else refZ
+        return Location(x, y, safeZ)
     }
     
     private fun calculateDirectionAngle(start: Location, end: Location): Double {

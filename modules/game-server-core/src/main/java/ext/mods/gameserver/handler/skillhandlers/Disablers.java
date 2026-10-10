@@ -93,6 +93,15 @@ public class Disablers implements ISkillHandler
 					break;
 				
 				case FAKE_DEATH:
+					if (skill.isToggle())
+					{
+						final AbstractEffect effect = targetCreature.getFirstEffect(skill.getId());
+						if (effect != null)
+						{
+							effect.exit();
+							break;
+						}
+					}
 					skill.getEffects(creature, targetCreature, sDef, bsps);
 					break;
 				

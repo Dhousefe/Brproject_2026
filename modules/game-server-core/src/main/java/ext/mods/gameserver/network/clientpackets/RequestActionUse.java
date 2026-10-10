@@ -123,13 +123,12 @@ public final class RequestActionUse extends L2GameClientPacket
 		switch (_actionId)
 		{
 			case 0:
-				
-				if (player.isFakeDeath())
+				if (player.isFakeDeath() || player.getFirstEffect(ext.mods.gameserver.enums.skills.EffectType.FAKE_DEATH) != null)
 				{
 					player.stopFakeDeath(true);
 					break;
 				}
-				
+
 				if (player.isSitting() || player.isSittingNow())
 					player.getAI().tryToStand();
 				else

@@ -65,6 +65,15 @@ public final class Action extends L2GameClientPacket
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+		if (target instanceof ext.mods.gameserver.model.actor.Creature creature && creature.isDead())
+		{
+			if (player.getTarget() != creature)
+				player.setTarget(creature);
+			else
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		
 		final Player targetPlayer = target.getActingPlayer();
 		if (targetPlayer != null && targetPlayer.getDuelState() == DuelState.DEAD)

@@ -989,7 +989,6 @@ public class ProcessManagerService {
             command.add(userEmail);
         }
 
-
         new Thread(() -> {
             try {
                 ProcessBuilder pb = new ProcessBuilder(command);
@@ -1002,7 +1001,7 @@ public class ProcessManagerService {
                     this.loginServerProcess = processo;
                 }
 
-
+                
                 if ((ext.mods.config.ConfigServer.ENABLE_NATIVE_PROXY || ext.mods.config.ConfigServer.NATIVE_PROXY_AUTO_START) && !isNativeProxyRunning()) {
                     startNativeProxy(new File("."));
                 }
@@ -1013,7 +1012,7 @@ public class ProcessManagerService {
                         System.out.println("[" + tipo.toUpperCase() + "] " + linha);
                     }
                 } catch (java.io.IOException ioe) {
-
+                    
                     if (!isShuttingDown && !"Stream closed".equalsIgnoreCase(ioe.getMessage())) {
                         System.err.println("[" + tipo.toUpperCase() + "] Pipe de leitura encerrado: " + ioe.getMessage());
                     }

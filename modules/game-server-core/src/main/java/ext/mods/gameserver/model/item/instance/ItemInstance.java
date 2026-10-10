@@ -214,11 +214,21 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 			if (!hasFreeSlot)
 			{
 				player.sendPacket(SystemMessageId.SLOTS_FULL);
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
 		else
+		{
+			if (!player.getInventory().validateCapacity(this))
+			{
+				player.sendPacket(SystemMessageId.SLOTS_FULL);
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+
 			player.getAI().tryToPickUp(getObjectId(), isShiftPressed);
+		}
 	}
 	
 	@Override

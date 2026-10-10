@@ -22,9 +22,12 @@ import java.nio.BufferUnderflowException;
 import ext.mods.Config;
 import ext.mods.commons.math.MathUtil;
 import ext.mods.extensions.listener.manager.CreatureListenerManager;
+import ext.mods.gameserver.data.manager.ZoneManager;
 import ext.mods.gameserver.enums.TeleportMode;
+import ext.mods.gameserver.enums.actors.MoveType;
 import ext.mods.gameserver.enums.boats.BoatDock;
 import ext.mods.gameserver.geoengine.GeoEngine;
+import ext.mods.gameserver.geoengine.geodata.GeoStructure;
 import ext.mods.gameserver.model.actor.Boat;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.actor.container.player.BoatInfo;
@@ -32,6 +35,7 @@ import ext.mods.gameserver.model.entity.autofarm.AutoFarmManager;
 import ext.mods.gameserver.model.location.Location;
 import ext.mods.gameserver.model.location.Point2D;
 import ext.mods.gameserver.model.location.SpawnLocation;
+import ext.mods.gameserver.model.zone.type.WaterZone;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.ActionFailed;
 import ext.mods.gameserver.network.serverpackets.MoveToLocation;
@@ -83,7 +87,14 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			return;
 		
 		final BoatInfo info = player.getBoatInfo();
-		
+
+		if (player.isFakeDeath())
+		{
+			player.stopFakeDeath(true);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
 		if (player.isOutOfControl() || player.getCast().isCastingNow())
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -133,53 +144,22 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		}
 		
 		final boolean isInBoat = info.isInBoat();
-		
+
 		if (!isInBoat)
 		{
 			if (player.tryToPassBoatEntrance(targetLoc, _moveMovement == 0))
 				return;
+
 			
-			info.setCanBoard(false);
-			
-			if (_moveMovement == 0)
+			if (!canNavigateToDestination(player, targetLoc))
 			{
-				int vectorX = targetLoc.getX() - player.getX();
-				int vectorY = targetLoc.getY() - player.getY();
-				
-				double magnitude = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
-				
-				if (magnitude < 1.0)
-				{
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				
-				double unitVectorX = vectorX / magnitude;
-				double unitVectorY = vectorY / magnitude;
-				
-				int newVectorX = (int) (unitVectorX * 16);
-				int newVectorY = (int) (unitVectorY * 16);
-				
-				int newX = player.getX() + newVectorX;
-				int newY = player.getY() + newVectorY;
-				
-				final Location checkLoc = new Location(newX, newY, player.getZ());
-				
-				if (!GeoEngine.getInstance().canMove(player.getX(), player.getY(), player.getZ(), checkLoc.getX(), checkLoc.getY(), checkLoc.getZ(), null))
-				{
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				
-				if (!player.getMove().maybeMoveToLocation(GeoEngine.getInstance().getValidLocation(player, targetLoc), 0, false, false))
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-				
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			
+
+			info.setCanBoard(false);
 			player.getAI().tryToMoveTo(targetLoc, null);
 			CreatureListenerManager.getInstance().notifyMove(player, targetLoc);
-
 		}
 		else
 		{
@@ -268,8 +248,49 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 				info.setBoatMovement(false);
 				info.setCanBoard(false);
 			}
-			
+
 			sendPacket(ActionFailed.STATIC_PACKET);
 		}
+	}
+
+	private static boolean canNavigateToDestination(Player player, Location targetLoc)
+	{
+		
+		if (player.isInBoat() || player.isInWater() || player.getMove().getMoveType() == MoveType.SWIM || player.isFlying() || player.getMove().getMoveType() == MoveType.FLY)
+			return true;
+
+		if (ZoneManager.getInstance().getZone(targetLoc.getX(), targetLoc.getY(), targetLoc.getZ(), WaterZone.class) != null)
+			return true;
+
+		
+		if (!GeoEngine.getInstance().hasGeo(targetLoc.getX(), targetLoc.getY()))
+			return true;
+
+		final int curX = player.getX();
+		final int curY = player.getY();
+		final int curZ = player.getZ();
+		final int targetX = targetLoc.getX();
+		final int targetY = targetLoc.getY();
+
+		
+		if (GeoEngine.getInstance().canMoveToTarget(curX, curY, curZ, targetX, targetY, targetLoc.getZ()))
+			return true;
+
+		
+		final int targetFloorZ = GeoEngine.getInstance().getHeight(targetX, targetY, curZ);
+		final byte nswe = GeoEngine.getInstance().getNswe(targetX, targetY, targetFloorZ);
+
+		
+		if (nswe == GeoStructure.CELL_FLAG_NONE)
+			return false;
+
+		
+		final Location validLoc = GeoEngine.getInstance().getValidLocation(curX, curY, curZ, targetX, targetY, targetFloorZ, null);
+		if (validLoc.getX() == curX && validLoc.getY() == curY)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

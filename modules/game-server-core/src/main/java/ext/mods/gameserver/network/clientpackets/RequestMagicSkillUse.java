@@ -51,6 +51,13 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+		if (_skillId == 60 && (player.isFakeDeath() || player.getFirstEffect(ext.mods.gameserver.enums.skills.EffectType.FAKE_DEATH) != null))
+		{
+			player.stopFakeDeath(true);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		
 		final L2Skill skill = player.getSkill(_skillId);
 		if (skill == null)

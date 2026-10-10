@@ -333,7 +333,21 @@ public final class Formulas
 		final double daggerVuln = target.getStatus().calcStat(Stats.DAGGER_WPN_VULN, 1, target, null);
 		
 		double damage = ((attackPower + skillPower) * critDamMul * rndMul * critDamPosMul * posMul * pvpMul * critVuln * daggerVuln + addCritPower) * ((isPvP) ? 70. : 77.) / defence;
-		
+
+		if (ConfigPlayers.BLOW_SKILL_DAMAGE_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.BLOW_SKILL_DAMAGE_MULTIPLIER;
+
+		if (target instanceof Npc && ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER;
+		else if (target instanceof Player && ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER;
+
+		if (ConfigPlayers.ENABLE_AUTO_ATTACK_TO_PHYSICAL_SKILL_TRANSFER && ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER < 1.0)
+		{
+			final double transferBonus = (1.0 - ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER) * ConfigPlayers.AUTO_ATTACK_TO_SKILL_TRANSFER_FACTOR;
+			damage *= (1.0 + Math.max(0.0, transferBonus));
+		}
+
 		Player classAtk = attacker.getActingPlayer();
 		if (classAtk != null && target instanceof Player && classAtk != target)
 		{
@@ -511,7 +525,10 @@ public final class Formulas
 		
 		if (ss)
 			damage *= 2.;
-		
+
+		if (ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER;
+
 		Player classAtk = attacker.getActingPlayer();
 		if (classAtk != null && target instanceof Player && classAtk != target)
 		{
@@ -620,7 +637,21 @@ public final class Formulas
 		double damage = ((attackPower * ssMul + skillPower) * rndMul * raceMul * pvpMul * elemMul * weaponMul) * 77. / defence;
 		if (crit)
 			damage *= ConfigPlayers.PHYSICAL_SKILL_CRITICAL_MULTIPLIER;
-		
+
+		if (ConfigPlayers.PHYSICAL_SKILL_DAMAGE_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.PHYSICAL_SKILL_DAMAGE_MULTIPLIER;
+
+		if (target instanceof Npc && ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER;
+		else if (target instanceof Player && ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER;
+
+		if (ConfigPlayers.ENABLE_AUTO_ATTACK_TO_PHYSICAL_SKILL_TRANSFER && ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER < 1.0)
+		{
+			final double transferBonus = (1.0 - ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER) * ConfigPlayers.AUTO_ATTACK_TO_SKILL_TRANSFER_FACTOR;
+			damage *= (1.0 + Math.max(0.0, transferBonus));
+		}
+
 		Player classAtk = attacker.getActingPlayer();
 		if (classAtk != null && target instanceof Player && classAtk != target)
 		{
@@ -725,7 +756,15 @@ public final class Formulas
 		}
 		
 		damage *= calcElementalSkillModifier(target, skill);
-		
+
+		if (ConfigPlayers.MAGIC_SKILL_DAMAGE_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.MAGIC_SKILL_DAMAGE_MULTIPLIER;
+
+		if (target instanceof Npc && ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER;
+		else if (target instanceof Player && ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER;
+
 		return damage;
 	}
 	
@@ -774,7 +813,15 @@ public final class Formulas
 			damage *= 4;
 		
 		damage *= calcElementalSkillModifier(target, skill);
-		
+
+		if (ConfigPlayers.MAGIC_SKILL_DAMAGE_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.MAGIC_SKILL_DAMAGE_MULTIPLIER;
+
+		if (target instanceof Npc && ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER;
+		else if (target instanceof Player && ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER != 1.0)
+			damage *= ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER;
+
 		return damage;
 	}
 	

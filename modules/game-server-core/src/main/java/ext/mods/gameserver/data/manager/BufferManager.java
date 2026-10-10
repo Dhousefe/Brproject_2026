@@ -36,12 +36,15 @@ import ext.mods.commons.pool.ConnectionPool;
 
 import ext.mods.Config;
 import ext.mods.gameserver.data.SkillTable;
+import ext.mods.gameserver.enums.GaugeColor;
 import ext.mods.gameserver.model.World;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Npc;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.actor.Summon;
 import ext.mods.gameserver.model.records.BuffSkill;
+import ext.mods.gameserver.network.serverpackets.ActionFailed;
+import ext.mods.gameserver.network.serverpackets.SetupGauge;
 import ext.mods.gameserver.skills.L2Skill;
 
 import org.w3c.dom.Document;
@@ -55,10 +58,14 @@ import ext.mods.config.ConfigProject;
  */
 public class BufferManager implements IXmlReader
 {
+	public static final int BUFFER_COOLDOWN_MS = 3000;
+	public static final int SINGLE_BUFF_COOLDOWN_MS = 800;
+
 	private static final String LOAD_SCHEMES = "SELECT * FROM buffer_schemes";
 	private static final String TRUNCATE_SCHEMES = "TRUNCATE buffer_schemes";
 	private static final String INSERT_SCHEME = "INSERT INTO buffer_schemes (object_id, scheme_name, skills, levels) VALUES (?,?,?,?)";
-	
+
+	private final Map<Integer, Long> _bufferCooldowns = new ConcurrentHashMap<>();
 	private final Map<Integer, Map<String, ArrayList<L2Skill>>> _schemesTable = new ConcurrentHashMap<>();
 	private final Map<L2Skill, BuffSkill> _availableBuffs = new LinkedHashMap<>();
 	private final Map<BufferSchemeType, List<BuffSkill>> _availableSchemes = new HashMap<>();
@@ -349,7 +356,70 @@ public class BufferManager implements IXmlReader
 	{
 		return _availableBuffs;
 	}
-	
+
+	/**
+	 * Valida se o jogador pode utilizar o buffer em esquemas completos ou limpezas (delay de 3s / barra vermelha).
+	 * Impede uso durante as Olimpíadas.
+	 * @param player O jogador solicitante
+	 * @return true se permitido, false se em cooldown ou proibido
+	 */
+	public boolean checkAndSetCooldown(Player player)
+	{
+		return checkAndSetCooldown(player, BUFFER_COOLDOWN_MS, GaugeColor.RED);
+	}
+
+	/**
+	 * Valida se o jogador pode utilizar um buff individual (delay ágil de 800ms / barra azul).
+	 * Impede uso durante as Olimpíadas.
+	 * @param player O jogador solicitante
+	 * @return true se permitido, false se em cooldown ou proibido
+	 */
+	public boolean checkAndSetSingleBuffCooldown(Player player)
+	{
+		return checkAndSetCooldown(player, SINGLE_BUFF_COOLDOWN_MS, GaugeColor.BLUE);
+	}
+
+	private boolean checkAndSetCooldown(Player player, int cooldownMs, GaugeColor gaugeColor)
+	{
+		if (player == null)
+			return false;
+
+		if (player.isInOlympiadMode() || player.isOlympiadStart())
+		{
+			player.sendMessage("Você não pode utilizar o buffer durante as Olimpíadas.");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+
+		final long now = System.currentTimeMillis();
+		final long nextAllowedTime = _bufferCooldowns.getOrDefault(player.getObjectId(), 0L);
+
+		if (now < nextAllowedTime)
+		{
+			final long remainingMs = nextAllowedTime - now;
+			if (remainingMs > 500)
+			{
+				final long remainingSec = (remainingMs + 999) / 1000;
+				player.sendMessage("Aguarde " + remainingSec + " segundo(s) para utilizar o buffer novamente.");
+			}
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+
+		_bufferCooldowns.put(player.getObjectId(), now + cooldownMs);
+		player.sendPacket(new SetupGauge(gaugeColor, cooldownMs));
+		return true;
+	}
+
+	/**
+	 * Limpa o cooldown de buffer do jogador (ex: ao deslogar).
+	 * @param playerObjectId O objectId do jogador
+	 */
+	public void clearCooldown(int playerObjectId)
+	{
+		_bufferCooldowns.remove(playerObjectId);
+	}
+
 	public static BufferManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;

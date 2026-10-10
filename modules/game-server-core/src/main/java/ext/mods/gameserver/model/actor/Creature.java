@@ -853,6 +853,17 @@ public abstract class Creature extends WorldObject
 	@Override
 	public void onAction(Player player, boolean isCtrlPressed, boolean isShiftPressed)
 	{
+		if (isDead())
+		{
+			if (player.getTarget() != this)
+				player.setTarget(this);
+			else
+			{
+				player.sendPacket(ext.mods.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET);
+			}
+			return;
+		}
+
 		if (player.getTarget() != this)
 			player.setTarget(this);
 		else

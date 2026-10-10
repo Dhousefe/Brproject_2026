@@ -265,7 +265,8 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
     }
     
     override fun updatePosition(): Boolean {
-        if (_task == null || !_actor.isVisible()) {
+        if (_task == null || !_actor.isVisible() || _actor.isFakeDeath) {
+            cancelMoveTask()
             return true
         }
         
@@ -298,8 +299,8 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
         }
         
         val isTargetInWater = ZoneManager.getInstance().getZone(_destination.getX(), _destination.getY(), _destination.getZ(), WaterZone::class.java) != null
-        if (type == MoveType.GROUND && !isTargetInWater) {
-            _destination.setZ(GeoEngine.getInstance().getHeight(_destination).toInt())
+        if (type == MoveType.GROUND && !isTargetInWater && _pawn != null) {
+            _destination.setZ(_pawn!!.getZ())
         }
         
         val dx = _destination.getX() - _xAccurate
@@ -352,7 +353,13 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
             val shouldCheckForGround = type == MoveType.GROUND || (type == MoveType.SWIM && isNearGroundUnderWater)
             nextZ = min(
                 if (shouldCheckForGround) {
-                    GeoEngine.getInstance().getHeight(nextX, nextY, curZ + 2 * GeoStructure.CELL_HEIGHT).toInt()
+                    val sampledZ = GeoEngine.getInstance().getHeight(nextX, nextY, curZ + 2 * GeoStructure.CELL_HEIGHT).toInt()
+                    val dzSample = abs(sampledZ - curZ)
+                    if (dzSample > 48 && !GeoEngine.getInstance().canMoveToTarget(curX, curY, curZ, nextX, nextY, sampledZ)) {
+                        curZ
+                    } else {
+                        sampledZ
+                    }
                 } else {
                     round(_zAccurate).toInt()
                 },
@@ -634,7 +641,15 @@ class PlayerMove(actor: Player) : CreatureMove<Player>(actor) {
                 isWaterRelated -> Location(tx, ty, tz)
                 else -> {
                     val valid = GeoEngine.getInstance().getValidLocation(ox, oy, oz, tx, ty, tz, null)
-                    if (valid.x == ox && valid.y == oy) null else valid
+                    if (valid.x == ox && valid.y == oy) {
+                        null
+                    } else {
+                        val validFloorZ = GeoEngine.getInstance().getHeight(valid.x, valid.y, oz).toInt()
+                        if (abs(validFloorZ - oz) <= 64) {
+                            valid.z = validFloorZ
+                        }
+                        valid
+                    }
                 }
             }
         }

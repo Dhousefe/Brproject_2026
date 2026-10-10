@@ -78,11 +78,11 @@ public final class Config {
    public static int MMO_MAX_SEND_PER_PASS = 80;
    public static int MMO_MAX_READ_PER_PASS = 80;
    public static int MMO_HELPER_BUFFER_COUNT = 20;
-   public static int CLIENT_PACKET_QUEUE_SIZE = MMO_MAX_READ_PER_PASS + 2;
+   public static int CLIENT_PACKET_QUEUE_SIZE = 256;
    public static int CLIENT_PACKET_QUEUE_MAX_BURST_SIZE = MMO_MAX_READ_PER_PASS + 1;
-   public static int CLIENT_PACKET_QUEUE_MAX_PACKETS_PER_SECOND = 320;
+   public static int CLIENT_PACKET_QUEUE_MAX_PACKETS_PER_SECOND = 400;
    public static int CLIENT_PACKET_QUEUE_MEASURE_INTERVAL = 5;
-   public static int CLIENT_PACKET_QUEUE_MAX_AVERAGE_PACKETS_PER_SECOND = 160;
+   public static int CLIENT_PACKET_QUEUE_MAX_AVERAGE_PACKETS_PER_SECOND = 240;
    public static int CLIENT_PACKET_QUEUE_MAX_FLOODS_PER_MIN = 2;
    public static int CLIENT_PACKET_QUEUE_MAX_OVERFLOWS_PER_MIN = 1;
    public static int CLIENT_PACKET_QUEUE_MAX_UNDERFLOWS_PER_MIN = 1;

@@ -151,7 +151,7 @@ public class LoginServer
 			{
 				System.out.println("Login: Running in Interface GUI (" + os + ").");
 				new InterfaceLS();
-
+				
 				ConsoleWindow.hideAfter(6000);
 			}
 			catch (Throwable t)

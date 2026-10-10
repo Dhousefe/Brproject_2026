@@ -143,6 +143,16 @@ public final class ConfigPlayers
    public static int CAST_BREAK_MAX_RATE;
    public static boolean CANCEL_DISPEL_ORDER_LIFO;
 
+   // Global Damage Scaling & Skill Valorization
+   public static double AUTO_ATTACK_DAMAGE_MULTIPLIER;
+   public static double PHYSICAL_SKILL_DAMAGE_MULTIPLIER;
+   public static double BLOW_SKILL_DAMAGE_MULTIPLIER;
+   public static double MAGIC_SKILL_DAMAGE_MULTIPLIER;
+   public static double SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER;
+   public static double SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER;
+   public static boolean ENABLE_AUTO_ATTACK_TO_PHYSICAL_SKILL_TRANSFER;
+   public static double AUTO_ATTACK_TO_SKILL_TRANSFER_FACTOR;
+
    // Stat Caps, Burst and Reload Limits
    public static int MAX_PATK_SPEED_LIMIT;
    public static int MAX_MATK_SPEED_LIMIT;
@@ -191,6 +201,16 @@ public final class ConfigPlayers
       ConfigPlayers.ENABLE_REALISTIC_CAST_BREAK = players.getProperty("EnableRealisticCastBreak", true);
       ConfigPlayers.CAST_BREAK_MAX_RATE = players.getProperty("CastBreakMaxRate", 80);
       ConfigPlayers.CANCEL_DISPEL_ORDER_LIFO = players.getProperty("CancelDispelOrderLIFO", true);
+
+      // Global Damage Scaling & Skill Valorization
+      ConfigPlayers.AUTO_ATTACK_DAMAGE_MULTIPLIER = players.getProperty("AutoAttackDamageMultiplier", 1.0);
+      ConfigPlayers.PHYSICAL_SKILL_DAMAGE_MULTIPLIER = players.getProperty("PhysicalSkillDamageMultiplier", 1.0);
+      ConfigPlayers.BLOW_SKILL_DAMAGE_MULTIPLIER = players.getProperty("BlowSkillDamageMultiplier", 1.0);
+      ConfigPlayers.MAGIC_SKILL_DAMAGE_MULTIPLIER = players.getProperty("MagicSkillDamageMultiplier", 1.0);
+      ConfigPlayers.SKILL_DAMAGE_VS_MONSTERS_MULTIPLIER = players.getProperty("SkillDamageVsMonstersMultiplier", 1.0);
+      ConfigPlayers.SKILL_DAMAGE_VS_PLAYERS_MULTIPLIER = players.getProperty("SkillDamageVsPlayersMultiplier", 1.0);
+      ConfigPlayers.ENABLE_AUTO_ATTACK_TO_PHYSICAL_SKILL_TRANSFER = players.getProperty("EnableAutoAttackToPhysicalSkillTransfer", false);
+      ConfigPlayers.AUTO_ATTACK_TO_SKILL_TRANSFER_FACTOR = players.getProperty("AutoAttackToSkillTransferFactor", 1.0);
 
       // Stat Caps, Burst and Reload Limits
       ConfigPlayers.MAX_PATK_SPEED_LIMIT = players.getProperty("MaxPAtkSpeed", 1500);

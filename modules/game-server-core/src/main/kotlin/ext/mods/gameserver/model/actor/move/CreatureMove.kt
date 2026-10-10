@@ -33,6 +33,7 @@ import ext.mods.gameserver.geoengine.GeoEngine
 import ext.mods.gameserver.geoengine.geodata.GeoStructure
 import ext.mods.gameserver.geoengine.pathfinding.SmoothObstacleAvoidance
 import ext.mods.gameserver.model.WorldObject
+import ext.mods.gameserver.model.actor.Attackable
 import ext.mods.gameserver.model.actor.Creature
 import ext.mods.gameserver.model.actor.Npc
 import ext.mods.gameserver.model.actor.Playable
@@ -529,7 +530,7 @@ open class CreatureMove<T : Creature>(
         val nextY = nextYAccurate.toInt()
         val nextZ = if (type == MoveType.GROUND) {
             val sampledZ = geoEngine.getHeight(nextX, nextY, curZ + 2 * GeoStructure.CELL_HEIGHT).toInt()
-            if (abs(sampledZ - curZ) > 120 && !geoEngine.canMoveToTarget(curX, curY, curZ, nextX, nextY, sampledZ)) {
+            if (abs(sampledZ - curZ) > 48 && !geoEngine.canMoveToTarget(curX, curY, curZ, nextX, nextY, sampledZ)) {
                 curZ
             } else {
                 sampledZ
@@ -704,9 +705,13 @@ open class CreatureMove<T : Creature>(
     }
     protected open fun offensiveFollowTask(target: Creature, offset: Int) {
         val currentTask = _followTask
-        if (currentTask == null || currentTask.isCancelled || target.isAlikeDead || !_actor.knows(target)) {
+        val isLost = currentTask == null || currentTask.isCancelled || target.isAlikeDead || !_actor.knows(target) || (target is Player && !target.appearance.isVisible)
+        if (isLost) {
             cancelFollowTask()
             stop()
+            if (_actor is Attackable) {
+                (_actor as Attackable).returnHome()
+            }
             return
         }
         val dist = _actor.distance2D(target)

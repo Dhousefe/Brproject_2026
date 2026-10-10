@@ -62,14 +62,17 @@ public final class AiTaskManager implements Runnable
 	
 	private void processNpc(Npc npc)
 	{
+		final IntentionType currentIntention = npc.getAI().getCurrentIntention().getType();
+		final boolean isEngaged = currentIntention == IntentionType.ATTACK || currentIntention == IntentionType.CAST;
+
 		if (ConfigGeoengine.ENABLE_NPC_MOVEMENT_OPTIMIZATION && !(npc instanceof GrandBoss || npc instanceof RaidBoss))
 		{
-			if (!hasVisiblePlayersNearNpc(npc))
+			if (!isEngaged && !hasVisiblePlayersNearNpc(npc))
 			{
 				return;
 			}
 		}
-		
+
 		npc.getAI().runAI();
 		
 		if (npc instanceof GrandBoss)

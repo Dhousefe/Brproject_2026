@@ -35,6 +35,7 @@ import ext.mods.gameserver.data.manager.BufferManager.BufferSchemeType;
 import ext.mods.gameserver.model.actor.Creature;
 import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.records.BuffSkill;
+import ext.mods.gameserver.network.serverpackets.MagicSkillUse;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.config.ConfigNpcs;
 import ext.mods.config.ConfigProject;
@@ -69,14 +70,24 @@ public class BuffBBSManager extends BaseBBSManager
 				
 				break;
 			case "_bbsloc;heal":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showIndexPage(player);
+					break;
+				}
 				if (target == player)
 					player.getStatus().setMaxCpHpMp();
 				else
 					target.getStatus().setMaxHpMp();
-				
+
 				showIndexPage(player);
 				break;
 			case "_bbsloc;cleanse":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showIndexPage(player);
+					break;
+				}
 				target.stopAllEffectsDebuff();
 				showIndexPage(player);
 				break;
@@ -84,6 +95,11 @@ public class BuffBBSManager extends BaseBBSManager
 				showGiveBuffsWindow(player);
 				break;
 			case "_bbsloc;cancel":
+				if (!BufferManager.getInstance().checkAndSetCooldown(player))
+				{
+					showIndexPage(player);
+					break;
+				}
 				target.stopAllEffectsExceptThoseThatLastThroughDeath();
 				showIndexPage(player);
 				break;
@@ -118,6 +134,12 @@ public class BuffBBSManager extends BaseBBSManager
 		}
 		else if (command.startsWith("_bbsloc;getscheme"))
 		{
+			if (!BufferManager.getInstance().checkAndSetCooldown(player))
+			{
+				showIndexPage(player);
+				return;
+			}
+
 			String[] args = command.split(" ");
 			if (args.length > 1)
 			{
@@ -142,6 +164,9 @@ public class BuffBBSManager extends BaseBBSManager
 		}
 		else if (command.startsWith("_bbsloc;buff"))
 		{
+			if (!BufferManager.getInstance().checkAndSetSingleBuffCooldown(player))
+				return;
+
 			try
 			{
 				String[] args = command.split(" ");
@@ -261,6 +286,9 @@ public class BuffBBSManager extends BaseBBSManager
 		}
 		else if (command.startsWith("_bbsloc;getbuff"))
 		{
+			if (!BufferManager.getInstance().checkAndSetSingleBuffCooldown(player))
+				return;
+
 			final int skillId = Integer.parseInt(st.nextToken());
 			final int skillLvl = Integer.parseInt(st.nextToken());
 			final List<L2Skill> list = new ArrayList<>();
@@ -273,6 +301,12 @@ public class BuffBBSManager extends BaseBBSManager
 			showSingleBuffSelectionWindow(player, st.nextToken(), Integer.parseInt(st.nextToken()));
 		else if (command.startsWith("_bbsloc;givebuffs"))
 		{
+			if (!BufferManager.getInstance().checkAndSetCooldown(player))
+			{
+				showGiveBuffsWindow(player);
+				return;
+			}
+
 			final String schemeName = st.nextToken();
 			final int cost = Integer.parseInt(st.nextToken());
 			
@@ -336,8 +370,9 @@ public class BuffBBSManager extends BaseBBSManager
 		Creature target = player;
 		if (_isPetTarget.getOrDefault(player.getObjectId(), false) && player.getSummon() != null)
 			target = player.getSummon();
-		
+
 		buff.getEffectsNpc(target, target);
+		target.broadcastPacket(new MagicSkillUse(target, target, buff.getId(), buff.getLevel(), 0, 0));
 	}
 	
 	/**

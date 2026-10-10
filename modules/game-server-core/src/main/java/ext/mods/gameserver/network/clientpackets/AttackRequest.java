@@ -45,6 +45,13 @@ public final class AttackRequest extends L2GameClientPacket
 		if (player == null)
 			return;
 		
+		if (player.isFakeDeath())
+		{
+			player.stopFakeDeath(true);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
 		if (player.isOutOfControl())
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -59,8 +66,8 @@ public final class AttackRequest extends L2GameClientPacket
 		}
 		
 		final WorldObject target = (player.getTargetId() == _objectId) ? player.getTarget() : World.getInstance().getObject(_objectId);
-		
-		if (target == null)
+
+		if (target == null || (target instanceof ext.mods.gameserver.model.actor.Creature creature && creature.isDead()))
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;

@@ -36,6 +36,12 @@ public final class RequestChangeWaitType extends L2GameClientPacket
 		final Player player = getClient().getPlayer();
 		if (player == null)
 			return;
+
+		if (player.isFakeDeath() || player.getFirstEffect(ext.mods.gameserver.enums.skills.EffectType.FAKE_DEATH) != null)
+		{
+			player.stopFakeDeath(true);
+			return;
+		}
 		
 		final WorldObject target = player.getTarget();
 		

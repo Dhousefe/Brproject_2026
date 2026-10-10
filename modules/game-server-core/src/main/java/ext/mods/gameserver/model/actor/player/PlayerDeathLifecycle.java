@@ -225,15 +225,7 @@ public final class PlayerDeathLifecycle
 
 	public final void stopFakeDeath(boolean removeEffects)
 	{
-		if (removeEffects)
-			_owner.stopEffects(EffectType.FAKE_DEATH);
-
-		setIsFakeDeath(false);
-		setRecentFakeDeath();
-
-		_owner.getAI().notifyEvent(AiEventType.STOOD_UP, null, null);
-		_owner.broadcastPacket(new ChangeWaitType(_owner, ChangeWaitType.WT_STOP_FAKEDEATH));
-		_owner.broadcastPacket(new Revive(_owner));
+		_owner.stopFakeDeath(removeEffects);
 	}
 
 	/**

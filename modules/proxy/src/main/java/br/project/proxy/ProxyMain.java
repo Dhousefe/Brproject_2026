@@ -67,7 +67,7 @@ public final class ProxyMain {
             try {
                 startRoute(route, limiter);
             } catch (Exception e) {
-
+                
                 int fallbackPort = getUnprivilegedFallbackPort(route);
                 if (fallbackPort > 0 && isPermissionDenied(e)) {
                     ProxyRoute fallbackRoute = route.withBindPort(fallbackPort);

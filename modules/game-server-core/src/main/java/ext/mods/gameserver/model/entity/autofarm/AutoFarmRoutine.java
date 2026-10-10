@@ -279,7 +279,7 @@ public class AutoFarmRoutine
 			return;
 		}
 		
-		if (player.isDead() || player.isSleeping() || player.isStunned() || player.isImmobilized())
+		if (player.isDead() || player.isAlikeDead() || player.isFakeDeath() || player.isSitting() || player.isSittingNow() || player.isStandingNow() || player.isSleeping() || player.isStunned() || player.isImmobilized())
 		{
 			if (player.isDead() && !_autoFarmProfile.isDeathReturnEnabled())
 				stop("Your character is dead");

@@ -158,7 +158,33 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 			if (_actor.canKeepAttacking(_currentIntention.getFinalTarget()))
 				notifyEvent(AiEventType.THINK, null, null);
 			else
+			{
+				stopAttackStance();
 				doIdleIntention();
+			}
+		}
+		else
+		{
+			if (next.getType() == IntentionType.MOVE_TO)
+				stopAttackStance();
+
+			doIntention(next);
+		}
+	}
+
+	@Override
+	protected void onEvtArrived()
+	{
+		if (_currentIntention.getType() == IntentionType.FOLLOW)
+			return;
+
+		final Intention next = consumeNextIntention();
+		if (next == null)
+		{
+			if (_currentIntention.getType() == IntentionType.MOVE_TO)
+				doIdleIntention();
+			else
+				notifyEvent(AiEventType.THINK, null, null);
 		}
 		else
 			doIntention(next);
@@ -324,12 +350,20 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 	
 	public synchronized void tryToAttack(Creature target, boolean isCtrlPressed, boolean isShiftPressed)
 	{
-		if (_actor.denyAiAction() || _actor.isAfraid())
+		if (_actor.denyAiAction() || _actor.isAfraid() || target == null || target.isDead())
 		{
 			clientActionFailed();
 			return;
 		}
-		
+
+		if (_currentIntention.getType() == IntentionType.ATTACK
+			&& _currentIntention.getFinalTarget() == target
+			&& _currentIntention.isCtrlPressed() == isCtrlPressed)
+		{
+			clientActionFailed();
+			return;
+		}
+
 		if (_actor.getAttack().isAttackingNow() || _actor.getCast().isCastingNow() || _actor.isSittingNow() || _actor.isStandingNow() || canScheduleAfter(_currentIntention.getType(), IntentionType.ATTACK))
 		{
 			final Intention next = new Intention();
@@ -534,7 +568,8 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 			clientActionFailed();
 			return;
 		}
-		
+
+		_actor.getMove().cancelFollowTask();
 		doMoveToIntention(loc, boat);
 	}
 	
@@ -545,7 +580,14 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 			clientActionFailed();
 			return;
 		}
-		
+
+		if (_currentIntention.getType() == IntentionType.PICK_UP
+			&& _currentIntention.getItemObjectId() == itemObjectId)
+		{
+			clientActionFailed();
+			return;
+		}
+
 		if (_actor.getAttack().isAttackingNow() || _actor.getCast().isCastingNow() || _actor.isSittingNow() || _actor.isStandingNow() || canScheduleAfter(_currentIntention.getType(), IntentionType.PICK_UP))
 		{
 			final Intention next = new Intention();
@@ -554,7 +596,7 @@ public abstract class PlayableAI<T extends Playable> extends CreatureAI<T>
 			clientActionFailed();
 			return;
 		}
-		
+
 		doPickUpIntention(itemObjectId, isShiftPressed);
 	}
 	
