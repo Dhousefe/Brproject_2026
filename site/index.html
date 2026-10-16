@@ -2421,7 +2421,7 @@
           <div class="vote-orb-stage" aria-hidden="true">
             <div class="vote-l2j-emblem-wrap">
               <div class="vote-emblem-shimmer"></div>
-              <img src="static/votel2jbrasilbg.png" alt="Top L2JBrasil" width="120" height="120" loading="lazy" class="vote-l2j-emblem-img" onerror="this.src='/static/votel2jbrasilbg.png'" />
+              <img src="/static/votel2jbrasilbg.png" alt="Top L2JBrasil" width="120" height="120" loading="lazy" class="vote-l2j-emblem-img" onerror="this.onerror=null; this.src='/static/votel2jbrasilbg.png';" />
               <div id="vote-emblem-beacon" class="vote-emblem-beacon beacon-pulse" title="Status de Votação"></div>
             </div>
           </div>
@@ -3980,7 +3980,7 @@
         <div class="relative z-[1] flex items-start justify-between gap-4 mb-3 shrink-0">
           <div class="flex items-center gap-3 min-w-0">
             <div id="vote-modal-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl grid place-items-center shrink-0 border border-amber-500/50 bg-slate-900/90 shadow-[0_0_25px_rgba(245,158,11,0.35)] p-1 overflow-hidden">
-              <img src="static/votel2jbrasilbg.png" alt="Top L2JBrasil" class="w-full h-full object-contain" onerror="this.src='/static/votel2jbrasilbg.png'" />
+              <img src="/static/votel2jbrasilbg.png" alt="Top L2JBrasil" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='/static/votel2jbrasilbg.png';" />
             </div>
             <div class="min-w-0">
               <h2 id="vote-modal-title" class="text-base sm:text-lg font-black text-white uppercase tracking-[0.16em]" data-i18n="vote.title">Sistema de Voto · Top L2JBrasil</h2>
@@ -9087,7 +9087,7 @@
 
     listEl.innerHTML = rewards.map(r => `
       <div class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-900/80 border border-amber-500/20 hover:border-amber-500/40 transition">
-        <img src="${r.iconUrl || '/img/etc_piece_of_cloth_i00.png'}" alt="${r.name}" class="w-9 h-9 rounded-lg border border-amber-500/30 bg-black/50 shrink-0 object-contain p-0.5" onerror="this.src='/img/etc_piece_of_cloth_i00.png'">
+        <img src="${r.iconUrl || '/img/etc_piece_of_cloth_i00.png'}" alt="${r.name}" class="w-9 h-9 rounded-lg border border-amber-500/30 bg-black/50 shrink-0 object-contain p-0.5" onerror="this.onerror=null; this.src='/img/etc_piece_of_cloth_i00.png';">
         <div class="min-w-0 flex-1">
           <div class="text-xs font-bold text-white truncate">${r.name}</div>
           <div class="text-[10px] font-mono text-amber-300/90 font-bold">${Number(r.count).toLocaleString()} ${t('vote.item_unit')}</div>
@@ -14842,7 +14842,7 @@
         itemCard.innerHTML = `
           <div class="flex items-center gap-2.5 min-w-0">
             <div class="w-9 h-9 rounded-lg bg-black/70 border border-white/10 p-0.5 shrink-0 grid place-items-center group-hover:border-gold-400/60 transition shadow">
-              <img src="${item.iconUrl || '/static/item_default.png'}" alt="${escapeHtml(item.name)}" class="w-7 h-7 object-contain rounded" onerror="this.src='/static/item_default.png'">
+              <img src="${item.iconUrl || '/static/item_default.png'}" alt="${escapeHtml(item.name)}" class="w-7 h-7 object-contain rounded" onerror="this.onerror=null; this.src='/static/item_default.png';">
             </div>
             <div class="min-w-0 flex-1">
               <div class="text-xs font-mono font-bold text-white truncate group-hover:text-gold-300 transition">${escapeHtml(item.name || 'Item')}</div>
