@@ -31,8 +31,8 @@
   <!-- LCP & Typography Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="/static/hero.png" fetchpriority="high">
-  <link rel="preload" as="image" href="/static/logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="../static/hero.png" fetchpriority="high">
+  <link rel="preload" as="image" href="../static/logo.png" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Schema.org JSON-LD Structured Data for Rich Snippets -->
@@ -1756,7 +1756,7 @@
 
     /* Rankings Background Parallax & Throne styling */
     .ranking-throne-bg {
-      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.88) 0%, rgba(10, 14, 23, 0.72) 40%, rgba(6, 7, 10, 0.92) 100%), url('img/ranking_throne_bg.jpg');
+      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.88) 0%, rgba(10, 14, 23, 0.72) 40%, rgba(6, 7, 10, 0.92) 100%), url('../static/ranking_throne_bg.jpg');
       background-size: cover;
       background-position: center top;
       background-attachment: scroll;
@@ -1764,7 +1764,7 @@
 
     /* Download Banner Art & Glow */
     .download-art-banner {
-      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.3) 0%, rgba(6, 7, 10, 0.95) 100%), url('img/download_client_art.jpg');
+      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.3) 0%, rgba(6, 7, 10, 0.95) 100%), url('../static/download_client_art.jpg');
       background-size: cover;
       background-position: center 30%;
     }
@@ -1833,7 +1833,7 @@
 
     /* About Section Lore Backdrop */
     .about-lore-bg {
-      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.92) 0%, rgba(10, 14, 23, 0.78) 40%, rgba(6, 7, 10, 0.95) 100%), url('img/about_lore_banner.jpg');
+      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.92) 0%, rgba(10, 14, 23, 0.78) 40%, rgba(6, 7, 10, 0.95) 100%), url('../static/about_lore_banner.jpg');
       background-size: cover;
       background-position: center 40%;
       background-attachment: scroll;
@@ -1892,7 +1892,7 @@
        DOWNLOAD LORE BACKGROUND, ARCANE RUNES & 3D CTAs
        ========================================================================= */
     .download-lore-bg {
-      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.94) 0%, rgba(10, 14, 23, 0.85) 40%, rgba(6, 7, 10, 0.96) 100%), url('img/download_bg_runes.jpg');
+      background-image: linear-gradient(180deg, rgba(6, 7, 10, 0.94) 0%, rgba(10, 14, 23, 0.85) 40%, rgba(6, 7, 10, 0.96) 100%), url('../static/download_bg_runes.jpg');
       background-size: cover;
       background-position: center 30%;
       background-attachment: scroll;
@@ -2132,7 +2132,7 @@
           <!-- Brand with Dynamic SiteLogo & Fallback -->
           <a href="#home" class="flex items-center gap-3 group" title="Página Inicial">
             <div id="nav-logo-wrap" class="relative flex items-center justify-center">
-              <img id="nav-logo" src="/static/logo.png" alt="Logo" width="36" height="36"
+              <img id="nav-logo" src="../static/logo.png" alt="Logo" width="36" height="36"
                    class="h-9 w-9 object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.45)] group-hover:scale-105 transition-transform"
                    onload="this.classList.remove('hidden'); const fb = document.getElementById('nav-logo-fallback'); if(fb) fb.classList.add('hidden');"
                    onerror="this.classList.add('hidden'); const fb = document.getElementById('nav-logo-fallback'); if(fb) fb.classList.remove('hidden');" />
@@ -2279,7 +2279,7 @@
       <div class="w-full lg:max-w-[52%]">
         <!-- Logo -->
         <div id="hero-logo-wrap" class="reveal motion-1 mb-6 flex items-center gap-4">
-          <img id="hero-logo" src="/static/logo.png" alt="Seu Servidor" width="80" height="80" fetchpriority="high"
+          <img id="hero-logo" src="../static/logo.png" alt="Seu Servidor" width="80" height="80" fetchpriority="high"
                class="hidden h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-[0_0_30px_rgba(34,211,238,0.4)]"
                onload="this.classList.remove('hidden'); document.getElementById('hero-logo-fallback').classList.add('hidden');"
                onerror="this.classList.add('hidden');">
@@ -2341,7 +2341,7 @@
         <div id="hero-pillars-container" class="hero-pillars-wrap w-full flex items-center justify-center gap-2.5 sm:gap-3.5 select-none pointer-events-auto py-4">
           <!-- Pillar 1: Left Card -->
           <div id="pillar-card-left" class="hero-pillar-card pillar-left group w-36 h-64 sm:w-44 sm:h-76 lg:w-48 lg:h-84 rounded-2xl overflow-hidden border-forged-steel medieval-rivets relative shadow-2xl cursor-pointer">
-            <img id="pillar-img-left" src="img/hero_pillar_knight.jpg" alt="Class Left" width="192" height="336" fetchpriority="high" class="w-full h-full object-cover object-center brightness-90 group-hover:brightness-105 group-hover:scale-110 transition-all duration-500" />
+            <img id="pillar-img-left" src="../static/hero_pillar_knight.jpg" alt="Class Left" width="192" height="336" fetchpriority="high" class="w-full h-full object-cover object-center brightness-90 group-hover:brightness-105 group-hover:scale-110 transition-all duration-500" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
             <div id="pillar-badge-left" class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-cyan-950/90 border border-cyan-500/50 text-[8px] sm:text-[9px] font-mono font-bold text-cyan-300 uppercase tracking-widest">
               Fighter
@@ -2356,7 +2356,7 @@
 
           <!-- Pillar 2: Center Card (Elevated & Gold frame) -->
           <div id="pillar-card-center" class="hero-pillar-card pillar-center group w-40 h-72 sm:w-48 sm:h-84 lg:w-54 lg:h-96 rounded-2xl overflow-hidden border-forged-gold medieval-rivets relative shadow-2xl cursor-pointer">
-            <img id="pillar-img-center" src="img/hero_pillar_mage.jpg" alt="Class Center" width="216" height="384" fetchpriority="high" class="w-full h-full object-cover object-center brightness-95 group-hover:brightness-110 group-hover:scale-110 transition-all duration-500" />
+            <img id="pillar-img-center" src="../static/hero_pillar_mage.jpg" alt="Class Center" width="216" height="384" fetchpriority="high" class="w-full h-full object-cover object-center brightness-95 group-hover:brightness-110 group-hover:scale-110 transition-all duration-500" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-transparent"></div>
             <div id="pillar-badge-center" class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-amber-950/95 border border-amber-500/70 text-[9px] sm:text-[10px] font-mono font-black text-amber-300 uppercase tracking-widest shadow-md">
               ★ Mystic
@@ -2371,7 +2371,7 @@
 
           <!-- Pillar 3: Right Card -->
           <div id="pillar-card-right" class="hero-pillar-card pillar-right group w-36 h-64 sm:w-44 sm:h-76 lg:w-48 lg:h-84 rounded-2xl overflow-hidden border-forged-steel medieval-rivets relative shadow-2xl cursor-pointer">
-            <img id="pillar-img-right" src="img/hero_pillar_archer.jpg" alt="Class Right" width="192" height="336" fetchpriority="high" class="w-full h-full object-cover object-center brightness-90 group-hover:brightness-105 group-hover:scale-110 transition-all duration-500" />
+            <img id="pillar-img-right" src="../static/hero_pillar_archer.jpg" alt="Class Right" width="192" height="336" fetchpriority="high" class="w-full h-full object-cover object-center brightness-90 group-hover:brightness-105 group-hover:scale-110 transition-all duration-500" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
             <div id="pillar-badge-right" class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-[8px] sm:text-[9px] font-mono font-bold text-emerald-300 uppercase tracking-widest">
               Ranger
@@ -2421,7 +2421,7 @@
           <div class="vote-orb-stage" aria-hidden="true">
             <div class="vote-l2j-emblem-wrap">
               <div class="vote-emblem-shimmer"></div>
-              <img src="/static/votel2jbrasilbg.png" alt="Top L2JBrasil" width="120" height="120" loading="lazy" class="vote-l2j-emblem-img" onerror="this.onerror=null; this.src='/static/votel2jbrasilbg.png';" />
+              <img src="../static/votel2jbrasilbg.png" alt="Top L2JBrasil" width="120" height="120" loading="lazy" class="vote-l2j-emblem-img" onerror="this.onerror=null; this.src='../static/votel2jbrasilbg.png';" />
               <div id="vote-emblem-beacon" class="vote-emblem-beacon beacon-pulse" title="Status de Votação"></div>
             </div>
           </div>
@@ -2507,7 +2507,7 @@
                 <div class="text-[10px] font-mono text-slate-400 truncate"><span id="service-item-name">Item 4037</span> · 1 un / op</div>
               </div>
               <div class="relative z-[1] flex items-center gap-2 shrink-0">
-                <img id="service-item-icon" class="w-5 h-5 object-contain image-pixelated" width="20" height="20" src="/img/assist_of_hatred.png" alt="Item usado nos serviços da conta" loading="lazy">
+                <img id="service-item-icon" class="w-5 h-5 object-contain image-pixelated" width="20" height="20" src="../img/assist_of_hatred.png" alt="Item usado nos serviços da conta" loading="lazy">
                 <span id="service-item-total" class="rename-token-count text-lg font-black font-mono">0</span>
               </div>
             </div>
@@ -2897,7 +2897,7 @@
         <div class="feature-card reveal elemental-fire-frame medieval-rivets rounded-3xl overflow-hidden transition-all hover:-translate-y-2 shadow-2xl flex flex-col justify-between group cursor-pointer">
           <div>
             <div class="relative h-44 overflow-hidden border-b border-orange-500/30">
-              <img src="img/about_card_siege.jpg" alt="Cercos de Castelo e PvP" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
+              <img src="../static/about_card_siege.jpg" alt="Cercos de Castelo e PvP" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
               <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-orange-950/90 border border-orange-500/60 text-[9px] font-mono font-bold text-orange-300 uppercase tracking-widest shadow-lg flex items-center gap-1.5">
                 <span data-i18n="about.card1_badge">🔥 Fogo & Cerco</span>
@@ -2930,7 +2930,7 @@
         <div class="feature-card reveal elemental-arcana-frame medieval-rivets rounded-3xl overflow-hidden transition-all hover:-translate-y-2 shadow-2xl flex flex-col justify-between group cursor-pointer">
           <div>
             <div class="relative h-44 overflow-hidden border-b border-cyan-500/30">
-              <img src="img/about_card_shield.jpg" alt="Anti-Cheat e Segurança" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
+              <img src="../static/about_card_shield.jpg" alt="Anti-Cheat e Segurança" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
               <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-cyan-950/90 border border-cyan-500/60 text-[9px] font-mono font-bold text-cyan-300 uppercase tracking-widest shadow-lg flex items-center gap-1.5">
                 <span data-i18n="about.card2_badge">🛡️ Arcana & Proteção</span>
@@ -2963,7 +2963,7 @@
         <div class="feature-card reveal elemental-gold-frame medieval-rivets rounded-3xl overflow-hidden transition-all hover:-translate-y-2 shadow-2xl flex flex-col justify-between group cursor-pointer">
           <div>
             <div class="relative h-44 overflow-hidden border-b border-amber-500/30">
-              <img src="img/about_card_community.jpg" alt="Economia Sólida e Clãs" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
+              <img src="../static/about_card_community.jpg" alt="Economia Sólida e Clãs" width="380" height="176" loading="lazy" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-105" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
               <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-amber-950/90 border border-amber-500/60 text-[9px] font-mono font-bold text-amber-300 uppercase tracking-widest shadow-lg flex items-center gap-1.5">
                 <span data-i18n="about.card3_badge">👑 Ouro Real & Comunidade</span>
@@ -3253,7 +3253,7 @@
           <div class="spec-card medieval-rivets rounded-2xl overflow-hidden shadow-xl bg-slate-900/90 flex flex-col justify-between liquid-metal-frame liquid-metal-frame-steel">
             <div>
               <div class="relative overflow-hidden border-b border-amber-500/20">
-                <img src="img/spec_cpu.jpg" alt="Processador CPU" width="280" height="140" loading="lazy" class="spec-card-img" />
+                <img src="../static/spec_cpu.jpg" alt="Processador CPU" width="280" height="140" loading="lazy" class="spec-card-img" />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-cyan-950/90 border border-cyan-500/50 text-[9px] font-mono font-bold text-cyan-300 uppercase">
                   CPU
@@ -3278,7 +3278,7 @@
           <div class="spec-card medieval-rivets rounded-2xl overflow-hidden shadow-xl bg-slate-900/90 flex flex-col justify-between liquid-metal-frame liquid-metal-frame-steel">
             <div>
               <div class="relative overflow-hidden border-b border-amber-500/20">
-                <img src="img/spec_ram.jpg" alt="Memória RAM" width="280" height="140" loading="lazy" class="spec-card-img" />
+                <img src="../static/spec_ram.jpg" alt="Memória RAM" width="280" height="140" loading="lazy" class="spec-card-img" />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-amber-950/90 border border-amber-500/50 text-[9px] font-mono font-bold text-amber-300 uppercase">
                   RAM
@@ -3303,7 +3303,7 @@
           <div class="spec-card medieval-rivets rounded-2xl overflow-hidden shadow-xl bg-slate-900/90 flex flex-col justify-between liquid-metal-frame liquid-metal-frame-steel">
             <div>
               <div class="relative overflow-hidden border-b border-amber-500/20">
-                <img src="img/spec_gpu.jpg" alt="Placa de Vídeo GPU" width="280" height="140" loading="lazy" class="spec-card-img" />
+                <img src="../static/spec_gpu.jpg" alt="Placa de Vídeo GPU" width="280" height="140" loading="lazy" class="spec-card-img" />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-rose-950/90 border border-rose-500/50 text-[9px] font-mono font-bold text-rose-300 uppercase">
                   GPU
@@ -3328,7 +3328,7 @@
           <div class="spec-card medieval-rivets rounded-2xl overflow-hidden shadow-xl bg-slate-900/90 flex flex-col justify-between liquid-metal-frame liquid-metal-frame-steel">
             <div>
               <div class="relative overflow-hidden border-b border-amber-500/20">
-                <img src="img/spec_storage.jpg" alt="Armazenamento SSD" width="280" height="140" loading="lazy" class="spec-card-img" />
+                <img src="../static/spec_storage.jpg" alt="Armazenamento SSD" width="280" height="140" loading="lazy" class="spec-card-img" />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-[9px] font-mono font-bold text-emerald-300 uppercase">
                   SSD
@@ -3980,7 +3980,7 @@
         <div class="relative z-[1] flex items-start justify-between gap-4 mb-3 shrink-0">
           <div class="flex items-center gap-3 min-w-0">
             <div id="vote-modal-icon" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl grid place-items-center shrink-0 border border-amber-500/50 bg-slate-900/90 shadow-[0_0_25px_rgba(245,158,11,0.35)] p-1 overflow-hidden">
-              <img src="/static/votel2jbrasilbg.png" alt="Top L2JBrasil" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='/static/votel2jbrasilbg.png';" />
+              <img src="../static/votel2jbrasilbg.png" alt="Top L2JBrasil" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='../static/votel2jbrasilbg.png';" />
             </div>
             <div class="min-w-0">
               <h2 id="vote-modal-title" class="text-base sm:text-lg font-black text-white uppercase tracking-[0.16em]" data-i18n="vote.title">Sistema de Voto · Top L2JBrasil</h2>
@@ -8482,8 +8482,8 @@
       primary: '#f59e0b',
       secondary: '#7c3aed',
       accent: '#22d3ee',
-      backgroundImage: '/static/hero.png',
-      logo: '/static/logo.png'
+      backgroundImage: '../static/hero.png',
+      logo: '../static/logo.png'
     },
     servers: [
       { name: 'Bartz', chronicle: 'Interlude', rates: 'XP 50x • SP 50x • Adena 25x' }
@@ -9087,7 +9087,7 @@
 
     listEl.innerHTML = rewards.map(r => `
       <div class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-900/80 border border-amber-500/20 hover:border-amber-500/40 transition">
-        <img src="${r.iconUrl || '/img/etc_piece_of_cloth_i00.png'}" alt="${r.name}" class="w-9 h-9 rounded-lg border border-amber-500/30 bg-black/50 shrink-0 object-contain p-0.5" onerror="this.onerror=null; this.src='/img/etc_piece_of_cloth_i00.png';">
+        <img src="${r.iconUrl || '../img/etc_piece_of_cloth_i00.png'}" alt="${r.name}" class="w-9 h-9 rounded-lg border border-amber-500/30 bg-black/50 shrink-0 object-contain p-0.5" onerror="this.onerror=null; this.src='../img/etc_piece_of_cloth_i00.png';">
         <div class="min-w-0 flex-1">
           <div class="text-xs font-bold text-white truncate">${r.name}</div>
           <div class="text-[10px] font-mono text-amber-300/90 font-bold">${Number(r.count).toLocaleString()} ${t('vote.item_unit')}</div>
@@ -9868,7 +9868,7 @@
       id: 'human',
       name: 'Humano',
       badge: 'Humano',
-      img: 'img/race_human.jpg',
+      img: '../static/race_human.jpg',
       theme: 'gold',
       frameClass: 'elemental-gold-frame'
     },
@@ -9876,7 +9876,7 @@
       id: 'elf',
       name: 'Elfo da Luz',
       badge: 'Elfo da Luz',
-      img: 'img/race_elf.jpg',
+      img: '../static/race_elf.jpg',
       theme: 'arcana',
       frameClass: 'elemental-arcana-frame'
     },
@@ -9884,7 +9884,7 @@
       id: 'darkelf',
       name: 'Elfo Negro',
       badge: 'Elfo Negro',
-      img: 'img/race_dark_elf.jpg',
+      img: '../static/race_dark_elf.jpg',
       theme: 'shadow',
       frameClass: 'elemental-arcana-frame'
     },
@@ -9892,7 +9892,7 @@
       id: 'orc',
       name: 'Orc',
       badge: 'Guerreiro Orc',
-      img: 'img/race_orc.jpg',
+      img: '../static/race_orc.jpg',
       theme: 'fire',
       frameClass: 'elemental-fire-frame'
     },
@@ -9900,7 +9900,7 @@
       id: 'dwarf',
       name: 'Anão',
       badge: 'Mestre Anão',
-      img: 'img/race_dwarf.jpg',
+      img: '../static/race_dwarf.jpg',
       theme: 'steel',
       frameClass: 'elemental-gold-frame'
     },
@@ -9908,7 +9908,7 @@
       id: 'clan',
       name: 'Clã de Aden',
       badge: 'Clã Imperial',
-      img: 'img/race_clan.jpg',
+      img: '../static/race_clan.jpg',
       theme: 'royal',
       frameClass: 'elemental-gold-frame'
     }
@@ -11162,9 +11162,9 @@
     const tooltip = ensureItemHoverTooltip();
     const name = safeText(item?.name, 'Item');
     const count = formatItemCount(item?.count);
-    const tooltipIcon = iconUrl || '/img/assist_of_hatred.png';
+    const tooltipIcon = iconUrl || '../img/assist_of_hatred.png';
     tooltip.innerHTML = `
-      <img src="${escapeHtml(tooltipIcon)}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='/img/assist_of_hatred.png';">
+      <img src="${escapeHtml(tooltipIcon)}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.onerror=null;this.src='../img/assist_of_hatred.png';">
       <div class="min-w-0">
         <div class="item-hover-tooltip-name">${escapeHtml(name)}</div>
         <div class="item-hover-tooltip-count">Quantidade: ${escapeHtml(count)}</div>
@@ -11201,8 +11201,8 @@
     const iconUrl = item.iconUrl || '';
     cell.setAttribute('aria-label', `${item.name || 'Item'} • quantidade ${countValue.toLocaleString('pt-BR')}${item.enchant > 0 ? ' • +' + item.enchant : ''}`);
     const icon = iconUrl
-      ? `<img class="item-icon-img" src="${escapeHtml(iconUrl)}" alt="${escapeHtml(item.name || 'Item')}" loading="lazy" onerror="this.onerror=null;this.src='/img/assist_of_hatred.png'">`
-      : `<img class="item-icon-img" src="/img/assist_of_hatred.png" alt="${escapeHtml(item.name || 'Item')}" loading="lazy">`;
+      ? `<img class="item-icon-img" src="${escapeHtml(iconUrl)}" alt="${escapeHtml(item.name || 'Item')}" loading="lazy" onerror="this.onerror=null;this.src='../img/assist_of_hatred.png'">`
+      : `<img class="item-icon-img" src="../img/assist_of_hatred.png" alt="${escapeHtml(item.name || 'Item')}" loading="lazy">`;
     cell.classList.add('has-icon');
     cell.innerHTML = `
       ${icon}
@@ -12338,7 +12338,7 @@
                 return `
                   <div class="p-3 rounded-2xl bg-slate-900/90 border ${canBuy ? 'border-slate-700/80 hover:border-amber-500/50' : 'border-slate-800/80 opacity-75'} transition flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
                     <div class="flex items-center gap-3.5 w-full sm:w-auto">
-                      <img src="img/${safeText(sk.icon)}" onerror="this.onerror=null; this.src='img/skill_fallback.png';" class="w-12 h-12 rounded-xl object-contain border border-amber-500/30 p-1 bg-slate-950 shadow flex-shrink-0" alt="${escapeHtml(sk.name)}" />
+                      <img src="../img/${safeText(sk.icon)}" onerror="this.onerror=null; this.src='../img/skill_fallback.png';" class="w-12 h-12 rounded-xl object-contain border border-amber-500/30 p-1 bg-slate-950 shadow flex-shrink-0" alt="${escapeHtml(sk.name)}" />
                       <div>
                         <div class="text-xs font-bold text-white flex items-center gap-2 flex-wrap">
                           <span>${escapeHtml(sk.name)}</span>
@@ -12369,7 +12369,7 @@
                 </div>
               ` : currentSkills.map(sk => `
                 <div class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-start gap-3 shadow-md">
-                  <img src="img/${safeText(sk.icon)}" onerror="this.onerror=null; this.src='img/skill_fallback.png';" class="w-10 h-10 rounded-xl object-contain border border-cyan-500/30 p-1 bg-slate-950 shadow flex-shrink-0 mt-0.5" alt="${escapeHtml(sk.name)}" />
+                  <img src="../img/${safeText(sk.icon)}" onerror="this.onerror=null; this.src='../img/skill_fallback.png';" class="w-10 h-10 rounded-xl object-contain border border-cyan-500/30 p-1 bg-slate-950 shadow flex-shrink-0 mt-0.5" alt="${escapeHtml(sk.name)}" />
                   <div>
                     <div class="text-xs font-bold text-white">${escapeHtml(sk.name)}</div>
                     <div class="text-[11px] font-mono text-cyan-300 mt-0.5">${t('clan.level_current')}: <strong>${sk.level}</strong> / ${sk.maxLevel}</div>
@@ -14842,7 +14842,7 @@
         itemCard.innerHTML = `
           <div class="flex items-center gap-2.5 min-w-0">
             <div class="w-9 h-9 rounded-lg bg-black/70 border border-white/10 p-0.5 shrink-0 grid place-items-center group-hover:border-gold-400/60 transition shadow">
-              <img src="${item.iconUrl || '/static/item_default.png'}" alt="${escapeHtml(item.name)}" class="w-7 h-7 object-contain rounded" onerror="this.onerror=null; this.src='/static/item_default.png';">
+              <img src="${item.iconUrl || '../static/item_default.png'}" alt="${escapeHtml(item.name)}" class="w-7 h-7 object-contain rounded" onerror="this.onerror=null; this.src='../static/item_default.png';">
             </div>
             <div class="min-w-0 flex-1">
               <div class="text-xs font-mono font-bold text-white truncate group-hover:text-gold-300 transition">${escapeHtml(item.name || 'Item')}</div>
@@ -17117,7 +17117,7 @@
     {
       setKey: 'hero.class_set_0',
       left: {
-        img: 'img/hero_pillar_knight.jpg',
+        img: '../static/hero_pillar_knight.jpg',
         badgeKey: 'hero.class_knight_badge',
         badgeClass: 'bg-cyan-950/90 border-cyan-500/50 text-cyan-300',
         icon: '<span>⚔️</span>',
@@ -17125,7 +17125,7 @@
         descKey: 'hero.class_knight_desc'
       },
       center: {
-        img: 'img/hero_pillar_mage.jpg',
+        img: '../static/hero_pillar_mage.jpg',
         badgeKey: 'hero.class_mage_badge',
         badgeClass: 'bg-amber-950/95 border-amber-500/70 text-amber-300',
         icon: '<span>✨</span>',
@@ -17133,7 +17133,7 @@
         descKey: 'hero.class_mage_desc'
       },
       right: {
-        img: 'img/hero_pillar_archer.jpg',
+        img: '../static/hero_pillar_archer.jpg',
         badgeKey: 'hero.class_archer_badge',
         badgeClass: 'bg-emerald-950/90 border-emerald-500/50 text-emerald-300',
         icon: '<span>🏹</span>',
@@ -17144,7 +17144,7 @@
     {
       setKey: 'hero.class_set_1',
       left: {
-        img: 'img/hero_pillar_titan.jpg',
+        img: '../static/hero_pillar_titan.jpg',
         badgeKey: 'hero.class_titan_badge',
         badgeClass: 'bg-rose-950/90 border-rose-500/50 text-rose-300',
         icon: '<span>🔥</span>',
@@ -17152,7 +17152,7 @@
         descKey: 'hero.class_titan_desc'
       },
       center: {
-        img: 'img/hero_pillar_necromancer.jpg',
+        img: '../static/hero_pillar_necromancer.jpg',
         badgeKey: 'hero.class_soultaker_badge',
         badgeClass: 'bg-purple-950/95 border-purple-500/70 text-purple-300',
         icon: '<span>💀</span>',
@@ -17160,7 +17160,7 @@
         descKey: 'hero.class_soultaker_desc'
       },
       right: {
-        img: 'img/hero_pillar_dagger.jpg',
+        img: '../static/hero_pillar_dagger.jpg',
         badgeKey: 'hero.class_ghost_hunter_badge',
         badgeClass: 'bg-emerald-950/90 border-emerald-500/50 text-emerald-300',
         icon: '<span>🗡️</span>',
@@ -17171,7 +17171,7 @@
     {
       setKey: 'hero.class_set_2',
       left: {
-        img: 'img/hero_pillar_duelist.jpg',
+        img: '../static/hero_pillar_duelist.jpg',
         badgeKey: 'hero.class_duelist_badge',
         badgeClass: 'bg-blue-950/90 border-blue-500/50 text-blue-300',
         icon: '<span>⚡</span>',
@@ -17179,7 +17179,7 @@
         descKey: 'hero.class_duelist_desc'
       },
       center: {
-        img: 'img/hero_pillar_overlord.jpg',
+        img: '../static/hero_pillar_overlord.jpg',
         badgeKey: 'hero.class_overlord_badge',
         badgeClass: 'bg-amber-950/95 border-amber-500/70 text-amber-300',
         icon: '<span>👑</span>',
@@ -17187,7 +17187,7 @@
         descKey: 'hero.class_overlord_desc'
       },
       right: {
-        img: 'img/hero_pillar_dwarf.jpg',
+        img: '../static/hero_pillar_dwarf.jpg',
         badgeKey: 'hero.class_warsmith_badge',
         badgeClass: 'bg-amber-950/90 border-amber-500/50 text-amber-300',
         icon: '<span>🔨</span>',
