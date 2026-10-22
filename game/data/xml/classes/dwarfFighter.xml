@@ -650,6 +650,29 @@
 			<!-- Divine Inspiration -->
 			<skill id="1405" lvl="1" cost="-1" minLvl="52"/>
 			<skill id="1405" lvl="2" cost="-1" minLvl="61"/>
+			<!-- Spoil -->
+			<skill id="254" lvl="2" cost="4100" minLvl="20"/>
+			<skill id="254" lvl="3" cost="13000" minLvl="28"/>
+			<skill id="254" lvl="4" cost="35000" minLvl="36"/>
+			<skill id="254" lvl="5" cost="42000" minLvl="43"/>
+			<skill id="254" lvl="6" cost="109000" minLvl="49"/>
+			<skill id="254" lvl="7" cost="220000" minLvl="55"/>
+			<skill id="254" lvl="8" cost="322000" minLvl="60"/>
+			<skill id="254" lvl="9" cost="530000" minLvl="64"/>
+			<skill id="254" lvl="10" cost="780000" minLvl="68"/>
+			<skill id="254" lvl="11" cost="1200000" minLvl="72"/>
+			<!-- Spoil Festival -->
+			<skill id="302" lvl="1" cost="13000" minLvl="28"/>
+			<skill id="302" lvl="2" cost="35000" minLvl="36"/>
+			<skill id="302" lvl="3" cost="42000" minLvl="43"/>
+			<skill id="302" lvl="4" cost="98000" minLvl="49"/>
+			<skill id="302" lvl="5" cost="220000" minLvl="55"/>
+			<skill id="302" lvl="6" cost="400000" minLvl="62"/>
+			<skill id="302" lvl="7" cost="580000" minLvl="66"/>
+			<skill id="302" lvl="8" cost="850000" minLvl="70"/>
+			<skill id="302" lvl="9" cost="2000000" minLvl="74"/>
+			<!-- Festive Sweeper -->
+			<skill id="444" lvl="1" cost="45000" minLvl="40"/>
 		</skills>
 	</class>
 	<class><!-- Bounty Hunter -->
