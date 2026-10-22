@@ -102,7 +102,15 @@ public class BuyListManager implements IXmlReader
 	{
 		return _buyLists.get(listId);
 	}
-	
+
+	/**
+	 * @return Todas as buylists carregadas no servidor (utilizado pelo MarketPriceManager).
+	 */
+	public java.util.Collection<NpcBuyList> getBuyLists()
+	{
+		return _buyLists.values();
+	}
+
 	public List<NpcBuyList> getBuyListsByNpcId(int npcId)
 	{
 		return _buyLists.values().stream().filter(b -> b.isNpcAllowed(npcId)).toList();

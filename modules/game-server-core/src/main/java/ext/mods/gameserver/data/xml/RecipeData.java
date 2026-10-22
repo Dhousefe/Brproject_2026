@@ -66,6 +66,11 @@ public class RecipeData implements IXmlReader
 	{
 		return _recipes.values().stream().filter(r -> r.recipeId() == itemId).findFirst().orElse(null);
 	}
+
+	public java.util.Collection<Recipe> getRecipes()
+	{
+		return _recipes.values();
+	}
 	
 	public static RecipeData getInstance()
 	{

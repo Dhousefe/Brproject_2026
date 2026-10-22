@@ -989,6 +989,7 @@ public class ProcessManagerService {
             command.add(userEmail);
         }
 
+
         new Thread(() -> {
             try {
                 ProcessBuilder pb = new ProcessBuilder(command);

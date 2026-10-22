@@ -30,16 +30,33 @@ import java.util.Set;
 public class ListContainer
 {
 	private final int _id;
-	
+	private String _filePath;
+
 	private boolean _applyTaxes;
 	private boolean _maintainEnchantment;
-	
+
 	protected List<Entry> _entries = new ArrayList<>();
 	protected Set<Integer> _npcsAllowed;
-	
+
 	public ListContainer(int id)
 	{
+		this(id, null);
+	}
+
+	public ListContainer(int id, String filePath)
+	{
 		_id = id;
+		_filePath = filePath;
+	}
+
+	public final String getFilePath()
+	{
+		return _filePath;
+	}
+
+	public final void setFilePath(String filePath)
+	{
+		_filePath = filePath;
 	}
 	
 	public final List<Entry> getEntries()

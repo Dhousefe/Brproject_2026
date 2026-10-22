@@ -3,7 +3,10 @@
   BrProject GameServer — Logback configuration for production and development.
   Filters noisy internal debug messages from Netty, HikariCP, and SQLite.
 -->
-<configuration scan="true" scanPeriod="60 seconds">
+<configuration>
+
+    <!-- Silencia o StatusManager/StatusPrinter interno do Logback no console -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
     <!-- Console Appender -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

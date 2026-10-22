@@ -2073,6 +2073,16 @@ public class Player extends Playable
 		if (getClient() == null || packet == null)
 			return;
 
+		if (packet instanceof ActionFailed)
+		{
+			final long now = System.currentTimeMillis();
+			final int minInterval = ConfigPlayers.ACTION_FAILED_MIN_INTERVAL_MS;
+			if (minInterval > 0 && !canSendActionFailed(now, minInterval))
+			{
+				return;
+			}
+		}
+
 		if (packet instanceof NpcHtmlMessage html) {
 			
 			if (html.isFromTranslator()) {

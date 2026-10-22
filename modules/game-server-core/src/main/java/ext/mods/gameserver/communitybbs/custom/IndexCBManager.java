@@ -261,7 +261,7 @@ public class IndexCBManager extends BaseBBSManager
 			
 			content = content.replace("%time%", GameTimeTaskManager.getInstance().getGameTimeFormated());
 			
-			separateAndSend(content, player);
+				separateAndSend(content, player, CB_PATH + getFolder() + "index.htm");
 		}
 		else
 			super.parseCmd(command, player);

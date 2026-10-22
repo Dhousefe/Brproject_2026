@@ -380,25 +380,32 @@ public class Shutdown extends Thread
 	
 	public void playServerLoadedSound()
 	{
+		if (java.awt.GraphicsEnvironment.isHeadless())
+			return;
+
 		try
 		{
 			File soundFile = new File("../sound/Shutdown.wav");
 			if (!soundFile.exists())
 			{
-				System.err.println("⚠ Arquivo de som não encontrado: " + soundFile.getAbsolutePath());
+				LOGGER.debug("Arquivo de som de shutdown nao encontrado: {}", soundFile.getAbsolutePath());
 				return;
 			}
-			
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-			
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioStream);
-			clip.start();
-			
+
+			final javax.sound.sampled.Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+			if (mixers == null || mixers.length == 0)
+				return;
+
+			try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile))
+			{
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioStream);
+				clip.start();
+			}
 		}
-		catch (Exception e)
+		catch (Throwable t)
 		{
-			LOGGER.error("Failed to play shutdown sound", e);
+			LOGGER.warn("Nao foi possivel reproduzir o som de shutdown: {}", t.getMessage());
 		}
 	}
 	

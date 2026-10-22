@@ -113,6 +113,7 @@ tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>("compileKotlin") {
 
 tasks.named<JavaCompile>("compileJava") {
     options.encoding = "UTF-8"
+    options.compilerArgs.addAll(listOf("--add-modules", "jdk.incubator.vector"))
     dependsOn(tasks.named("compileKotlin"))
     val kotlinCompile = tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>("compileKotlin")
     classpath = files(kotlinCompile.map { it.destinationDirectory }) + classpath
@@ -120,7 +121,7 @@ tasks.named<JavaCompile>("compileJava") {
 
 application {
     mainClass.set("ext.mods.gameserver.GameServer")
-    applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx2g")
+    applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Xms512m", "-Xmx2g", "--add-modules", "jdk.incubator.vector")
 }
 
 tasks.named<JavaExec>("run") {
@@ -161,4 +162,5 @@ tasks.withType<Zip>().configureEach { duplicatesStrategy = DuplicatesStrategy.EX
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs("--add-modules", "jdk.incubator.vector")
 }

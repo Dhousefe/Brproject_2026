@@ -67,7 +67,7 @@ public final class ProxyMain {
             try {
                 startRoute(route, limiter);
             } catch (Exception e) {
-                
+                // Tenta fallback automatico para porta nao-privilegiada se for Permission denied no Linux
                 int fallbackPort = getUnprivilegedFallbackPort(route);
                 if (fallbackPort > 0 && isPermissionDenied(e)) {
                     ProxyRoute fallbackRoute = route.withBindPort(fallbackPort);

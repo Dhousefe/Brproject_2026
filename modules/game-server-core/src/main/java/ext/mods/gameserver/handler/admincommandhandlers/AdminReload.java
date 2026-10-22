@@ -105,6 +105,7 @@ public class AdminReload implements IAdminCommandHandler
 				else if (type.startsWith("buylist"))
 				{
 					BuyListManager.getInstance().reload();
+					ext.mods.gameserver.data.manager.MarketPriceManager.getInstance().reload();
 					player.sendMessage("Buylists have been reloaded.");
 				}
 				else if (type.startsWith("capsule"))
@@ -188,6 +189,7 @@ public class AdminReload implements IAdminCommandHandler
 				else if (type.equals("multisell"))
 				{
 					MultisellData.getInstance().reload();
+					ext.mods.gameserver.data.manager.MarketPriceManager.getInstance().reload();
 					player.sendMessage("The multisell instance has been reloaded.");
 				}
 				else if (type.equals("npc"))

@@ -165,7 +165,7 @@ public final class ServerList extends L2LoginServerPacket
 			return configuredHost;
 		}
 
-		
+		// 3. Se a maquina servidora possui um IP de rede local / LAN (prioriza 192.168.x e 10.x sobre faixas virtuais WSL 172.x)
 		final String localLanIp = getLocalLanAddress();
 		if (clientIp != null && clientIp.isLoopbackAddress() && (localLanIp == null || isVirtualSubnet(localLanIp)))
 		{
@@ -176,13 +176,13 @@ public final class ServerList extends L2LoginServerPacket
 			return localLanIp;
 		}
 
-		
+		// 4. Se o GS conectou com um IP valido que nao seja loopback
 		if (connectionIp != null && !connectionIp.isBlank() && !"127.0.0.1".equals(connectionIp) && !"::1".equals(connectionIp))
 		{
 			return connectionIp;
 		}
 
-		
+		// 5. Fallback se houver host configurado
 		if (configuredHost != null && !configuredHost.isBlank() && !"*".equals(configuredHost))
 		{
 			return configuredHost;
@@ -198,7 +198,7 @@ public final class ServerList extends L2LoginServerPacket
 		{
 			String[] parts = ip.split("\\.");
 			int second = Integer.parseInt(parts[1]);
-			return second >= 16 && second <= 31;
+			return second >= 16 && second <= 31; // 172.16.0.0/12 (faixa virtual WSL2/Hyper-V/Docker)
 		}
 		catch (Exception e)
 		{
@@ -226,7 +226,7 @@ public final class ServerList extends L2LoginServerPacket
 					}
 				}
 			}
-			
+			// Prioriza adaptadores de rede fisica (192.168.x ou 10.x) sobre faixas virtuais do WSL (172.16-31.x)
 			for (String ip : lanIps)
 			{
 				if (ip.startsWith("192.168.") || ip.startsWith("10."))

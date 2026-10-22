@@ -581,14 +581,9 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	{
 		if (_isDetached || gsp == null)
 			return;
-		
+
 		gsp.setClient(this);
-		
-		if (_nettyConnection != null)
-			_nettyConnection.sendPacket(gsp);
-		else if (getConnection() != null)
-			getConnection().sendPacket(gsp);
-		
+
 		try
 		{
 			gsp.runImpl();
@@ -597,19 +592,34 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		{
 			LOGGER.error("Failed running {} for {}.", e, gsp.getType(), toString());
 		}
+
+		if (_nettyConnection != null)
+			_nettyConnection.sendPacket(gsp);
+		else if (getConnection() != null)
+			getConnection().sendPacket(gsp);
 	}
-	
+
 	public void sendPackets(java.util.List<L2GameServerPacket> packets)
 	{
 		if (_isDetached || packets == null || packets.isEmpty())
 			return;
-		
+
 		for (L2GameServerPacket gsp : packets)
 		{
 			if (gsp != null)
+			{
 				gsp.setClient(this);
+				try
+				{
+					gsp.runImpl();
+				}
+				catch (Exception e)
+				{
+					LOGGER.error("Failed running {} for {}.", e, gsp.getType(), toString());
+				}
+			}
 		}
-		
+
 		if (_nettyConnection != null)
 		{
 			_nettyConnection.sendPackets(packets);
@@ -620,21 +630,6 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 			{
 				if (gsp != null)
 					getConnection().sendPacket(gsp);
-			}
-		}
-		
-		for (L2GameServerPacket gsp : packets)
-		{
-			if (gsp != null)
-			{
-				try
-				{
-					gsp.runImpl();
-				}
-				catch (Exception e)
-				{
-					LOGGER.error("Failed running {} for {}.", e, gsp.getType(), toString());
-				}
 			}
 		}
 	}

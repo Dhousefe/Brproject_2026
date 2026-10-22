@@ -124,6 +124,7 @@ public final class ConfigPlayers
    // RequestBypassToServer Inbound Flood & DOS Mitigation
    public static int REQUEST_BYPASS_DEBOUNCE_TIME_MS;
    public static int REQUEST_BYPASS_MAX_PACKETS_PER_SECOND;
+   public static boolean SELL_PRICE_CAP_TO_BUY;
 
    // Combat & Skill Formulas (L2OFF Parity & Balance)
    public static double MAGIC_CRITICAL_DAMAGE_MULTIPLIER;
@@ -183,6 +184,7 @@ public final class ConfigPlayers
       ConfigPlayers.ACTION_FAILED_MIN_INTERVAL_MS = players.getProperty("ActionFailedMinIntervalMs", 250);
       ConfigPlayers.REQUEST_BYPASS_DEBOUNCE_TIME_MS = players.getProperty("RequestBypassDebounceTimeMs", 250);
       ConfigPlayers.REQUEST_BYPASS_MAX_PACKETS_PER_SECOND = players.getProperty("RequestBypassMaxPacketsPerSecond", 15);
+      ConfigPlayers.SELL_PRICE_CAP_TO_BUY = players.getProperty("SellPriceCapToBuyPrice", true);
 
       // Combat & Skill Formulas
       ConfigPlayers.MAGIC_CRITICAL_DAMAGE_MULTIPLIER = players.getProperty("MagicCriticalDamageMultiplier", 3.0);

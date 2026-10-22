@@ -19,6 +19,8 @@ package ext.mods.gameserver.network.serverpackets;
 
 import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.model.item.kind.Item;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.network.GameClient;
 
 public class PackageSendableList extends L2GameServerPacket
 {
@@ -34,9 +36,14 @@ public class PackageSendableList extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
+		final GameClient client = getClient();
+		final Player player = (client != null) ? client.getPlayer() : null;
+		if (player == null)
+			return;
+
 		writeC(0xC3);
 		writeD(_objectId);
-		writeD(getClient().getPlayer().getAdena());
+		writeD(player.getAdena());
 		writeD(_items.length);
 		
 		for (ItemInstance temp : _items)

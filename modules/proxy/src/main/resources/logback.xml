@@ -9,9 +9,12 @@
     - Error-only file for fast incident diagnosis
     - Async appenders to avoid blocking Netty I/O threads
 -->
-<configuration scan="true" scanPeriod="60 seconds">
+<configuration>
 
-    <property name="LOG_DIR" value="${PROXY_LOG_DIR:-logs/proxy}"/>
+    <!-- Silencia o StatusManager/StatusPrinter interno do Logback no console -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <property name="LOG_DIR" value="${PROXY_LOG_DIR:-logs/proxy}"/ >
     <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n"/>
     <property name="ACCESS_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n"/>
 

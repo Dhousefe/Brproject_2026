@@ -64,6 +64,7 @@ import ext.mods.gameserver.network.serverpackets.MoveToPawn;
 import ext.mods.gameserver.network.serverpackets.NpcHtmlMessage;
 import ext.mods.gameserver.network.serverpackets.StopMove;
 import ext.mods.gameserver.network.serverpackets.SystemMessage;
+import ext.mods.gameserver.network.serverpackets.TargetUnselected;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.gameserver.taskmanager.AttackStanceTaskManager;
 import ext.mods.gameserver.taskmanager.ItemsOnGroundTaskManager;
@@ -258,6 +259,8 @@ public class PlayerAI extends PlayableAI<Player>
         {
             doIdleIntention();
             clientActionFailed();
+            _actor.setTarget(null);
+            _actor.sendPacket(new TargetUnselected(_actor));
             _actor.sendMessage("Você não pode atacar um alvo perdido");
             return;
         }
@@ -382,6 +385,9 @@ public class PlayerAI extends PlayableAI<Player>
         if (isTargetLost(target, skill))
         {
             doIdleIntention();
+            clientActionFailed();
+            _actor.setTarget(null);
+            _actor.sendPacket(new TargetUnselected(_actor));
             return;
         }
         

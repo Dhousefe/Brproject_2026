@@ -19,24 +19,26 @@ package ext.mods.gameserver.network.serverpackets;
 
 import static ext.mods.gameserver.data.xml.MultisellData.PAGE_SIZE;
 
+import ext.mods.gameserver.model.actor.Player;
 import ext.mods.gameserver.model.multisell.Entry;
 import ext.mods.gameserver.model.multisell.Ingredient;
 import ext.mods.gameserver.model.multisell.ListContainer;
+import ext.mods.gameserver.network.GameClient;
 
 public class MultiSellList extends L2GameServerPacket
 {
 	private final ListContainer _list;
-	
+
 	private int _index;
 	private int _size;
-	
+
 	private boolean _finished;
-	
+
 	public MultiSellList(ListContainer list, int index)
 	{
 		_list = list;
 		_index = index;
-		
+
 		_size = list.getEntries().size() - index;
 		if (_size > PAGE_SIZE)
 		{
@@ -45,6 +47,28 @@ public class MultiSellList extends L2GameServerPacket
 		}
 		else
 			_finished = true;
+	}
+
+	@Override
+	public void runImpl()
+	{
+		// Envia apenas na primeira pagina (index == 0) para evitar flood em multisells longas
+		if (_index != 0)
+			return;
+
+		final GameClient client = getClient();
+		if (client == null)
+			return;
+
+		final Player player = client.getPlayer();
+		if (player == null || !player.isGM())
+			return;
+
+		final String path = (_list != null && _list.getFilePath() != null && !_list.getFilePath().isEmpty())
+			? _list.getFilePath()
+			: (_list != null ? ("data/xml/multisell/" + _list.getId() + ".xml") : "data/xml/multisell/desconhecido.xml");
+
+		player.sendMessage("[Multisell Path]: " + path);
 	}
 	
 	@Override

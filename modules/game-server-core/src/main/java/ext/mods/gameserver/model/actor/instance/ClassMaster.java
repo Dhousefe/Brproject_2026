@@ -145,6 +145,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/questrecommender/QuestRecommenderManager.java:729");
 				msg.setHtml(html);
 				msg.disableValidation();
 				player.sendPacket(msg);
@@ -157,6 +158,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/levelupmaker/LevelUpMakerManager.java");
 				msg.setHtml(html);
 				msg.disableValidation();
 				player.sendPacket(msg);
@@ -169,6 +171,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/tour/TourExtension.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}
@@ -180,6 +183,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/gameserver/model/entity/events/capturetheflag/CTFManager.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}
@@ -191,6 +195,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/gameserver/model/entity/events/deathmatch/DMManager.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}
@@ -202,6 +207,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/gameserver/model/entity/events/lastman/LMManager.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}
@@ -213,6 +219,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/gameserver/model/entity/events/teamvsteam/TvTManager.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}
@@ -224,6 +231,7 @@ public final class ClassMaster extends Folk
 			if (html != null)
 			{
 				NpcHtmlMessage msg = new NpcHtmlMessage(0);
+				msg.setBuilderClass("ext/mods/Crypta/RandomManager.java");
 				msg.setHtml(html);
 				player.sendPacket(msg);
 			}

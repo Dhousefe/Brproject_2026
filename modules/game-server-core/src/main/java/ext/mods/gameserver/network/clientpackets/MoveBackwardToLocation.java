@@ -150,7 +150,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			if (player.tryToPassBoatEntrance(targetLoc, _moveMovement == 0))
 				return;
 
-			
+			// Validação prévia de Geodata (L2OFF Parity / Sem quebra de água, natação ou barco)
 			if (!canNavigateToDestination(player, targetLoc))
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -255,14 +255,14 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 
 	private static boolean canNavigateToDestination(Player player, Location targetLoc)
 	{
-		
+		// 1. Barcos, natacao/agua ou voo possuem fisica 3D propria - nao restringir por malha de solo
 		if (player.isInBoat() || player.isInWater() || player.getMove().getMoveType() == MoveType.SWIM || player.isFlying() || player.getMove().getMoveType() == MoveType.FLY)
 			return true;
 
 		if (ZoneManager.getInstance().getZone(targetLoc.getX(), targetLoc.getY(), targetLoc.getZ(), WaterZone.class) != null)
 			return true;
 
-		
+		// 2. Se a regiao nao possui geodata carregada, permite movimentacao livre padrao
 		if (!GeoEngine.getInstance().hasGeo(targetLoc.getX(), targetLoc.getY()))
 			return true;
 
@@ -272,19 +272,19 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		final int targetX = targetLoc.getX();
 		final int targetY = targetLoc.getY();
 
-		
+		// 3. Linha direta desobstruida (campo aberto, chao plano, rampa continua)
 		if (GeoEngine.getInstance().canMoveToTarget(curX, curY, curZ, targetX, targetY, targetLoc.getZ()))
 			return true;
 
-		
+		// 4. Se nao ha linha direta, avaliar o terreno da celula de destino relativa ao nivel do jogador
 		final int targetFloorZ = GeoEngine.getInstance().getHeight(targetX, targetY, curZ);
 		final byte nswe = GeoEngine.getInstance().getNswe(targetX, targetY, targetFloorZ);
 
-		
+		// Celula e rocha solida / parede intransponivel (nenhuma direcao de transito permitida)
 		if (nswe == GeoStructure.CELL_FLAG_NONE)
 			return false;
 
-		
+		// 5. Teste de avanco minimo quando encostado em obstaculos (evita clique fantasma colado na pedra)
 		final Location validLoc = GeoEngine.getInstance().getValidLocation(curX, curY, curZ, targetX, targetY, targetFloorZ, null);
 		if (validLoc.getX() == curX && validLoc.getY() == curY)
 		{

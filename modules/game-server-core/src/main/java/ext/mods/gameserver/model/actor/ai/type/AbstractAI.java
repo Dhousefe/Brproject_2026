@@ -586,13 +586,20 @@ public abstract class AbstractAI<T extends Creature>
 	{
 		if (target == null)
 			return true;
-		
+
 		if (World.getInstance().getObject(target.getObjectId()) == null)
 			return true;
-		
-		return !_actor.knows(target);
+
+		// Se o atacante for GameMaster (GM), nao bloqueia o alvo por falha de grid de regiao se estiver proximo
+		if (_actor instanceof Player p && p.isGM() && _actor.isIn3DRadius(target, 2500))
+			return false;
+
+		if (_actor.knows(target))
+			return false;
+
+		return !_actor.isIn3DRadius(target, 1500);
 	}
-	
+
 	/**
 	 * @param target : The {@link WorldObject} used as parameter.
 	 * @param skill : The {@link L2Skill} used as parameter.
@@ -602,13 +609,19 @@ public abstract class AbstractAI<T extends Creature>
 	{
 		if (target == null)
 			return true;
-		
+
 		if (World.getInstance().getObject(target.getObjectId()) == null)
 			return true;
-		
+
 		if (skill != null && skill.getSkillType() == SkillType.SUMMON_FRIEND)
 			return false;
-		
-		return !_actor.knows(target);
+
+		if (_actor instanceof Player p && p.isGM() && _actor.isIn3DRadius(target, 2500))
+			return false;
+
+		if (_actor.knows(target))
+			return false;
+
+		return !_actor.isIn3DRadius(target, 1500);
 	}
 }

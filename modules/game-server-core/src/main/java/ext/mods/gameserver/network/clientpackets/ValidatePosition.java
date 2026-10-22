@@ -103,13 +103,13 @@ public class ValidatePosition extends L2GameClientPacket
 			return;
 		}
 
-		
+		// If player is not moving (idle): Safe Client Convergence with Geodata Validation
 		if (!player.isMoving())
 		{
 			player.resetIncorrectValidateCount();
 			if (diffSq <= softThresholdSq)
 			{
-				
+				// Se a geodata confirmar que o cliente parou em solo livre transitavel
 				if (isValidStandingGround(player, _x, _y, _z))
 				{
 					if (diffSq >= 16.0)
@@ -117,12 +117,12 @@ public class ValidatePosition extends L2GameClientPacket
 						final int safeZ = GeoEngine.getInstance().hasGeo(_x, _y) ? GeoEngine.getInstance().getHeight(_x, _y, player.getZ()) : _z;
 						player.getPosition().set(_x, _y, safeZ, _heading);
 					}
-					
+					// Sincronizado suavemente em silencio: zero teleporte/rubberbanding durante o farm!
 					return;
 				}
 			}
 
-			
+			// Desvio excessivo ou cliente colidiu contra rocha solida: resincroniza autoritativamente
 			player.sendPacket(new ValidateLocation(player));
 			return;
 		}
@@ -153,7 +153,7 @@ public class ValidatePosition extends L2GameClientPacket
 				return;
 			}
 
-			
+			// Resync client visually to authoritative server position without kicking to town (L2OFF / aCis409 parity)
 			player.resetIncorrectValidateCount();
 			player.sendPacket(new ValidateLocation(player));
 			return;

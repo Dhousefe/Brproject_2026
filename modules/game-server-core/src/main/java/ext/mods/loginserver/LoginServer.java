@@ -151,7 +151,7 @@ public class LoginServer
 			{
 				System.out.println("Login: Running in Interface GUI (" + os + ").");
 				new InterfaceLS();
-				
+				// Oculta o console 6 segundos apos o GUI abrir (se Windows).
 				ConsoleWindow.hideAfter(6000);
 			}
 			catch (Throwable t)

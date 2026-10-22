@@ -30,6 +30,7 @@ import ext.mods.gameserver.model.item.instance.ItemInstance;
 import ext.mods.gameserver.network.SystemMessageId;
 import ext.mods.gameserver.network.serverpackets.NpcHtmlMessage;
 import ext.mods.config.ConfigPlayers;
+import ext.mods.gameserver.data.manager.MarketPriceManager;
 
 public final class RequestSellItem extends L2GameClientPacket
 {
@@ -75,6 +76,12 @@ public final class RequestSellItem extends L2GameClientPacket
 				continue;
 			
 			int price = item.getReferencePrice() / 2;
+			if (ConfigPlayers.SELL_PRICE_CAP_TO_BUY)
+			{
+				final int minBuy = MarketPriceManager.getInstance().getMinBuyPrice(item.getItemId());
+				if (minBuy > 0)
+					price = Math.min(price, Math.max(1, minBuy / 2));
+			}
 			totalPrice += price * i.getValue();
 			
 			if ((Integer.MAX_VALUE / i.getValue()) < price || totalPrice > Integer.MAX_VALUE)
@@ -124,6 +131,12 @@ public final class RequestSellItem extends L2GameClientPacket
 				continue;
 			
 			int price = item.getReferencePrice() / 2;
+			if (ConfigPlayers.SELL_PRICE_CAP_TO_BUY)
+			{
+				final int minBuy = MarketPriceManager.getInstance().getMinBuyPrice(item.getItemId());
+				if (minBuy > 0)
+					price = Math.min(price, Math.max(1, minBuy / 2));
+			}
 			totalPrice += price * i.getValue();
 			
 			if ((Integer.MAX_VALUE / i.getValue()) < price || totalPrice > Integer.MAX_VALUE)

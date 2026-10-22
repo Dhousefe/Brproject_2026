@@ -78,6 +78,7 @@ public class AdminEffects implements IAdminCommandHandler
 				player.broadcastUserInfo();
 				player.spawnMe();
 
+				// Ao ficar invisivel, desassocia imediatamente o GM das listas de aggro/hate de monstros vizinhos
 				player.forEachKnownTypeInRadius(Attackable.class, 2500, attackable ->
 				{
 					attackable.getAI().getAggroList().stopHate(player);

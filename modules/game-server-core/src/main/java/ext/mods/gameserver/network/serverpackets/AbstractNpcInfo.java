@@ -31,6 +31,7 @@ import ext.mods.gameserver.model.actor.instance.Monster;
 import ext.mods.gameserver.model.actor.template.NpcTemplate;
 import ext.mods.gameserver.model.pledge.Clan;
 import ext.mods.config.ConfigNpcs;
+import ext.mods.gameserver.network.GameClient;
 
 public abstract class AbstractNpcInfo extends L2GameServerPacket
 {
@@ -425,7 +426,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 		@Override
 		protected void writeImpl()
 		{
-			if (_owner != null && !_owner.getAppearance().isVisible() && _owner != getClient().getPlayer())
+			final GameClient client = getClient();
+			final Player clientPlayer = (client != null) ? client.getPlayer() : null;
+			if (_owner != null && !_owner.getAppearance().isVisible() && _owner != clientPlayer)
 				return;
 			
 			writeC(0x16);

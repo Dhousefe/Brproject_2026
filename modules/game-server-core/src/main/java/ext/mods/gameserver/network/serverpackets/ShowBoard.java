@@ -22,9 +22,13 @@ import java.nio.ByteOrder;
 import java.util.List;
 
 import ext.mods.commons.lang.StringUtil;
+import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.network.GameClient;
 
 public class ShowBoard extends L2GameServerPacket
 {
+	private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+
 	public static final ShowBoard STATIC_SHOWBOARD_102 = new ShowBoard(null, "102");
 	public static final ShowBoard STATIC_SHOWBOARD_103 = new ShowBoard(null, "103");
 	
@@ -59,13 +63,24 @@ public class ShowBoard extends L2GameServerPacket
 	
 	private final String _htmlCode;
 	private final boolean _canShow;
-	
+	private final boolean _isPrimary;
+	private final String _builderCaller;
+	private final String _filePath;
+
 	public ShowBoard(String htmlCode, String id)
+	{
+		this(htmlCode, id, null);
+	}
+
+	public ShowBoard(String htmlCode, String id, String filePath)
 	{
 		_canShow = true;
 		_htmlCode = (htmlCode == null) ? (id + "\u0008") : (id + "\u0008" + htmlCode);
+		_isPrimary = "101".equals(id) || "1001".equals(id);
+		_filePath = filePath;
+		_builderCaller = _isPrimary ? resolveDynamicCaller() : null;
 	}
-	
+
 	public ShowBoard(List<String> arg)
 	{
 		_canShow = true;
@@ -74,12 +89,67 @@ public class ShowBoard extends L2GameServerPacket
 		for (String str : arg)
 			StringUtil.append(sb, str, " \u0008");
 		_htmlCode = sb.toString();
+		_isPrimary = false;
+		_builderCaller = null;
+		_filePath = null;
 	}
-	
+
 	public ShowBoard()
 	{
 		_canShow = false;
 		_htmlCode = "";
+		_isPrimary = false;
+		_builderCaller = null;
+		_filePath = null;
+	}
+	
+	private static String resolveDynamicCaller()
+	{
+		try
+		{
+			return STACK_WALKER.walk(frames -> frames
+				.filter(f -> !f.getClassName().equals(ShowBoard.class.getName())
+						 && !f.getClassName().startsWith("java.lang.")
+						 && !f.getClassName().startsWith("jdk.internal."))
+				.findFirst()
+				.map(f -> {
+					final String className = f.getClassName();
+					final int innerIdx = className.indexOf('$');
+					final String baseName = (innerIdx != -1) ? className.substring(0, innerIdx) : className;
+					final String path = baseName.replace('.', '/') + ".java";
+					final int line = f.getLineNumber();
+					return (line > 0) ? (path + ":" + line) : path;
+				})
+				.orElse("UnknownCaller.java"));
+		}
+		catch (Throwable t)
+		{
+			return "UnknownCaller.java";
+		}
+	}
+	
+	@Override
+	public void runImpl()
+	{
+		if (!_canShow || !_isPrimary)
+			return;
+
+		final GameClient client = getClient();
+		if (client == null)
+			return;
+
+	final Player player = client.getPlayer();
+		if (player == null || !player.isGM())
+			return;
+
+		if (_filePath != null && !_filePath.isEmpty())
+		{
+			player.sendMessage("[HTML Path]: " + _filePath);
+		}
+		else if (_builderCaller != null && !_builderCaller.isEmpty())
+		{
+			player.sendMessage("[JAVA HTML Builder]: " + _builderCaller);
+		}
 	}
 	
 	@Override

@@ -17,6 +17,9 @@
  */
 package ext.mods.gameserver.network.serverpackets;
 
+import ext.mods.config.ConfigPlayers;
+import ext.mods.gameserver.data.manager.MarketPriceManager;
+
 import java.util.List;
 
 import ext.mods.gameserver.model.item.instance.ItemInstance;
@@ -59,7 +62,14 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getEnchantLevel());
 			writeH(item.getCustomType2());
 			writeH(0x00);
-			writeD(item.getItem().getReferencePrice() / 2);
+			int price = item.getItem().getReferencePrice() / 2;
+			if (ConfigPlayers.SELL_PRICE_CAP_TO_BUY)
+			{
+				final int minBuy = MarketPriceManager.getInstance().getMinBuyPrice(item.getItemId());
+				if (minBuy > 0)
+					price = Math.min(price, Math.max(1, minBuy / 2));
+			}
+			writeD(price);
 		}
 	}
 }

@@ -44,13 +44,18 @@ public abstract class BaseBBSManager
 	
 	public static void separateAndSend(String html, Player player)
 	{
+		separateAndSend(html, player, null);
+	}
+
+	public static void separateAndSend(String html, Player player, String filePath)
+	{
 		if (html == null || player == null)
 			return;
-		
+
 		if (html.length() < 4090)
 		{
 			player.sendPackets(
-				new ShowBoard(html, "101"),
+				new ShowBoard(html, "101", filePath),
 				ShowBoard.STATIC_SHOWBOARD_102,
 				ShowBoard.STATIC_SHOWBOARD_103
 			);
@@ -58,7 +63,7 @@ public abstract class BaseBBSManager
 		else if (html.length() < 8180)
 		{
 			player.sendPackets(
-				new ShowBoard(html.substring(0, 4090), "101"),
+				new ShowBoard(html.substring(0, 4090), "101", filePath),
 				new ShowBoard(html.substring(4090, html.length()), "102"),
 				ShowBoard.STATIC_SHOWBOARD_103
 			);
@@ -66,7 +71,7 @@ public abstract class BaseBBSManager
 		else if (html.length() < 12270)
 		{
 			player.sendPackets(
-				new ShowBoard(html.substring(0, 4090), "101"),
+				new ShowBoard(html.substring(0, 4090), "101", filePath),
 				new ShowBoard(html.substring(4090, 8180), "102"),
 				new ShowBoard(html.substring(8180, html.length()), "103")
 			);

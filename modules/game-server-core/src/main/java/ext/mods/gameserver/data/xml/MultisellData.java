@@ -64,8 +64,17 @@ public class MultisellData implements IXmlReader
 	@Override
 	public void parseDocument(Document doc, Path path)
 	{
-		final int id = path.toFile().getName().replaceAll(".xml", "").hashCode();
-		final ListContainer list = new ListContainer(id);
+		final String fileName = path.toFile().getName();
+		final int id = fileName.replaceAll("\\.xml", "").hashCode();
+
+		String relPath = path.toString().replace('\\', '/');
+		int xmlIdx = relPath.indexOf("xml/multisell");
+		if (xmlIdx != -1)
+			relPath = "data/" + relPath.substring(xmlIdx);
+		else if (!relPath.startsWith("data/"))
+			relPath = "data/xml/multisell/" + fileName;
+
+		final ListContainer list = new ListContainer(id, relPath);
 		forEach(doc, "list", listNode ->
 		{
 			final NamedNodeMap attrs = listNode.getAttributes();
@@ -157,6 +166,14 @@ public class MultisellData implements IXmlReader
 	public ListContainer getList(String listName)
 	{
 		return _entries.get(listName.hashCode());
+	}
+
+	/**
+	 * @return Todas as listas de multisell carregadas no servidor (utilizado pelo MarketPriceManager).
+	 */
+	public java.util.Collection<ListContainer> getLists()
+	{
+		return _entries.values();
 	}
 	
 	public static MultisellData getInstance()

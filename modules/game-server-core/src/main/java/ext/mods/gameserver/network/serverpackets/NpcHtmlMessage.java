@@ -21,59 +21,127 @@ import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
 
 import ext.mods.gameserver.data.HTMLData;
 import ext.mods.gameserver.enums.SayType;
 import ext.mods.gameserver.model.actor.Player;
+import ext.mods.gameserver.network.GameClient;
 
 
 public final class NpcHtmlMessage extends L2GameServerPacket
 {
+	private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+
 	public static boolean SHOW_FILE;
-	
+
 	private int _objectId;
-	
+
 	private String _html;
 	private String _file;
-	
+
 	private int _itemId = 0;
 	private boolean _validate = true;
 
 	private String _fileName;
 	private boolean _isFromTranslator;
 	private Map<String, String> _replaces;
-	
+	private boolean _isDynamicHtml = false;
+	private String _dynamicBuilderCaller;
+
 	public NpcHtmlMessage(int objectId)
 	{
 		_objectId = objectId;
+		_dynamicBuilderCaller = resolveDynamicCaller();
 	}
-	
+
+	private static String resolveDynamicCaller()
+	{
+		try
+		{
+			return STACK_WALKER.walk(frames -> frames
+				.filter(f -> !f.getClassName().equals(NpcHtmlMessage.class.getName())
+						 && !f.getClassName().startsWith("java.lang.")
+						 && !f.getClassName().startsWith("jdk.internal."))
+				.findFirst()
+				.map(f -> {
+					final String className = f.getClassName();
+					final int innerIdx = className.indexOf('$');
+					final String baseName = (innerIdx != -1) ? className.substring(0, innerIdx) : className;
+					final String path = baseName.replace('.', '/') + ".java";
+					final int line = f.getLineNumber();
+					return (line > 0) ? (path + ":" + line) : path;
+				})
+				.orElse("UnknownCaller.java"));
+		}
+		catch (Throwable t)
+		{
+			return "UnknownCaller.java";
+		}
+	}
+
+	private boolean isFileBased()
+	{
+		final String path = (_file != null && !_file.isEmpty()) ? _file : _fileName;
+		if (path == null)
+			return false;
+
+		final String lower = path.toLowerCase();
+		return lower.endsWith(".htm") || lower.endsWith(".html");
+	}
+
 	@Override
 	public void runImpl()
 	{
 		if (!_validate)
 			return;
-		
-		final Player player = getClient().getPlayer();
+
+		final GameClient client = getClient();
+		if (client == null)
+			return;
+
+		final Player player = client.getPlayer();
 		if (player == null)
 			return;
-		
-		if (SHOW_FILE && player.isGM() && _file != null)
-			player.sendPacket(new CreatureSay(SayType.ALL, "HTML", _file));
-		
+
+		if (player.isGM())
+		{
+			if (!_isDynamicHtml && isFileBased())
+			{
+				final String displayPath = (_file != null && !_file.isEmpty()) ? _file : _fileName;
+				player.sendMessage("[HTML Path]: " + displayPath);
+			}
+			else
+			{
+				final String caller = (_dynamicBuilderCaller != null) ? _dynamicBuilderCaller : resolveDynamicCaller();
+				player.sendMessage("[JAVA HTML Builder]: " + caller);
+			}
+		}
+
+		if (_html == null || _html.isEmpty())
+			return;
+
 		player.clearBypass();
-		for (int i = 0; i < _html.length(); i++)
+		final int htmlLen = _html.length();
+
+		for (int i = 0; i < htmlLen; i++)
 		{
 			int start = _html.indexOf("\"bypass ", i);
-			int finish = _html.indexOf("\"", start + 1);
-			if (start < 0 || finish < 0)
+			if (start < 0)
 				break;
-			
-			if (_html.substring(start + 8, start + 10).equals("-h"))
+
+			int finish = _html.indexOf("\"", start + 1);
+			if (finish < 0)
+				break;
+
+			if (start + 10 <= htmlLen && _html.substring(start + 8, start + 10).equals("-h"))
 				start += 11;
 			else
 				start += 8;
-			
+
+			if (start > finish || start > htmlLen)
+				break;
+
 			i = finish;
 			int finish2 = _html.indexOf("$", start);
 			if (finish2 < finish && finish2 > 0)
@@ -105,47 +173,47 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	
 	public void setHtml(String text)
 	{
+		_isDynamicHtml = true;
+		_dynamicBuilderCaller = resolveDynamicCaller();
+		setHtmlInternal(text);
+	}
+
+	private void setHtmlInternal(String text)
+	{
 		if (text == null) {
 			_html = "<html><body>Erro: Conteúdo HTML não especificado.</body></html>";
 			return;
 		}
-		
+
 		if (text.trim().isEmpty()) {
 			_html = "<html><body>Erro: Conteúdo HTML está vazio.</body></html>";
 			return;
 		}
-		
+
 		if (text.length() > 9192)
 		{
 			_html = "<html><body>Html was too long.</body></html>";
 			LOGGER.warn("An html content was too long.");
 			return;
 		}
-		
+
 		if (!text.toLowerCase().contains("<html") && !text.toLowerCase().contains("<body")) {
 		}
-		
+
 		_html = text;
 	}
-	
+
 	public void setFile(Locale locale, String filename)
 	{
+		_isDynamicHtml = false;
 		_fileName = filename;
-		if (SHOW_FILE)
-		{
-			_file = filename;
-			
-			
-			final int index = _file.indexOf("html/");
-			if (index != -1)
-				_file = _file.substring(index + 5, _file.length());
-		}
-		
+		_file = filename;
+
 		if (filename == null || filename.trim().isEmpty()) {
-			setHtml("<html><body>Erro: Arquivo HTML não especificado.</body></html>");
+			setHtmlInternal("<html><body>Erro: Arquivo HTML não especificado.</body></html>");
 			return;
 		}
-		
+
 		String htmlContent = HTMLData.getInstance().getHtm(locale, filename);
 		if (htmlContent == null || htmlContent.trim().isEmpty()) {
 			htmlContent = HTMLData.getInstance().getHtm(Locale.getDefault(), filename);
@@ -153,8 +221,8 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 				htmlContent = "<html><body>Erro: Arquivo HTML não encontrado: " + filename + "</body></html>";
 			}
 		}
-		
-		setHtml(htmlContent);
+
+		setHtmlInternal(htmlContent);
 	}
 	
 	public void replace(String pattern, String value)
@@ -164,8 +232,12 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 			
 	public void replace(String pattern, String value, boolean record)
 	{
-		_html = _html.replaceAll(pattern, value.replaceAll("\\$", "\\\\\\$"));
-		if (record)
+		if (_html == null || pattern == null)
+			return;
+		
+		final String safeValue = (value != null) ? Matcher.quoteReplacement(value) : "";
+		_html = _html.replaceAll(pattern, safeValue);
+		if (record && value != null)
 			recordReplace(pattern, value);
 	}
 	
@@ -199,6 +271,21 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 		return _fileName;
 	}
 	
+	public String getBuilderClass()
+	{
+		return _dynamicBuilderCaller;
+	}
+
+	public void setBuilderClass(String builderClass)
+	{
+		_dynamicBuilderCaller = builderClass;
+	}
+
+	public boolean isDynamicHtml()
+	{
+		return _isDynamicHtml;
+	}
+
 	/**
 	 * Define o nome do arquivo manualmente
 	 * @param fileName Nome do arquivo
@@ -206,6 +293,8 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	public void setFileName(String fileName)
 	{
 		_fileName = fileName;
+		if (_file == null)
+			_file = fileName;
 	}
 	
 	/**

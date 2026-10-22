@@ -380,6 +380,7 @@ class GameServer : Runnable {
         HennaData.getInstance()
         BuyListManager.getInstance()
         MultisellData.getInstance()
+        ext.mods.gameserver.data.manager.MarketPriceManager.getInstance()
         RecipeData.getInstance()
         ArmorSetData.getInstance()
         FishData.getInstance()

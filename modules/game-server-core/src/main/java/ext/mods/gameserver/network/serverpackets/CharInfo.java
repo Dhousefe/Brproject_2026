@@ -33,6 +33,7 @@ import ext.mods.extensions.api.IDressMeSkin;
 import ext.mods.gameserver.model.actor.player.DressMeState;
 import ext.mods.config.ConfigPlayers;
 import ext.mods.gameserver.model.actor.player.PlayerGodState;
+import ext.mods.gameserver.network.GameClient;
 
 public class CharInfo extends L2GameServerPacket
 {
@@ -47,14 +48,15 @@ public class CharInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		boolean canSeeInvis = false;
-		
+
 		if (!_player.getAppearance().isVisible())
 		{
-			final Player tmp = getClient().getPlayer();
+			final GameClient client = getClient();
+			final Player tmp = (client != null) ? client.getPlayer() : null;
 			if (tmp != null && tmp.isGM())
 				canSeeInvis = true;
 		}
-		
+
 		writeC(0x03);
 		
 		writeLoc(_player.getPosition());
