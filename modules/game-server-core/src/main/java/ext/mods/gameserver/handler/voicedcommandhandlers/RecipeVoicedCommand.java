@@ -628,6 +628,9 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		if(player.isGM())
 		{
 			sb.append("<font color=B09878>Item ID: </font><font color=FFFFFF>").append(materialItemId).append("</font></td>");
+		}else
+		{
+			sb.append("</td>");
 		}
 		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
 
