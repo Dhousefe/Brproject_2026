@@ -5,6 +5,10 @@
 	</npcs>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1835" count="1000"/><!-- soulshot_nograde -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="1463" count="1000"/><!-- soulshot_d -->
 	</item>
 	<item>
@@ -22,6 +26,10 @@
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="1467" count="1000"/><!-- soulshot_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2509" count="1000"/><!-- soulshot_nograde -->
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
@@ -45,6 +53,10 @@
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="3947" count="1000"/><!-- blessed_spiritshot_nograde -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="3948" count="1000"/><!-- blessed_spiritshot_d -->
 	</item>
 	<item>
@@ -62,6 +74,18 @@
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="3952" count="1000"/><!-- blessed_spiritshot_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6645" count="1000"/><!-- pet Solshot -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6646" count="1000"/><!-- pet Solshot -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6647" count="1000"/><!-- pet Solshot -->
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
@@ -121,6 +145,18 @@
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="17" count="1000"/><!-- silver_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1341" count="1000"/><!-- silver_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1342" count="1000"/><!-- silver_arrow -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="1343" count="1000"/><!-- silver_arrow -->
 	</item>
 	<item>
@@ -173,6 +209,78 @@
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8622" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8623" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8624" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8625" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8626" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8627" count="25"/><!-- exilir -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8628" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8629" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8630" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8631" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8632" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8633" count="25"/><!-- exilir mental -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8634" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8635" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8636" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8637" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8638" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="8639" count="25"/><!-- exilir cp -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="1458" count="1"/><!-- crystal_d -->
 	</item>
 	<item>
@@ -182,6 +290,14 @@
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="1460" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1461" count="1"/><!-- crystal_b -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="1462" count="1"/><!-- crystal_b -->
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
@@ -206,5 +322,25 @@
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="8599" count="1"/><!-- scroll_recovery_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2130" count="1"/><!-- scroll_recovery_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2131" count="1"/><!-- scroll_recovery_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2132" count="1"/><!-- scroll_recovery_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2133" count="1"/><!-- scroll_recovery_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="2134" count="1"/><!-- scroll_recovery_s -->
 	</item>
 </list>

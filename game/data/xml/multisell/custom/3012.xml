@@ -45,6 +45,22 @@
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6576" count="5"/><!-- blessed_scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6575" count="5"/><!-- blessed_scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6574" count="5"/><!-- blessed_scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="6573" count="5"/><!-- blessed_scrl_of_ench_am_c -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="6572" count="5"/><!-- blessed_scrl_of_ench_am_b -->
 	</item>
 	<item>
@@ -66,6 +82,90 @@
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
 		<production id="6577" count="1"/><!-- blessed_scrl_of_ench_wp_s -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4633" count="1"/><!-- red_soul_crystal_4 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4644" count="1"/><!-- red_soul_crystal_4 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4655" count="1"/><!-- red_soul_crystal_4 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4634" count="1"/><!-- red_soul_crystal_5 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4645" count="1"/><!-- red_soul_crystal_5 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4656" count="1"/><!-- red_soul_crystal_5 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4635" count="1"/><!-- red_soul_crystal_6 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4646" count="1"/><!-- red_soul_crystal_6 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4657" count="1"/><!-- red_soul_crystal_6 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4636" count="1"/><!-- red_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4647" count="1"/><!-- red_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4658" count="1"/><!-- red_soul_crystal_7 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4637" count="1"/><!-- red_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4648" count="1"/><!-- red_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4659" count="1"/><!-- red_soul_crystal_8 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4638" count="1"/><!-- red_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4646" count="1"/><!-- red_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4660" count="1"/><!-- red_soul_crystal_9 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4639" count="1"/><!-- red_soul_crystal_10 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4650" count="1"/><!-- red_soul_crystal_10 -->
+	</item>
+	<item>
+		<ingredient id="57" count="100"/><!-- adena -->
+		<production id="4661" count="1"/><!-- red_soul_crystal_10 -->
 	</item>
 	<item>
 		<ingredient id="57" count="100"/><!-- adena -->
