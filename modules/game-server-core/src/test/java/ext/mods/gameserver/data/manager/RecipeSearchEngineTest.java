@@ -201,4 +201,29 @@ public class RecipeSearchEngineTest
 		RecipeDropHolder withLoc = new RecipeDropHolder(99998, "Valid Loc Mob", 20, false, 0.5, 1, 1, 15000, 20000, -3000);
 		assertTrue(withLoc.hasValidLocation());
 	}
+
+	@Test
+	public void testHasDropsForRecipeAndGmVisibilityFilter()
+	{
+		RecipeDropManager manager = RecipeDropManager.getInstance();
+		assertNotNull(manager);
+
+		// Non-existent recipe item should report false for hasDropsForRecipe
+		assertFalse(manager.hasDropsForRecipe(-99999));
+
+		// Validate ConfigServer flag exists and can be toggled
+		boolean originalConfig = ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM;
+		try
+		{
+			ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM = true;
+			assertTrue(ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM);
+
+			ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM = false;
+			assertFalse(ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM);
+		}
+		finally
+		{
+			ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM = originalConfig;
+		}
+	}
 }

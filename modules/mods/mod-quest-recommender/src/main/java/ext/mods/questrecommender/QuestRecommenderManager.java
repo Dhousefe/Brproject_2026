@@ -26,6 +26,7 @@ import ext.mods.extensions.listener.command.OnBypassCommandListener;
 import ext.mods.extensions.listener.manager.BypassCommandManager;
 import ext.mods.extensions.listener.manager.PlayerListenerManager;
 import ext.mods.extensions.hooks.LevelUpMakerHooks;
+import ext.mods.extensions.hooks.QuestRecommenderHooks.Api.RewardQuest;
 import ext.mods.gameserver.data.HTMLData;
 import ext.mods.gameserver.data.xml.ItemData;
 import ext.mods.gameserver.data.xml.NpcData;
@@ -119,6 +120,68 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 		}
 		BypassCommandManager.getInstance().unregisterBypassListener(this);
 		PlayerListenerManager.getInstance().unregisterLevelUpListener(this);
+	}
+
+	/**
+	 * Retorna quests do catálogo que podem ser iniciadas pelo jogador e concedem o item informado.
+	 * A validação é repetida no servidor para que bypasses forjados não revelem nem naveguem para quests incompatíveis.
+	 */
+	public List<RewardQuest> findAvailableRewardQuests(Player player, int itemId)
+	{
+		if (!_enabled || player == null || itemId <= 0)
+			return List.of();
+
+		final List<RewardQuest> matches = new ArrayList<>();
+		for (QuestMetadata metadata : _questCatalog)
+		{
+			final long rewardCount = getRewardCount(metadata, itemId);
+			if (rewardCount <= 0 || !isQuestAvailableForPlayer(player, metadata))
+				continue;
+
+			final NpcTemplate npc = NpcData.getInstance().getTemplate(metadata.getStartNpcId());
+			final String npcName = npc != null ? npc.getName() : "NPC #" + metadata.getStartNpcId();
+			matches.add(new RewardQuest(metadata.getQuestId(), metadata.getName(), metadata.getMinLevel(), metadata.getMaxLevel(), npcName, rewardCount));
+		}
+		return matches;
+	}
+
+	/**
+	 * Marca o NPC inicial sem teleporte e sem apagar os marcadores de drops do painel .recipe.
+	 */
+	public boolean markAvailableRewardQuestStart(Player player, int itemId, int questId)
+	{
+		if (!_enabled || player == null || itemId <= 0 || questId <= 0)
+			return false;
+
+		final QuestMetadata metadata = getMetadata(questId);
+		if (metadata == null || getRewardCount(metadata, itemId) <= 0 || !isQuestAvailableForPlayer(player, metadata))
+			return false;
+
+		return QuestNavigationService.getInstance().markQuestStartOnRadar(player, metadata.getStartNpcId(), metadata.getStartNpcLoc());
+	}
+
+	private static long getRewardCount(QuestMetadata metadata, int itemId)
+	{
+		final QuestRewardItem[] rewards = metadata.getRewards();
+		if (rewards == null)
+			return 0;
+
+		for (QuestRewardItem reward : rewards)
+		{
+			if (reward.getItemId() == itemId)
+				return reward.getCount();
+		}
+		return 0;
+	}
+
+	private static boolean isQuestAvailableForPlayer(Player player, QuestMetadata metadata)
+	{
+		final int level = player.getStatus().getLevel();
+		if (level < metadata.getMinLevel() || level > metadata.getMaxLevel() || !metadata.isEligible(player))
+			return false;
+
+		final QuestState state = player.getQuestList().getQuestState(metadata.getQuestId());
+		return state == null || (state.isCompleted() && metadata.isRepeatable());
 	}
 
 	private void loadConfig()
@@ -899,7 +962,7 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<html><body><center>");
-		sb.append("<br><font color=\"LEVEL\">=== Motor de Recomendação de Quests ===</font><br1>");
+		sb.append("<br><font color=\"LEVEL\">Recomendação de Quests </font><br1>");
 		sb.append("<font color=\"B09878\">Quests selecionadas para o seu nível (").append(playerLevel).append(") e classe</font><br>");
 		sb.append("<img src=\"L2UI.SquareGray\" width=280 height=1><br>");
 
@@ -911,7 +974,7 @@ public final class QuestRecommenderManager implements OnBypassCommandListener, O
 		if (lumEnabled)
 		{
 			sb.append("<table cellspacing=4><tr>");
-			sb.append("<td><button value=\"Level Up Maker\" action=\"bypass -h levelupmaker_teleport\" width=120 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\"></td>");
+			sb.append("<td><button value=\"Level Up\" action=\"bypass -h levelupmaker_teleport\" width=70 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\"></td>");
 			sb.append("<td><button value=\"Fechar\" action=\"bypass -h questrec_close\" width=70 height=22 back=\"L2UI_ch3.smallbutton2_over\" fore=\"L2UI_ch3.smallbutton2\"></td>");
 			sb.append("</tr></table>");
 		}

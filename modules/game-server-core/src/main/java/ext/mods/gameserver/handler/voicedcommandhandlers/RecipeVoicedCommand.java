@@ -22,6 +22,8 @@ import ext.mods.commons.data.Pagination;
 import ext.mods.commons.lang.StringUtil;
 import ext.mods.commons.logging.CLogger;
 import ext.mods.config.ConfigServer;
+import ext.mods.extensions.hooks.QuestRecommenderHooks;
+import ext.mods.extensions.hooks.QuestRecommenderHooks.Api.RewardQuest;
 import ext.mods.gameserver.data.manager.RecipeDropManager;
 import ext.mods.gameserver.data.manager.RecipeSearchEngine;
 import ext.mods.gameserver.data.manager.RecipeSearchEngine.RecipeEntry;
@@ -59,7 +61,9 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		"recipe_clearloc",
 		"recipe_info",
 		"recipe_mat_info",
-		"recipe_mob_all_drops"
+		"recipe_mob_all_drops",
+		"recipe_quests",
+		"recipe_quest_loc"
 	};
 
 	private static final String[] GRADE_NAMES = {
@@ -119,6 +123,16 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 			else if ("recipe_mob_all_drops".equalsIgnoreCase(baseCmd))
 			{
 				handleMobAllDrops(player, st);
+				return true;
+			}
+			else if ("recipe_quests".equalsIgnoreCase(baseCmd))
+			{
+				handleRewardQuests(player, st);
+				return true;
+			}
+			else if ("recipe_quest_loc".equalsIgnoreCase(baseCmd))
+			{
+				handleQuestGoalLoc(player, st);
 				return true;
 			}
 
@@ -208,7 +222,19 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 
 	private void showRecipeList(Player player, int page, int gradeFilter, int levelFilter, String query)
 	{
-		final List<RecipeEntry> results = RecipeSearchEngine.getInstance().search(gradeFilter, levelFilter, query);
+		final List<RecipeEntry> rawResults = RecipeSearchEngine.getInstance().search(gradeFilter, levelFilter, query);
+		final List<RecipeEntry> results;
+
+		if (ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM && !player.isGM())
+		{
+			results = rawResults.stream()
+				.filter(entry -> RecipeDropManager.getInstance().hasDropsForRecipe(entry.recipeItemId()))
+				.toList();
+		}
+		else
+		{
+			results = rawResults;
+		}
 
 		int pageLimit = Math.clamp(ConfigServer.FIND_RECIPE_PAGE_LIMIT, 5, 10);
 		final Pagination<RecipeEntry> list = new Pagination<>(results.stream(), page, pageLimit);
@@ -265,9 +291,17 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 				list.append("<font color=\"B09878\">Grade: </font><font color=LEVEL>", gradeName, "</font> <font color=\"B09878\">Lv:</font><font color=BDB76B>", entry.craftLevel(), "</font> ");
 
 				if (mobCount > 0)
+				{
 					list.append("<font color=00FF00>(", mobCount, " mobs)</font>");
+				}
+				else if (player.isGM())
+				{
+					list.append("<font color=FF7777>[Sem drop - GM]</font>");
+				}
 				else
+				{
 					list.append("<font color=808080>(Sem drop)</font>");
+				}
 
 				list.append("</td>");
 
@@ -467,9 +501,19 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		// Header
 		sb.append("<table width=280 bgcolor=000000 cellpadding=2 cellspacing=0><tr>");
 		sb.append("<td width=36 align=center><table bgcolor=FFFFFF cellpadding=4 cellspacing=-5><tr><td><button width=32 height=32 back=\"").append(entry.icon()).append("\" fore=\"").append(entry.icon()).append("\"></td></tr></table></td>");
-		sb.append("<td width=244><font color=LEVEL>").append(entry.productName()).append("</font><br1>");
+		sb.append("<td width=244><font color=LEVEL>").append(entry.productName()).append("</font>");
+		if(player.isGM())
+		{
+			sb.append("<font color=B09878>  Item ID: </font><font color=FFFFFF>").append(recipeItemId).append("</font><br1>");
+		}else
+		{
+			sb.append("<br1>");
+		}
+		
 		sb.append("<font color=B09878>Grade:</font> <font color=FFFFFF>").append(entry.grade().name()).append("</font> | <font color=B09878>Lv Craft:</font> <font color=FFFFFF>").append(entry.craftLevel()).append("</font> | <font color=B09878>Taxa:</font> <font color=00FF00>").append(entry.successRate()).append("%</font></td>");
 		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+
+		appendQuestLookupButton(player, sb, entry.productItemId(), "r", recipeItemId, returnPage, returnGrade, returnLevel, returnQuery);
 
 		// Materials Section
 		sb.append("<table width=280 bgcolor=151515 cellpadding=1><tr><td><font color=B09878>Materiais (clique para ver drops/craft):</font></td></tr></table>");
@@ -487,6 +531,15 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 
 		// Drop / Spoil Monsters Section (Paginated)
 		List<RecipeDropHolder> drops = RecipeDropManager.getInstance().getDropsForRecipe(recipeItemId);
+
+		// Security check: if non-GM tries to inspect a no-drop recipe while restricted
+		if (ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM && !player.isGM() && drops.isEmpty())
+		{
+			player.sendMessage("Esta receita nao possui drops catalogados e esta restrita para GMs.");
+			showRecipeList(player, returnPage, returnGrade, returnLevel, returnQuery);
+			return;
+		}
+
 		sb.append("<table width=280 bgcolor=151515 cellpadding=1><tr><td width=180><font color=B09878>Monstros que Dropam/Spoilam:</font></td>");
 		if (!drops.isEmpty())
 		{
@@ -496,7 +549,21 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 
 		if (drops.isEmpty())
 		{
-			sb.append("<br><font color=808080>Esta receita nao cai de nenhum monstro catalogado.</font><br>");
+			if (player.isGM())
+			{
+				sb.append("<br><table width=280 bgcolor=221111 cellpadding=2 cellspacing=0><tr><td align=center>");
+				sb.append("<font color=FF6666>[Alerta de Gerenciamento - GM]</font><br1>");
+				sb.append("<font color=B09878>Nenhum monstro dropa ou spoila este recipe.</font><br1>");
+				sb.append("<font color=808080>Item ID: </font><font color=FFFFFF>").append(recipeItemId).append("</font> <font color=808080>| Defina drops em xml ou multisell.</font>");
+				sb.append("</td></tr></table><br>");
+			}
+			else
+			{
+				sb.append("<br><table width=280 bgcolor=151515 cellpadding=2 cellspacing=0><tr><td align=center>");
+				sb.append("<font color=999999>Esta receita nao possui drop de monstros catalogado.</font><br1>");
+				sb.append("<font color=808080>Pode ser obtida atraves de Quests, Lojas ou Eventos.</font>");
+				sb.append("</td></tr></table><br>");
+			}
 		}
 		else
 		{
@@ -551,6 +618,123 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setHtml(sb.toString());
 		player.sendPacket(html);
+	}
+
+	private boolean isQuestLookupEnabled()
+	{
+		return ConfigServer.FIND_RECIPE_QUEST_LOOKUP_ENABLED && QuestRecommenderHooks.get().isEnabled();
+	}
+
+	private void appendQuestLookupButton(Player player, StringBuilder sb, int itemId, String sourceType, int sourceId, int returnPage, int returnGrade, int returnLevel, String returnQuery)
+	{
+		if (!isQuestLookupEnabled() || itemId <= 0 || QuestRecommenderHooks.get().findAvailableRewardQuests(player, itemId).isEmpty())
+			return;
+
+		sb.append("<table width=280 bgcolor=151515 cellpadding=2 cellspacing=0><tr>");
+		sb.append("<td width=190><font color=B09878>Obter este item por quest:</font></td>");
+		sb.append("<td width=90 align=center><button value=Quests action=\"bypass voiced_recipe_quests ").append(itemId).append(" ").append(sourceType).append(" ").append(sourceId).append(" 1 ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\" width=86 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2></td>");
+		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+	}
+
+	private void handleRewardQuests(Player player, StringTokenizer st)
+	{
+		if (!isQuestLookupEnabled() || st.countTokens() < 7)
+			return;
+
+		final int itemId = Integer.parseInt(st.nextToken());
+		final String sourceType = st.nextToken();
+		final int sourceId = Integer.parseInt(st.nextToken());
+		int questPage = Integer.parseInt(st.nextToken());
+		final int returnPage = Integer.parseInt(st.nextToken());
+		final int returnGrade = Integer.parseInt(st.nextToken());
+		final int returnLevel = Integer.parseInt(st.nextToken());
+		final String returnQuery = readRemainingTokens(st);
+
+		if (itemId <= 0 || sourceId <= 0 || (!"r".equals(sourceType) && !"m".equals(sourceType)) || ItemData.getInstance().getTemplate(itemId) == null)
+			return;
+
+		final Item item = ItemData.getInstance().getTemplate(itemId);
+		final List<RewardQuest> quests = QuestRecommenderHooks.get().findAvailableRewardQuests(player, itemId);
+		final int pageSize = Math.clamp(ConfigServer.FIND_RECIPE_QUEST_PAGE_LIMIT, 3, 8);
+		final int totalPages = Math.max(1, (quests.size() + pageSize - 1) / pageSize);
+		questPage = Math.clamp(questPage, 1, totalPages);
+
+		final StringBuilder sb = new StringBuilder(4096);
+		sb.append("<html><body><center>");
+		sb.append("<table width=280 bgcolor=000000 cellpadding=2 cellspacing=0><tr><td align=center>");
+		sb.append("<font color=LEVEL>Quests para obter: ").append(StringUtil.trimAndDress(item.getName(), 26)).append("</font>");
+		sb.append("</td></tr></table><img src=L2UI.SquareGray width=280 height=1>");
+
+		if (quests.isEmpty())
+		{
+			sb.append("<br><font color=B09878>Nenhuma quest disponivel para este item no seu personagem.</font><br>");
+			sb.append("<font color=808080>As quests exibidas respeitam nivel, raca, classe e progresso atual.</font><br>");
+		}
+		else
+		{
+			final int fromIndex = (questPage - 1) * pageSize;
+			final int toIndex = Math.min(fromIndex + pageSize, quests.size());
+			for (int i = fromIndex; i < toIndex; i++)
+			{
+				final RewardQuest quest = quests.get(i);
+				sb.append("<table width=280 bgcolor=151515 cellpadding=2 cellspacing=0><tr>");
+				sb.append("<td width=195><font color=FFFFFF>").append(StringUtil.trimAndDress(quest.questName(), 25)).append("</font><br1>");
+				sb.append("<font color=B09878>Nivel: ").append(quest.minLevel()).append("-").append(quest.maxLevel()).append(" | Recompensa: x").append(quest.rewardCount()).append("</font><br1>");
+				sb.append("<font color=808080>NPC: ").append(StringUtil.trimAndDress(quest.startNpcName(), 26)).append("</font></td>");
+				sb.append("<td width=85 align=center><button value=\"Goal Loc\" action=\"bypass voiced_recipe_quest_loc ").append(itemId).append(" ").append(quest.questId()).append("\" width=78 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2></td>");
+				sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+			}
+
+			if (totalPages > 1)
+			{
+				sb.append("<table width=280 bgcolor=000000 cellpadding=1 cellspacing=0><tr><td width=70 align=center>");
+				if (questPage > 1)
+					sb.append("<a action=\"bypass voiced_recipe_quests ").append(itemId).append(" ").append(sourceType).append(" ").append(sourceId).append(" ").append(questPage - 1).append(" ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\">&lt; Ant</a>");
+				sb.append("</td><td width=140 align=center><font color=B09878>Quests: ").append(questPage).append("/").append(totalPages).append("</font></td><td width=70 align=center>");
+				if (questPage < totalPages)
+					sb.append("<a action=\"bypass voiced_recipe_quests ").append(itemId).append(" ").append(sourceType).append(" ").append(sourceId).append(" ").append(questPage + 1).append(" ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\">Prox &gt;</a>");
+				sb.append("</td></tr></table>");
+			}
+		}
+
+		appendQuestReturnButton(sb, sourceType, sourceId, returnPage, returnGrade, returnLevel, returnQuery);
+		sb.append("</center></body></html>");
+		final NpcHtmlMessage html = new NpcHtmlMessage(0);
+		html.setHtml(sb.toString());
+		player.sendPacket(html);
+	}
+
+	private void handleQuestGoalLoc(Player player, StringTokenizer st)
+	{
+		if (!isQuestLookupEnabled() || st.countTokens() != 2)
+			return;
+
+		final int itemId = Integer.parseInt(st.nextToken());
+		final int questId = Integer.parseInt(st.nextToken());
+		if (itemId <= 0 || questId <= 0 || !QuestRecommenderHooks.get().markAvailableRewardQuestStart(player, itemId, questId))
+			player.sendMessage("Nao foi possivel marcar o NPC inicial desta quest.");
+	}
+
+	private void appendQuestReturnButton(StringBuilder sb, String sourceType, int sourceId, int returnPage, int returnGrade, int returnLevel, String returnQuery)
+	{
+		sb.append("<br><button value=Voltar action=\"bypass ");
+		if ("r".equals(sourceType))
+			sb.append("voiced_recipe_info ").append(sourceId).append(" 1 ");
+		else
+			sb.append("voiced_recipe_mat_info ").append(sourceId).append(" 1 0 ");
+		sb.append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+	}
+
+	private String readRemainingTokens(StringTokenizer st)
+	{
+		final StringBuilder sb = new StringBuilder();
+		while (st.hasMoreTokens())
+		{
+			sb.append(st.nextToken());
+			if (st.hasMoreTokens())
+				sb.append(' ');
+		}
+		return sb.toString().trim();
 	}
 
 	private void handleMaterialLoc(Player player, StringTokenizer st)
@@ -630,7 +814,7 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 			sb.append("<font color=B09878>Item ID: </font><font color=FFFFFF>").append(materialItemId).append("</font></td>");
 		}else
 		{
-			sb.append("</td>");
+			sb.append("<font color=B09878>Referencia de dados </font><font color=FFFFFF>").append("</font></td>");
 		}
 		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
 
@@ -644,6 +828,8 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 			sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
 		}
 
+		appendQuestLookupButton(player, sb, materialItemId, "m", materialItemId, returnPage, returnGrade, returnLevel, returnQuery);
+
 		// Monsters that drop/spoil this material (Paginated)
 		List<RecipeDropHolder> drops = RecipeDropManager.getInstance().getDropsForItem(materialItemId);
 		sb.append("<table width=280 bgcolor=151515 cellpadding=1><tr><td width=180><font color=B09878>Monstros que Dropam/Spoilam:</font></td>");
@@ -655,7 +841,21 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 
 		if (drops.isEmpty())
 		{
-			sb.append("<br><font color=808080>Este item nao cai de nenhum monstro catalogado.</font><br>");
+			if (player.isGM())
+			{
+				sb.append("<br><table width=280 bgcolor=221111 cellpadding=2 cellspacing=0><tr><td align=center>");
+				sb.append("<font color=FF6666>[Alerta de Gerenciamento - GM]</font><br1>");
+				sb.append("<font color=B09878>Nenhum monstro dropa ou spoila este item.</font><br1>");
+				sb.append("<font color=808080>Item ID: </font><font color=FFFFFF>").append(materialItemId).append("</font> <font color=808080>| Cadastre drop em npcs ou crie receita de craft.</font>");
+				sb.append("</td></tr></table><br>");
+			}
+			else
+			{
+				sb.append("<br><table width=280 bgcolor=151515 cellpadding=2 cellspacing=0><tr><td align=center>");
+				sb.append("<font color=999999>Este item nao cai de monstros no momento.</font><br1>");
+				sb.append("<font color=808080>Verifique craft, quests, lojas ou eventos.</font>");
+				sb.append("</td></tr></table><br>");
+			}
 		}
 		else
 		{

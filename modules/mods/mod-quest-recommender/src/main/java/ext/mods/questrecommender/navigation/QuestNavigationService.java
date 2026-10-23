@@ -173,6 +173,37 @@ public final class QuestNavigationService
 	}
 
 	/**
+	 * Adiciona o NPC inicial da quest ao radar sem teleporte e sem remover os marcadores existentes.
+	 */
+	public boolean markQuestStartOnRadar(Player player, int npcId, Location fallbackLoc)
+	{
+		if (player == null || npcId <= 0)
+			return false;
+
+		Location targetNpcLoc = null;
+		try
+		{
+			targetNpcLoc = SpawnManager.getInstance().getClosestSpawnLocation(player, npcId);
+		}
+		catch (Throwable t)
+		{
+			LOGGER.warn("Erro ao buscar localizacao de spawn para NPC {}: {}", npcId, t.getMessage());
+		}
+
+		if (targetNpcLoc == null)
+			targetNpcLoc = fallbackLoc;
+		if (targetNpcLoc == null)
+		{
+			player.sendMessage("Nao foi possivel localizar o NPC de inicio desta quest.");
+			return false;
+		}
+
+		player.getRadarList().addMarker(targetNpcLoc);
+		player.sendMessage("NPC de inicio da quest marcado no minimapa/radar.");
+		return true;
+	}
+
+	/**
 	 * Verifica se o jogador e a posição alvo estão na mesma TownZone.
 	 */
 	private boolean isInSameTown(Player player, Location targetLoc)

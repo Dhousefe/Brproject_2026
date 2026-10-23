@@ -3,7 +3,10 @@ package ext.mods.questrecommender;
 import br.project.spi.Extension;
 import br.project.spi.ExtensionContext;
 import ext.mods.extensions.hooks.QuestRecommenderHooks;
+import ext.mods.extensions.hooks.QuestRecommenderHooks.Api.RewardQuest;
 import ext.mods.gameserver.model.actor.Player;
+
+import java.util.List;
 
 /**
  * Ponto de entrada SPI do mod Quest Recommender.
@@ -66,6 +69,18 @@ public final class QuestRecommenderExtension implements Extension
 				public String renderRecommendationsHtml(Player player, int limit)
 				{
 					return QuestRecommenderManager.getInstance().renderRecommendationsHtml(player, limit);
+				}
+
+				@Override
+				public List<RewardQuest> findAvailableRewardQuests(Player player, int itemId)
+				{
+					return QuestRecommenderManager.getInstance().findAvailableRewardQuests(player, itemId);
+				}
+
+				@Override
+				public boolean markAvailableRewardQuestStart(Player player, int itemId, int questId)
+				{
+					return QuestRecommenderManager.getInstance().markAvailableRewardQuestStart(player, itemId, questId);
 				}
 			});
 

@@ -174,6 +174,20 @@ public class RecipeDropManager
 		return list != null ? list : Collections.emptyList();
 	}
 
+	/**
+	 * Fast O(1) primitive-map check to determine if a recipe item has any catalogued mob drops/spoils.
+	 * @param recipeItemId : the physical recipe item id.
+	 * @return true if at least one monster drops or spoils this recipe item.
+	 */
+	public boolean hasDropsForRecipe(int recipeItemId)
+	{
+		if (!_initialized)
+			initialize();
+
+		List<RecipeDropHolder> list = _recipeDrops.get(recipeItemId);
+		return list != null && !list.isEmpty();
+	}
+
 	public List<RecipeDropHolder> getDropsForItem(int itemId)
 	{
 		if (!_initialized)

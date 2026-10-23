@@ -1,5 +1,7 @@
 package ext.mods.extensions.hooks;
 
+import java.util.List;
+
 import ext.mods.gameserver.model.actor.Player;
 
 /**
@@ -9,6 +11,8 @@ public final class QuestRecommenderHooks
 {
 	public interface Api
 	{
+		record RewardQuest(int questId, String questName, int minLevel, int maxLevel, String startNpcName, long rewardCount) {}
+
 		boolean isEnabled();
 
 		int getQuestionMarkId();
@@ -20,6 +24,10 @@ public final class QuestRecommenderHooks
 		void showRecommendationsWindow(Player player, int page);
 
 		String renderRecommendationsHtml(Player player, int limit);
+
+		List<RewardQuest> findAvailableRewardQuests(Player player, int itemId);
+
+		boolean markAvailableRewardQuestStart(Player player, int itemId, int questId);
 	}
 
 	private static final Api NOOP = new Api()
@@ -30,6 +38,8 @@ public final class QuestRecommenderHooks
 		@Override public void sendQuestionMark(Player player) {}
 		@Override public void showRecommendationsWindow(Player player, int page) {}
 		@Override public String renderRecommendationsHtml(Player player, int limit) { return ""; }
+		@Override public List<RewardQuest> findAvailableRewardQuests(Player player, int itemId) { return List.of(); }
+		@Override public boolean markAvailableRewardQuestStart(Player player, int itemId, int questId) { return false; }
 	};
 
 	private static volatile Api api = NOOP;
