@@ -6,6 +6,7 @@ import ext.mods.gameserver.model.actor.Player;
 
 /**
  * SPI Hook Interface para desacoplamento do motor Quest Recommender.
+ * Dhousefe - L2JBR
  */
 public final class QuestRecommenderHooks
 {

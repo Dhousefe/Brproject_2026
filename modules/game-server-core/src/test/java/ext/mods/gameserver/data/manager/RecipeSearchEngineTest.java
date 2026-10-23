@@ -29,6 +29,7 @@ import ext.mods.gameserver.model.records.custom.RecipeDropHolder;
 
 /**
  * Unit tests for SIMD Recipe Search Engine and Recipe Drop Manager.
+ * Dhousefe - L2JBR
  */
 public class RecipeSearchEngineTest
 {
@@ -225,5 +226,47 @@ public class RecipeSearchEngineTest
 		{
 			ext.mods.config.ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM = originalConfig;
 		}
+	}
+
+	@Test
+	public void testMaterialRightClickConfigToggleAndLookup()
+	{
+		RecipeDropManager manager = RecipeDropManager.getInstance();
+		assertNotNull(manager);
+
+		// Non-existent material item should report non-null empty list gracefully
+		List<RecipeDropManager.RecipeMaterialUsage> usages = manager.getRecipesUsingMaterial(-99999);
+		assertNotNull(usages);
+		assertTrue(usages.isEmpty());
+
+		// Validate ConfigServer flag exists and can be toggled
+		boolean originalConfig = ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED;
+		try
+		{
+			ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED = true;
+			assertTrue(ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED);
+
+			ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED = false;
+			assertFalse(ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED);
+		}
+		finally
+		{
+			ext.mods.config.ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED = originalConfig;
+		}
+
+		// Validate that RecipeVoicedCommand registers recipe_mat_uses
+		ext.mods.gameserver.handler.voicedcommandhandlers.RecipeVoicedCommand voicedCmd = new ext.mods.gameserver.handler.voicedcommandhandlers.RecipeVoicedCommand();
+		String[] commands = voicedCmd.getVoicedCommandList();
+		assertNotNull(commands);
+		boolean foundMatUses = false;
+		for (String cmd : commands)
+		{
+			if ("recipe_mat_uses".equals(cmd))
+			{
+				foundMatUses = true;
+				break;
+			}
+		}
+		assertTrue(foundMatUses, "recipe_mat_uses must be registered in RecipeVoicedCommand");
 	}
 }

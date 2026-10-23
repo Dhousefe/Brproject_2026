@@ -19,10 +19,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import ext.mods.commons.logging.CLogger;
+import ext.mods.gameserver.data.manager.RecipeSearchEngine.RecipeEntry;
 import ext.mods.gameserver.data.xml.NpcData;
 import ext.mods.gameserver.data.xml.RecipeData;
 import ext.mods.gameserver.enums.DropType;
 import ext.mods.gameserver.model.actor.template.NpcTemplate;
+import ext.mods.gameserver.model.holder.IntIntHolder;
 import ext.mods.gameserver.model.item.DropCategory;
 import ext.mods.gameserver.model.item.DropData;
 import ext.mods.gameserver.model.location.Location;
@@ -39,6 +41,11 @@ public class RecipeDropManager
 {
 	private static final CLogger LOGGER = new CLogger(RecipeDropManager.class.getName());
 
+	public record RecipeMaterialUsage(
+		RecipeEntry recipeEntry,
+		int quantityNeeded
+	) {}
+
 	// Recipe item ID -> List of monsters that drop/spoil this recipe
 	private final Int2ObjectMap<List<RecipeDropHolder>> _recipeDrops = new Int2ObjectOpenHashMap<>();
 
@@ -47,6 +54,9 @@ public class RecipeDropManager
 
 	// Product Item ID -> Recipe that crafts this product (e.g. Crafted Leather, Cokes, etc.)
 	private final Int2ObjectMap<Recipe> _productToRecipe = new Int2ObjectOpenHashMap<>();
+
+	// Material Item ID -> List of recipes that use this material
+	private final Int2ObjectMap<List<RecipeMaterialUsage>> _materialToRecipes = new Int2ObjectOpenHashMap<>();
 
 	private volatile boolean _initialized = false;
 
@@ -63,6 +73,7 @@ public class RecipeDropManager
 		_recipeDrops.clear();
 		_itemDrops.clear();
 		_productToRecipe.clear();
+		_materialToRecipes.clear();
 
 		// 1. Index reverse recipe map: product item id -> recipe
 		if (RecipeData.getInstance().getRecipes() != null)
@@ -142,6 +153,64 @@ public class RecipeDropManager
 			list.sort(Comparator.comparingDouble(RecipeDropHolder::chancePercent).reversed());
 		}
 
+		// 3. Index material item id -> recipes using it (Deduplicated by product item ID)
+		if (RecipeData.getInstance().getRecipes() != null)
+		{
+			final Int2ObjectMap<Int2ObjectMap<RecipeMaterialUsage>> tempMatMap = new Int2ObjectOpenHashMap<>();
+
+			for (Recipe recipe : RecipeData.getInstance().getRecipes())
+			{
+				if (recipe.materials() == null || recipe.product() == null)
+					continue;
+
+				int productId = recipe.product().getId();
+				RecipeEntry entry = RecipeSearchEngine.getInstance().getEntryByRecipeItemId(recipe.recipeId());
+				if (entry == null)
+					continue;
+
+				boolean newHasDrops = _recipeDrops.containsKey(recipe.recipeId());
+
+				for (IntIntHolder mat : recipe.materials())
+				{
+					Int2ObjectMap<RecipeMaterialUsage> prodMap = tempMatMap.computeIfAbsent(mat.getId(), k -> new Int2ObjectOpenHashMap<>());
+					RecipeMaterialUsage existing = prodMap.get(productId);
+
+					if (existing == null)
+					{
+						prodMap.put(productId, new RecipeMaterialUsage(entry, mat.getValue()));
+					}
+					else
+					{
+						boolean existingHasDrops = _recipeDrops.containsKey(existing.recipeEntry().recipeItemId());
+						// Prefer the recipe that has catalogued mob drops on the server
+						if (!existingHasDrops && newHasDrops)
+						{
+							prodMap.put(productId, new RecipeMaterialUsage(entry, mat.getValue()));
+						}
+						else if (existingHasDrops == newHasDrops)
+						{
+							// If both have drops or neither has drops, prefer higher success rate or dwarven craft
+							if (entry.successRate() > existing.recipeEntry().successRate()
+								|| (entry.successRate() == existing.recipeEntry().successRate() && entry.isDwarven() && !existing.recipeEntry().isDwarven()))
+							{
+								prodMap.put(productId, new RecipeMaterialUsage(entry, mat.getValue()));
+							}
+						}
+					}
+				}
+			}
+
+			// Transfer deduplicated lists to _materialToRecipes
+			for (Int2ObjectMap.Entry<Int2ObjectMap<RecipeMaterialUsage>> entry : tempMatMap.int2ObjectEntrySet())
+			{
+				List<RecipeMaterialUsage> list = new ArrayList<>(entry.getValue().values());
+				list.sort(Comparator.comparingInt((RecipeMaterialUsage u) -> u.recipeEntry().grade().getId()).reversed()
+					.thenComparingInt(u -> u.recipeEntry().craftLevel())
+					.thenComparing(u -> u.recipeEntry().productName()));
+				_materialToRecipes.put(entry.getIntKey(), list);
+			}
+		}
+
 		_initialized = true;
 		LOGGER.info("RecipeDropManager: indexed {} recipes and {} items with mob drops in {} ms.", _recipeDrops.size(), _itemDrops.size(), (System.currentTimeMillis() - start));
 	}
@@ -203,6 +272,15 @@ public class RecipeDropManager
 			initialize();
 
 		return _productToRecipe.get(productItemId);
+	}
+
+	public List<RecipeMaterialUsage> getRecipesUsingMaterial(int materialItemId)
+	{
+		if (!_initialized)
+			initialize();
+
+		List<RecipeMaterialUsage> list = _materialToRecipes.get(materialItemId);
+		return list != null ? list : Collections.emptyList();
 	}
 
 	public static RecipeDropManager getInstance()

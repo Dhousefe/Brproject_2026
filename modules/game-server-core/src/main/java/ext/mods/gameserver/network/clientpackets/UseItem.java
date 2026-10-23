@@ -43,6 +43,8 @@ import ext.mods.gameserver.scripting.Quest;
 import ext.mods.gameserver.scripting.QuestState;
 import ext.mods.gameserver.skills.L2Skill;
 import ext.mods.config.ConfigPlayers;
+import ext.mods.config.ConfigServer;
+import ext.mods.gameserver.handler.voicedcommandhandlers.RecipeVoicedCommand;
 
 public final class UseItem extends L2GameClientPacket
 {
@@ -249,7 +251,23 @@ public final class UseItem extends L2GameClientPacket
 				
 				final IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
 				if (handler != null)
+				{
 					handler.useItem(player, item, _ctrlPressed);
+				}
+				//Nova funcao de itens de receita, para que o player possa clicar com o botao direito do mouse no item de receita e ver os drops da receita.
+				else if (ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED
+					&& ConfigServer.FIND_RECIPE_ENABLED
+					&& item.getItem().getItemType() == EtcItemType.MATERIAL)
+				{
+					if (!ConfigServer.FIND_RECIPE_ALLOW_IN_COMBAT && (player.isInCombat() || player.getPvpFlag() != 0))
+					{
+						player.sendMessage("Voce nao pode consultar recipes durante combate.");
+						return;
+					}
+					
+					RecipeVoicedCommand.showMaterialUses(player, item.getItemId(), 1, -1);
+					return;
+				}
 				
 				for (final Quest quest : item.getQuestEvents())
 				{

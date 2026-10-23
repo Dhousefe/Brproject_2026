@@ -85,6 +85,7 @@ public final class ConfigServer
    public static boolean ITEMS_GC_CLEANUP_ENABLED;
    public static int ITEMS_GC_CLEANUP_TIME_MS;
    public static boolean FIND_RECIPE_ENABLED = true;
+   public static boolean FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED = true;
    public static int FIND_RECIPE_PAGE_LIMIT = 7;
    public static int FIND_RECIPE_MAX_RADAR_MARKERS = 10;
    public static boolean FIND_RECIPE_ALLOW_IN_COMBAT = false;
@@ -173,6 +174,7 @@ public final class ConfigServer
       ConfigServer.ITEMS_GC_CLEANUP_ENABLED = items.getProperty("ItemsGcCleanupEnabled", true);      int itemsGcSeconds = items.getProperty("ItemsGcCleanupTime", 120);
       ConfigServer.ITEMS_GC_CLEANUP_TIME_MS = ConfigServer.ITEMS_GC_CLEANUP_ENABLED ? itemsGcSeconds * 1000 : 0;
       ConfigServer.FIND_RECIPE_ENABLED = items.getProperty("FindRecipeEnabled", true);
+      ConfigServer.FIND_RECIPE_MATERIAL_RIGHT_CLICK_ENABLED = items.getProperty("FindRecipeMaterialRightClickEnabled", true);
       ConfigServer.FIND_RECIPE_PAGE_LIMIT = items.getProperty("FindRecipePageLimit", 7);
       ConfigServer.FIND_RECIPE_MAX_RADAR_MARKERS = items.getProperty("FindRecipeMaxRadarMarkers", 10);
       ConfigServer.FIND_RECIPE_ALLOW_IN_COMBAT = items.getProperty("FindRecipeAllowInCombat", false);

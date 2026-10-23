@@ -25,6 +25,7 @@ import ext.mods.config.ConfigServer;
 import ext.mods.extensions.hooks.QuestRecommenderHooks;
 import ext.mods.extensions.hooks.QuestRecommenderHooks.Api.RewardQuest;
 import ext.mods.gameserver.data.manager.RecipeDropManager;
+import ext.mods.gameserver.data.manager.RecipeDropManager.RecipeMaterialUsage;
 import ext.mods.gameserver.data.manager.RecipeSearchEngine;
 import ext.mods.gameserver.data.manager.RecipeSearchEngine.RecipeEntry;
 import ext.mods.gameserver.data.xml.ItemData;
@@ -63,7 +64,8 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		"recipe_mat_info",
 		"recipe_mob_all_drops",
 		"recipe_quests",
-		"recipe_quest_loc"
+		"recipe_quest_loc",
+		"recipe_mat_uses"
 	};
 
 	private static final String[] GRADE_NAMES = {
@@ -133,6 +135,11 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 			else if ("recipe_quest_loc".equalsIgnoreCase(baseCmd))
 			{
 				handleQuestGoalLoc(player, st);
+				return true;
+			}
+			else if ("recipe_mat_uses".equalsIgnoreCase(baseCmd))
+			{
+				handleMaterialUses(player, st);
 				return true;
 			}
 
@@ -536,6 +543,16 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		if (ConfigServer.FIND_RECIPE_SHOW_NO_DROP_ONLY_FOR_GM && !player.isGM() && drops.isEmpty())
 		{
 			player.sendMessage("Esta receita nao possui drops catalogados e esta restrita para GMs.");
+			if (returnQuery != null && returnQuery.startsWith("mat:"))
+			{
+				try
+				{
+					int matId = Integer.parseInt(returnQuery.substring(4).trim());
+					showMaterialUses(player, matId, returnPage, returnGrade);
+					return;
+				}
+				catch (Exception ignored) {}
+			}
 			showRecipeList(player, returnPage, returnGrade, returnLevel, returnQuery);
 			return;
 		}
@@ -612,7 +629,23 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		}
 
 		sb.append("<img src=L2UI.SquareGray width=280 height=1>");
-		sb.append("<br><button value=Voltar action=\"bypass voiced_recipe ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+		if (returnQuery != null && returnQuery.startsWith("mat:"))
+		{
+			int matId = 0;
+			try { matId = Integer.parseInt(returnQuery.substring(4).trim()); } catch (Exception ignored) {}
+			if (matId > 0)
+			{
+				sb.append("<br><button value=Voltar action=\"bypass voiced_recipe_mat_uses ").append(matId).append(" ").append(returnPage).append(" ").append(returnGrade).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+			}
+			else
+			{
+				sb.append("<br><button value=Voltar action=\"bypass voiced_recipe ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+			}
+		}
+		else
+		{
+			sb.append("<br><button value=Voltar action=\"bypass voiced_recipe ").append(returnPage).append(" ").append(returnGrade).append(" ").append(returnLevel).append(" ").append(returnQuery).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+		}
 		sb.append("</center></body></html>");
 
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -829,6 +862,10 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 		}
 
 		appendQuestLookupButton(player, sb, materialItemId, "m", materialItemId, returnPage, returnGrade, returnLevel, returnQuery);
+
+		sb.append("<table width=280 bgcolor=101010 cellpadding=1 cellspacing=0><tr>");
+		sb.append("<td align=center><a action=\"bypass voiced_recipe_mat_uses ").append(materialItemId).append(" 1 -1 ").append(parentRecipeItemId).append("\"><font color=00FF00>[Ver Itens Que Utilizam Este Material]</font></a></td>");
+		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
 
 		// Monsters that drop/spoil this material (Paginated)
 		List<RecipeDropHolder> drops = RecipeDropManager.getInstance().getDropsForItem(materialItemId);
@@ -1051,6 +1088,147 @@ public class RecipeVoicedCommand implements IVoicedCommandHandler
 
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setHtml(list.getContent());
+		player.sendPacket(html);
+	}
+
+	private void handleMaterialUses(Player player, StringTokenizer st)
+	{
+		if (!st.hasMoreTokens())
+			return;
+
+		int materialItemId = Integer.parseInt(st.nextToken());
+		int page = st.hasMoreTokens() ? Integer.parseInt(st.nextToken()) : 1;
+		int gradeFilter = st.hasMoreTokens() ? Integer.parseInt(st.nextToken()) : -1;
+		int parentRecipeItemId = st.hasMoreTokens() ? Integer.parseInt(st.nextToken()) : 0;
+
+		showMaterialUses(player, materialItemId, page, gradeFilter, parentRecipeItemId);
+	}
+
+	public static void showMaterialUses(Player player, int materialItemId, int page, int gradeFilter)
+	{
+		showMaterialUses(player, materialItemId, page, gradeFilter, 0);
+	}
+
+	public static void showMaterialUses(Player player, int materialItemId, int page, int gradeFilter, int parentRecipeItemId)
+	{
+		final Item matTemplate = ItemData.getInstance().getTemplate(materialItemId);
+		if (matTemplate == null)
+		{
+			player.sendMessage("Material nao encontrado.");
+			return;
+		}
+
+		final List<RecipeMaterialUsage> allUsages = RecipeDropManager.getInstance().getRecipesUsingMaterial(materialItemId);
+		final List<RecipeMaterialUsage> filteredUsages;
+		if (gradeFilter >= 0)
+		{
+			filteredUsages = allUsages.stream()
+				.filter(u -> u.recipeEntry().grade().getId() == gradeFilter)
+				.toList();
+		}
+		else
+		{
+			filteredUsages = allUsages;
+		}
+
+		final StringBuilder sb = new StringBuilder(4096);
+		sb.append("<html><body><center>");
+
+		// Header with item icon and name
+		sb.append("<table width=280 bgcolor=000000 cellpadding=2 cellspacing=0><tr>");
+		sb.append("<td width=36 align=center><table bgcolor=FFFFFF cellpadding=4 cellspacing=-5><tr><td><button width=32 height=32 back=\"").append(matTemplate.getIcon()).append("\" fore=\"").append(matTemplate.getIcon()).append("\"></td></tr></table></td>");
+		sb.append("<td width=244><font color=LEVEL>").append(matTemplate.getName()).append("</font><br1>");
+		if (player.isGM())
+		{
+			sb.append("<font color=B09878>Item ID: </font><font color=FFFFFF>").append(materialItemId).append("</font></td>");
+		}
+		else
+		{
+			sb.append("<font color=B09878>Itens Fabricaveis</font></td>");
+		}
+		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+
+		// Check if this material is craftable with a recipe
+		final Recipe craftRecipe = RecipeDropManager.getInstance().getRecipeForProduct(materialItemId);
+		if (craftRecipe != null)
+		{
+			sb.append("<table width=280 bgcolor=151515 cellpadding=2 cellspacing=0><tr>");
+			sb.append("<td width=190><font color=00FF00>Possui Receita de Craft!</font><br1><font color=B09878>Level ").append(craftRecipe.level()).append(" (Taxa ").append(craftRecipe.successRate()).append("%)</font></td>");
+			sb.append("<td width=90 align=center><button value=Recipe action=\"bypass voiced_recipe_info ").append(craftRecipe.recipeId()).append(" 1 1 -1 0 mat:").append(materialItemId).append("\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2></td>");
+			sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+		}
+
+		// Quick Action: Ver Drops / Monstros deste Material
+		sb.append("<table width=280 bgcolor=101010 cellpadding=1 cellspacing=0><tr>");
+		sb.append("<td align=center><a action=\"bypass voiced_recipe_mat_info ").append(materialItemId).append(" 1 ").append(parentRecipeItemId).append(" 1 -1 0\"><font color=B09878>[Ver Monstros que Dropam/Spoilam]</font></a></td>");
+		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+
+		// Grade Filter row: [ALL] [NG] [D] [C] [B] [A] [S]
+		sb.append("<table width=280 bgcolor=181818 cellpadding=0 cellspacing=1><tr>");
+		sb.append("<td width=40 align=center>").append(gradeFilter == -1 ? "<font color=LEVEL>[ALL]</font>" : "<a action=\"bypass voiced_recipe_mat_uses " + materialItemId + " 1 -1 " + parentRecipeItemId + "\">ALL</a>").append("</td>");
+		for (int g = 0; g < GRADE_NAMES.length; g++)
+		{
+			String gName = GRADE_NAMES[g];
+			sb.append("<td width=40 align=center>").append(gradeFilter == g ? "<font color=LEVEL>[" + gName + "]</font>" : "<a action=\"bypass voiced_recipe_mat_uses " + materialItemId + " 1 " + g + " " + parentRecipeItemId + "\">" + gName + "</a>").append("</td>");
+		}
+		sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+
+		if (filteredUsages.isEmpty())
+		{
+			sb.append("<br><br><font color=B09878>Nenhum item encontrado que utilize este material.</font><br>");
+		}
+		else
+		{
+			final int pageSize = Math.clamp(ConfigServer.FIND_RECIPE_PAGE_LIMIT, 5, 8);
+			final int totalPages = Math.max(1, (filteredUsages.size() + pageSize - 1) / pageSize);
+			page = Math.clamp(page, 1, totalPages);
+			final int fromIndex = (page - 1) * pageSize;
+			final int toIndex = Math.min(fromIndex + pageSize, filteredUsages.size());
+
+			for (int i = fromIndex; i < toIndex; i++)
+			{
+				final RecipeMaterialUsage usage = filteredUsages.get(i);
+				final RecipeEntry entry = usage.recipeEntry();
+				final String gradeName = entry.grade() != CrystalType.NONE ? entry.grade().name() : "NG";
+				final String trimmedName = StringUtil.trimAndDress(entry.productName(), 20);
+
+				sb.append((i % 2) == 0 ? "<table width=280 height=34 bgcolor=000000 cellpadding=1 cellspacing=0><tr>" : "<table width=280 height=34 cellpadding=1 cellspacing=0><tr>");
+				sb.append("<td width=36 height=34 align=center><table bgcolor=FFFFFF cellpadding=4 cellspacing=-5><tr><td><button width=32 height=32 back=\"").append(entry.icon()).append("\" fore=\"").append(entry.icon()).append("\"></td></tr></table></td>");
+				sb.append("<td width=170><a action=\"bypass voiced_recipe_info ").append(entry.recipeItemId()).append(" 1 ").append(page).append(" ").append(gradeFilter).append(" 0 mat:").append(materialItemId).append("\">").append(trimmedName).append("</a><br1>");
+				sb.append("<font color=\"B09878\">Gr: </font><font color=LEVEL>").append(gradeName).append("</font> <font color=\"B09878\">Lv: </font><font color=BDB76B>").append(entry.craftLevel()).append("</font> <font color=\"B09878\">Qtd: </font><font color=00FF00>x").append(usage.quantityNeeded()).append("</font></td>");
+				sb.append("<td width=74 align=center><button action=\"bypass voiced_recipe_info ").append(entry.recipeItemId()).append(" 1 ").append(page).append(" ").append(gradeFilter).append(" 0 mat:").append(materialItemId).append("\" width=68 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2 value=Info></td>");
+				sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+			}
+
+			if (totalPages > 1)
+			{
+				sb.append("<table width=280 bgcolor=000000 cellpadding=1 cellspacing=0><tr>");
+				sb.append("<td width=70 align=center>");
+				if (page > 1)
+					sb.append("<a action=\"bypass voiced_recipe_mat_uses ").append(materialItemId).append(" ").append(page - 1).append(" ").append(gradeFilter).append(" ").append(parentRecipeItemId).append("\">&lt; Ant</a>");
+				sb.append("</td>");
+				sb.append("<td width=140 align=center><font color=B09878>Pagina: </font><font color=LEVEL>").append(page).append("/").append(totalPages).append("</font></td>");
+				sb.append("<td width=70 align=center>");
+				if (page < totalPages)
+					sb.append("<a action=\"bypass voiced_recipe_mat_uses ").append(materialItemId).append(" ").append(page + 1).append(" ").append(gradeFilter).append(" ").append(parentRecipeItemId).append("\">Prox &gt;</a>");
+				sb.append("</td>");
+				sb.append("</tr></table>");
+			}
+		}
+
+		sb.append("<img src=L2UI.SquareGray width=280 height=1>");
+		if (parentRecipeItemId > 0)
+		{
+			sb.append("<br><button value=Voltar action=\"bypass voiced_recipe_info ").append(parentRecipeItemId).append(" 1 1 -1 0\" width=80 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+		}
+		else
+		{
+			sb.append("<br><button value=\"Voltar\" action=\"bypass voiced_recipe 1 -1 0\" width=65 height=22 back=L2UI_CH3.smallbutton2_down fore=L2UI_CH3.smallbutton2>");
+		}
+		sb.append("</center></body></html>");
+
+		final NpcHtmlMessage html = new NpcHtmlMessage(0);
+		html.setHtml(sb.toString());
 		player.sendPacket(html);
 	}
 

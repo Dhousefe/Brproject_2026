@@ -28,15 +28,7 @@ import ext.mods.config.ConfigEvents;
 
 /**
  * Serviço de Navegação e Teleporte Inteligente para o motor de quests.
- *
- * Casos de Uso atendidos:
- * 1. Se o player estiver na mesma cidade do NPC inicial OU a <= 5000 de range:
- *    -> Ativa imediatamente o Radar (bússola) para o NPC.
- * 2. Se estiver fora da cidade e > 5000 de range:
- *    -> Valida restrições rigorosas (canTeleport) espelhadas no LevelUpMaker.
- *    -> Identifica a vila/cidade mais próxima do NPC alvo usando a malha do RestartPointData e TownZone.
- *    -> Conjura o teleporte com animação visual, gauge azul e tempo de cast configurado.
- *    -> Ao chegar, marca o NPC no radar para guiar os passos finais.
+ * Dhousefe - L2JBR
  */
 public final class QuestNavigationService
 {

@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Ponto de entrada SPI do mod Quest Recommender.
+ * Dhousefe - L2JBR
  */
 public final class QuestRecommenderExtension implements Extension
 {
